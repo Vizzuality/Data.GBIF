@@ -1,27 +1,23 @@
-require 'html5-boilerplate'
-# Require any additional compass plugins here.
+# ----------------------------------------------------------------------
+# config file for SASS/Compass
+# http://beta.compass-style.org/help/tutorials/configuration-reference/
+# ----------------------------------------------------------------------
+http_path       = "/"
+project_path    = "."
 
+sass_dir        = "content/assets/css"
+css_dir         = "output/assets/css"
+images_dir      = "output/assets/images"
+javascripts_dir = "output/assets/js"
 
-# Set this to the root of your project when deployed:
-http_path = "/"
-css_dir = "css"
-sass_dir = "sass"
-images_dir = "images"
-javascripts_dir = "js"
+# toggle between the sass or scss syntax
+sass_options = {
+  :syntax => :scss
+}
 
-# You can select your preferred output style here (can be overridden via the command line):
-# output_style = :expanded or :nested or :compact or :compressed
-
-# To enable relative paths to assets via compass helper functions. Uncomment:
-# relative_assets = true
-
-# To disable debugging comments that display the original location of your selectors. Uncomment:
-# line_comments = false
-
-
-# If you prefer the indented syntax, you might want to regenerate this
-# project again passing --syntax sass, or you can uncomment this:
-preferred_syntax = :sass
-
-# and then run:
-# sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+line_comments   = false
+# build compass for production
+# compass compile -e production --force
+# other output styles are :nested, :expanded, :compact, or :compressed
+# output_style    = (environment == :production) ? :compressed : :expanded
+output_style    = :expanded

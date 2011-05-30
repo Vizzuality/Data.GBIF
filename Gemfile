@@ -6,6 +6,7 @@ gem 'rack'
 gem 'nanoc3'
 
 gem 'sass'
+gem 'adsf'
 gem 'compass'
 
 gem 'mime-types'

@@ -11,8 +11,9 @@ images_dir      = "output/assets/images"
 javascripts_dir = "output/assets/js"
 
 # toggle between the sass or scss syntax
-preferred_syntax = :sass
-
+sass_options = {
+  :syntax => :scss
+}
 
 line_comments   = false
 # build compass for production

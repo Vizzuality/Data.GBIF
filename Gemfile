@@ -3,7 +3,7 @@ source :gemcutter
 gem 'rake'
 gem 'rack'
 
-gem 'nanoc3'
+gem 'nanoc'
 
 gem 'sass'
 gem 'adsf'

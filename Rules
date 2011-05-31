@@ -33,30 +33,21 @@ end
 # ----------------------------------------------------------------------
 
 compile '/assets/css/_*/' do
-    # don’t compile partials
+  # don’t compile partials
 end
 
 route '/assets/css/_*/' do
-    # don't output partials
-    nil
+  # don't output partials
+  nil
 end
 
 compile '/assets/css/*/' do
-    filter :sass, Compass.sass_engine_options
+  filter :sass, Compass.sass_engine_options
 end
-
-compile '*/img/*' do
-
-end
-
-route '*/img/*' do
-  item.identifier.chop + '.' + item[:extension]
-end
-
 
 route '/assets/css/*/' do
-    # prevents nanoc from generating a directory for each css file
-    item.identifier.chop + '.css'
+  # prevents nanoc from generating a directory for each css file
+  item.identifier.chop + '.css'
 end
 
 # ----------------------------------------------------------------------
@@ -65,23 +56,23 @@ end
 # files and changes the extention to .html
 # ----------------------------------------------------------------------
 compile '*' do
-    #filter :haml
-    #layout 'default'
-    # gets the extension of each item so we can run some basic logic
-    # and apply the correct filter
-    ext = item[:extension].nil? ? nil : item[:extension].split('.').last
+  #filter :haml
+  #layout 'default'
+  # gets the extension of each item so we can run some basic logic
+  # and apply the correct filter
+  ext = item[:extension].nil? ? nil : item[:extension].split('.').last
 
-    if ext == 'erb'
-        filter :erb
-    elsif ext == 'md' || ext == 'markdown'
-        filter :erb
-        filter :rdiscount
-    elsif ext == 'html'
-    else
-        raise "Filter is not configured for #{item.identifier} in Rules file."
-    end
+  if ext == 'erb'
+    filter :erb
+  elsif ext == 'md' || ext == 'markdown'
+    filter :erb
+    filter :rdiscount
+  elsif ext == 'html'
+  else
+    raise "Filter is not configured for #{item.identifier} in Rules file."
+  end
 
-    layout 'default' unless item[:layout] == "none"
+  layout 'default' unless item[:layout] == "none"
 end
 
 route '*' do

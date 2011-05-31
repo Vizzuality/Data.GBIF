@@ -1,9 +1,15 @@
-$link_color: #0099CC;
-$light_gray: #f1f1f1;
-$dark_gray: #666666;
+// Basics
 $content_base: #EFEFEF;
-$background: #B0B0B0;
-$white: #fff;
-$ultra_dark: #333333;
+$background:   #B0B0B0;
 
-$test: #f1f1f1;
+// Dark levels
+$darkest:      #000000;
+$ultra_dark:   #333333;
+$medium_dark:  #666666;
+$dark:         #999999;
+$gray:         #cccccc;
+$light_gray:   #f1f1f1;
+$brightest:    #ffffff;
+
+// Links
+$link_color:   #0099CC; // blue

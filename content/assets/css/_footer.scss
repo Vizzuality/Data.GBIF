@@ -1,0 +1,22 @@
+footer {
+  position:relative;
+  margin: 0 auto 30px auto;
+  width:1024px;
+  height:365px;
+  background: url('/assets/img/footer_bkg.jpg') no-repeat;
+  text-align:left;
+
+  .copyright {
+    position:absolute;
+    bottom:0;
+    width:1024px - (75px * 2);
+    background:#222222;
+    padding:12px 75px 12px 75px;
+
+    p {
+      color:$brightest;
+      font-size:11px;
+    }
+
+  }
+}

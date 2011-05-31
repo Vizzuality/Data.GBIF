@@ -1,0 +1,106 @@
+body {
+  padding-top:17px;
+  text-align:center;
+  font-size:13px;
+  color:$medium_dark;
+  font-family:$base;
+  background: $background;
+}
+
+abbr {
+  font-size:11px;
+  text-transform:uppercase;
+}
+
+a {
+  color: $link_color;
+  font-weight: normal;
+  text-decoration:none;
+
+  &:hover {
+    color:$ultra_dark;
+    @include color-transition;
+  }
+
+  &.download {
+    width:13px;
+    height:13px;
+    padding-left: 18px;
+    background:url('/assets/img/icons/arrow_down.png') no-repeat;
+  }
+}
+
+ul {
+  margin-bottom: 26px;
+
+  li {
+    font-size: 15px;
+    margin-bottom: 8px;
+    line-height:18px;
+  }
+} // ul
+
+#content {
+  clear:both;
+  overflow:hidden;
+  margin:auto;
+  width: 1024px;
+  background-color: $content_base;
+  text-align:center;
+  padding-top:30px;
+
+  article {
+    clear:both;
+    overflow:hidden;
+    width:920px - 21;
+    margin: 0 auto 33px auto;
+    padding: 21px 0 21px 21px;
+    text-align:left;
+    background: $brightest;
+    color:$ultra_dark;
+
+    .left {
+      float:left;
+      width: 603px;
+      margin-right: 33px;
+    }
+
+    .right {
+      float:left;
+      width:230px;
+    }
+
+    header {
+      width:auto;
+      border-bottom: 1px solid $gray;
+      height: 46px;
+      margin-bottom: 24px;
+      background:none;
+    }
+
+    h2 {
+      font-family: $font_medium;
+      font-size:23px;
+      color:$ultra_dark;
+      margin-bottom:24px;
+      @include white-shadow;
+    }
+
+    h3 {
+      font-family: $font_medium;
+      font-size:13px;
+      text-transform:uppercase;
+      color:$ultra_dark;
+      margin-bottom:12px;
+      @include white-shadow;
+    }
+
+    p {
+      font-size: 15px;
+      color:$medium_dark;
+      line-height: 18px;
+      margin-bottom: 26px;
+    }
+  } // article
+} // #content
+

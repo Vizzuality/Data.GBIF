@@ -1,0 +1,12 @@
+@mixin color-transition {
+  -webkit-transition: color .5s ease-in-out;
+  -moz-transition: color .5s ease-in-out;
+  -o-transition: color .5s ease-in-out;
+  -ms-transition: color .5s ease-in-out;
+  transition: color .5s ease-in-out;
+}
+
+@mixin white-shadow {
+  text-shadow:0 1px white;
+  filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
+}

@@ -85,4 +85,4 @@ end
 # options to Haml outputs pretty html. For production you can set
 # ':ugly' to 'true'.
 # ----------------------------------------------------------------------
-layout '*', :erb, :format => :html5, :ugly => false, :escape_html => false
+layout '*', :erb, :format => :html5, :ugly => true, :escape_html => true

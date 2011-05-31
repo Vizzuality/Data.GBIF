@@ -1,0 +1,172 @@
+header {
+  position:relative;
+  margin:auto;
+  width:1024px;
+  padding-top:3px;
+  background:url('/assets/img/top_bar.jpg') top left repeat-x;
+  text-align:left;
+
+  #logo {
+    position:absolute;
+    top:36px;
+    left:55px;
+    height:38px;
+    width:300px;
+    color:$ultra_dark;
+    font-size:11px;
+
+    .logo {
+      float:left;
+      width:41px;
+      height:38px;
+      margin-right:10px;
+    }
+    span {
+      opacity:.5;
+    }
+
+    h1 {
+      display:block;
+      margin-bottom:4px;
+    }
+
+    a {
+      font-family:$font_medium;
+      font-size:17px;
+      color:$ultra_dark;
+    }
+
+  }
+
+  #top {
+    position:relative;
+    background: url('/assets/img/top_header_bkg.jpg') no-repeat;
+    height: 98px;
+
+    .account {
+      position:absolute;
+      top:-3px;
+      right:52px;
+      height:25px - 6;
+      width: 177px - 7;
+      text-align:center;
+      padding:6px 0 0 7px;
+      color: #ADD8B8;
+      font-size:11px;
+      background:url('/assets/img/header_account_bkg.png') no-repeat;
+
+      a {
+        color: $brightest;
+        &:hover {
+          color:$ultra_dark;
+          @include color-transition;
+        }
+      }
+
+    }
+
+    nav {
+      position:absolute;
+      top:56px;
+      right:55px;
+
+      ul  {
+
+        li {
+          display:inline;
+          margin-left:23px;
+
+          a {
+            @include white-shadow;
+            @include color-transition;
+
+            &:hover { color:$ultra_dark; }
+          }
+
+        }
+      }
+
+
+    }
+  }
+
+  ul#tabs {
+    position:absolute;
+    padding:0;
+    margin:0;
+    margin-left: 57px;
+    bottom: -8px;
+    z-index:100;
+
+    li {
+      float:left;
+      font-family: $font_medium;
+      font-size: 15px;
+      color:$ultra_dark;
+      display:block;
+      text-align:center;
+      margin-right:3px;
+      width:119px;
+      height:37px - 11;
+      padding-top:11px;
+      background: url('/assets/img/tab_selected.png') no-repeat;
+
+
+      sup {
+        font-size:11px;
+        position:relative;
+        top:-3px;
+      }
+    }
+  }
+
+  #infoband {
+    height: 189px - 33;
+    padding-top: 33px;
+    text-align:left;
+    padding-left:57px;
+    background: url('/assets/img/infoband.jpg') no-repeat;
+
+    ul {
+      padding:0; margin:0;
+      margin-left: 3px;
+
+      li {
+        display:inline;
+        font-size:13px;
+        color: $ultra_dark;
+        opacity:.75;
+        }
+
+    }
+
+    h1 {
+      margin-bottom:9px;
+      font-family: $font_medium;
+      font-size:35px;
+      color: $brightest;
+    }
+
+    h2 {
+      font-size:15px;
+      font-weight:normal;
+      color:$ultra_dark;
+      opacity:.75;
+
+      a {
+        color: $brightest;
+        opacity:1.25;
+      }
+    }
+
+    .tags {
+      margin-top:10px;
+      padding-top:10px;
+      font-size: 11px;
+      color:$ultra_dark;
+      opacity:.75;
+    }
+
+  } // infoband
+}
+

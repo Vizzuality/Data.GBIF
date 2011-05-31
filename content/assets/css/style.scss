@@ -1,6 +1,13 @@
 @import "compass";
 
 @import "compass/reset";
+
+// Auxiliar CSS
 @import "color";
 @import "fonts";
-@import "root";
+@import "tricks";
+
+// Main CSS
+@import "header";
+@import "footer";
+@import "main";

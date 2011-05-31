@@ -1,12 +1,8 @@
 #!/usr/bin/env ruby
 
-# ----------------------------------------------------------------------
-# compass setup
-# requires the compass gem and makes sure it uses the correct config file
-# ----------------------------------------------------------------------
+# Compass setup
 require 'compass'
-Compass.add_project_configuration('config.rb')      # for Compass 0.10
-#Compass.configuration.parse 'compass.rb'            # for Compass < 0.10
+Compass.add_project_configuration('config.rb')
 
 # A few helpful tips about the Rules file:
 #
@@ -49,6 +45,15 @@ compile '/assets/css/*/' do
     filter :sass, Compass.sass_engine_options
 end
 
+compile '*/img/*' do
+
+end
+
+route '*/img/*' do
+  item.identifier.chop + '.' + item[:extension]
+end
+
+
 route '/assets/css/*/' do
     # prevents nanoc from generating a directory for each css file
     item.identifier.chop + '.css'
@@ -80,7 +85,7 @@ compile '*' do
 end
 
 route '*' do
-  item.identifier + 'index.html'
+  item[:filename].gsub(/^content/, '')
 end
 
 # ----------------------------------------------------------------------

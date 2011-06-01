@@ -72,7 +72,11 @@ compile '*' do
     raise "Filter is not configured for #{item.identifier} in Rules file."
   end
 
-  layout 'default' unless item[:layout] == "none"
+  unless item[:layout].nil?
+    layout item[:layout]
+  else
+    "default"
+  end
 end
 
 route '*' do

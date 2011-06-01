@@ -23,8 +23,7 @@ footer {
       margin-bottom: 8px;
 
       &.no_title {
-        margin-top:35px;
-
+        margin-top:28px;
       }
 
       p {
@@ -35,10 +34,11 @@ footer {
         line-height:17px;
 
         a {
+          display:block;
           color: $darkest;
           font-size:15px;
-          opacity:1;
           font-weight:bold;
+          opacity:1;
         }
       }
 

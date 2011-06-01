@@ -16,10 +16,12 @@ header {
     font-size:11px;
 
     .logo {
+      position:relative;
       float:left;
       width:41px;
       height:38px;
-      margin-right:10px;
+      margin: 0 10px 0 0;
+      top:-5px;
     }
 
     span {
@@ -66,7 +68,7 @@ header {
 
     nav {
       position:absolute;
-      top:56px;
+      top:51px;
       right:55px;
 
       ul  {
@@ -74,6 +76,20 @@ header {
         li {
           display:inline;
           margin-left:23px;
+          font-size:15px;
+          font-family:$font_medium;
+
+          input.search {
+            border:none;
+            width:173px - 35;
+            padding:5px 10px 0 25px;
+            height:27px - 5;
+            background: url('/assets/img/input_bkg.png') no-repeat left top;
+
+            &:focus {
+              outline:none;
+            }
+          }
 
           a {
             @include white-shadow;
@@ -91,7 +107,7 @@ header {
     padding:0;
     margin:0;
     margin-left: 57px;
-    bottom: -8px;
+    bottom: 0px;
     z-index:100;
 
     li {
@@ -186,7 +202,6 @@ header {
 
       sup {
         font-size:11px;
-        position:relative;
         top:-3px;
       }
     }
@@ -232,11 +247,17 @@ header {
     }
 
     .tags {
+      background:url('/assets/img/tag_line.png') no-repeat left top;
       margin-top:10px;
       padding-top:10px;
       font-size: 11px;
       color:$ultra_dark;
       opacity:.75;
+    }
+
+    .stats {
+
+
     }
 
   } // infoband

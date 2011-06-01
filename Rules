@@ -56,8 +56,6 @@ end
 # files and changes the extention to .html
 # ----------------------------------------------------------------------
 compile '*' do
-  #filter :haml
-  #layout 'default'
   # gets the extension of each item so we can run some basic logic
   # and apply the correct filter
   ext = item[:extension].nil? ? nil : item[:extension].split('.').last

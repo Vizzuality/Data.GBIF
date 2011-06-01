@@ -12,6 +12,10 @@ abbr {
   text-transform:uppercase;
 }
 
+span.date {
+  font-size:11px;
+}
+
 a {
   color: $link_color;
   font-weight: normal;
@@ -21,92 +25,129 @@ a {
     color:$ultra_dark;
     @include color-transition;
   }
-
-  &.download {
-    width:13px;
-    height:13px;
-    padding-left: 18px;
-    background:url('/assets/img/icons/arrow_down.png') no-repeat;
-  }
 }
 
-ul {
-  margin-bottom: 26px;
-
-  li {
-    font-size: 15px;
-    margin-bottom: 8px;
-    line-height:18px;
-  }
-} // ul
-
-
 /* These selection declarations have to be separate
-   No text-shadow: twitter.com/miketaylr/status/12228805301 */
-::-moz-selection{ background: $selection_color; color:#fff; text-shadow: none; }
-::selection { background:$selection_color; color:#fff; text-shadow: none; }
+No text-shadow: twitter.com/miketaylr/status/12228805301 */
+  ::-moz-selection{ background: $selection_color; color:#fff; text-shadow: none; }
+  ::selection { background:$selection_color; color:#fff; text-shadow: none; }
 
-#content {
-  clear:both;
-  overflow:hidden;
-  margin:auto;
-  width: 1024px;
-  background-color: $content_base;
-  text-align:center;
-  padding-top:30px;
-
-  article {
+  #content {
     clear:both;
     overflow:hidden;
-    width:920px - 21;
-    margin: 0 auto 33px auto;
-    padding: 21px 0 21px 21px;
-    text-align:left;
-    background: $brightest;
-    color:$ultra_dark;
+    margin:auto;
+    width: 1024px;
+    background-color: $content_base;
+    text-align:center;
+    padding-top:40px;
 
-    .left {
-      float:left;
-      width: 603px;
-      margin-right: 33px;
-    }
-
-    .right {
-      float:left;
-      width:230px;
-    }
-
-    header {
-      width:auto;
-      border-bottom: 1px solid $gray;
-      height: 46px;
-      margin-bottom: 24px;
-      background:none;
-    }
-
-    h2 {
-      font-family: $font_medium;
-      font-size:23px;
+    article {
+      position:relative;
+      width:924px;
+      margin: 0 auto 66px auto;
+      //padding: 21px 0 21px 21px;
+      text-align:left;
       color:$ultra_dark;
-      margin-bottom:24px;
-      @include white-shadow;
-    }
 
-    h3 {
-      font-family: $font_medium;
-      font-size:13px;
-      text-transform:uppercase;
-      color:$ultra_dark;
-      margin-bottom:12px;
-      @include white-shadow;
-    }
+      &.mapx {
 
-    p {
-      font-size: 15px;
-      color:$medium_dark;
-      line-height: 18px;
-      margin-bottom: 26px;
-    }
-  } // article
-} // #content
+          #map {
+            position:absolute;
+            top:-19px;
+            height:200px + 19*2;
+            width: 603px;
+            z-index:100;
+          }
+
+          .content {
+            height:200px;
+          }
+      }
+
+      .content {
+        clear:both;
+        overflow:hidden;
+        padding: 21px;
+        background: url('/assets/img/box_bkg.png') repeat-y;
+      }
+
+      .header{
+        position:absolute;
+        top: -19px;
+        width:924px;
+        height:19px;
+        background: url('/assets/img/box_top.png') no-repeat left top;
+      }
+
+      .footer {
+        position:absolute;
+        bottom: -19px;
+        width:924px;
+        height:19px;
+        background: url('/assets/img/box_bottom.png') no-repeat left top;
+      }
+
+      ul {
+        margin-bottom: 26px;
+
+        li {
+          font-size: 15px;
+          margin-bottom: 8px;
+          line-height:18px;
+          background:url('/assets/img/icons/dot.png') no-repeat left 8px;
+          padding-left: 7px;
+
+          &.download {
+            padding-left: 18px;
+            background:url('/assets/img/icons/arrow_down.png') no-repeat left 3px;
+          }
+        }
+      } // ul
+
+
+      .left {
+        float:left;
+        width: 603px;
+        margin-right: 33px;
+      }
+
+      .right {
+        float:left;
+        width:230px;
+      }
+
+      header {
+        width:auto;
+        border-bottom: 1px solid $gray;
+        height: 46px;
+        margin-bottom: 24px;
+        background:none;
+      }
+
+      h2 {
+        font-family: $font_medium;
+        font-size:23px;
+        color:$ultra_dark;
+        margin-bottom:24px;
+        @include white-shadow;
+      }
+
+      h3 {
+        font-family: $font_medium;
+        font-size:13px;
+        text-transform:uppercase;
+        color:$ultra_dark;
+        margin-bottom:12px;
+        @include white-shadow;
+      }
+
+      p {
+        font-size: 15px;
+        color:$medium_dark;
+        line-height: 18px;
+        margin-bottom: 26px;
+      }
+
+    } // article
+  } // #content
 

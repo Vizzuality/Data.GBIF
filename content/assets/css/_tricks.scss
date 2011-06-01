@@ -6,7 +6,10 @@
   transition: color .5s ease-in-out;
 }
 
+@mixin remove-transition {
+  -webkit-transition: none; -moz-transition: none; -o-transition: none; -ms-transition: none; transition: none;
+}
+
 @mixin white-shadow {
-  text-shadow:0 1px white;
-  filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
+  text-shadow:0 1px white; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
 }

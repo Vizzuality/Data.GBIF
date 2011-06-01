@@ -72,9 +72,13 @@ header {
       right:55px;
 
       ul  {
+        clear:both;
+        overflow:hidden;
+        position:relative;
 
         li {
-          display:inline;
+          float:left;
+          display:block;
           margin-left:23px;
           font-size:15px;
           font-family:$font_medium;
@@ -91,11 +95,25 @@ header {
             }
           }
 
+          &.selected {
+            a {
+              color:$ultra_dark;
+              background: url('/assets/img/triangle.png') no-repeat center bottom;
+              }
+
+          }
+
           a {
+            display:block;
             @include white-shadow;
             @include color-transition;
 
-            &:hover { color:$ultra_dark; }
+            height:53px;
+
+            &:hover {
+              color:$ultra_dark;
+              background: url('/assets/img/triangle.png') no-repeat center bottom;
+ }
           }
         }
       }

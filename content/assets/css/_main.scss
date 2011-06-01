@@ -45,7 +45,6 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       position:relative;
       width:924px;
       margin: 0 auto 66px auto;
-      //padding: 21px 0 21px 21px;
       text-align:left;
       color:$ultra_dark;
 
@@ -67,7 +66,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       .content {
         clear:both;
         overflow:hidden;
-        padding: 21px;
+        padding: 0 25px;
         background: url('/assets/img/box_bkg.png') repeat-y;
       }
 
@@ -120,7 +119,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         width:auto;
         border-bottom: 1px solid $gray;
         height: 46px;
-        margin-bottom: 24px;
+        margin-bottom: 25px;
         background:none;
       }
 
@@ -128,8 +127,8 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         font-family: $font_medium;
         font-size:23px;
         color:$ultra_dark;
-        margin-bottom:24px;
         @include white-shadow;
+        line-height:18px;
       }
 
       h3 {
@@ -137,7 +136,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         font-size:13px;
         text-transform:uppercase;
         color:$ultra_dark;
-        margin-bottom:12px;
+        margin-bottom:8px;
         @include white-shadow;
       }
 
@@ -145,7 +144,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         font-size: 15px;
         color:$medium_dark;
         line-height: 18px;
-        margin-bottom: 26px;
+        margin-bottom: 18px;
       }
 
     } // article

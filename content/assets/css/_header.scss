@@ -125,6 +125,7 @@ header {
       a {
         color:$brightest;
         float:left; padding-left:20px;
+        opacity:.65;
         background:url(/assets/img/tab_left.png) no-repeat left bottom;
         display:block;
         line-height:38px;
@@ -133,6 +134,7 @@ header {
         &.selected {
           color:$ultra_dark;
           background-position:left top;
+          opacity:1;
           span {
             background-position:right top;
           }
@@ -141,6 +143,7 @@ header {
         &:hover {
           @include remove-transition;
           color: $ultra_dark;
+          opacity:1;
           background-position:left top;
           span {
           background-position:right top;

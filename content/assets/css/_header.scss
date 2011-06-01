@@ -137,7 +137,7 @@ header {
       float:left;
       display:block;
       margin-right:3px;
-      font-family: $font_medium;
+      font-family: $font_regular;
 
       &:hover {
         span {
@@ -145,23 +145,27 @@ header {
         }
       }
 
+      &.selected {
+        a {
+        color:$ultra_dark;
+        background-position:left top;
+        opacity:1;
+        span {
+          background-position:right top;
+        }
+        }
+      }
+
       a {
-        color:$brightest;
-        float:left; padding-left:20px;
+        display:block;
+        float:left;
+        height:37px;
+        padding-left:20px;
         opacity:.65;
         background:url(/assets/img/tab_left.png) no-repeat left bottom;
-        display:block;
+        color:$brightest;
         line-height:38px;
-        height:37px;
-
-        &.selected {
-          color:$ultra_dark;
-          background-position:left top;
-          opacity:1;
-          span {
-            background-position:right top;
-          }
-        }
+        font-size:15px;
 
         &:hover {
           @include remove-transition;

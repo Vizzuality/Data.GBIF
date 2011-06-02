@@ -50,17 +50,17 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
 
       &.mapx {
 
-          #map {
-            position:absolute;
-            top:-19px;
-            height:200px + 19*2;
-            width: 603px;
-            z-index:100;
-          }
+        #map {
+          position:absolute;
+          top:-19px;
+          height:200px + 19*2;
+          width: 603px;
+          z-index:100;
+        }
 
-          .content {
-            height:200px;
-          }
+        .content {
+          height:200px;
+        }
       }
 
       .content {
@@ -85,6 +85,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         height:19px;
         background: url('/assets/img/box_bottom.png') no-repeat left top;
       }
+
 
       ul {
         margin-bottom: 26px;
@@ -149,5 +150,63 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       }
 
     } // article
+
+    article.comments {
+
+      header {
+        border:none;
+        margin-bottom:0px;
+      }
+
+
+      .comment {
+
+      clear:both;
+      overflow:hidden;
+      margin-bottom: 25px;
+
+
+        .left {
+          border-top: 1px solid #ccc;
+          padding-top:25px;
+
+        }
+
+        .right {
+          margin:0;
+          background:none;
+          border-top: 1px solid #ccc;
+          padding-top:25px;
+
+        }
+
+        a {
+          text-decoration: underline;
+        }
+
+        &.reply {
+          p, footer {
+            margin-left: 32px;
+          }
+
+        }
+
+        footer {
+          padding:0;
+          margin:0;
+          height:auto;
+          background:none;
+          width:auto;
+          font-family: $base;
+          font-size:13px;
+
+          span.reply-count {
+            color: $dark;
+          }
+
+        }
+      }
+    }
+
   } // #content
 

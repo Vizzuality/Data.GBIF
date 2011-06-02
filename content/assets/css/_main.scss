@@ -167,11 +167,13 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       overflow:hidden;
       margin-bottom: 25px;
 
-
         .left {
           border-top: 1px solid #ccc;
           padding-top:25px;
 
+          a {
+            text-decoration: underline;
+          }
         }
 
         .right {
@@ -200,12 +202,6 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           }
         }
 
-        a {
-          background:url('/assets/img/icons/comment.png') no-repeat 0 4px;
-          padding-left:16px;
-          text-decoration: underline;
-        }
-
         &.reply {
           p, footer {
             margin-left: 32px;
@@ -221,6 +217,11 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           width:auto;
           font-family: $base;
           font-size:13px;
+
+          a {
+            background:url('/assets/img/icons/comment.png') no-repeat 0 4px;
+            padding-left:16px;
+          }
 
           span.reply-count {
             color: $dark;

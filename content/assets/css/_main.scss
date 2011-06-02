@@ -41,6 +41,28 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
     text-align:center;
     padding-top:40px;
 
+    .mini-profile {
+      a {
+        text-decoration:underline;
+      }
+      a.avatar {
+        float:left;
+        margin-right:10px;
+        text-decoration:none;
+      }
+      strong {
+        display:block;
+        margin-bottom: 3px;
+        font-weight:bold;
+        font-size:15px;
+        color:$ultra_dark;
+      }
+      span.date {
+        font-size:13px;
+        color: $dark;
+      }
+    } // mini-profile
+
     article {
       position:relative;
       width:924px;
@@ -121,13 +143,8 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         padding-top:25px;
       }
 
-      header {
-        width:auto;
-        height: 46px;
-        background:none;
-      }
-
       h2 {
+        margin-bottom: 24px;
         font-family: $font_medium;
         font-size:23px;
         color:$ultra_dark;
@@ -155,12 +172,6 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
 
     article.comments {
 
-      header {
-        border:none;
-        margin-bottom:0px;
-      }
-
-
       .comment {
 
       clear:both;
@@ -181,25 +192,6 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           background:none;
           border-top: 1px solid #ccc;
           padding-top:25px;
-
-          a.avatar {
-            float:left;
-            margin-right:10px;
-          }
-
-          strong {
-            display:block;
-            margin-bottom: 3px;
-            font-weight:bold;
-            font-size:15px;
-            color:$darkest;
-          }
-
-          span.date {
-            font-size:13px;
-            color: $dark;
-
-          }
         }
 
         &.reply {
@@ -235,11 +227,34 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       .triangle {
         position:absolute;
         top: -26px;
-        left:30px;
+        left:20px;
         width:24px;
         height:15px;
         background:url('/assets/img/box_triangle.png') no-repeat;
         z-index:100;
+      }
+
+      .left {
+
+        textarea {
+          width: 594px;
+          height:99px;
+          margin-bottom: 12px;
+        }
+
+        button {
+          float: right;
+        }
+      }
+      .right {
+        border:none;
+
+        h4 {
+          margin-bottom: 10px;
+          font-family: $font_medium;
+          font-size:13px;
+          color: $ultra_dark;
+        }
       }
     } // article.reply
   } // #content

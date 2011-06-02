@@ -1,10 +1,9 @@
 header {
   position:relative;
-  margin:auto;
-  width:1024px;
   padding-top:3px;
-  background:url('/assets/img/top_bar.jpg') top left repeat-x;
-  text-align:left;
+  background:url('/assets/img/top_bar.jpg') repeat-x;
+  height:285px;
+  text-align:center;
 
   #logo {
     position:absolute;
@@ -42,8 +41,20 @@ header {
 
   #top {
     position:relative;
-    background: url('/assets/img/top_header_bkg.jpg') no-repeat;
-    height: 98px;
+    background: url('/assets/img/top_header_bkg.jpg') repeat-x;
+    height: 97px;
+    text-align:center;
+
+    .content {
+      position:absolute;
+      width:1024px;
+      margin-left:-512px;
+      left:50%;
+      right:50%;
+      text-align:left;
+
+
+    }
 
     .account {
       position:absolute;
@@ -125,13 +136,18 @@ header {
     }
   }
 
-  ul#tabs {
-    position:absolute;
+  div#tabs {
+    position:relative;
+
+    ul {
     padding:0;
     margin:0;
-    margin-left: 57px;
-    bottom: 0px;
-    z-index:100;
+    position:absolute;
+    width:1024px - 100;
+    bottom:0;
+    left:50%;
+    right:50%;
+    margin-left:-512px + 57;
 
     li {
       float:left;
@@ -183,6 +199,7 @@ header {
         display:block;
         height:37px;
         padding-right:20px;
+      }
       }
       }
 
@@ -238,11 +255,20 @@ header {
   }
 
   #infoband {
-    height: 189px - 33;
+    position:relative;
+    height: 188px - 33;
     padding-top: 33px;
-    text-align:left;
-    padding-left:57px;
-    background: url('/assets/img/infoband.jpg') no-repeat;
+    background: url('/assets/img/infoband.jpg') repeat-x;
+
+    .content {
+      position:absolute;
+      width:1024px - 57;
+      left:50%;
+      right:50%;
+      padding-left:57px;
+      margin-left:-512px;
+      text-align:left;
+    }
 
     ul {
       padding:0; margin:0;

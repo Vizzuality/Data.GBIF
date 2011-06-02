@@ -229,7 +229,17 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
 
         }
       }
-    }
+    } // article.comments
 
+    article.reply {
+      .triangle {
+        position:absolute;
+        top: -26px;
+        left:30px;
+        width:24px;
+        height:15px;
+        background:url('/assets/img/box_triangle.png') no-repeat;
+        z-index:100;
+      }
+    } // article.reply
   } // #content
-

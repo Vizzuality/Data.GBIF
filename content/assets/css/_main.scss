@@ -110,18 +110,20 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         float:left;
         width: 603px;
         margin-right: 33px;
+        border-top: 1px solid $gray;
+        padding-top:25px;
       }
 
       .right {
         float:left;
         width:230px;
+        border-top: 1px solid $gray;
+        padding-top:25px;
       }
 
       header {
         width:auto;
-        border-bottom: 1px solid $gray;
         height: 46px;
-        margin-bottom: 25px;
         background:none;
       }
 
@@ -178,6 +180,24 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           border-top: 1px solid #ccc;
           padding-top:25px;
 
+          a.avatar {
+            float:left;
+            margin-right:10px;
+          }
+
+          strong {
+            display:block;
+            margin-bottom: 3px;
+            font-weight:bold;
+            font-size:15px;
+            color:$darkest;
+          }
+
+          span.date {
+            font-size:13px;
+            color: $dark;
+
+          }
         }
 
         a {

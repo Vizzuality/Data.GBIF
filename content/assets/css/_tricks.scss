@@ -11,9 +11,12 @@
 }
 
 @mixin white-shadow {
-  text-shadow:0 1px white; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
+  text-shadow:0 1px $brightest; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
 }
 
+@mixin blue-shadow {
+  text-shadow:0 -1px $dark_link_color; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
+}
 /* Set sub, sup without affecting line-height: gist.github.com/413930 */
 sub, sup { font-size: 75%; line-height: 0; position: relative; }
 sup { top: -0.5em; }

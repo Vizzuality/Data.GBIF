@@ -3,7 +3,7 @@ body {
   font-size:13px;
   color:$medium_dark;
   font-family:$base;
-  background: $background;
+  background:$background;
 }
 
 abbr {
@@ -16,8 +16,8 @@ span.date {
 }
 
 a {
-  color: $link_color;
-  font-weight: normal;
+  color:$link_color;
+  font-weight:normal;
   text-decoration:none;
 
   &:hover {
@@ -26,16 +26,37 @@ a {
   }
 }
 
+button, .candy_button {
+  display:block;
+  height:35px;
+  padding:0 9px;
+  border:none;
+  background:url('/assets/img/button_left_side.png') no-repeat left top;
+  text-align:center;
+
+  span {
+    display:block;
+    padding-right:10px;
+    line-height:30px;
+    height:35px;
+    background:url('/assets/img/button_right_side.png') repeat-x right top;
+    font-family:$font_medium;
+    font-size:15px;
+    color:$brightest;
+    @include blue-shadow
+  }
+}
+
 /* These selection declarations have to be separate
-No text-shadow: twitter.com/miketaylr/status/12228805301 */
-  ::-moz-selection{ background: $selection_color; color:#fff; text-shadow: none; }
-  ::selection { background:$selection_color; color:#fff; text-shadow: none; }
+No text-shadow:twitter.com/miketaylr/status/12228805301 */
+  ::-moz-selection{ background:$selection_color; color:#fff; text-shadow:none; }
+  ::selection { background:$selection_color; color:#fff; text-shadow:none; }
 
   #content {
     clear:both;
     overflow:hidden;
     margin:auto;
-    background-color: $content_base;
+    background-color:$content_base;
     text-align:center;
     padding-top:40px;
 
@@ -50,21 +71,21 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       }
       strong {
         display:block;
-        margin-bottom: 3px;
+        margin-bottom:3px;
         font-weight:bold;
         font-size:15px;
         color:$ultra_dark;
       }
       span.date {
         font-size:13px;
-        color: $dark;
+        color:$dark;
       }
     } // mini-profile
 
     article {
       position:relative;
       width:924px;
-      margin: 0 auto 66px auto;
+      margin:0 auto 66px auto;
       text-align:left;
       color:$ultra_dark;
 
@@ -74,7 +95,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           position:absolute;
           top:-19px;
           height:200px + 19*2;
-          width: 603px;
+          width:603px;
           z-index:100;
         }
 
@@ -86,40 +107,40 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       .content {
         clear:both;
         overflow:hidden;
-        padding: 0 25px;
-        background: url('/assets/img/box_bkg.png') repeat-y;
+        padding:0 25px;
+        background:url('/assets/img/box_bkg.png') repeat-y;
       }
 
       .header{
         position:absolute;
-        top: -19px;
+        top:-19px;
         width:924px;
         height:19px;
-        background: url('/assets/img/box_top.png') no-repeat left top;
+        background:url('/assets/img/box_top.png') no-repeat left top;
       }
 
       .box_footer {
         position:absolute;
-        bottom: -19px;
+        bottom:-19px;
         width:924px;
         height:19px;
-        background: url('/assets/img/box_bottom.png') no-repeat left top;
+        background:url('/assets/img/box_bottom.png') no-repeat left top;
       }
 
 
       ul {
-        margin-bottom: 26px;
-        margin-left: 1px;
+        margin-bottom:26px;
+        margin-left:1px;
 
         li {
-          font-size: 15px;
-          margin-bottom: 8px;
+          font-size:15px;
+          margin-bottom:8px;
           line-height:18px;
           background:url('/assets/img/icons/dot.png') no-repeat left 8px;
-          padding-left: 7px;
+          padding-left:7px;
 
           &.download {
-            padding-left: 18px;
+            padding-left:18px;
             background:url('/assets/img/icons/arrow_down.png') no-repeat left 3px;
           }
         }
@@ -128,22 +149,22 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
 
       .left {
         float:left;
-        width: 603px;
-        margin-right: 33px;
-        border-top: 1px solid $gray;
+        width:603px;
+        margin-right:33px;
+        border-top:1px solid $gray;
         padding-top:25px;
       }
 
       .right {
         float:left;
         width:230px;
-        border-top: 1px solid $gray;
+        border-top:1px solid $gray;
         padding-top:25px;
       }
 
       h2 {
-        margin-bottom: 24px;
-        font-family: $font_medium;
+        margin-bottom:24px;
+        font-family:$font_medium;
         font-size:23px;
         color:$ultra_dark;
         @include white-shadow;
@@ -151,7 +172,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       }
 
       h3 {
-        font-family: $font_medium;
+        font-family:$font_medium;
         font-size:13px;
         text-transform:uppercase;
         color:$ultra_dark;
@@ -160,10 +181,10 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       }
 
       p {
-        font-size: 15px;
+        font-size:15px;
         color:$medium_dark;
-        line-height: 18px;
-        margin-bottom: 18px;
+        line-height:18px;
+        margin-bottom:18px;
       }
 
     } // article
@@ -174,27 +195,27 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
 
       clear:both;
       overflow:hidden;
-      margin-bottom: 25px;
+      margin-bottom:25px;
 
         .left {
-          border-top: 1px solid #ccc;
+          border-top:1px solid #ccc;
           padding-top:25px;
 
           a {
-            text-decoration: underline;
+            text-decoration:underline;
           }
         }
 
         .right {
           margin:0;
           background:none;
-          border-top: 1px solid #ccc;
+          border-top:1px solid #ccc;
           padding-top:25px;
         }
 
         &.reply {
           p, footer {
-            margin-left: 32px;
+            margin-left:32px;
           }
 
         }
@@ -205,7 +226,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           height:auto;
           background:none;
           width:auto;
-          font-family: $base;
+          font-family:$base;
           font-size:13px;
 
           a {
@@ -214,7 +235,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
           }
 
           span.reply-count {
-            color: $dark;
+            color:$dark;
           }
 
         }
@@ -224,7 +245,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
     article.reply {
       .triangle {
         position:absolute;
-        top: -26px;
+        top:-26px;
         left:20px;
         width:24px;
         height:15px;
@@ -234,16 +255,16 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
 
       .left {
         textarea {
-          width: 597px - 30;
+          width:597px - 30;
           height:102px - 30;
-          margin-bottom: 12px;
+          margin-bottom:12px;
           border:none;
           padding:15px;
           font-size:13px;
           background:url('/assets/img/textarea_bkg.png') no-repeat;
 
-          resize: none;
-          overflow: auto;
+          resize:none;
+          overflow:auto;
 
           &:focus {
             outline:none;
@@ -251,7 +272,7 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         }
 
         button {
-          float: right;
+          float:right;
 
           span {
 
@@ -262,10 +283,10 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
         border:none;
 
         h4 {
-          margin-bottom: 10px;
-          font-family: $font_medium;
+          margin-bottom:10px;
+          font-family:$font_medium;
           font-size:13px;
-          color: $ultra_dark;
+          color:$ultra_dark;
         }
       }
     } // article.reply

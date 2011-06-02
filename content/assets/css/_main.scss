@@ -189,6 +189,28 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
 
     } // article
 
+    article.results {
+
+      .result {
+        border-bottom: 1px solid $light_gray;
+        margin-bottom: 25px;
+
+        h2 a {
+          margin-bottom: 14px;
+          font-family:$base;
+          font-size: 19px;
+          font-weight:bold;
+        }
+
+        p {
+          font-size:13px;
+
+        }
+
+      }
+
+    }
+
     article.comments {
 
       .comment {

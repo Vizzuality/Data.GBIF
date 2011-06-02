@@ -235,11 +235,18 @@ No text-shadow: twitter.com/miketaylr/status/12228805301 */
       }
 
       .left {
-
         textarea {
-          width: 594px;
-          height:99px;
+          width: 597px - 30;
+          height:102px - 30;
           margin-bottom: 12px;
+          border:none;
+          padding:15px;
+          font-size:13px;
+          background:url('/assets/img/textarea_bkg.png') no-repeat;
+          resize: none;
+          &:focus {
+            outline:none;
+          }
         }
 
         button {

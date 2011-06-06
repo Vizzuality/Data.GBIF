@@ -1,0 +1,319 @@
+header {
+  position:relative;
+  padding-top:3px;
+  background:url('/img/top_bar.jpg') repeat-x;
+  height:285px;
+  text-align:center;
+
+  #logo {
+    position:absolute;
+    top:36px;
+    left:55px;
+    height:38px;
+    width:300px;
+    color:$ultra_dark;
+    font-size:11px;
+
+    .logo {
+      position:relative;
+      float:left;
+      width:41px;
+      height:38px;
+      margin: 0 10px 0 0;
+      top:-5px;
+    }
+
+    span {
+      opacity:.5;
+    }
+
+    h1 {
+      display:block;
+      margin-bottom:4px;
+    }
+
+    a {
+      font-family:$font_medium;
+      font-size:17px;
+      color:$ultra_dark;
+    }
+  }
+
+  #top {
+    position:relative;
+    background: url('/img/top_header_bkg.jpg') repeat-x;
+    height: 97px;
+    text-align:center;
+
+    .content {
+      position:absolute;
+      width:1024px;
+      margin-left:-512px;
+      left:50%;
+      right:50%;
+      text-align:left;
+    }
+
+    .account {
+      position:absolute;
+      top:-3px;
+      right:52px;
+      height:25px - 6;
+      width: 177px - 7;
+      text-align:center;
+      padding:6px 0 0 7px;
+      color: #ADD8B8;
+      font-size:11px;
+      background:url('/img/header_account_bkg.png') no-repeat;
+
+      a {
+        color: $brightest;
+        &:hover {
+          color:$ultra_dark;
+          @include color-transition;
+        }
+      }
+    }
+
+    nav {
+      position:absolute;
+      top:50px;
+      right:55px;
+      z-index:100;
+
+      ul  {
+        clear:both;
+        overflow:hidden;
+        position:relative;
+
+        li {
+          float:left;
+          display:block;
+          margin-top:3px;
+          margin-left:23px;
+          font-size:15px;
+          font-family:$font_medium;
+
+          &.search {
+
+            margin-top:0px;
+            input {
+              border:none;
+              width:173px - 35;
+              padding:5px 10px 0 25px;
+              height:27px - 5;
+              background: url('/img/input_bkg.png') no-repeat left top;
+
+              &:focus {
+                outline:none;
+              }
+            }
+          }
+
+          &.selected {
+            a {
+              color:$ultra_dark;
+              background: url('/img/triangle.png') no-repeat center bottom;
+            }
+
+          }
+
+          a {
+            display:block;
+            @include white-shadow;
+            @include color-transition;
+
+            height:50px;
+
+            &:hover {
+              color:$ultra_dark;
+              background: url('/img/triangle.png') no-repeat center bottom;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  div#tabs {
+    position:relative;
+
+    ul {
+      padding:0;
+      margin:0;
+      position:absolute;
+      width:1024px - 100;
+      bottom:0;
+      left:50%;
+      right:50%;
+      margin-left:-512px + 57;
+      z-index:100;
+
+      li {
+        float:left;
+        display:block;
+        margin-right:3px;
+        z-index:100;
+        font-family: $font_regular;
+
+        &:hover {
+          span {
+            background-position: right bottom;
+          }
+        }
+
+        &.selected {
+          a {
+            color:$ultra_dark;
+            background-position:left top;
+            opacity:1;
+            span {
+              background-position:right top;
+            }
+          }
+        }
+
+        a {
+          float:left;
+          display:block;
+          height:37px;
+          padding-left:20px;
+          opacity:.65;
+          background:url(/img/tab_left.png) no-repeat left bottom;
+          color:$brightest;
+          line-height:38px;
+          font-size:15px;
+
+          &:hover {
+            @include remove-transition;
+            color: $ultra_dark;
+            opacity:1;
+            background-position:left top;
+            span {
+              background-position:right top;
+
+            }
+          }
+
+          span {
+            background:url(/img/tab_right.png) no-repeat right bottom;
+            display:block;
+            height:37px;
+            padding-right:20px;
+          }
+        }
+      }
+
+      sup {
+        font-size:11px;
+        top:-3px;
+      }
+    }
+  }
+
+  #infoband {
+    position:relative;
+    height: 188px - 33;
+    padding-top: 33px;
+    background: url('/img/infoband.jpg') repeat-x;
+
+    .content {
+      position:absolute;
+      width:1024px - 57;
+      left:50%;
+      right:50%;
+      padding-left:57px;
+      margin-left:-512px;
+      text-align:left;
+
+      ul {
+        padding:0; margin:0;
+        margin-left: 3px;
+
+        li {
+          display:inline;
+          font-size:13px;
+          color: $ultra_dark;
+          opacity:.75;
+        }
+
+      }
+
+      h1 {
+        margin-bottom:9px;
+        font-family: $font_medium;
+        font-size:35px;
+        color: $brightest;
+      }
+
+      h2 {
+        font-size:15px;
+        font-weight:normal;
+        color:$ultra_dark;
+        opacity:.75;
+
+        a {
+          color: $brightest;
+          opacity:1.25;
+        }
+      }
+
+      .tags {
+        background:url('/img/tag_line.png') no-repeat left top;
+        margin-top:10px;
+        padding-top:10px;
+        font-size: 11px;
+        color:$ultra_dark;
+        opacity:.75;
+      }
+
+      .box {
+        position:absolute;
+        top: 0;
+        right:37px;
+        background: url('/img/infoband_box_left.png') no-repeat left top;
+        padding: 0 12px;
+
+        .content {
+          width:auto;
+          position:relative;
+          padding:0;
+          margin:0;
+          left:0; right:0;
+          height:120px;
+          padding-top:13px;
+          background:url('/img/infoband_box_right.png') repeat-x right top;
+
+          ul {
+            clear:both;
+            overflow:hidden;
+            margin-bottom: 8px;
+
+            li {
+              float:left;
+              border-right: 1px solid $gray;
+              margin-right:10px;
+              padding-right:10px;
+              text-align:center;
+              color:$dark;
+
+              h3 {
+                margin-bottom: 3px;
+                font-family:$font_medium;
+                font-size:31px;
+                color:$ultra_dark;
+              }
+
+              &.last{
+                border:none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+  } // infoband
+}
+

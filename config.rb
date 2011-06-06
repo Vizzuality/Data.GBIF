@@ -5,10 +5,10 @@
 http_path       = "/"
 project_path    = "."
 
-sass_dir        = "content/assets/css"
-css_dir         = "output/assets/css"
-images_dir      = "output/assets/images"
-javascripts_dir = "output/assets/js"
+sass_dir        = "content/css"
+css_dir         = "output/css"
+images_dir      = "output/images"
+javascripts_dir = "output/js"
 
 # toggle between the sass or scss syntax
 sass_options = {

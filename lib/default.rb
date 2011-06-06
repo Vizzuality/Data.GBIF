@@ -19,5 +19,5 @@ include Nanoc3::Helpers::XMLSitemap
 # To prevent this we keep our static assets outside the scope of the '/content' directory
 # and copy over the assets in the preprocess rule in 'Rules' file.
 def copy_assets
-  FileUtils.cp_r 'assets/.', 'output/assets/'
+  FileUtils.cp_r 'assets/.', 'output'
 end

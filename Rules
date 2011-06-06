@@ -32,20 +32,20 @@ end
 # sass or scss, rips off the extention and changes it to .css
 # ----------------------------------------------------------------------
 
-compile '/assets/css/_*/' do
+compile '/css/_*/' do
   # don’t compile partials
 end
 
-route '/assets/css/_*/' do
+route '/css/_*/' do
   # don't output partials
   nil
 end
 
-compile '/assets/css/*/' do
+compile '/css/*/' do
   filter :sass, Compass.sass_engine_options
 end
 
-route '/assets/css/*/' do
+route '/css/*/' do
   # prevents nanoc from generating a directory for each css file
   item.identifier.chop + '.css'
 end

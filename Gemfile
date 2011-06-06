@@ -3,11 +3,13 @@ source :gemcutter
 gem 'rake'
 gem 'rack'
 
-gem 'nanoc'
+gem 'nanoc3', '>=3.2.0a3'
+gem 'sass', '>= 3.2.0.alpha.0'
 
-gem 'sass'
 gem 'adsf'
+gem 'nutils'
 gem 'compass'
+gem 'html5-boilerplate'
 
 gem 'mime-types'
 
@@ -22,3 +24,4 @@ gem 'guard-livereload'
 
 # you can install growl if you want notification support on OSX
 # gem install growl
+

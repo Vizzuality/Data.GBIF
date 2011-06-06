@@ -1,29 +1,33 @@
 article.help {
   div.left {
-    h3 {margin-bottom: 10px!important; }
-  }
-
-  ul {
-
-    li {
-      margin-bottom: 10px;
+    h3 {font-size:18px!important; margin-bottom: 10px!important; }
+    ul {
+      li {
+        background:none!important;
+        padding:0!important;
+        margin-left:0!important;
+      }
+    }
+    ul.sizes {
+      li {
+        margin-bottom: 20px!Important;
+      }
     }
   }
 
+
   h1 {
-    font-size:35px;
-    color:red;
+    font-size:35px!important;
     font-family:$font_regular;
   }
 
   h2 {
-    font-size:30px;
-    color:red;
+    font-size:30px!important;
     font-family:$font_regular;
   }
 
   h3 {
-    font-size:35px;
+    font-size:35px!important;
     font-family:$font_regular;
   }
 
@@ -33,12 +37,12 @@ article.help {
   }
 
   h5 {
-    font-size:35px;
+    font-size:25px;
     font-family:$font_regular;
   }
 
   h6 {
-    font-size:35px;
+    font-size:15px;
     font-family:$font_regular;
   }
 

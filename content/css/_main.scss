@@ -3,7 +3,7 @@ body {
   font-size:13px;
   color:$medium_dark;
   font-family:$base;
-  background:$background;
+  background:$background_color;
 }
 
 abbr {
@@ -95,7 +95,7 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
     clear:both;
     overflow:hidden;
     margin:auto;
-    background-color:$content_base;
+    background-color:$background_color;
     text-align:center;
     padding-top:60px;
 
@@ -431,9 +431,125 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
       .footer {
         background:url('/img/box_dataset_bottom.png') no-repeat left top;
       }
-
     }
 
+    article.tunnel {
+
+      width:702px;
+
+      .content {
+        text-align:left;
+        background:url('/img/box_dataset_bkg.png') repeat-y;
+
+        .navigation {
+
+          span {
+            float:right;
+          }
+
+        }
+
+        ul {
+            margin-left:18px;
+          li {
+            margin-bottom:17px;
+            color:$medium_dark;
+          }
+        }
+
+        ul.tunnel {
+          margin:0;
+          margin-bottom:20px;
+          padding-bottom:20px;
+          border-bottom: 1px solid $gray;
+
+          li {
+            padding:0;
+            margin:0;
+            display:inline;
+            background:url('/img/icons/arrow_right.png') no-repeat right 3px;
+            margin-right:5px;
+            padding-right:15px;
+
+            &:last-child, &.last {
+              background:none;
+            }
+
+            h2 {
+             display:inline;
+             font-family:$font_medium;
+             font-size:23px;
+             color:$gray;
+             &.active {
+               color:$ultra_dark;
+             }
+            }
+          }
+
+        }
+        p {
+          font-size:15px;
+          color:$ultra_dark;
+        }
+
+        h1 {
+          margin-bottom:23px;
+          font-family:$font_medium;
+          color: $medium_dark;
+          font-size: 35px;
+        }
+
+        form {
+          clear:both;
+          overflow:hidden;
+          width:413px + 109;
+          margin:0 auto 20px auto;
+          input[type="text"] {
+            float:left;
+            border:none;
+            padding:0;
+            width:413px - 45;
+            height:37px;
+            padding: 0px 20px 0 25px;
+            margin:0;
+            background: url('/img/input_dataset_bkg.png') no-repeat left top;
+            font-size:17px;
+            color:$ultra_dark;
+
+            &:focus {
+              outline:none;
+            }
+          }
+
+          .button {
+            float:left;
+            margin:0;
+            padding:0;
+            padding:0 20px 7px 0;
+            border:none;
+            width:109px;
+            height:37px;
+            background: url('/img/buttons/button_search.png') no-repeat left top;
+            color:$brightest;
+            font-family:$font_medium;
+            font-size:17px;
+            span {
+
+            }
+          }
+        }
+
+      }
+
+      .header{
+        background:url('/img/box_dataset_top.png') no-repeat left top;
+      }
+
+      .footer {
+        background:url('/img/box_dataset_bottom.png') no-repeat left top;
+      }
+
+    }
     article.comments {
 
       .comment {

@@ -1,3 +1,40 @@
+// Header variations
+body  {
+  &.search header {
+    height:226px;
+
+    #infoband {
+      border-bottom:1px solid #4b8741;
+      height: 129px - 33;
+    }
+
+    h2 {
+      margin-left: 25px;
+    }
+  } // search
+
+  &.dataset header {
+    height:98px;
+
+    #infoband {
+      height: 129px - 33;
+    }
+
+    #top nav ul li.selected a {
+      background: url('/img/triangle_gray.png') no-repeat center bottom;
+    }
+
+    #top nav ul li a:hover {
+      background: url('/img/triangle_gray.png') no-repeat center bottom;
+    }
+
+    h2 {
+      margin-left: 25px;
+    }
+  } // dataset
+}
+
+
 header {
   position:relative;
   padding-top:3px;
@@ -222,7 +259,7 @@ header {
       width:1024px - 57;
       left:50%;
       right:50%;
-      padding-left:57px;
+      padding-left:50px;
       margin-left:-512px;
       text-align:left;
 
@@ -236,7 +273,6 @@ header {
           color: $ultra_dark;
           opacity:.75;
         }
-
       }
 
       h1 {
@@ -247,6 +283,13 @@ header {
       }
 
       h2 {
+        font-size:23px;
+        font-family: $font_regular;
+        color:$brightest;
+        margin-bottom:10px;
+      }
+
+      h3 {
         font-size:15px;
         font-weight:normal;
         color:$ultra_dark;
@@ -256,6 +299,24 @@ header {
           color: $brightest;
           opacity:1.25;
         }
+      }
+
+      form {
+        input {
+          width:630px - 17 - 50;
+          height:37px;
+          padding: 0 50px 0 25px;
+          border:none;
+          background:url('/img/search_bkg.png') no-repeat left top;
+          font-size:17px;
+          color:$ultra_dark;
+
+          &:focus {
+            outline:none;
+          }
+
+        }
+
       }
 
       .tags {

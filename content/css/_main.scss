@@ -26,12 +26,13 @@ a {
   }
 }
 
-button, .candy_button {
+// BUTTONS
+.candy_blue_button {
   display:block;
   height:35px;
   padding:0 9px;
   border:none;
-  background:url('/img/button_left_side.png') no-repeat left top;
+  background:url('/img/buttons/button_blue_left_side.png') no-repeat left top;
   text-align:center;
 
   span {
@@ -39,11 +40,49 @@ button, .candy_button {
     padding-right:10px;
     line-height:30px;
     height:35px;
-    background:url('/img/button_right_side.png') repeat-x right top;
+    background:url('/img/buttons/button_blue_right_side.png') repeat-x right top;
     font-family:$font_medium;
     font-size:15px;
     color:$brightest;
     @include blue-shadow
+  }
+}
+
+.candy_white_button {
+  display:block;
+  height:38px;
+  padding:0 11px;
+  border:none;
+  text-align:center;
+
+  span {
+    display:block;
+    padding-right:22px;
+    line-height:35px;
+    height:38px;
+    font-family:$font_medium;
+    font-size:15px;
+    @include white-shadow
+  }
+}
+
+.candy_white_button.previous {
+  float:left;
+  background:url('/img/buttons/button_white_previous_left.png') no-repeat left top;
+  padding-left:15px;
+
+  span {
+    padding-right:11px;
+    padding-left:5px;
+    background:url('/img/buttons/button_white_previous_right.png') repeat-x right top;
+  }
+}
+.candy_white_button.next{
+  float:right;
+  background:url('/img/buttons/button_white_next_left.png') no-repeat left top;
+
+  span {
+    background:url('/img/buttons/button_white_next_right.png') repeat-x right top;
   }
 }
 
@@ -119,7 +158,7 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
         background:url('/img/box_top.png') no-repeat left top;
       }
 
-      .box_footer {
+      .footer {
         position:absolute;
         bottom:-19px;
         width:924px;
@@ -191,9 +230,21 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
 
     article.results {
 
+      .content {
+        background:url('/img/box_results_bkg.png') repeat-y;
+      }
+
+      .header{
+        background:url('/img/box_results_top.png') no-repeat left top;
+      }
+
+      .footer {
+        background:url('/img/box_results_bottom.png') no-repeat left top;
+      }
+
       .result {
         border-bottom: 1px solid $light_gray;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
 
         h2 a {
           margin-bottom: 14px;
@@ -203,21 +254,68 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
         }
 
         p {
+          margin-bottom:5px;
           font-size:13px;
-
         }
 
+        .footer {
+          position:relative;
+          width:auto;
+          height:auto;
+          background:none;
+          margin-bottom:20px;
+        }
       }
 
+      .left {
+        .footer {
+          position:relative;
+          bottom:auto;
+          width:auto;
+          height:auto;
+          background:none;
+
+          .pagination {
+            float:right;
+            margin-right:10px;
+            color:$gray;
+            line-height:40px;
+          }
+        }
+      }
+
+      .right {
+          a {
+            font-size:15px;
+            text-decoration:underline;
+          }
+
+        .selector {
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #eee;
+
+          a {
+            text-decoration:none;
+          }
+
+          h4 {
+            margin-bottom:6px;
+            font-family:$font_medium;
+            font-size:11px;
+            color:$dark;
+          }
+        }
+      }
     }
 
     article.comments {
 
       .comment {
 
-      clear:both;
-      overflow:hidden;
-      margin-bottom:25px;
+        clear:both;
+        overflow:hidden;
+        margin-bottom:25px;
 
         .left {
           border-top:1px solid #ccc;
@@ -225,6 +323,27 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
 
           a {
             text-decoration:underline;
+          }
+          .footer {
+            position:auto;
+            bottom:auto;
+            width:auto;
+            height:auto;
+            margin:0;
+            padding:0;
+            background:none;
+            font-family:$base;
+            font-size:13px;
+
+            a {
+              background:url('/img/icons/comment.png') no-repeat 0 4px;
+              padding-left:16px;
+            }
+
+            span.reply-count {
+              color:$dark;
+            }
+
           }
         }
 
@@ -242,25 +361,6 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
 
         }
 
-        .footer {
-          padding:0;
-          margin:0;
-          height:auto;
-          background:none;
-          width:auto;
-          font-family:$base;
-          font-size:13px;
-
-          a {
-            background:url('/img/icons/comment.png') no-repeat 0 4px;
-            padding-left:16px;
-          }
-
-          span.reply-count {
-            color:$dark;
-          }
-
-        }
       }
     } // article.comments
 

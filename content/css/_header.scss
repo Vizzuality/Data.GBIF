@@ -13,7 +13,7 @@ body  {
     }
   } // search
 
-  &.dataset header {
+  &.register header, &.dataset header {
     height:98px;
 
     #infoband {
@@ -26,6 +26,10 @@ body  {
 
     #top nav ul li a:hover {
       background: url('/img/triangle_gray.png') no-repeat center bottom;
+    }
+
+    #top nav ul li.selected a, #top nav ul li a:hover {
+      background:none;
     }
 
     h2 {

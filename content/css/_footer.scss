@@ -1,3 +1,35 @@
+body.register {
+  footer {
+    height:auto;
+    margin-top:94px;
+    background:none;
+    .content {
+      padding:0;
+      width:702px ;
+      margin-left:-351px;
+    }
+    .copyright {
+      float:left;
+      position:relative;
+      background:none;
+      height:auto;
+      font-size:11px;
+      color:$dark;
+    }
+
+    p {
+      float:right;
+      font-size:11px;
+      color:$dark;
+      a {
+        color:$email_color;
+        text-decoration:underline;
+      }
+    }
+  }
+
+}
+
 footer {
   position:relative;
   height:400px;
@@ -64,20 +96,20 @@ footer {
   }
 } // footer
 
-  .copyright {
-    position:relative;
-    background:$uber_dark;
-    height:40px;
+.copyright {
+  position:relative;
+  background:$uber_dark;
+  height:40px;
 
-    p {
-      position:absolute;
-      width:1024px - 75*2;
-      left:50%;
-      right:50%;
-      margin-left:-512px;
-      padding:12px 75px 12px 75px;
-      text-align:left;
-      color:$brightest;
-      font-size:11px;
+  p {
+    position:absolute;
+    width:1024px - 75*2;
+    left:50%;
+    right:50%;
+    margin-left:-512px;
+    padding:12px 75px 12px 75px;
+    text-align:left;
+    color:$brightest;
+    font-size:11px;
   }
 }

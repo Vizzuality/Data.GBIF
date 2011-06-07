@@ -11,6 +11,11 @@ abbr {
   text-transform:uppercase;
 }
 
+span.help {
+  background:url('/img/icons/questionmark.png') no-repeat;
+  width:14px;
+  height:12px;
+}
 span.date {
   font-size:11px;
 }
@@ -131,18 +136,23 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
       text-align:left;
       color:$ultra_dark;
 
-      &.mapx {
+      &.map {
 
         #map {
           position:absolute;
-          top:-19px;
-          height:200px + 19*2;
+          top:-18px;
+          height:387px + 19*2 - 4;
+          left:2px;
           width:603px;
           z-index:100;
         }
 
         .content {
-          height:200px;
+          height:387px;
+          .right {
+            margin-left:620px;
+            float:left;
+          }
         }
       }
 
@@ -391,6 +401,7 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
           overflow:hidden;
           width:413px + 109;
           margin:0 auto 20px auto;
+
           input[type="text"] {
             float:left;
             border:none;
@@ -443,6 +454,54 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
 
       width:702px;
 
+      &#step-1 {
+        .important {
+          background:url('/img/icons/computer_plug.png') no-repeat left top;
+          margin-bottom:10px;
+
+          form {
+          clear:both;
+          overflow:hidden;
+          p {
+            clear:left;
+            margin-bottom: 5px;
+            font-weight:bold;
+            font-size:15px;
+            color:$medium_dark;
+
+          }
+
+          input[type="text"] {
+            float:left;
+            width:426px - 20;
+            height:31px;
+            padding:0;
+            padding:0 10px;
+            margin:0;
+            margin-bottom:10px;
+            background:url('/img/input_small_bkg.png') no-repeat;
+            font-size:13px;
+          }
+
+          .button {
+            float:left;
+            margin:0;
+            border:none;
+            width:88px;
+            height:31px;
+            padding:0 0px 3px 0;
+            background: url('/img/buttons/input_small_button_right_bkg.png') no-repeat right top;
+            color:$brightest;
+            font-family:$font_medium;
+            font-size:15px;
+            span {
+              @include blue-shadow;
+            }
+          }
+        }
+        }
+      }
+
       &#step-2 {
         text-align:center;
 
@@ -487,6 +546,9 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
         background:url('/img/box_dataset_bkg.png') repeat-y;
 
         nav {
+          clear:both;
+          overflow:hidden;
+
           p {
             float:right;
             margin-right:10px;
@@ -506,8 +568,7 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
           margin:auto;
           padding-left:80px;
           margin-bottom:28px;
-          height:61px;
-          background:url('/img/icons/computer_add.png') no-repeat left top;
+          //background:url('/img/icons/computer_add.png') no-repeat left top;
 
           h3 {
             font-family:$base;
@@ -605,7 +666,6 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
           .button {
             float:left;
             margin:0;
-            padding:0;
             padding:0 20px 7px 0;
             border:none;
             width:109px;

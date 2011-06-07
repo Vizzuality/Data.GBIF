@@ -1,0 +1,60 @@
+.candy_blue_button {
+  display:block;
+  height:35px;
+  padding:0 9px;
+  border:none;
+  background:url('/img/buttons/button_blue_left_side.png') no-repeat left top;
+  text-align:center;
+
+  span {
+    display:block;
+    padding-right:10px;
+    height:35px;
+    line-height:30px;
+    background:url('/img/buttons/button_blue_right_side.png') repeat-x right top;
+    font-family:$font_medium;
+    font-size:15px;
+    color:$brightest;
+    @include blue-shadow
+  }
+}
+
+.candy_white_button {
+  display:block;
+  height:38px;
+  padding:0 11px;
+  border:none;
+  text-align:center;
+  background:url('/img/buttons/button_white_left.png') no-repeat left top;
+
+  span {
+    display:block;
+    height:38px;
+    padding-right:11px;
+    line-height:35px;
+    background:url('/img/buttons/button_white_right.png') repeat-x right top;
+    font-family:$font_medium;
+    font-size:15px;
+    @include white-shadow
+  }
+}
+
+.candy_white_button.previous {
+  float:left;
+  padding-left:15px;
+  background:url('/img/buttons/button_white_previous_left.png') no-repeat left top;
+
+  span {
+    padding-right: 0 11px 0 5px;
+    background:url('/img/buttons/button_white_previous_right.png') repeat-x right top;
+  }
+}
+.candy_white_button.next{
+  float:right;
+  background:url('/img/buttons/button_white_next_left.png') no-repeat left top;
+
+  span {
+    padding-right:22px;
+    background:url('/img/buttons/button_white_next_right.png') repeat-x right top;
+  }
+}

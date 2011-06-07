@@ -184,6 +184,16 @@ a {
   article.results {
 
     .content {
+      .header {
+        .right {
+          h3 {
+            font-family:$font_medium;
+            font-size:22px;
+            text-transform:none;
+            color:$dark;
+          }
+        }
+      }
       background:url('/img/box_results_bkg.png') repeat-y;
     }
 

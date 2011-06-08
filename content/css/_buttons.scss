@@ -31,16 +31,16 @@
   @include transparency_fix;
 
   &:hover {
-    background:url('/img/buttons/button_white_left.png') no-repeat left -38px;
+    background-position:left -38px;
     span {
-      background:url('/img/buttons/button_white_right.png') no-repeat right -38px;
+      background-position:right -38px;
     }
   }
 
   &:active {
-    background:url('/img/buttons/button_white_left.png') no-repeat left bottom;
+    background-position:left bottom;
     span {
-      background:url('/img/buttons/button_white_right.png') no-repeat right bottom;
+      background-position:right bottom;
     }
   }
 
@@ -64,12 +64,26 @@
 
   span {
     padding: 0 11px 0 5px;
-    background:url('/img/buttons/button_white_previous_right.png') repeat-x right top;
+    background:url('/img/buttons/button_white_right.png') repeat-x right top;
   }
 }
 .candy_white_button.next{
   float:right;
-  background:url('/img/buttons/button_white_next_left.png') no-repeat left top;
+  background:url('/img/buttons/button_white_left.png') no-repeat left top;
+
+  &:hover {
+    background-position:left -38px;
+    span {
+      background-position:right -38px;
+    }
+  }
+
+  &:active {
+    background-position:left bottom;
+    span {
+      background-position:right bottom;
+    }
+  }
 
   span {
     padding-right:22px;

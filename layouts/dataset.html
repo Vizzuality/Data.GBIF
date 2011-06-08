@@ -34,9 +34,9 @@
 <body class="dataset">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/partials/#{partial}/header" %>
+  <%= render "/partials/dataset/header" %>
   <div id="content"><%= yield %></div>
-  <%= render "/partials/#{partial}/footer" %>
+  <%= render "/partials/dataset/footer" %>
 
   <!-- JavaScript at the bottom for fast page loading -->
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->

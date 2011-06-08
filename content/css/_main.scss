@@ -70,6 +70,7 @@ a {
     margin:0 auto 66px auto;
     text-align:left;
     color:$ultra_dark;
+    z-index:100;
 
     .content {
       clear:both;
@@ -108,17 +109,19 @@ a {
 
     header {
       position:absolute;
-      top:-19px;
+      top:-20px;
       width:924px;
-      height:19px;
+      height:20px;
+      padding:0;
       background:url('/img/box_top.png') no-repeat left top;
     }
 
     footer {
       position:absolute;
-      bottom:-19px;
+      bottom:-20px;
       width:924px;
-      height:19px;
+      height:20px;
+      padding:0;
       background:url('/img/box_bottom.png') no-repeat left top;
       text-align:left;
     }
@@ -174,8 +177,8 @@ a {
 
     #map {
       position:absolute;
-      top:-18px;
-      height:387px + 23*2 - 4;
+      top:-20px;
+      height:387px + 23*2;
       left:2px;
       width:603px;
       z-index:100;
@@ -306,6 +309,29 @@ a {
     }
   }
 
+  article.floating {
+    width:720px;
+    position:absolute;
+    z-index:200;
+    margin-left:-1*720px/2;
+    left:50%;
+    right:50%;
+
+    .content {
+      width:720px;
+      background:url('/img/box_floating_bkg.png') repeat-y;
+    }
+    header{
+      width:720px;
+      background:url('/img/box_floating_top.png') repeat-y;
+    }
+
+    footer{
+      width:720px;
+      background:url('/img/box_floating_bottom.png') repeat-y;
+    }
+  }
+
   article.dataset {
 
     width:702px;
@@ -314,7 +340,6 @@ a {
       padding: 61px 0;
       text-align:center;
       background:url('/img/box_dataset_bkg.png') repeat-y;
-
 
       .results {
         float:left;
@@ -488,10 +513,10 @@ a {
           margin-right:10px;
           line-height:40px;
           font-size:13px;
-          color:$gray;
+          color:$dark;
 
           a {
-            color:$gray;
+            color:$dark;
             text-decoration:underline;
           }
         }

@@ -97,11 +97,7 @@ header {
     text-align:center;
 
     .content {
-      position:absolute;
-      width:1024px;
-      margin-left:-512px;
-      left:50%;
-      right:50%;
+      @include absolute_center(1024px);
       text-align:left;
     }
 
@@ -281,6 +277,7 @@ header {
       right:50%;
       padding-left:50px;
       margin-left:-512px;
+
       text-align:left;
 
       ul {

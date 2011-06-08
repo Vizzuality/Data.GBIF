@@ -24,6 +24,14 @@
   zoom: 1;
 }
 
+@mixin absolute_center($width) {
+  position:absolute;
+  width:$width;
+  margin-left:-1 * $width/2;
+  left:50%;
+  right:50%;
+}
+
 /* Set sub, sup without affecting line-height: gist.github.com/413930 */
 sub, sup { font-size: 75%; line-height: 0; position: relative; }
 sup { top: -0.5em; }

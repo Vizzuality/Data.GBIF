@@ -367,12 +367,8 @@ a {
   }
 
   article.floating {
-    width:720px;
-    position:absolute;
+   @include absolute_center(720px);
     z-index:200;
-    margin-left:-1*720px/2;
-    left:50%;
-    right:50%;
 
     .content {
       width:720px;
@@ -491,8 +487,13 @@ a {
           color:$brightest;
           font-family:$font_medium;
           font-size:17px;
-          span {
+          &:hover {
+            background-position:left -37px;
+          }
 
+          &:active {
+            line-height:35px;
+            background-position:left bottom;
           }
         }
       }

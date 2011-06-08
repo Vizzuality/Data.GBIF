@@ -13,16 +13,7 @@ body  {
     }
   } // search
 
-  &.register header, &.dataset header {
-    height:98px;
-
-    #top {
-      position:relative;
-      background: url('/img/header/top_header_bkg.jpg') repeat-x;
-      height: 97px;
-      text-align:center;
-    }
-
+  &.dataset header, &.register header {
     #top nav ul li.selected a {
       background: url('/img/header/triangle_gray.png') no-repeat center bottom;
     }
@@ -30,6 +21,22 @@ body  {
     #top nav ul li a:hover {
       background: url('/img/header/triangle_gray.png') no-repeat center bottom;
     }
+  }
+
+  &.dataset header {
+    height:98px;
+
+    #top {
+      border-bottom:1px solid $gray;
+    }
+
+    h2 {
+      margin-left: 25px;
+    }
+  } // dataset
+
+  &.register header {
+    height:98px;
 
     #top nav ul li.selected a, #top nav ul li a:hover {
       background:none;
@@ -38,7 +45,7 @@ body  {
     h2 {
       margin-left: 25px;
     }
-  } // dataset
+  } // register
 }
 
 

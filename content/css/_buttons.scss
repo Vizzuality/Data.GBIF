@@ -31,16 +31,16 @@
   @include transparency_fix;
 
   &:hover {
-    background-position:left -38px;
+    background-position:left -38px!important;
     span {
-      background-position:right -38px;
+      background-position:right -38px!important;
     }
   }
 
   &:active {
-    background-position:left bottom;
+    background-position:left bottom!important;
     span {
-      background-position:right bottom;
+      background-position:right bottom!important;
     }
   }
 
@@ -70,20 +70,6 @@
 .candy_white_button.next{
   float:right;
   background:url('/img/buttons/button_white_left.png') no-repeat left top;
-
-  &:hover {
-    background-position:left -38px;
-    span {
-      background-position:right -38px;
-    }
-  }
-
-  &:active {
-    background-position:left bottom;
-    span {
-      background-position:right bottom;
-    }
-  }
 
   span {
     padding-right:22px;

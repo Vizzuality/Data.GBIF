@@ -16,16 +16,19 @@ body  {
   &.register header, &.dataset header {
     height:98px;
 
-    #infoband {
-      height: 129px - 33;
+    #top {
+      position:relative;
+      background: url('/img/header/top_header_bkg.jpg') repeat-x;
+      height: 97px;
+      text-align:center;
     }
 
     #top nav ul li.selected a {
-      background: url('/img/triangle_gray.png') no-repeat center bottom;
+      background: url('/img/header/triangle_gray.png') no-repeat center bottom;
     }
 
     #top nav ul li a:hover {
-      background: url('/img/triangle_gray.png') no-repeat center bottom;
+      background: url('/img/header/triangle_gray.png') no-repeat center bottom;
     }
 
     #top nav ul li.selected a, #top nav ul li a:hover {
@@ -42,7 +45,7 @@ body  {
 header {
   position:relative;
   padding-top:3px;
-  background:url('/img/top_bar.jpg') repeat-x;
+  background:url('/img/header/top_bar.jpg') repeat-x;
   height:285px;
   text-align:center;
 
@@ -82,7 +85,7 @@ header {
 
   #top {
     position:relative;
-    background: url('/img/top_header_bkg.jpg') repeat-x;
+    background: url('/img/header/top_header_bkg.jpg') repeat-x;
     height: 97px;
     text-align:center;
 
@@ -105,7 +108,7 @@ header {
       padding:6px 0 0 7px;
       color: #ADD8B8;
       font-size:11px;
-      background:url('/img/header_account_bkg.png') no-repeat;
+      background:url('/img/header/header_account_bkg.png') no-repeat;
 
       a {
         color: $brightest;
@@ -143,7 +146,7 @@ header {
               width:173px - 35;
               padding:5px 10px 0 25px;
               height:27px - 5;
-              background: url('/img/input_bkg.png') no-repeat left top;
+              background: url('/img/header/input_bkg.png') no-repeat left top;
 
               &:focus {
                 outline:none;
@@ -154,7 +157,7 @@ header {
           &.selected {
             a {
               color:$ultra_dark;
-              background: url('/img/triangle.png') no-repeat center bottom;
+              background: url('/img/header/triangle.png') no-repeat center bottom;
               @include transparency_fix;
             }
 
@@ -169,7 +172,7 @@ header {
 
             &:hover {
               color:$ultra_dark;
-              background: url('/img/triangle.png') no-repeat center bottom;
+              background: url('/img/header/triangle.png') no-repeat center bottom;
               @include transparency_fix;
 
               span {
@@ -226,7 +229,7 @@ header {
           height:37px;
           padding-left:20px;
           opacity:.65;
-          background:url(/img/tab_left.png) no-repeat left bottom;
+          background:url(/img/header/tab_left.png) no-repeat left bottom;
           color:$brightest;
           line-height:38px;
           font-size:15px;
@@ -243,7 +246,7 @@ header {
           }
 
           span {
-            background:url(/img/tab_right.png) no-repeat right bottom;
+            background:url(/img/header/tab_right.png) no-repeat right bottom;
             display:block;
             height:37px;
             padding-right:20px;
@@ -262,7 +265,7 @@ header {
     position:relative;
     height: 188px - 33;
     padding-top: 33px;
-    background: url('/img/infoband.jpg') repeat-x;
+    background: url('/img/header/infoband.jpg') repeat-x;
 
     .content {
       position:absolute;
@@ -317,7 +320,7 @@ header {
           height:37px;
           padding: 0 50px 0 25px;
           border:none;
-          background:url('/img/search_bkg.png') no-repeat left top;
+          background:url('/img/header/search_bkg.png') no-repeat left top;
           font-size:17px;
           color:$ultra_dark;
 
@@ -330,7 +333,7 @@ header {
       }
 
       .tags {
-        background:url('/img/tag_line.png') no-repeat left top;
+        background:url('/img/header/tag_line.png') no-repeat left top;
         margin-top:10px;
         padding-top:10px;
         font-size: 11px;
@@ -342,7 +345,7 @@ header {
         position:absolute;
         top: 0;
         right:37px;
-        background: url('/img/infoband_box_left.png') no-repeat left top;
+        background: url('/img/header/infoband_box_left.png') no-repeat left top;
         padding: 0 12px;
 
         .content {
@@ -353,7 +356,7 @@ header {
           left:0; right:0;
           height:120px;
           padding-top:13px;
-          background:url('/img/infoband_box_right.png') repeat-x right top;
+          background:url('/img/header/infoband_box_right.png') repeat-x right top;
 
           ul {
             clear:both;

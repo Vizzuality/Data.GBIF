@@ -161,14 +161,17 @@ header {
 
           a {
             display:block;
+            height:50px;
+            position:relative;
             @include white-shadow;
             @include color-transition;
-
-            height:50px;
 
             &:hover {
               color:$ultra_dark;
               background: url('/img/triangle.png') no-repeat center bottom;
+              span {
+                background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+              }
             }
           }
         }

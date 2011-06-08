@@ -30,6 +30,20 @@
   background:url('/img/buttons/button_white_left.png') no-repeat left top;
   @include transparency_fix;
 
+  &:hover {
+    background:url('/img/buttons/button_white_left.png') no-repeat left -38px;
+    span {
+      background:url('/img/buttons/button_white_right.png') no-repeat right -38px;
+    }
+  }
+
+  &:active {
+    background:url('/img/buttons/button_white_left.png') no-repeat left bottom;
+    span {
+      background:url('/img/buttons/button_white_right.png') no-repeat right bottom;
+    }
+  }
+
   span {
     display:block;
     height:38px;

@@ -47,3 +47,11 @@ button, input, select, textarea { margin: 0; }
 No text-shadow:twitter.com/miketaylr/status/12228805301 */
   ::-moz-selection{ background:$selection_color; color:#fff; text-shadow:none; }
   ::selection { background:$selection_color; color:#fff; text-shadow:none; }
+
+input::-webkit-input-placeholder {
+    color:$gray;
+}
+input:-moz-placeholder {
+    color:$gray;
+}
+

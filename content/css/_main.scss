@@ -252,7 +252,11 @@ a {
         a {
           font-family:$base;
           font-size: 19px;
-          font-weight:bold;
+          font-weight:normal;
+
+          strong {
+            font-weight:bold;
+          }
         }
       }
 
@@ -267,6 +271,24 @@ a {
         height:auto;
         background:none;
         margin-bottom:20px;
+
+        ul {
+          clear:both;
+          overflow:hidden;
+          margin:0; padding:0;
+
+          li {
+            float:left;
+            margin:0 6px 0 0; padding:0 12px 0 0;
+            font-size:13px;
+            background:url('/img/icons/arrow_small_right.png') no-repeat right;
+            color:$dark;
+            li:last-child, &.last {
+              background:none;
+
+            }
+          }
+        }
       }
     }
 
@@ -298,6 +320,30 @@ a {
         }
       }
 
+      div.download {
+        position:absolute;
+        bottom:0;
+      }
+
+      .selector {
+        clear:both;
+        overflow:hidden;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+
+        a {
+          text-decoration:none;
+        }
+
+        h3 {
+          margin-bottom:6px;
+          font-family:$font_medium;
+          font-size:11px;
+          text-transform:uppercase;
+          color:$dark;
+        }
+      }
       .selector {
         clear:both;
         overflow:hidden;
@@ -313,6 +359,7 @@ a {
           margin-bottom:6px;
           font-family:$font_medium;
           font-size:11px;
+          text-transform:uppercase;
           color:$dark;
         }
       }

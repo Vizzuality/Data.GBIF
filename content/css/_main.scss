@@ -11,6 +11,16 @@ abbr {
   text-transform:uppercase;
 }
 
+.more {
+  display:block;
+  position:absolute;
+  top:8px;
+  right:-10px;
+  width:6px;
+  height:3px;
+  background:url('/img/icons/tiny_arrow.png') no-repeat right top;
+}
+
 a {
   color:$link_color;
   font-weight:normal;
@@ -70,7 +80,7 @@ a {
       .left {
         float:left;
         width:603px;
-        margin-right:33px;
+        margin-right:41px;
         border-top:1px solid $gray;
         padding-top:25px;
       }
@@ -92,7 +102,6 @@ a {
         .right {
           padding:0;
           border:none;
-
         }
       }
     }
@@ -191,10 +200,15 @@ a {
 
           }
           a {
+            position:relative;
             float:right;
             margin-top:10px;
-            margin-right:5px;
+            margin-right:10px;
             font-size:15px;
+
+            &:hover span {
+              background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+            }
           }
 
         }
@@ -264,11 +278,18 @@ a {
 
     .right {
       a {
+        position:relative;
         font-size:15px;
         text-decoration:underline;
+
+        &:hover span {
+          background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+        }
       }
 
       .selector {
+        clear:both;
+        overflow:hidden;
         margin-bottom: 20px;
         padding-bottom: 20px;
         border-bottom: 1px solid #eee;

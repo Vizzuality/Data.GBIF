@@ -435,53 +435,6 @@ a {
 
     width:702px;
 
-    &#step-1 {
-      .important {
-
-        form {
-          clear:both;
-          overflow:hidden;
-
-          p {
-            clear:left;
-            margin-bottom: 5px;
-            font-weight:bold;
-            font-size:15px;
-            color:$medium_dark;
-
-          }
-
-          input[type="text"] {
-            float:left;
-            width:426px - 20;
-            height:31px;
-            padding:0;
-            padding:0 10px;
-            margin:0;
-            margin-bottom:10px;
-            background:url('/img/input_small_bkg.png') no-repeat;
-            font-size:13px;
-          }
-
-          .button {
-            float:left;
-            margin:0;
-            border:none;
-            width:88px;
-            height:31px;
-            padding:0 0px 3px 0;
-            background: url('/img/buttons/input_small_button_right_bkg.png') no-repeat right top;
-            color:$brightest;
-            font-family:$font_medium;
-            font-size:15px;
-            span {
-              @include blue-shadow;
-            }
-          }
-        }
-      }
-    }
-
     &#step-2 {
       text-align:center;
 
@@ -536,8 +489,8 @@ a {
           line-height:40px;
           font-size:13px;
           color:$gray;
-          a {
 
+          a {
             color:$gray;
             text-decoration:underline;
           }
@@ -546,19 +499,18 @@ a {
 
       .important {
         width:638px;
-        margin:30px auto 28px auto;
+        margin:40px auto 48px auto;
         position:relative;
 
         .inner {
           clear:both;
           overflow:hidden;
           padding:4px 25px;
-          width:638px;
+          width:638px - 2*25;
           padding: 4px 25px;
           background:url('/img/box_blue_bkg.png') repeat-y;
 
           p {
-            width:501px + 50px;
             font-size:13px;
             color:$medium_dark;
 
@@ -567,7 +519,49 @@ a {
               text-decoration:underline;
             }
           }
-          img {
+
+          form {
+            float:left;
+
+            p {
+              clear:left;
+              margin-bottom: 5px;
+              font-weight:bold;
+              font-size:15px;
+              color:$medium_dark;
+            }
+
+            input[type="text"] {
+              float:left;
+              width:426px - 20;
+              height:31px;
+              padding:0;
+              padding:0 10px;
+              margin:0;
+              margin-bottom:10px;
+              background:url('/img/input_small_bkg.png') no-repeat;
+              font-size:13px;
+            }
+
+            .button {
+              float:left;
+              margin:0;
+              border:none;
+              width:88px;
+              height:31px;
+              padding:0 0px 3px 0;
+              background: url('/img/buttons/input_small_button_right_bkg.png') no-repeat right top;
+              color:$brightest;
+              font-family:$font_medium;
+              font-size:15px;
+              span {
+                @include blue-shadow;
+              }
+            }
+          }
+
+          img.icon {
+            display:block;
             float:left;
             margin-right:10px;
           }
@@ -651,10 +645,9 @@ a {
       }
 
       form {
-        clear:both;
-        overflow:hidden;
-        width:413px + 109;
-        margin:0 auto 20px auto;
+        width:413px + 101;
+        float:left;
+
         input[type="text"] {
           float:left;
           border:none;

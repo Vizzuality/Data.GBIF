@@ -7,6 +7,21 @@
   text-align:center;
   @include transparency_fix;
 
+  &:hover {
+    background-position:left -35px;
+    span {
+      background-position:right -35px;
+    }
+  }
+
+  &:active {
+    background-position:left bottom;
+    span {
+      line-height:35px;
+      background-position:right bottom;
+    }
+  }
+
   span {
     display:block;
     height:35px;
@@ -40,6 +55,7 @@
   &:active {
     background-position:left bottom!important;
     span {
+      line-height:38px!important;
       background-position:right bottom!important;
     }
   }

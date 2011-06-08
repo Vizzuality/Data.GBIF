@@ -437,7 +437,7 @@ a {
 
     &#step-1 {
       .important {
-        background:url('/img/icons/computer_plug.png') no-repeat left top;
+        background:url('/img/box_blue_bkg.png') no-repeat left top;
         margin-bottom:10px;
 
         form {
@@ -758,6 +758,7 @@ a {
         padding:15px;
         font-size:13px;
         background:url('/img/textarea_bkg.png') no-repeat;
+        font-family:$base;
 
         resize:none;
         overflow:auto;
@@ -786,4 +787,4 @@ a {
       }
     }
   } // article.reply
-} // #content
+                                                                   } // #content

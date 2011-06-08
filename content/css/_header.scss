@@ -155,6 +155,7 @@ header {
             a {
               color:$ultra_dark;
               background: url('/img/triangle.png') no-repeat center bottom;
+              @include transparency_fix;
             }
 
           }
@@ -169,6 +170,8 @@ header {
             &:hover {
               color:$ultra_dark;
               background: url('/img/triangle.png') no-repeat center bottom;
+              @include transparency_fix;
+
               span {
                 background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
               }

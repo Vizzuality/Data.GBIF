@@ -1,9 +1,9 @@
 @mixin color-transition {
-  -webkit-transition: color .5s ease-in-out;
-  -moz-transition: color .5s ease-in-out;
-  -o-transition: color .5s ease-in-out;
-  -ms-transition: color .5s ease-in-out;
-  transition: color .5s ease-in-out;
+  -webkit-transition: color .3s ease-in-out;
+  -moz-transition: color .3s ease-in-out;
+  -o-transition: color .3s ease-in-out;
+  -ms-transition: color .3s ease-in-out;
+  transition: color .3s ease-in-out;
 }
 
 @mixin remove-transition {
@@ -17,6 +17,13 @@
 @mixin blue-shadow {
   text-shadow:0 -1px $dark_link_color; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
 }
+
+@mixin transparency_fix {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */
+  zoom: 1;
+}
+
 /* Set sub, sup without affecting line-height: gist.github.com/413930 */
 sub, sup { font-size: 75%; line-height: 0; position: relative; }
 sup { top: -0.5em; }

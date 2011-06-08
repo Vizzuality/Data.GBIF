@@ -5,6 +5,7 @@
   border:none;
   background:url('/img/buttons/button_blue_left_side.png') no-repeat left top;
   text-align:center;
+  @include transparency_fix;
 
   span {
     display:block;
@@ -15,7 +16,8 @@
     font-family:$font_medium;
     font-size:15px;
     color:$brightest;
-    @include blue-shadow
+    @include blue-shadow;
+    @include transparency_fix;
   }
 }
 
@@ -26,6 +28,7 @@
   border:none;
   text-align:center;
   background:url('/img/buttons/button_white_left.png') no-repeat left top;
+  @include transparency_fix;
 
   span {
     display:block;
@@ -35,7 +38,8 @@
     background:url('/img/buttons/button_white_right.png') repeat-x right top;
     font-family:$font_medium;
     font-size:15px;
-    @include white-shadow
+    @include white-shadow;
+    @include transparency_fix;
   }
 }
 

@@ -86,7 +86,7 @@ a {
       clear:both;
       overflow:hidden;
       padding:4px 25px;
-      background:url('/img/box_bkg.png') repeat-y;
+      background:url('/img/boxes/box_bkg.png') repeat-y;
 
       .left {
         float:left;
@@ -123,7 +123,7 @@ a {
       width:924px;
       height:20px;
       padding:0;
-      background:url('/img/box_top.png') no-repeat left top;
+      background:url('/img/boxes/box_top.png') no-repeat left top;
     }
 
     footer {
@@ -132,7 +132,7 @@ a {
       width:924px;
       height:20px;
       padding:0;
-      background:url('/img/box_bottom.png') no-repeat left top;
+      background:url('/img/boxes/box_bottom.png') no-repeat left top;
       text-align:left;
     }
 
@@ -232,15 +232,15 @@ a {
           }
         }
       }
-      background:url('/img/box_results_bkg.png') repeat-y;
+      background:url('/img/boxes/box_results_bkg.png') repeat-y;
     }
 
     header{
-      background:url('/img/box_results_top.png') no-repeat left top;
+      background:url('/img/boxes/box_results_top.png') no-repeat left top;
     }
 
     footer {
-      background:url('/img/box_results_bottom.png') no-repeat left top;
+      background:url('/img/boxes/box_results_bottom.png') no-repeat left top;
     }
 
     .result {
@@ -376,16 +376,16 @@ a {
 
     .content {
       width:720px;
-      background:url('/img/box_floating_bkg.png') repeat-y;
+      background:url('/img/boxes/box_floating_bkg.png') repeat-y;
     }
     header{
       width:720px;
-      background:url('/img/box_floating_top.png') repeat-y;
+      background:url('/img/boxes/box_floating_top.png') repeat-y;
     }
 
     footer{
       width:720px;
-      background:url('/img/box_floating_bottom.png') repeat-y;
+      background:url('/img/boxes/box_floating_bottom.png') repeat-y;
     }
   }
 
@@ -396,7 +396,7 @@ a {
     .content {
       padding: 61px 0;
       text-align:center;
-      background:url('/img/box_dataset_bkg.png') repeat-y;
+      background:url('/img/boxes/box_dataset_bkg.png') repeat-y;
 
       .results {
         float:left;
@@ -501,12 +501,12 @@ a {
 
     header{
       width:702px;
-      background:url('/img/box_dataset_top.png') no-repeat left top;
+      background:url('/img/boxes/box_dataset_top.png') no-repeat left top;
     }
 
     footer {
       width:702px;
-      background:url('/img/box_dataset_bottom.png') no-repeat left top;
+      background:url('/img/boxes/box_dataset_bottom.png') no-repeat left top;
     }
   }
 
@@ -556,7 +556,7 @@ a {
     }
 
     .content {
-      background:url('/img/box_dataset_bkg.png') repeat-y;
+      background:url('/img/boxes/box_dataset_bkg.png') repeat-y;
 
       nav {
         clear:both;
@@ -587,7 +587,7 @@ a {
           padding:4px 25px;
           width:638px - 2*25;
           padding: 4px 25px;
-          background:url('/img/box_blue_bkg.png') repeat-y;
+          background:url('/img/boxes/box_blue_bkg.png') repeat-y;
 
           p {
             font-size:13px;
@@ -651,7 +651,7 @@ a {
           top:-20px;
           width:638px;
           height:20px;
-          background:url('/img/box_blue_top.png') no-repeat left top;
+          background:url('/img/boxes/box_blue_top.png') no-repeat left top;
         }
 
         .bottom {
@@ -659,7 +659,7 @@ a {
           bottom:-20px;
           width:638px;
           height:20px;
-          background:url('/img/box_blue_bottom.png') no-repeat left top;
+          background:url('/img/boxes/box_blue_bottom.png') no-repeat left top;
           text-align:left;
         }
 
@@ -765,12 +765,12 @@ a {
 
     header {
       width:702px;
-      background:url('/img/box_dataset_top.png') no-repeat left top;
+      background:url('/img/boxes/box_dataset_top.png') no-repeat left top;
     }
 
     footer {
       width:702px;
-      background:url('/img/box_dataset_bottom.png') no-repeat left top;
+      background:url('/img/boxes/box_dataset_bottom.png') no-repeat left top;
     }
 
   }
@@ -844,7 +844,7 @@ a {
       left:20px;
       width:24px;
       height:15px;
-      background:url('/img/box_triangle.png') no-repeat;
+      background:url('/img/boxes/box_triangle.png') no-repeat;
       z-index:100;
     }
 

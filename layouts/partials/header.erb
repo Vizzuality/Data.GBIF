@@ -1,21 +1,24 @@
 <header>
-
 <!-- top -->
 <div id="top">
   <div class="content">
+
     <div class="account">
       <a href="#">Sign in</a> or <a href="#">Create your account</a>
     </div>
+
     <%= render "partials/logo" %>
+
     <nav>
     <ul>
-      <li><a href="#">Occurences</a></li>
-      <li class="selected"><a href="dataset.html">Datasets</a></li>
-      <li><a href="#">Species</a></li>
-      <li><a href="#">More<span class="more"></span></a></li>
+      <li><a href="#" title="Occurences">Occurences</a></li>
+      <li class="selected"><a href="dataset.html" title="Datasets">Datasets</a></li>
+      <li><a href="#" title="Species">Species</a></li>
+      <li><a href="#" title="More">More<span class="more"></span></a></li>
       <li class="search"><form><input type="text" name="search" /></form></li>
     </ul>
     </nav>
+
   </div>
 </div>
 <!-- /top -->
@@ -25,11 +28,10 @@
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li class="selected"><a href="index.html"><span>Information</span></a></li>
-    <li><a href="#"><span>Activity <sup>(2)</sup></span></a></li>
-    <li><a href="discussion.html"><span>Discussion <sup>(233)</sup></span></a></li>
+    <li class="selected"><a href="index.html" title="Information"><span>Information</span></a></li>
+    <li><a href="#" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+    <li><a href="discussion.html" title="Discussion"><span>Discussion <sup>(233)</sup></span></a></li>
   </ul>
 </div>
 <!-- /tabs-->
-
 </header>

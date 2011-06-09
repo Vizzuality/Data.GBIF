@@ -284,6 +284,25 @@ header {
         padding:0; margin:0;
         margin-left: 3px;
 
+        &.breadcrumb {
+          li {
+            padding-right:12px;
+            margin-right:3px;
+            background: url('/img/icons/arrow_header_right.png') no-repeat right;
+
+            &:last-child, .last {
+              background:none;
+            }
+
+            a {
+              color:$ultra_dark;
+              &:hover {
+                text-decoration:underline;
+              }
+            }
+          }
+      }
+
         li {
           display:inline;
           font-size:13px;
@@ -315,6 +334,9 @@ header {
         a {
           color: $brightest;
           opacity:1.25;
+          &:hover {
+            text-decoration:underline;
+          }
         }
       }
 
@@ -331,9 +353,7 @@ header {
           &:focus {
             outline:none;
           }
-
         }
-
       }
 
       .tags {
@@ -343,6 +363,13 @@ header {
         font-size: 11px;
         color:$ultra_dark;
         opacity:.75;
+
+        a {
+          color:$ultra_dark;
+          &:hover {
+            text-decoration:underline;
+          }
+        }
       }
 
       .box {
@@ -375,7 +402,7 @@ header {
               text-align:center;
               color:$dark;
 
-              h3 {
+              h4 {
                 margin-bottom: 3px;
                 font-family:$font_medium;
                 font-size:31px;

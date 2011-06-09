@@ -9,17 +9,12 @@
 
   &:hover {
     background-position:left -35px;
-    span {
-      background-position:right -35px;
-    }
+    span { background-position:right -35px; }
   }
 
   &:active {
     background-position:left bottom;
-    span {
-      line-height:35px;
-      background-position:right bottom;
-    }
+    span { line-height:35px; background-position:right bottom; }
   }
 
   span {
@@ -47,17 +42,12 @@
 
   &:hover {
     background-position:left -38px!important;
-    span {
-      background-position:right -38px!important;
-    }
+    span { background-position:right -38px!important; }
   }
 
   &:active {
     background-position:left bottom!important;
-    span {
-      line-height:38px!important;
-      background-position:right bottom!important;
-    }
+    span { line-height:38px!important; background-position:right bottom!important; }
   }
 
   span {
@@ -90,5 +80,22 @@
   span {
     padding-right:22px;
     background:url('/img/buttons/button_white_next_right.png') repeat-x right top;
+  }
+}
+
+.search_button {
+  float:left;
+  margin:0;
+  padding:0 20px 7px 0;
+  width:109px;
+  height:37px;
+  background: url('/img/buttons/button_search.png') no-repeat left top;
+  border:none;
+  color:$brightest;
+  font-family:$font_medium;
+  font-size:17px;
+
+  &:hover  { background-position:left -37px; }
+  &:active { line-height:35px; background-position:left bottom;
   }
 }

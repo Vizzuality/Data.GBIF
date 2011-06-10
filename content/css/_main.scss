@@ -437,7 +437,7 @@ a {
         margin-bottom:55px;
       }
 
-      h3 { text-align:center; font-family:$base; font-size:17px; text-transform:none; color:$ultra_dark; }
+      h3 { margin-bottom: 3px; text-align:center; font-family:$base; font-weight:bold; font-size:17px; text-transform:none; color:$ultra_dark; }
 
       p {
         font-size:15px;
@@ -476,7 +476,14 @@ a {
           font-size:13px;
           color:$dark;
 
-          a { color:$dark; text-decoration:underline; }
+          a {
+            text-decoration:underline;
+            color:$dark;
+
+            &:hover {
+              color:$hover_link_color!important;
+            }
+          }
         } //p
       } //nav
 
@@ -497,7 +504,10 @@ a {
             color:$medium_dark;
             margin-bottom: 0px;
 
-            a { color:$ultra_dark; text-decoration:underline; }
+            a {
+              color:$ultra_dark;
+              text-decoration:underline;
+            }
           } //p
 
           form {

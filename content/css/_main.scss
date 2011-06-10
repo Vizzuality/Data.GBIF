@@ -139,10 +139,8 @@ a {
           color:$medium_dark;
           background:none;
 
-          &:last-child, .last {
-            margin-right:none;
-            clear:right;
-          }
+          &.last { margin-right:none; clear:right; }
+          &:last-child { margin-right:none; clear:right; }
 
           a {display:block;}
 
@@ -246,10 +244,9 @@ a {
             font-size:13px;
             background:url('/img/icons/arrow_small_right.png') no-repeat right;
             color:$dark;
-            li:last-child, &.last {
-              background:none;
 
-            }
+            &.last { background:none; }
+            li:last-child { background:none; }
           }
         }
       }
@@ -371,11 +368,8 @@ a {
             border-right:1px solid #CCCCCC;
             list-style:none;
 
-            &:last-child, .last {
-              margin-right:0;
-              padding-right:0;
-              border:none;
-            }
+            &.last { margin-right:0; padding-right:0; border:none; }
+            &:last-child { margin-right:0; padding-right:0; border:none; }
 
             a {
               display:block;
@@ -398,17 +392,24 @@ a {
         width:413px + 109;
         margin:0 auto 20px auto;
 
-        input[type="text"] {
+        .input_text {
           float:left;
-          border:none;
-          padding:0;
           width:413px - 45;
           height:37px;
           padding: 0px 20px 0 25px;
+          background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
+        }
+
+
+        input[type="text"] {
+          width:413px - 45;
+          height:37px;
           margin:0;
-          background: url('/img/input_dataset_bkg.png') no-repeat left top;
+          padding: 0px;
           font-size:17px;
           color:$ultra_dark;
+          background:none;
+          border:none;
 
           &:focus {
             outline:none;
@@ -417,6 +418,7 @@ a {
       } // form
     } // .content
   } // article.dataset
+
 
   article.tunnel {
 
@@ -541,7 +543,8 @@ a {
           margin-right:5px;
           padding-right:15px;
 
-          &:last-child, &.last { background:none; }
+          &.last { background:none; }
+          &:last-child { background:none; }
 
           h2 {
             display:inline;

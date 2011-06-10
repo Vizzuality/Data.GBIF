@@ -7,12 +7,20 @@
   text-align:center;
   @include transparency_fix;
 
+  &.left {
+    float:left;
+  }
+
+  &.right {
+    float:right;
+  }
+
   &:hover {
     background-position:left -35px;
     span { background-position:right -35px; }
   }
 
-  &:active {
+  &.active, &:active {
     background-position:left bottom;
     span { line-height:35px; background-position:right bottom; }
   }
@@ -45,7 +53,7 @@
     span { background-position:right -38px!important; }
   }
 
-  &:active {
+  &.active, &:active {
     background-position:left bottom!important;
     span { line-height:38px!important; background-position:right bottom!important; }
   }
@@ -96,6 +104,9 @@
   font-size:17px;
 
   &:hover  { background-position:left -37px; }
-  &:active { line-height:35px; background-position:left bottom;
+
+  &.active, &:active {
+    padding-top:5px; // we use padding-top instead of line-height to fix a bug in Firefox
+    background-position:left bottom;
   }
 }

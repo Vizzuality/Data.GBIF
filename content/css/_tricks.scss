@@ -45,6 +45,14 @@ input[type="checkbox"] { vertical-align: bottom; }
 .ie7 input[type="checkbox"] { vertical-align: baseline; }
 .ie6 input { vertical-align: text-bottom; }
 
+button:focus { outline-width:1px; outline-style:dotted; } button::-moz-focus-inner { padding:0; border:0; }
+
+// fixes align position in the dataset input search field
+.ie7 span.input_text input {
+  line-height:30px;
+}
+
+
 /* Hand cursor on clickable input elements */
 label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
 

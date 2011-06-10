@@ -435,7 +435,6 @@ a {
 
       ul.breadcrumb {
         margin-bottom:55px;
-        text-align:left;
       }
 
       h3 { text-align:center; font-family:$base; font-size:17px; text-transform:none; color:$ultra_dark; }
@@ -466,6 +465,7 @@ a {
         clear:both;
         overflow:hidden;
         margin:auto;
+        width:638px;
 
         a.candy_white_button { float:right; padding-right:0; }
 
@@ -540,12 +540,13 @@ a {
         margin: 0 0 20px 0;
         padding-bottom:20px;
         border-bottom: 1px solid $gray;
+        text-align:left;
 
         li {
           padding:0;
           margin:0;
           display:inline;
-          background:url('/img/icons/arrow_right.png') no-repeat right center;
+          background:url('/img/icons/arrow_right.png') no-repeat right 3px;
           margin-right:5px;
           padding-right:15px;
 

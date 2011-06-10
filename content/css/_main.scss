@@ -465,7 +465,7 @@ a {
       nav {
         clear:both;
         overflow:hidden;
-        width:638px;
+        margin:auto;
 
         a.candy_white_button { float:right; padding-right:0; }
 
@@ -545,12 +545,11 @@ a {
           padding:0;
           margin:0;
           display:inline;
-          background:url('/img/icons/arrow_right.png') no-repeat right 3px;
+          background:url('/img/icons/arrow_right.png') no-repeat right center;
           margin-right:5px;
           padding-right:15px;
 
-          &.last { background:none; }
-          &:last-child { background:none; }
+          &:last-child, &.last { background:none; }
 
           h2 {
             display:inline;

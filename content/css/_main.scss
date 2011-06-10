@@ -481,21 +481,21 @@ a {
       } //nav
 
       .important {
-        margin:40px 0;
-
+        margin:40px auto;
         position:relative;
-        padding:0;
+        width:638px;
 
         .inner {
           clear:both;
           overflow:hidden;
-          width:638px - 2*25;
-          padding: 4px 25px;
+          padding: 0 25px;
+          width:638px - 25 * 2;
           background:url('/img/boxes/box_blue_bkg.png') repeat-y;
 
           p {
             font-size:13px;
             color:$medium_dark;
+            margin-bottom: 0px;
 
             a { color:$ultra_dark; text-decoration:underline; }
           } //p

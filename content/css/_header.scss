@@ -116,20 +116,33 @@ header {
           font-family:$font_medium;
 
           &.search {
-
             margin-top:0px;
+
+            form {
+              clear:both;
+              overflow:hidden;
+
+            span.input_text {
+              float:left;
+              width:173px - 35;
+              height:27px;
+              padding:0px 10px 0 25px;
+              background: url('/img/header/input_bkg.png') no-repeat scroll left top;
+            }
 
             input {
               border:none;
+              background:none;
               width:173px - 35;
-              padding:5px 10px 0 25px;
-              height:27px - 5;
-              background: url('/img/header/input_bkg.png') no-repeat left top;
+              height:27px;
+              margin:0;
+              padding:0;
 
               &:focus { outline:none; }
 
-            } // input
-          } // search
+            } //input
+          } //form
+          } //li.search
 
           &.selected a { color:$ultra_dark; background: url('/img/header/triangle.png') no-repeat center bottom; @include transparency_fix; }
 

@@ -48,11 +48,13 @@ input[type="checkbox"] { vertical-align: bottom; }
 button:focus { outline-width:1px; outline-style:dotted; } button::-moz-focus-inner { padding:0; border:0; }
 
 // fixes align position in the dataset input search field
-.ie7 span.input_text input {
+.ie7 article span.input_text input {
   line-height:30px;
 }
 
-
+.ie7 span.input_text input {
+  line-height:25px;
+}
 /* Hand cursor on clickable input elements */
 label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
 
@@ -71,3 +73,11 @@ input:-moz-placeholder {
     color:$gray;
 }
 
+// Fixes font rendering in Explorer
+.ie7, .ie6, .ie8 {
+  h1,h2,h3,h4,h5,h6, #tabs ul li a, nav ul li a {
+    letter-spacing: 0!important;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=hIEfix.png,sizingMethod=crop)!important;
+    zoom:1!important;
+  }
+}

@@ -12,10 +12,3 @@ $font_medium:  'DINOT-Medium', Sans-Serif;
 $font_bold:    'DINOT-Bold', Sans-Serif;
 $font_light:   'DINOT-Light', Sans-Serif;
 
-.ie7, .ie6, .ie8 {
-  h1,h2,h3,h4,h5,h6, #tabs ul li a, nav ul li a {
-    letter-spacing: 0!important;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=hIEfix.png,sizingMethod=crop)!important;
-    zoom:1!important;
-  }
-}

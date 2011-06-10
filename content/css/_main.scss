@@ -1,9 +1,13 @@
+html, body {
+  background:$background_color;
+  height:100%; // fix for opera height bug
+}
+
 body {
   text-align:center;
   font-size:13px;
   color:$medium_dark;
   font-family:$base;
-  background:$background_color;
 }
 
 abbr { font-size:11px; text-transform:uppercase; }
@@ -87,6 +91,7 @@ a {
       clear:both;
       overflow:hidden;
       padding-left:25px;
+      padding-right:25px;
       background:url('/img/boxes/box_bkg.png') repeat-y;
 
       .left   { float:left; width:603px; margin-right:41px; padding-top:25px; border-top:1px solid $gray;}
@@ -400,7 +405,6 @@ a {
           background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
         }
 
-
         input[type="text"] {
           width:413px - 45;
           height:37px;
@@ -428,18 +432,18 @@ a {
     footer { width:702px; background:url('/img/boxes/box_dataset_bottom.png') no-repeat left top; }
 
     &#step-2 {
-      text-align:center;
 
       ul.breadcrumb {
         margin-bottom:55px;
         text-align:left;
       }
 
-      h3 { font-family:$base; font-size:17px; text-transform:none; color:$ultra_dark; }
+      h3 { text-align:center; font-family:$base; font-size:17px; text-transform:none; color:$ultra_dark; }
 
       p {
         font-size:15px;
         margin-bottom: 5px;
+        text-align:center;
 
         &.extra { margin-bottom: 54px; color:$dark; }
 
@@ -447,7 +451,6 @@ a {
 
       nav {
 
-        a.candy_white_button { float:right; }
         p {
           float:left;
           a { font-size:15px; color:$link_color; }
@@ -457,10 +460,14 @@ a {
 
     .content {
       background:url('/img/boxes/box_dataset_bkg.png') repeat-y;
+      padding: 0 29px;
 
       nav {
         clear:both;
         overflow:hidden;
+        width:638px;
+
+        a.candy_white_button { float:right; padding-right:0; }
 
         p {
           float:right;
@@ -474,14 +481,14 @@ a {
       } //nav
 
       .important {
-        width:638px;
-        margin:40px auto 48px auto;
+        margin:40px 0;
+
         position:relative;
+        padding:0;
 
         .inner {
           clear:both;
           overflow:hidden;
-          padding:4px 25px;
           width:638px - 2*25;
           padding: 4px 25px;
           background:url('/img/boxes/box_blue_bkg.png') repeat-y;
@@ -530,8 +537,7 @@ a {
       } //ul
 
       ul.breadcrumb {
-        margin:0;
-        margin-bottom:20px;
+        margin: 0 0 20px 0;
         padding-bottom:20px;
         border-bottom: 1px solid $gray;
 

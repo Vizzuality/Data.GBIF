@@ -7,15 +7,7 @@
       <a href="#">Sign in</a> or <a href="#">Create your account</a>
     </div>
     <%= render "partials/logo" %>
-    <nav>
-    <ul>
-      <li><a href="#">Occurences</a></li>
-      <li class="selected"><a href="dataset.html">Datasets</a></li>
-      <li><a href="#">Species</a></li>
-      <li><a href="#">More<span class="more"></span></a></li>
-      <li class="search"><form><input type="text" name="search" /></form></li>
-    </ul>
-    </nav>
+    <%= render "partials/nav", :selected => "datasets" %>
   </div>
 </div>
 <!-- /top -->

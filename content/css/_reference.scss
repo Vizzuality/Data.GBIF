@@ -1,50 +1,16 @@
-article.help {
-  div.left {
-    h3 {font-size:18px!important; margin-bottom: 10px!important; }
-    ul {
-      li {
-        background:none!important;
-        padding:0!important;
-        margin-left:0!important;
-      }
-    }
-    ul.sizes {
-      li {
-        margin-bottom: 20px!Important;
-      }
+body {
+  &.reference header {
+    height:226px;
+
+    #infoband {
+      border-bottom:1px solid #4b8741;
+      height: 129px - 33;
+
+      .content h3 { background: none; }
     }
   }
-
-
-  h1 {
-    font-size:35px!important;
-    font-family:$font_regular;
-  }
-
-  h2 {
-    font-size:30px!important;
-    font-family:$font_regular;
-  }
-
-  h3 {
-    font-size:35px!important;
-    font-family:$font_regular;
-  }
-
-  h4 {
-    font-size:35px;
-    font-family:$font_regular;
-  }
-
-  h5 {
-    font-size:25px;
-    font-family:$font_regular;
-  }
-
-  h6 {
-    font-size:15px;
-    font-family:$font_regular;
-  }
+}
+article.reference {
 
   .color {
     float:left;

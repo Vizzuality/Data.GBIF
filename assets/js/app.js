@@ -9,7 +9,6 @@ $(function(){
   };
   var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
-
 //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
 //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
 //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });

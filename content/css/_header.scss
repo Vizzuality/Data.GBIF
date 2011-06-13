@@ -350,7 +350,7 @@ header {
           margin:0;
           left:0; right:0;
           height:120px;
-          padding-top:13px;
+          padding:12px 12px 0 0;
           background:url('/img/header/infoband_box_right.png') repeat-x right top;
 
           ul {
@@ -373,8 +373,8 @@ header {
                 color:$ultra_dark;
               }
 
-              &.last{ border:none; }
-              &:last-child { border:none; }
+              &.last{ padding-right:0; border:none; }
+              &:last-child { padding-right:0; border:none; }
             } // li
           } // ul
         } // .content

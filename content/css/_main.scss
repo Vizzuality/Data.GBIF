@@ -19,10 +19,8 @@ p.advice {
   margin-bottom:45px;
   font-size:13px;
   color:$dark;
-  a {
-    color:$dark;
-    text-decoration:underline;
-  }
+
+  a { color:$dark; text-decoration:underline; }
 }
 
 .more {
@@ -55,27 +53,10 @@ a {
   text-align:center;
 
   .mini-profile {
-    a {
-      text-decoration:underline;
-    }
-    a.avatar {
-      float:left;
-      margin-right:10px;
-      text-decoration:none;
-    }
-    strong {
-      display:block;
-      width:230px;
-      margin-bottom:3px;
-      font-weight:bold;
-      font-size:15px;
-      line-height:17px;
-      color:$ultra_dark;
-    }
-    span.date {
-      font-size:13px;
-      color:$dark;
-    }
+    a { text-decoration:underline; }
+    a.avatar { float:left; margin-right:10px; text-decoration:none; }
+    strong { display:block; width:230px; margin-bottom:3px; font-weight:bold; font-size:15px; line-height:17px; color:$ultra_dark; }
+    span.date { font-size:13px; color:$dark; }
   } // mini-profile
 
   article {
@@ -95,14 +76,31 @@ a {
       padding:0 25px;
       background:url('/img/boxes/box_bkg.png') repeat-y;
 
-      .left   { float:left; width:603px; margin-right:41px; padding-top:25px; border-top:1px solid $border_color;}
+      h2 { margin-bottom:20px; font-family:$font_medium; font-size:23px; line-height:28px; color:$ultra_dark; @include white-shadow; }
+      h3 { margin-bottom:8px;  font-family:$font_medium; font-size:13px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
+      p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
+      a:hover { color:$hover_link_color; }
+
+      .left   {
+        float:left;
+        width:593px;
+        margin-right:41px;
+        padding-top:25px;
+        border-top:1px solid $border_color;
+
+        p a {text-decoration:underline; }
+      }
+
       .right  {
         float:left;
         width:230px;
         padding-top:25px;
         border-top:1px solid $border_color;
 
-        ul { margin-left:0; }
+        ul {
+          margin-left:0;
+          li a {text-decoration:none; }
+        }
       }
 
       .header {
@@ -118,13 +116,6 @@ a {
         .right { padding:0; border:none; }
       } // .header
 
-
-      h2 { margin-bottom:20px; font-family:$font_medium; font-size:23px; line-height:28px; color:$ultra_dark; @include white-shadow; }
-      h3 { margin-bottom:8px;  font-family:$font_medium; font-size:13px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
-
-      p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
-      a:hover { color:$hover_link_color; }
-
       ul {
         margin: 0 1px 26px 15px;
 
@@ -135,6 +126,8 @@ a {
           font-size:15px;
           background:url('/img/icons/dot.png') no-repeat left 8px;
           color:$medium_dark;
+
+          a { text-decoration:underline; }
 
           &.download {
             padding-left:18px;
@@ -373,10 +366,11 @@ a {
 
             a {
               display:block;
+              margin-bottom:10px;
               color:$link_color;
               font-family:$font_medium;
               font-size:31px;
-              margin-bottom:10px;
+              text-decoration:none;
 
               &:hover { color:$ultra_dark; @include color-transition; }
             }
@@ -451,7 +445,7 @@ a {
 
         &:last-child, &.last { margin-right:0; }
 
-        a { display:block; margin-top:17px; padding:13px 0 12px 0; border-top: 1px solid $brightest; }
+        a { display:block; margin-top:17px; padding:13px 0 12px 0; text-decoration:none; border-top: 1px solid $brightest; }
         h2 { margin:3px 0; padding:0; display:block; font-size:35px; font-family:$base; font-weight:bold; color:$medium_dark; }
 
       }//li
@@ -546,6 +540,8 @@ a {
 
           form {
             float:left;
+            margin-top:0;
+            clear:none;
 
             p { clear:left; margin-bottom: 5px; font-weight:bold; font-size:15px; color:$medium_dark; }
 
@@ -708,6 +704,9 @@ a {
     }
 
     .left {
+
+      width:597px;
+
       textarea {
         width:597px - 30;
         height:102px - 30;

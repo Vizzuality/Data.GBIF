@@ -1,0 +1,76 @@
+#content article form {
+  clear:both;
+  overflow:hidden;
+
+  margin-top:24px;
+
+  button { float:right; }
+
+  div.fields {
+    clear:both;
+    overflow:hidden;
+    margin-bottom: 23px;
+
+    div.left {
+      border:none;
+      width:auto;
+      float:left;
+      margin:0;
+      padding:0;
+      margin-right:17px;
+    }
+
+    div.right {
+      border:none;
+      width:auto;
+      float:left;
+      margin:0;
+      padding:0;
+    }
+  }
+
+  div.field {
+    float:left;
+    margin-bottom: 23px;
+
+    &:last-child, &.last { margin-bottom:21px; }
+
+    textarea {
+      width:597px - 10*2;
+      height:142px - 10*2;
+      margin:0;
+      padding:10px;
+      border:none;
+      overflow:auto;
+      font-size:13px;
+      background:url('/img/textarea_big_bkg.png') no-repeat;
+      font-family:$base;
+      resize:none;
+
+      &:focus { outline:none; }
+    }//textarea
+
+    .input_text {
+      float:left;
+      width:288px - 10*2;
+      height:32px;
+      padding: 0px 10px;
+      background: url('/img/textfield_bkg.png') no-repeat scroll left top;
+    }
+
+    input[type="text"] {
+      width:288px - 10*2;
+      height:32px;
+      margin:0;
+      padding: 0;
+      font-family:$base;
+      font-size:13px;
+      color:$ultra_dark;
+      background:none;
+      border:none;
+      resize:none;
+
+      &:focus { outline:none; }
+    }
+  }
+}

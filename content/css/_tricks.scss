@@ -42,18 +42,21 @@ sub { bottom: -0.25em; }
 /* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
 input[type="radio"] { vertical-align: text-bottom; }
 input[type="checkbox"] { vertical-align: bottom; }
+
 .ie7 input[type="checkbox"] { vertical-align: baseline; }
 .ie6 input { vertical-align: text-bottom; }
 
 button:focus { outline-width:1px; outline-style:dotted; } button::-moz-focus-inner { padding:0; border:0; }
 
 // fixes align position in the dataset input search field
-.ie7 article span.input_text input {
-  line-height:30px;
+.ie7, .ie8 {
+  article span.input_text input { line-height:30px; }
 }
 
-.ie7 span.input_text input {
-  line-height:25px;
+.ie7, .ie8 {
+  span.input_text input {
+    line-height:25px;
+  }
 }
 /* Hand cursor on clickable input elements */
 label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
@@ -66,15 +69,11 @@ No text-shadow:twitter.com/miketaylr/status/12228805301 */
   ::-moz-selection{ background:$selection_color; color:#fff; text-shadow:none; }
   ::selection { background:$selection_color; color:#fff; text-shadow:none; }
 
-input::-webkit-input-placeholder {
-    color:$gray;
-}
-input:-moz-placeholder {
-    color:$gray;
-}
+input::-webkit-input-placeholder { color:$gray; }
+input:-moz-placeholder { color:$gray; }
 
 // Fixes font rendering in Explorer
-.ie7, .ie6, .ie8 {
+.ie6, .ie7, .ie8 {
   h1,h2,h3,h4,h5,h6, #tabs ul li a, nav ul li a {
     letter-spacing: 0!important;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=hIEfix.png,sizingMethod=crop)!important;

@@ -407,6 +407,8 @@ a {
         width:413px + 109;
         margin:0 auto 20px auto;
 
+        button {margin-right:0;}
+
         .input_text {
           float:left;
           width:413px - 45;
@@ -570,10 +572,7 @@ a {
 
             input[type="text"] { float:left; width:426px - 20; height:31px; padding:0 10px; margin:0 0 20px 0; background:url('/img/input_small_bkg.png') no-repeat; font-size:13px; }
 
-            select {
-              font-size:12px;
-              color: $medium_dark;
-            }
+            select { font-size:12px; color: $medium_dark; }
 
             .button {
               float:left;
@@ -719,7 +718,6 @@ a {
     .triangle { position:absolute; top:-26px; left:20px; width:24px; height:15px; background:url('/img/boxes/box_triangle.png') no-repeat; z-index:100; }
 
     .left {
-
       width:597px;
 
       textarea {

@@ -1,5 +1,6 @@
 .candy_blue_button {
   display:block;
+  min-width:88px;
   height:35px;
   padding:0 0 0 9px;
   border:none;
@@ -7,13 +8,8 @@
   text-align:center;
   @include transparency_fix;
 
-  &.left {
-    float:left;
-  }
-
-  &.right {
-    float:right;
-  }
+  &.left { float:left; }
+  &.right { float:right; }
 
   &:hover {
     background-position:left -35px;

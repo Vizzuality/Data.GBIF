@@ -39,7 +39,7 @@ body  {
 
   // ---------------------------------------
 
-  &.static header {
+  &.user header, &.static header {
     height:226px;
 
     #infoband {

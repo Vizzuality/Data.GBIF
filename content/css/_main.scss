@@ -30,7 +30,7 @@ p.advice {
   right:-10px;
   width:6px;
   height:3px;
-  background:url('/img/icons/tiny_arrow.png') no-repeat right top;
+  background: url('/img/icons/tiny_arrow.png') no-repeat left top;
 }
 
 a {
@@ -81,9 +81,30 @@ a {
       p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
       a:hover { color:$hover_link_color; }
 
+      .light_box {
+        background:#e5f5fa;
+        position:relative;
+
+        .content { padding:10px; background:#e5f5fa; }
+
+        ul {
+          padding:0;
+          margin:0;
+          list-style:none;
+
+          li { background:none; }
+        }
+
+        .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/boxes/light_box_bkg.png') no-repeat; position:absolute; }
+        .tl { top: 0;    left:0;  background-position:0 0; }
+        .tr { top: 0;    right:0; background-position:-5px 0; }
+        .bl { bottom: 0; left:0;  background-position:0 -5px; }
+        .br { bottom: 0; right:0; background-position:-5px -5px; }
+      }
+
       .left   {
         float:left;
-        width:593px;
+        width:597px;
         margin-right:41px;
         padding-top:25px;
         border-top:1px solid $border_color;
@@ -311,7 +332,7 @@ a {
   }
 
   article.floating {
-   @include absolute_center(720px);
+    @include absolute_center(720px);
     z-index:200;
 
     .content { width:720px; background:url('/img/boxes/box_floating_bkg.png') repeat-y; }
@@ -435,13 +456,15 @@ a {
         float:left;
         width:182px;
         margin-right:18px;
-        padding:18px 0 0 0;
-        //background:none;
-        background:#f1f1f1;
+        background:none;
+        padding:0!important;
+        //background:#f1f1f1;
         line-height:15px;
         font-size:13px;
         text-align:center;
         color:$dark;
+
+        .light_box { padding-top:18px; }
 
         &:last-child, &.last { margin-right:0; }
 

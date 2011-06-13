@@ -2,30 +2,30 @@
   clear:both;
   overflow:hidden;
 
-  margin-top:24px;
 
-  button { float:right; }
+    h2 {
+      float:left;
+      width:100%;
+      padding-bottom:21px;
+      margin-bottom:30px;
+      border-bottom:1px solid $border_color;
+    }
+
+  button { float:right; margin-right:4px; }
 
   div.fields {
     clear:both;
     overflow:hidden;
     margin-bottom: 23px;
 
-    div.left {
-      border:none;
+    div.field {
       width:auto;
       float:left;
-      margin:0;
+      margin:0 17px 0 0;
       padding:0;
-      margin-right:17px;
-    }
 
-    div.right {
-      border:none;
-      width:auto;
-      float:left;
-      margin:0;
-      padding:0;
+      &.last { margin-right:0; }
+      &:last-child { margin-right:0; }
     }
   }
 
@@ -33,7 +33,11 @@
     float:left;
     margin-bottom: 23px;
 
-    &:last-child, &.last { margin-bottom:21px; }
+    &.last { margin-bottom:21px; }
+    &:last-child { margin-bottom:21px; }
+
+
+    h3 span { float:right; margin-right:1px; font-weight:normal; font-style:italic; font-size: 13px; color:$gray; text-transform:none; }
 
     textarea {
       width:597px - 10*2;

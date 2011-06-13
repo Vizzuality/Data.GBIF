@@ -128,7 +128,8 @@ div {
       background-position: right -38px; }
     &.focus {
       &:active, &.active {
-        background-position: -483px -208px; } }
+        background-position: -483px -191px; }
+      }
     &:hover:active, &.active:hover {
       background-position: -483px -191px; }
     &.focus:active span, &:hover:active span, &.active:hover span, &.focus.active span {

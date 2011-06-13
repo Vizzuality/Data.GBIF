@@ -716,15 +716,7 @@ a {
   } //article.comments
 
   article.reply {
-    .triangle {
-      position:absolute;
-      top:-26px;
-      left:20px;
-      width:24px;
-      height:15px;
-      background:url('/img/boxes/box_triangle.png') no-repeat;
-      z-index:100;
-    }
+    .triangle { position:absolute; top:-26px; left:20px; width:24px; height:15px; background:url('/img/boxes/box_triangle.png') no-repeat; z-index:100; }
 
     .left {
 
@@ -745,7 +737,7 @@ a {
         &:focus { outline:none; }
       }//textarea
 
-      button { float:right; }
+      button { margin-right:0; }
     }//.left
 
     .right {

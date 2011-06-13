@@ -6,14 +6,16 @@ body  {
     #infoband { border-bottom:1px solid #4b8741; height: 129px - 33; }
     h2 { margin-left: 25px; }
 
-  } // search
+  }
+
+  // ---------------------------------------
 
   &.dataset header, &.register header {
-
     #top nav ul li.selected a { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
     #top nav ul li a:hover { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
-
   }
+
+  // ---------------------------------------
 
   &.dataset header {
     height:98px;
@@ -21,7 +23,9 @@ body  {
     #top { border-bottom:1px solid $gray; }
     h2 { margin-left: 25px; }
 
-  } // dataset
+  }
+
+  // ---------------------------------------
 
   &.register header {
     height:98px;
@@ -30,10 +34,21 @@ body  {
       background:none;
     }
 
-    h2 {
-      margin-left: 25px;
+    h2 { margin-left: 25px; }
+  }
+
+  // ---------------------------------------
+
+  &.static header {
+    height:226px;
+
+    #infoband {
+      border-bottom:1px solid #4b8741;
+      height: 129px - 33;
+
+      .content h3 { background: none; }
     }
-  } // register
+  }
 }
 
 

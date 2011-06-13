@@ -62,7 +62,7 @@
       background: url('/img/textfield_bkg.png') no-repeat scroll left top;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="password"] {
       width:288px - 10*2;
       height:32px;
       margin:0;

@@ -425,15 +425,16 @@ a {
       margin-bottom: 27px;
       padding-bottom: 27px;
       border-bottom:1px solid $border_color;
-      &:last-child, &.last {
-        border:none;
-      }
+
+      h3 { font-size:15px; }
+      a  { text-decoration:none; }
+      &:last-child, &.last { border:none; }
     }
 
     ul.summary {
       clear:both;
       overflow:hidden;
-      margin:0 0 28px 0;
+      margin:16px 0 25px 0;
       padding:0;
 
       li {

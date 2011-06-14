@@ -34,7 +34,10 @@
 </head>
 <body class="user">
     <%= render 'partials/user/header' %>
-    <div id="content"><%= yield %></div>
+    <div id="content">
+      <%= yield %>
+      <%= render "partials/login" %>
+    </div>
     <%= render 'partials/footer' %>
     <%= render 'partials/scripts' %>
 </body>

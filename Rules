@@ -32,6 +32,10 @@ end
 # sass or scss, rips off the extention and changes it to .css
 # ----------------------------------------------------------------------
 
+compile '/js/*' do
+  # don’t compile js
+end
+
 compile '/css/_*/' do
   # don’t compile partials
 end

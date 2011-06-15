@@ -140,6 +140,7 @@ a {
         position:relative;
 
         .content { padding:10px; background:#e5f5fa; }
+        p { color:$ultra_dark; font-size:15px; }
 
         ul {
           padding:0;
@@ -154,6 +155,17 @@ a {
         .tr { top: 0;    right:0; background-position:-5px 0; }
         .bl { bottom: 0; left:0;  background-position:0 -5px; }
         .br { bottom: 0; right:0; background-position:-5px -5px; }
+
+        &.package .content {
+          background:url('/img/icons/package.png') no-repeat left center;
+          padding:20px;
+          p {
+            padding:0 0 0 50px;
+            margin:0;
+          }
+
+        }
+
       }//.light_box
 
       .left   {
@@ -579,7 +591,7 @@ a {
     } //ul
   }//article.static
 
-  article.register, article.tunnel {
+  article.register, article.download, article.tunnel {
 
     width:702px;
 
@@ -596,11 +608,22 @@ a {
         margin:auto;
         width:638px;
 
-        a.candy_white_button { float:right; padding-right:0; }
+
+        &.left {
+          margin:0; padding:0;
+          border:none;
+          a.candy_blue_button, a.candy_white_button { float:left; padding-right:0; }
+          p { float:left; padding:0; margin:0 0 0 10px; }
+        }
+
+        &.right {
+          margin:0; padding:0;
+          border:none;
+          a.candy_blue_button, a.candy_white_button { float:right; padding-right:0; }
+          p { float:right; padding:0; margin:0 10px 0 0; }
+        }
 
         p {
-          float:right;
-          margin-right:10px;
           line-height:40px;
           font-size:13px;
           color:$dark;
@@ -652,11 +675,18 @@ a {
         }
       }
     }
-
   }//article.register, article.tunnel
 
-  article.register {
+  article.register, article.download {
     p a { text-decoration:underline; }
+
+    .header h2 {
+      padding:0 0 17px 0;
+      margin:0 0 29px 0;
+      border-bottom:1px solid $border_color;
+    }
+
+    .light_box { margin:0 0 19px 0; }
 
     form {
       margin: 0; padding:0;

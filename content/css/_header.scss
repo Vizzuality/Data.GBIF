@@ -30,8 +30,15 @@ body  {
   &.register header {
     height:98px;
 
-    #top nav ul li.selected a, #top nav ul li a:hover {
-      background:none;
+    #top {
+      .content {
+
+        @include absolute_center(810px);
+
+        nav ul li.selected a, #top nav ul li a:hover {
+          background:none;
+        }
+      }
     }
 
     h2 { margin-left: 25px; }

@@ -145,7 +145,7 @@ a {
           li { background:none; }
         }//ul
 
-        .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/boxes/light_box_bkg.png') no-repeat; position:absolute; }
+        .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/boxes/box_light_bkg.png') no-repeat; position:absolute; }
         .tl { top: 0;    left:0;  background-position:0 0; }
         .tr { top: 0;    right:0; background-position:-5px 0; }
         .bl { bottom: 0; left:0;  background-position:0 -5px; }
@@ -275,11 +275,14 @@ a {
 
             &:hover span { background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom; }
           }
-        }
+        }//.left
+
         .right {
           h3 { font-family:$font_medium; font-size:22px; text-transform:none; color:$dark; }
         }
       }//.header
+
+      form {margin: 0 0 28px 0; }
     }//.content
 
     header { background:url('/img/boxes/box_results_top.png') no-repeat left top; }
@@ -610,6 +613,8 @@ a {
       button span { font-family:$base; font-size:15px; font-weight:normal; color:$link_color; }
 
       div.field input[type="text"], div.field input[type="password"] { width:280px - 18; }
+      div.fields div.field.last {float:right;}
+      div.fields div.field:last-child {float:right;}
       .light_box .content { padding:29px 29px; }
     }
   }

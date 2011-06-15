@@ -147,7 +147,7 @@ a {
           margin:0;
           list-style:none;
 
-          li { background:none; }
+          li {background:none;}
         }//ul
 
         .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/boxes/box_light_bkg.png') no-repeat; position:absolute; }
@@ -186,9 +186,17 @@ a {
 
         h3 { font-size:13px; }
 
-        ul {
+        ul{
           margin-left:0;
-          li a {text-decoration:none; }
+                    
+          li{
+            margin-bottom: 4px;
+          
+            a{
+              text-decoration:none; 
+              line-height: 15px;
+            }//a
+          }//li
         }//ul
       }//.right
 
@@ -247,7 +255,7 @@ a {
       ul.team {
         clear:both;
         overflow:hidden;
-        margin:0;
+        margin:0 0 15px 0;
 
         li {
           float:left;

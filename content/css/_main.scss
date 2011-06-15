@@ -459,6 +459,7 @@ a {
   article.dataset {
 
     width:702px;
+    margin: 40px auto 100px auto;
 
     header { width:702px; background:url('/img/boxes/box_dataset_top.png') no-repeat left top; }
     footer { width:702px; background:url('/img/boxes/box_dataset_bottom.png') no-repeat left top; }
@@ -529,7 +530,7 @@ a {
           float:left;
           width:413px - 45;
           height:37px;
-          padding: 0px 20px 0 25px;
+          padding: 0px 20px 0 0;
           //background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
         }
 

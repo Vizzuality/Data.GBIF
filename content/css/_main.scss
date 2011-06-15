@@ -12,6 +12,10 @@ body {
 
 abbr { font-size:11px; text-transform:uppercase; }
 sup  { font-size:11px; top:-3px; }
+address {
+  font-size:13px;
+  color:$medium_dark;
+}
 
 a.help { vertical-align:middle; }
 
@@ -168,7 +172,7 @@ a {
         padding-top:25px;
         border-top:1px solid $border_color;
 
-        h3 { font-size:15px; }
+        h3 { font-size:13px; }
 
         ul {
           margin-left:0;
@@ -231,18 +235,19 @@ a {
       ul.team {
         clear:both;
         overflow:hidden;
+        margin:0;
 
         li {
           float:left;
-          width:150px;
-          padding-left:0;
-          margin-right:50px;
+          width:152px;
+          padding:0;
+          margin:0 70px 0 0;
           font-size:13px;
           color:$medium_dark;
           background:none;
 
-          &.last { margin-right:none; clear:right; }
-          &:last-child { margin-right:none; clear:right; }
+          &.last { margin-right:0; clear:right; }
+          &:last-child { margin-right:0; clear:right; }
 
           a {display:block;}
 
@@ -260,6 +265,25 @@ a {
           } // h4
         } // li
       } // ul.team
+
+
+      ul.parties {
+        list-style:none;
+          margin:0; padding:0;
+
+        li {
+          margin:0 0 13px 0; padding:0;
+          background:none;
+          color:$dark;
+          strong { display:block; color:$ultra_dark; font-weight:bold; }
+          a {display:block; }
+          address { margin-top:10px; }
+
+        }
+
+
+      }
+
     } // .content
   } // article
 

@@ -33,12 +33,12 @@
 
 </head>
 <body>
-    <%= render 'partials/header' %>
+    <%= render 'external/header' %>
     <div id="content">
       <%= yield %>
-      <%= render "partials/login" %>
+      <%= render "/partials/login" %>
     </div>
-    <%= render 'partials/footer' %>
-    <%= render 'partials/scripts' %>
+    <%= render '/partials/footer' %>
+    <%= render '/partials/scripts' %>
 </body>
 </html>

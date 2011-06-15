@@ -182,11 +182,17 @@ a {
         h4 { margin-bottom:8px;  font-family:$font_medium; font-size:15px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
 
         .left  {
-          padding:0; border:none;
+          padding:0;
+          border:none;
 
+          a {text-decoration:none; }
           h2 { line-height:20px; }
         }
-        .right { padding:0; border:none; }
+        .right {
+          padding:0;
+          border:none;
+          a {text-decoration:none; }
+        }
       } // .header
 
       ul {
@@ -208,6 +214,19 @@ a {
           }
         } // li
       } // ul
+
+      ol {
+        margin: 0 1px 26px 15px;
+        list-style:decimal;
+        li {
+          margin-bottom:14px;
+          line-height:18px;
+          font-size:15px;
+          color:$medium_dark;
+
+          a { text-decoration:underline; }
+        }
+      }
 
       ul.team {
         clear:both;
@@ -488,6 +507,14 @@ a {
 
 
   article.static {
+
+    .content {
+      .left {
+        h4 { margin-bottom:21px;  font-family:$base; font-weight:bold; font-size:15px; text-transform:none; color:$medium_dark; @include white-shadow; }
+        ul, ol {margin: 0 1px 26px 20px; }
+        ul {margin: 0 1px 26px 0px; }
+      }
+    }
 
     .section {
       margin-bottom: 27px;

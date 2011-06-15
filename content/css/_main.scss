@@ -59,7 +59,7 @@ a {
   .mini-profile {
     a { text-decoration:underline; }
     a.avatar { float:left; margin-right:10px; text-decoration:none; }
-    strong { display:block; width:230px; margin-bottom:3px; font-weight:bold; font-size:15px; line-height:17px; color:$ultra_dark; }
+    strong { display:block; width:230px; margin-bottom:5px; font-weight:bold; font-size:15px; color:$ultra_dark; }
     span.date { font-size:13px; color:$dark; }
   } // mini-profile
 
@@ -888,6 +888,10 @@ a {
   article.reply {
     .triangle { position:absolute; top:-26px; left:20px; width:24px; height:15px; background:url('/img/boxes/box_triangle.png') no-repeat; z-index:100; }
 
+    .content{
+      padding-bottom: 8px;
+    }//.content
+
     .left {
       width:597px;
 
@@ -913,7 +917,10 @@ a {
       border:none;
 
       h4 { margin-bottom:10px; font-family:$font_medium; font-size:13px; color:$ultra_dark; }
-    }
+    }//.right
+    
+    
+    
   } // article.reply
 } // #content
 

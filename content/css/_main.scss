@@ -289,11 +289,11 @@ a {
 
   article.results {
     .result {
-      margin-bottom: 20px;
+      margin: 0 0 20px 0;
       border-bottom: 1px solid $light_gray;
 
       h2 {
-        margin-bottom: 10px;
+        margin: 0 0 10px 0;
 
         a {
           font-family:$base;
@@ -407,15 +407,15 @@ a {
         width:100%;
         overflow:hidden;
         position:relative;
+        padding-top:5px;
 
         ul {
           position:relative;
           clear:left;
           float:left;
           left:50%;
+          margin:0; padding:0;
           list-style:none;
-          margin:0;
-          padding:0;
           text-align:center;
 
           li {
@@ -464,22 +464,20 @@ a {
           width:413px - 45;
           height:37px;
           padding: 0px 20px 0 25px;
-          background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
+          //background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
         }
 
         input[type="text"] {
-          width:413px - 45;
+          width:413px - 48 - 5 ;
           height:37px;
           margin:0;
-          padding: 0px;
+          padding: 0 40px 0 15px;
           font-size:17px;
           color:$ultra_dark;
-          background:none;
           border:none;
+          background: url('/img/input_bkg.png') no-repeat left -62px;
 
-          &:focus {
-            outline:none;
-          }
+          &:focus { outline:none; }
         } // input
       } // form
     } // .content
@@ -527,38 +525,12 @@ a {
     } //ul
   }//article.static
 
-  article.tunnel {
+  article.register, article.tunnel {
 
     width:702px;
 
     header { width:702px; background:url('/img/boxes/box_dataset_top.png') no-repeat left top; }
     footer { width:702px; background:url('/img/boxes/box_dataset_bottom.png') no-repeat left top; }
-
-    &#step-2 {
-
-      ul.breadcrumb {
-        margin-bottom:55px;
-      }
-
-      h3 { margin-bottom: 3px; text-align:center; font-family:$base; font-weight:bold; font-size:17px; text-transform:none; color:$ultra_dark; }
-
-      p {
-        font-size:15px;
-        margin-bottom: 5px;
-        text-align:center;
-
-        &.extra { margin-bottom: 54px; color:$dark; }
-
-      } //p
-
-      nav {
-
-        p {
-          float:left;
-          a { font-size:15px; color:$link_color; }
-        }
-      } //nav
-    }
 
     .content {
       background:url('/img/boxes/box_dataset_bkg.png') repeat-y;
@@ -590,6 +562,85 @@ a {
         } //p
       } //nav
 
+      ul.breadcrumb {
+        margin: 0 0 20px 0;
+        padding: 0 0 20px 0;
+        border-bottom: 1px solid $gray;
+        text-align:left;
+
+        li {
+          padding:0;
+          margin:0;
+          display:inline;
+          background:url('/img/icons/arrow_right.png') no-repeat right 3px;
+          margin-right:5px;
+          padding-right:15px;
+
+          &:last-child, &.last { background:none; }
+          &.active h2 { color:$ultra_dark; }
+
+          h2 { display:inline; font-family:$font_medium; font-size:23px; color:$gray; }
+
+        } //li
+      } //ul.breadcrumb
+
+    }//.content
+
+    .light_box {
+      margin-bottom:29px;
+      form {
+        margin-left:19px;
+        margin-right:19px;
+        .fields {
+          .field {margin-right:0;}
+          .field:last-child {float:right; }
+          .field.last {float:right; }
+        }
+      }
+    }
+
+  }//article.register, article.tunnel
+
+  article.register {
+    p a { text-decoration:underline; }
+
+    form {
+      margin: 0; padding:0;
+
+      button span { font-family:$base; font-size:15px; font-weight:normal; color:$link_color; }
+
+      div.field input[type="text"], div.field input[type="password"] { width:280px - 18; }
+      .light_box .content { padding:29px 29px; }
+    }
+  }
+
+  article.register, article.tunnel {
+    &#step-2 {
+
+      ul.breadcrumb { margin-bottom:55px; }
+
+      h3 { margin-bottom: 3px; text-align:center; font-family:$base; font-weight:bold; font-size:17px; text-transform:none; color:$ultra_dark; }
+
+      p {
+        font-size:15px;
+        margin-bottom: 5px;
+        text-align:center;
+
+        &.extra { margin-bottom: 54px; color:$dark; }
+
+      } //p
+
+      nav {
+        p {
+          float:left;
+          a { font-size:15px; color:$link_color; }
+        }
+      } //nav
+    }//#step-2
+  }
+
+  article.tunnel {
+    .content {
       .important {
         margin:40px auto;
         position:relative;
@@ -620,7 +671,15 @@ a {
 
             p { clear:left; margin-bottom: 5px; font-weight:bold; font-size:15px; color:$medium_dark; }
 
-            input[type="text"] { float:left; width:426px - 20; height:31px; padding:0 10px; margin:0 0 20px 0; background:url('/img/input_small_bkg.png') no-repeat; font-size:13px; }
+            input[type="text"] {
+              float:left;
+              width:426px - 20;
+              height:31px;
+              padding:0 10px;
+              margin:0 0 20px 0;
+              font-size:13px;
+              background: url('/img/input_bkg.png') no-repeat left -31px;
+            }
 
             select { font-size:12px; color: $medium_dark; }
 
@@ -653,33 +712,6 @@ a {
         li { margin-bottom:17px; color:$medium_dark; }
       } //ul
 
-      ul.breadcrumb {
-        margin: 0 0 20px 0;
-        padding-bottom:20px;
-        border-bottom: 1px solid $gray;
-        text-align:left;
-
-        li {
-          padding:0;
-          margin:0;
-          display:inline;
-          background:url('/img/icons/arrow_right.png') no-repeat right 3px;
-          margin-right:5px;
-          padding-right:15px;
-
-          &:last-child, &.last { background:none; }
-
-          h2 {
-            display:inline;
-            font-family:$font_medium;
-            font-size:23px;
-            color:$gray;
-
-            &.active { color:$ultra_dark; }
-          }
-        } //li
-      } //ul.breadcrumb
-
       p  { font-size:15px; color:$ultra_dark; }
       h1 { margin-bottom:23px; font-family:$font_medium; color: $medium_dark; font-size: 35px; }
 
@@ -695,7 +727,7 @@ a {
           height:37px;
           padding: 0px 20px 0 25px;
           margin:0;
-          background: url('/img/input_dataset_bkg.png') no-repeat left top;
+          //  background: url('/img/input_dataset_bkg.png') no-repeat left top;
           font-size:17px;
           color:$ultra_dark;
 

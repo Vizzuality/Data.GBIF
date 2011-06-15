@@ -2,14 +2,7 @@
   clear:both;
   overflow:hidden;
 
-  h2 {
-    float:left;
-    width:100%;
-    padding-bottom:21px;
-    margin-bottom:30px;
-    border-bottom:1px solid $border_color;
-  }
-
+  h2 { float:left; width:100%; padding-bottom:21px; margin-bottom:30px; border-bottom:1px solid $border_color; }
   button { float:right; margin-right:4px; }
 
   div.fields {
@@ -32,11 +25,10 @@
     float:left;
     margin-bottom: 23px;
 
-    &.last { margin-bottom:21px; }
-    &:last-child { margin-bottom:21px; }
+    &.last { margin:0; }
+    &:last-child { margin:0; }
 
-
-    h3 span { float:right; margin-right:1px; font-weight:normal; font-style:italic; font-size: 13px; color:$gray; text-transform:none; }
+    h3 span { float:right; margin-right:1px; font-weight:normal; font-style:italic; font-size: 13px; color:$gray; text-transform:none; text-shadow:none; }
 
     textarea {
       width:597px - 10*2;
@@ -53,23 +45,18 @@
       &:focus { outline:none; }
     }//textarea
 
-    .input_text {
-      float:left;
-      width:288px - 10*2;
-      height:32px;
-      padding: 0px 10px;
-      background: url('/img/textfield_bkg.png') no-repeat scroll left top;
-    }
+    span.input_text { float:left; height:31px; padding:0 0 0 5px; background: url('/img/input_bkg.png') no-repeat left bottom; }
 
     input[type="text"], input[type="password"] {
-      width:288px - 10*2;
-      height:32px;
+      float:left;
+      width:288px - 18;
+      height:31px;
       margin:0;
-      padding: 0;
+      padding: 0 10px 0 3px;
+      background: url('/img/input_bkg.png') no-repeat right top;
       font-family:$base;
       font-size:13px;
       color:$ultra_dark;
-      background:none;
       border:none;
       resize:none;
 

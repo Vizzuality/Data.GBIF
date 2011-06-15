@@ -11,7 +11,7 @@
   &.left { float:left; }
   &.right { float:right; }
 
-  &:hover {
+  &:focus, &:hover {
     background-position:left -35px;
     span { background-position:right -35px; }
   }
@@ -47,7 +47,7 @@
 
   &:hover {
     background-position:left -38px!important;
-    span { background-position:right -38px!important; }
+    span { color:$ultra_dark!important; background-position:right -38px!important; }
   }
 
   &.active, &:active {

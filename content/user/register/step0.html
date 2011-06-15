@@ -1,61 +1,77 @@
-<article id="step-0" class="tunnel">
+<article id="step-0" class="register">
 <header></header>
 <div class="content">
 
   <ul class="breadcrumb">
-    <li><h2 class="active">Personal data</h2></li>
+    <li class="active"><h2>Personal data</h2></li>
     <li><h2>Scientific profile</h2></li>
-    <li><h2>Finish</h2></li>
+    <li class="last"><h2>Finish</h2></li>
   </ul>
 
-  <p>Please, register to the GBIF Data Portal for downloading data, or <a href="#" title="Login">login</a> if you already have an account.</p>
+  <p>Please, register to the GBIF Data Portal for downloading data, or <a href="#" class="login" title="Login">login</a> if you already have an account.</p>
 
-  <div class="light_box">
-    <div class="content">
+  <form action="step1.html" method="post" autocomplete="off">
+    <div class="light_box">
+      <div class="content">
 
-    <form>
-      <div class="field">
-        <h3>Email</h3>
-        <span class="input_text">
-          <input id="email" name="email" type="text" />
-        </span>
-      </div>
-
-      <div class="fields">
         <div class="field">
-          <h3>First name</h3>
+          <h3>Email</h3>
           <span class="input_text">
-            <input id="first_name" name="first_name" type="text" />
+            <input id="email" name="email" type="text" />
           </span>
+        </div>
+
+        <div class="fields">
+          <div class="field">
+            <h3>Password</h3>
+            <span class="input_text">
+              <input id="password" name="password" type="password" />
+            </span>
+          </div>
+
+          <div class="field last">
+            <h3>Repeat password</h3>
+            <span class="input_text">
+              <input id="confirm_password" name="confirm_password" type="password" />
+            </span>
+          </div>
+        </div>
+
+        <div class="fields">
+          <div class="field">
+            <h3>First name</h3>
+            <span class="input_text">
+              <input id="first_name" name="first_name" type="text" />
+            </span>
+          </div>
+
+          <div class="field last">
+            <h3>Last name</h3>
+            <span class="input_text">
+              <input id="last_name" name="last_name" type="text" />
+            </span>
+          </div>
         </div>
 
         <div class="field last">
-          <h3>Last name</h3>
-          <span class="input_text">
-            <input id="last_name" name="last_name" type="text" />
-          </span>
+          <h3>Country of residency</h3>
+
+          <select name="data-policy">
+            <option>Select country</option>
+            <option>Country 1</option>
+            <option>Country 2</option>
+            <option>Country 3</option>
+            <option>Country 4</option>
+            <option>Country 5</option>
+          </select>
         </div>
+
       </div>
-
-      <div class="field">
-        <h3>Residential country</h3>
-
-        <select name="data-policy">
-          <option>Select country</option>
-          <option>Country 1</option>
-          <option>Country 2</option>
-          <option>Country 3</option>
-          <option>Country 4</option>
-          <option>Country 5</option>
-        </select>
-      </div>
-    </form>
-
+      <div class="tl"></div> <div class="tr"></div> <div class="bl"></div> <div class="br"></div>
     </div>
-    <div class="tl"></div> <div class="tr"></div> <div class="bl"></div> <div class="br"></div>
-  </div>
 
-  <nav><a href="step1.html" class="candy_white_button next"><span>Continue</span></a></nav>
+    <button type="submit" class="candy_white_button next"><span>Continue</span></button>
+  </form>
 </div>
 <footer></footer>
 </article>

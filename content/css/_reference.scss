@@ -2,6 +2,7 @@ body {
   &.reference header {
     height:226px;
 
+
     #infoband {
       border-bottom:1px solid #4b8741;
       height: 129px - 33;
@@ -11,6 +12,9 @@ body {
   }
 }
 article.reference {
+
+    ul li ul { margin-top: 10px!important;}
+    strong {color:$ultra_dark;}
 
   .color {
     float:left;

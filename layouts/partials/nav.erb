@@ -6,7 +6,7 @@
   <li<%= @selected == "species" ? clase : nil %>><a href="#" title="Species">Species</a></li>
   <li<%= @selected == "more" ? clase : nil %>><a href="#" title="More">More<span class="more"></span></a></li>
   <li class="search">
-  <form>
+  <form action="/dataset/search.html" method="post">
     <span class="input_text">
       <input type="text" name="search" />
     </span>

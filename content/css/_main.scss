@@ -59,7 +59,7 @@ a {
   .mini-profile {
     a { text-decoration:underline; }
     a.avatar { float:left; margin-right:10px; text-decoration:none; }
-    strong { display:block; width:230px; margin-bottom:3px; font-weight:bold; font-size:15px; line-height:17px; color:$ultra_dark; }
+    strong { display:block; width:230px; margin-bottom:5px; font-weight:bold; font-size:15px; color:$ultra_dark; }
     span.date { font-size:13px; color:$dark; }
   } // mini-profile
 
@@ -147,7 +147,7 @@ a {
           margin:0;
           list-style:none;
 
-          li { background:none; }
+          li {background:none;}
         }//ul
 
         .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/boxes/box_light_bkg.png') no-repeat; position:absolute; }
@@ -193,9 +193,17 @@ a {
 
         h3 { font-size:13px; }
 
-        ul {
+        ul{
           margin-left:0;
-          li a {text-decoration:none; }
+                    
+          li{
+            margin-bottom: 4px;
+          
+            a{
+              text-decoration:none; 
+              line-height: 15px;
+            }//a
+          }//li
         }//ul
       }//.right
 
@@ -254,7 +262,7 @@ a {
       ul.team {
         clear:both;
         overflow:hidden;
-        margin:0;
+        margin:0 0 15px 0;
 
         li {
           float:left;
@@ -458,6 +466,7 @@ a {
   article.dataset {
 
     width:702px;
+    margin: 40px auto 100px auto;
 
     header { width:702px; background:url('/img/boxes/box_dataset_top.png') no-repeat left top; }
     footer { width:702px; background:url('/img/boxes/box_dataset_bottom.png') no-repeat left top; }
@@ -528,7 +537,7 @@ a {
           float:left;
           width:413px - 45;
           height:37px;
-          padding: 0px 20px 0 25px;
+          padding: 0px 20px 0 0;
           //background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
         }
 
@@ -903,6 +912,10 @@ a {
   article.reply {
     .triangle { position:absolute; top:-26px; left:20px; width:24px; height:15px; background:url('/img/boxes/box_triangle.png') no-repeat; z-index:100; }
 
+    .content{
+      padding-bottom: 8px;
+    }//.content
+
     .left {
       width:597px;
 
@@ -928,7 +941,10 @@ a {
       border:none;
 
       h4 { margin-bottom:10px; font-family:$font_medium; font-size:13px; color:$ultra_dark; }
-    }
+    }//.right
+    
+    
+    
   } // article.reply
 } // #content
 

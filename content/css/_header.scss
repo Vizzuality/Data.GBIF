@@ -298,6 +298,7 @@ header {
         font-weight:normal;
         color:$ultra_dark;
         margin-bottom:7px;
+        margin-left: 1px;
         opacity:.75;
         padding-bottom:10px;
         background:url('/img/header/tag_line.png') no-repeat left bottom;
@@ -353,7 +354,6 @@ header {
         .content {
           width:auto;
           position:relative;
-          padding:0;
           margin:0;
           left:0; right:0;
           height:120px;
@@ -363,7 +363,8 @@ header {
           ul {
             clear:both;
             overflow:hidden;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            margin-top: 2px;
 
             li {
               float:left;

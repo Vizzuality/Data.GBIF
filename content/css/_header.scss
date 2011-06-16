@@ -35,7 +35,7 @@ body  {
 
         @include absolute_center(810px);
 
-        nav ul li.selected a, #top nav ul li a:hover {
+        nav ul li.selected a, nav ul li a:hover {
           background:none;
         }
       }

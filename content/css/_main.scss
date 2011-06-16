@@ -162,10 +162,17 @@ a {
           p {
             padding:0 0 0 50px;
             margin:0;
-          }
+          }//p
+        }//.package
 
-        }
-
+        &.package .content {
+          background:url('/img/icons/package.png') no-repeat left center;
+          padding:20px;
+          p {
+            padding:0 0 0 50px;
+            margin:0;
+          }//p
+        }//.package
       }//.light_box
 
       .left   {
@@ -701,6 +708,14 @@ a {
       div.fields div.field:last-child {float:right;}
       .light_box .content { padding:29px 29px; }
     }
+  }
+
+  article.download {
+    nav.left p {
+      font-size:15px;
+      a {color:$link_color; font-size:15px;}
+    }
+    p {margin: 0 0 21px 0;}
   }
 
   article.register, article.tunnel {

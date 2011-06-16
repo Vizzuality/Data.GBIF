@@ -195,12 +195,12 @@ a {
 
         ul{
           margin-left:0;
-                    
+
           li{
             margin-bottom: 4px;
-          
+
             a{
-              text-decoration:none; 
+              text-decoration:none;
               line-height: 15px;
             }//a
           }//li
@@ -559,10 +559,10 @@ a {
 
 
   article.static {
-
     .content {
       .left {
-        h4 { margin-bottom:21px;  font-family:$base; font-weight:bold; font-size:15px; text-transform:none; color:$medium_dark; @include white-shadow; }
+        h3 { margin-bottom:18px;}
+        h4 { margin-bottom:18px; font-family:$base; font-weight:bold; font-size:15px; text-transform:none; color:$medium_dark; @include white-shadow; }
         ul, ol {margin: 0 1px 26px 20px; }
         ul {margin: 0 1px 26px 0px; }
       }
@@ -942,9 +942,9 @@ a {
 
       h4 { margin-bottom:10px; font-family:$font_medium; font-size:13px; color:$ultra_dark; }
     }//.right
-    
-    
-    
+
+
+
   } // article.reply
 } // #content
 

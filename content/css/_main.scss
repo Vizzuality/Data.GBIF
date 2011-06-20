@@ -63,8 +63,9 @@ a {
     span.date { font-size:13px; color:$dark; }
   } // mini-profile
 
-  article.login {
+  article.infowindow {
     display:none;
+
     top:208px;
     @include absolute_center(404px);
 
@@ -77,11 +78,14 @@ a {
 
     a.close { position:absolute; width:8px; height:6px; top:-8px; right:12px; background:url('/img/icons/close.png') no-repeat; }
 
+
     .content {
       clear:both;
       overflow:hidden;
       padding:0 34px;
       background:url('/img/boxes/box_min_bkg.png') repeat-y;
+
+      p {margin-bottom:14px; font-size:13px; color:$medium_dark;}
 
       h2 {margin-bottom:20px;}
 
@@ -92,12 +96,7 @@ a {
         button {float:right; margin-right:0;}
       }
 
-      .light_box {
-        clear:both;
-        overflow:hidden;
-        margin-bottom:20px;
-        padding:27px 0 13px 25px;
-      }
+      .light_box { clear:both; overflow:hidden; margin-bottom:20px; padding:27px 0 13px 25px; }
 
       .footer{
         position:absolute;
@@ -111,7 +110,7 @@ a {
         a { text-decoration:underline; }
       }
     }
-  }//article.login
+  }//article.infowindow
 
   article {
     position:relative;
@@ -374,22 +373,16 @@ a {
         height:auto;
         background:none;
 
-        .pagination { float:right; margin-right:10px; color:$gray; line-height:40px; }        
-        
+        .pagination { float:right; margin-right:10px; color:$gray; line-height:40px; }
+
         }//.footer
 
         .result {
           margin: 0 0 12px 0;
           border-bottom: 1px solid $light_gray;
 
-          &.last{
-            margin-bottom: 18px;            
-          }
-          
-          &:last-child{
-            margin-bottom: 18px;
-          }
-
+          &.last{ margin-bottom: 18px; }
+          &:last-child{ margin-bottom: 18px; }
 
           h2 {
             margin: 0 0 5px 0;
@@ -641,7 +634,6 @@ a {
         margin:auto;
         width:638px;
 
-
         &.left {
           margin:0 0 5px 0; padding:0;
           border:none;
@@ -668,7 +660,7 @@ a {
             &:hover {
               color:$hover_link_color!important;
             }
-          }
+          }//a
         } //p
       } //nav
 
@@ -694,31 +686,28 @@ a {
         } //li
       } //ul.breadcrumb
 
+      .light_box {
+        margin-bottom:29px;
+        form {
+          margin-left:19px;
+          margin-right:19px;
+          .fields {
+            .field {
+              margin-right:0;
+
+              &:last-child {float:right; }
+              &.last {float:right; }
+            }//field
+          }//.fields
+        }//form
+      }//.light_box
     }//.content
 
-    .light_box {
-      margin-bottom:29px;
-      form {
-        margin-left:19px;
-        margin-right:19px;
-        .fields {
-          .field {margin-right:0;}
-          .field:last-child {float:right; }
-          .field.last {float:right; }
-        }
-      }
-    }
-  }//article.register, article.tunnel
+  }//article.register, article.download, article.tunnel
 
   article.register, article.download {
     p a { text-decoration:underline; }
-
-    .header h2 {
-      padding:0 0 17px 0;
-      margin:0 0 29px 0;
-      border-bottom:1px solid $border_color;
-    }
-
+    .header h2 { padding:0 0 17px 0; margin:0 0 29px 0; border-bottom:1px solid $border_color; }
     .light_box { margin:0 0 19px 0; }
 
     form {
@@ -733,16 +722,19 @@ a {
       div.fields div.field.last {float:right;}
       div.fields div.field:last-child {float:right;}
       .light_box .content { padding:29px 29px; }
-    }
-  }
+    }//form
+  }//article.register
 
   article.download {
+
     nav.left p {
       font-size:15px;
+
       a {color:$link_color; font-size:15px;}
     }
+
     p {margin: 0 0 21px 0;}
-  }
+  }//article.download
 
   article.register, article.tunnel {
     &#step-2 {
@@ -757,8 +749,7 @@ a {
         text-align:center;
 
         &.extra { margin-bottom: 54px; color:$dark; }
-
-      } //p
+      }//p
 
       nav {
         p {
@@ -767,7 +758,7 @@ a {
         }
       } //nav
     }//#step-2
-  }
+  }//article.register, article.tunnel
 
   article.tunnel {
     .content {

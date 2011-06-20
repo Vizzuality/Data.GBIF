@@ -1,23 +1,26 @@
 $(function(){
   $("select").uniform();
+  $("input[type='checkbox']").uniform();
 
-  var loginWindow = (function() {
+  var infoWindow = (function() {
     var hidden = true;
-    var $login = $("#login");
+    var $login;
 
-    function show() {
-      $login.css("top", ( $(window).height() - $login.height()) / 2+$(window).scrollTop() + "px");
-      $login.fadeIn("slow", function() { hidden = false; });
-      $login.draggable();
+    function show(id) {
+      this.$login = $("#" + id);
+
+      this.$login.css("top", ( $(window).height() - this.$login.height()) / 2+$(window).scrollTop() + "px");
+      this.$login.fadeIn("slow", function() { hidden = false; });
+      this.$login.draggable();
       $("body").append("<div id='lock_screen'></div>");
       $("#lock_screen").height($(document).height());
       $("#lock_screen").fadeIn("slow");
     }
 
-    function hide() {
+    function hide(id) {
       if (hidden) {return;}
-      $login.draggable(false);
-      $login.fadeOut("slow");
+      this.$login.draggable(false);
+      this.$login.fadeOut("slow");
       $("#lock_screen").fadeOut("slow", function() {
         hidden = true;
         $("#lock_screen").remove();
@@ -32,16 +35,21 @@ $(function(){
 
   $("a.login").click(function(e) {
     e.preventDefault();
-    loginWindow.show();
+    infoWindow.show("login");
   });
 
-  $("#login .close").click(function(e) {
+  $("a.download").click(function(e) {
     e.preventDefault();
-    loginWindow.hide();
+    infoWindow.show("download");
+  });
+
+  $(".infowindow .close").click(function(e) {
+    e.preventDefault();
+    infoWindow.hide();
   });
 
   $(document).keyup(function(e) {
-    if (e.keyCode == 27) { loginWindow.hide(); }   // esc
+    if (e.keyCode == 27) { infoWindow.hide(); }   // esc
   });
 
   if ($("#map").length ) {

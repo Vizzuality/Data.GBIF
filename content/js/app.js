@@ -1,6 +1,6 @@
 $(function(){
   $("select").uniform();
-  $("input[type='checkbox']").uniform();
+  $("input[type='radio']").uniform();
 
   var infoWindow = (function() {
     var hidden = true;

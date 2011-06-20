@@ -138,7 +138,7 @@ div {
       background-position: -483px -234px;
       span {
         background-position: right -104px; } } }
-  &.checker {
+  &.radio {
     width: 19px;
     height: 19px;
     input {
@@ -170,7 +170,7 @@ div {
         background-position: -152px -313px; }
       span.checked, &:active span.checked, &.active span.checked {
         background-position: -171px -313px; } } }
-  &.radio {
+  &.checker {
     width: 18px;
     height: 18px;
     input {
@@ -274,9 +274,9 @@ div {
       text-shadow: 0 1px 0 #fff; }
     &.disabled span {
       color: #bbb; } }
-  &.checker {
-    margin-right: 2px; }
   &.radio {
+    margin-right: 2px; }
+  &.checker {
     margin-right: 3px; }
   &.uploader {
     width: 190px;

@@ -587,6 +587,16 @@ a {
       h3 { font-size:15px; }
       a  { text-decoration:none; }
       &:last-child, &.last { border:none; }
+      ul {
+        margin:14px 0 0 0;
+        padding:0;
+        li {
+        margin:0 0 10px 0;
+        padding:0;
+        background:none;}
+      }
+      li:last-child {margin:0;}
+      li.last {margin:0;}
     }
 
     ul.summary {

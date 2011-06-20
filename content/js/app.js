@@ -33,15 +33,13 @@ $(function(){
     };
   })();
 
-  $("a.login").click(function(e) {
+  $("a.infowindow").click(function(e) {
     e.preventDefault();
-    infoWindow.show("login");
+    var clase = $(this).attr("class").replace(/infowindow/i, "");
+    console.log(clase);
+    infoWindow.show(clase);
   });
 
-  $("a.download").click(function(e) {
-    e.preventDefault();
-    infoWindow.show("download");
-  });
 
   $(".infowindow .close").click(function(e) {
     e.preventDefault();

@@ -34,10 +34,9 @@ $(function(){
     };
   })();
 
-  $("a.infowindow").click(function(e) {
+  $("a.login, a.download, a.download2, a.download3").click(function(e) {
     e.preventDefault();
-    var clase = $(this).attr("class").replace(/infowindow/i, "").trim();
-    infoWindow.show(clase);
+    infoWindow.show($(this).attr("class"));
   });
 
 
@@ -64,3 +63,5 @@ $(function(){
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });
 });
+
+

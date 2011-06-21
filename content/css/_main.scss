@@ -91,6 +91,14 @@ a {
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 
+    &.download2 {
+
+      .content {font-size:13px; margin:0; padding:0;}
+
+
+      footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
+    }
+
     a.close { position:absolute; width:8px; height:6px; top:-8px; right:12px; background:url('/img/icons/close.png') no-repeat; }
 
     .content {
@@ -211,21 +219,9 @@ a {
         .br { bottom: 0; right:0; background-position:-5px -5px; }
 
         &.package .content {
-          background:url('/img/icons/package.png') no-repeat 10px 20px;
-          padding:20px;
-          p {
-            padding:0 0 0 60px;
-            margin:0;
-          }//p
-        }//.package
-
-        &.package .content {
           background:url('/img/icons/package.png') no-repeat left center;
           padding:20px;
-          p {
-            padding:0 0 0 50px;
-            margin:0;
-          }//p
+          p { padding:0 0 0 50px; margin:0; }
         }//.package
       }//.light_box
 

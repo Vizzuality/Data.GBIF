@@ -35,8 +35,7 @@ $(function(){
 
   $("a.infowindow").click(function(e) {
     e.preventDefault();
-    var clase = $(this).attr("class").replace(/infowindow/i, "");
-    console.log(clase);
+    var clase = $(this).attr("class").replace(/infowindow/i, "").trim();
     infoWindow.show(clase);
   });
 

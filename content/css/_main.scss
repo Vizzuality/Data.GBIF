@@ -78,10 +78,14 @@ a {
     z-index:500;
 
     header { position:absolute; top:-20px;    width:404px; height:20px; padding:0; background:url('/img/boxes/box_min_top.png') no-repeat left top; }
-    footer { position:absolute; bottom:-54px; width:404px; height:54px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
+    footer { position:absolute; bottom:-54px; width:404px; height:54px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left bottom; }
+
+    &.download_data {
+      .content form {padding-bottom: 0; margin-bottom:0!important;}
+      footer { position:absolute; bottom:-54px; width:404px; height:54px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
+    }
 
     a.close { position:absolute; width:8px; height:6px; top:-8px; right:12px; background:url('/img/icons/close.png') no-repeat; }
-
 
     .content {
       clear:both;

@@ -80,7 +80,13 @@ a {
     header { position:absolute; top:-20px;    width:404px; height:20px; padding:0; background:url('/img/boxes/box_min_top.png') no-repeat left top; }
     footer { position:absolute; bottom:-54px; width:404px; height:54px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left bottom; }
 
-    &.download_data {
+    &.download_select {
+      form .light_box {
+        padding-top:22px;
+        padding-bottom:10px;
+        h3 {margin: 0 0 13px 0;}
+      }
+
       .content form {padding-bottom: 0; margin-bottom:0!important;}
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }

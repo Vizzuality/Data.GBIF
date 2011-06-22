@@ -164,7 +164,7 @@ a {
 
         .left  {
           border:none;
-          padding-top:0!important;
+          padding-top:0;
 
           a {text-decoration:none; }
           h2 { float:left; line-height:20px; }
@@ -186,52 +186,52 @@ a {
         &.contact {
           .content {
 
-          ul {
-            float:left;
-            margin:0 45px 0 0;
-            width:157px;
+            ul {
+              float:left;
+              margin:0 45px 0 0;
+              width:157px;
 
-            &.last {margin-right:0;}
-            &:last-child {margin-right:0;}
+              &.last {margin-right:0;}
+              &:last-child {margin-right:0;}
 
-            li {
-              font-size:13px;
-              color:$medium_dark;
-              padding:0;
-              margin:0 0 5px 0;
+              li {
+                font-size:13px;
+                color:$medium_dark;
+                padding:0;
+                margin:0 0 5px 0;
 
-              &.phone {
-                padding-left:25px;
-                background: url('/img/icons/phone.png') no-repeat left top;
-              }
+                &.phone {
+                  padding-left:25px;
+                  background: url('/img/icons/phone.png') no-repeat left top;
+                }
 
-              &.fax {
-                padding-left:25px;
-                background: url('/img/icons/fax.png') no-repeat left top;
-              }
+                &.fax {
+                  padding-left:25px;
+                  background: url('/img/icons/fax.png') no-repeat left top;
+                }
 
-              &.email {
-                padding-left:25px;
-                background: url('/img/icons/email.png') no-repeat left top;
-              }
-              strong {display:block; font-weight:bold;}
-            }
-          }
-        }
-      }
+                &.email {
+                  padding-left:25px;
+                  background: url('/img/icons/email.png') no-repeat left top;
+                }
+                strong {display:block; font-weight:bold;}
+              }//li
+            }//ul
+          }//.content
+        }//.contact
 
-        .content { padding:10px; background:#e5f5fa; }
+        .content {
+          padding:10px;
+          background:#e5f5fa;
+        }//.content
+
         p { color:$ultra_dark; font-size:15px; }
 
         ul {
           padding:0;
           margin:0;
           list-style:none;
-
-          li {
-            background:none;
-
-          }
+          li { background:none; }
         }//ul
 
         .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/boxes/box_light_bkg.png') no-repeat; position:absolute; }
@@ -251,8 +251,8 @@ a {
         float:left;
         width:597px;
         margin-right:41px;
-        padding-top:25px;
         border-top:1px solid $border_color;
+        padding-top:20px;
 
         p a {text-decoration:underline; }
       }//.left
@@ -349,7 +349,7 @@ a {
 
       ul.parties {
         list-style:none;
-          margin:0; padding:0;
+        margin:0; padding:0;
 
         li {
           margin:0 0 13px 0; padding:0;
@@ -387,7 +387,6 @@ a {
 
       .header {
         .left {
-      //    padding-top:15px;
           a {
             position:relative;
             float:right;
@@ -413,27 +412,27 @@ a {
   }//article.user, article.results
 
   article.members.results {
-   .content .left .result .footer ul li {
-     padding-right:7px;
-     background:url('/img/icons/tiny_line.png') no-repeat right;
-   }
+    .content .left .result .footer ul li {
+      padding-right:7px;
+      background:url('/img/icons/tiny_line.png') no-repeat right;
+    }
   }
 
   article.results {
     .content {
 
       .left {
-        padding-top: 15px;
+        //padding-top: 15px;
 
-      .footer {
-        position:relative;
-        overflow: hidden;
-        bottom:auto;
-        width:auto;
-        height:auto;
-        background:none;
+        .footer {
+          position:relative;
+          overflow: hidden;
+          bottom:auto;
+          width:auto;
+          height:auto;
+          background:none;
 
-        .pagination { float:right; margin-right:10px; color:$gray; line-height:40px; }
+          .pagination { float:right; margin-right:10px; color:$gray; line-height:40px; }
 
         }//.footer
 
@@ -488,54 +487,54 @@ a {
         }//.result
       }//.left
 
-    .right {
-      .add_criteria {
-        position:relative;
-        font-size:15px;
-        text-decoration:underline;
+      .right {
+        .add_criteria {
+          position:relative;
+          font-size:15px;
+          text-decoration:underline;
 
-        &:hover span {
-          background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+          &:hover span {
+            background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+          }
+        }
+
+        .refine a {
+          position:relative;
+          font-size:15px;
+          text-decoration:underline;
+
+          &:hover span {
+            background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+          }
+        }//a
+
+        div.download {
+          position:absolute;
+          bottom:0;
+
+          ul { margin:0; padding:0; }
+
+          .candy_blue_button { width:215px; margin-bottom:2px; text-decoration:none; }
+        }//.download
+
+        .refine {
+          clear:both;
+          overflow:hidden;
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #eee;
+
+          a { text-decoration:none; }
+
+          h4 {
+            margin-bottom:6px;
+            font-family:$font_medium;
+            font-size:11px;
+            text-transform:uppercase;
+            color:$dark;
+          }
         }
       }
-
-      .refine a {
-        position:relative;
-        font-size:15px;
-        text-decoration:underline;
-
-        &:hover span {
-          background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
-        }
-      }//a
-
-      div.download {
-        position:absolute;
-        bottom:0;
-
-        ul { margin:0; padding:0; }
-
-        .candy_blue_button { width:215px; margin-bottom:2px; text-decoration:none; }
-      }//.download
-
-      .refine {
-        clear:both;
-        overflow:hidden;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #eee;
-
-        a { text-decoration:none; }
-
-        h4 {
-          margin-bottom:6px;
-          font-family:$font_medium;
-          font-size:11px;
-          text-transform:uppercase;
-          color:$dark;
-        }
-      }
-    }
     }
   }
 

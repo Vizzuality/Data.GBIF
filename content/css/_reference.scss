@@ -12,9 +12,14 @@ body {
   }
 }
 article.reference {
+  .header {
+    .right {
+      h4 { margin-top:22px;}
+    }
+  }
 
-    ul li ul { margin-top: 10px!important; margin-bottom:0!important;}
-    strong {color:$ultra_dark;}
+  ul li ul { margin-top: 10px!important; margin-bottom:0!important;}
+  strong {color:$ultra_dark;}
 
   .color {
     float:left;

@@ -492,6 +492,16 @@ a {
       }//.left
 
     .right {
+      .add_criteria {
+        position:relative;
+        font-size:15px;
+        text-decoration:underline;
+
+        &:hover span {
+          background:url('/img/icons/tiny_arrow_black.png') no-repeat right bottom;
+        }
+      }
+
       .refine a {
         position:relative;
         font-size:15px;
@@ -507,6 +517,7 @@ a {
         bottom:0;
 
         ul { margin:0; padding:0; }
+
         .candy_blue_button { width:215px; margin-bottom:2px; text-decoration:none; }
       }//.download
 

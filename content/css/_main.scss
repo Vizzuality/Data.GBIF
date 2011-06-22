@@ -156,6 +156,28 @@ a {
       p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
       a:hover { color:$hover_link_color; }
 
+      .header {
+        clear:both;
+        overflow:hidden;
+
+        h4 { margin-bottom:8px;  font-family:$font_medium; font-size:15px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
+
+        .left  {
+          border:none;
+          padding-top:0!important;
+
+          a {text-decoration:none; }
+          h2 { float:left; line-height:20px; }
+        }
+        .right {
+          padding:0;
+          border:none;
+          a {text-decoration:none; }
+
+          h4 {margin-top:6px;}
+        }
+      } // .header
+
       .light_box {
         background:#e5f5fa;
         position:relative;
@@ -256,25 +278,6 @@ a {
           }//li
         }//ul
       }//.right
-
-      .header {
-        clear:both;
-
-        h4 { margin-bottom:8px;  font-family:$font_medium; font-size:15px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
-
-        .left  {
-          padding:0;
-          border:none;
-
-          a {text-decoration:none; }
-          h2 { line-height:20px; }
-        }
-        .right {
-          padding:0;
-          border:none;
-          a {text-decoration:none; }
-        }
-      } // .header
 
       ul {
         margin: 0 1px 26px 15px;
@@ -384,8 +387,7 @@ a {
 
       .header {
         .left {
-          h2 { float:left; }
-
+      //    padding-top:15px;
           a {
             position:relative;
             float:right;
@@ -419,11 +421,6 @@ a {
 
   article.results {
     .content {
-      .header {
-        .right {
-          h3 {margin-top:16px;}
-        }
-      }
 
       .left {
         padding-top: 15px;

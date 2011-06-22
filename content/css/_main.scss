@@ -410,12 +410,23 @@ a {
 
   }//article.user, article.results
 
+  article.members.results {
+   .content .left .result .footer ul li {
+     padding-right:7px;
+     background:url('/img/icons/tiny_line.png') no-repeat right;
+   }
+  }
+
   article.results {
     .content {
+      .header {
+        .right {
+          h3 {margin-top:16px;}
+        }
+      }
 
-    .left {
-
-      padding-top: 15px;
+      .left {
+        padding-top: 15px;
 
       .footer {
         position:relative;

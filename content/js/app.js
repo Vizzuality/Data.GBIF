@@ -1,5 +1,16 @@
-
 $(function(){
+
+ $('div.graph ul li .bar').each(function(index) {
+   var width = $(this).parents("div").attr("class").replace(/graph /, "");
+   $(this).parent().css("width", width);
+   console.log(width);
+
+   var value = $(this).text();
+
+   $(this).delay($(this).text() * 10).animate({ height: value }, 500, 'easeInQuad');
+ });
+
+
   $("select").uniform();
   $("input[type='radio']").uniform();
 
@@ -59,6 +70,7 @@ $(function(){
     };
     var map = new google.maps.Map(document.getElementById("map"), myOptions);
   }
+
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });

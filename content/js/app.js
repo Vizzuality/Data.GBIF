@@ -1,32 +1,51 @@
 $(function(){
 
   var width = $("#holder").width();
+  var height = 265;
 
-  var r = Raphael("holder", width, 300);
-  var values = [100, 150, 180, 150, 200, 280, 260, 270, 280, 100, 160, 120, 200, 250, 280, 230, 290, 295, 297, 250, 230, 200, 220, 190, 140, 120, 150, 290, 250];
+  var r = Raphael("holder", width, height);
+  var values = [132, 265, 180, 150, 200, 230, 260, 230, 220, 100, 160, 120, 200, 250, 200, 230, 265, 255, 257, 250, 230, 200, 220, 190, 140, 120, 150, 230, 250];
+  var normalized_values = values;
 
-  var y = 300;
-  var path = "M0 " + y + " ";
-  var step = Math.round(width / values.length);
-  var i = 0;
-  var h = y;
+  var d = _.max(values) - height;
 
-  _.each(values, function(v) {
+  if (d > 0) {
+    normalized_values = _.map(values, function(v) { return (v-d <= 0) ? 1 : Math.round(v - d);})
+  }
 
-    path += "L" + step*i + ".5 " + h + ".5, ";
-    path += "L" + step*i + ".5 " + v + ".5, ";
-    h = v;
-    i += 1;
+  var path = "M0 " + height + " ";
+  var step = Math.round(width / normalized_values.length);
+  var previous_value = height;
+
+  _.each(normalized_values, function(value, index) {
+    corrected_value = height - value;
+    path += "L" + step*index + ".5 " + previous_value + ".5, L" + step*index + ".5 " + corrected_value + ".5, ";
+
+    var rect = r.rect(step*index + ".5", corrected_value + ".5", step+".5", height);
+
+    rect.attr("fill", "#f1f1f1");
+    rect.attr("stroke-width", "0");
+    previous_value = corrected_value;
+
+    rect.click(function() {
+      alert(values[index]);
+    });
+
+    rect.hover(function (event) {
+      this.attr({fill: "#fcfcfc"});
+    }, function (event) {
+      this.attr({fill: "#f1f1f1"});
+    });
+
   });
 
-    path += "L" + step*i + ".5 " + h + ".5, ";
-    path += "L" + step*i + ".5 " + "300.5";
+  path += "L" + step*(normalized_values.length) + ".5 " + previous_value + ".5, ";
+  path += "L" + step*(normalized_values.length) + ".5 " + height + ".5";
 
-  console.log(path);
+  //console.log(path);
 
   var c = r.path(path);
   c.attr("stroke", "#ccc");
-  c.attr("fill", "#f1f1f1");
   c.attr("stroke-width", "1");
 
   $('div.graph').each(function(index) {

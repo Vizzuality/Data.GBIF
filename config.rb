@@ -8,7 +8,7 @@ project_path    = "."
 sass_dir        = "content/css"
 css_dir         = "output/css"
 images_dir      = "output/img"
-javascripts_dir = "output/js"
+javascripts_dir = "content/js"
 
 # toggle between the sass or scss syntax
 sass_options = {

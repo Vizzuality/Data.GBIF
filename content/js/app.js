@@ -1,10 +1,38 @@
 $(function(){
 
+  var r = Raphael("holder", 620, 300);
+  var values = [100, 150, 180, 150, 200, 280, 260, 270, 280, 100, 160, 120, 200, 250, 280, 230, 290, 295, 297, 250, 230, 200, 220, 190, 140, 120, 150, 290, 250];
+
+  var y = 300;
+  var path = "M0 " + y + " ";
+  var p = 20;
+  var i = 1;
+  var h = y;
+
+  _.each(values, function(v) {
+    console.log(v);
+
+    path += "L" + p*i + ".5 " + h + ".5, ";
+    path += "L" + p*i + ".5 " + v + ".5, ";
+    h = v;
+    i += 1;
+  });
+
+    path += "L" + p*i + ".5 " + h + ".5, ";
+    path += "L" + p*i + ".5 " + "300.5";
+
+  console.log(path);
+
+  //var path = "M0 300.5 L25.5 300.5, L25.5 250.5, L100.5 250.5, L100.5 200.5, L200.5 200.5, L200.5 250.5, L300.5 250.5, L300.5 300.5"
+  var c = r.path(path);
+  c.attr("stroke", "#ccc");
+  c.attr("fill", "#f1f1f1");
+  c.attr("stroke-width", "1");
+
   $('div.graph').each(function(index) {
     $(this).find('ul li .bar').each(function(index) {
       var width = $(this).parents("div").attr("class").replace(/graph /, "");
       $(this).parent().css("width", width);
-      console.log(width);
 
       var value = $(this).text();
 

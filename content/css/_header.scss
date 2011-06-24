@@ -13,6 +13,7 @@ body  {
   &.dataset header, &.register header {
     #top nav ul li.selected a { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
     #top nav ul li a:hover { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
+    #top .content #logo {top:42px;}
   }
 
   // ---------------------------------------

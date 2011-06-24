@@ -796,7 +796,7 @@ a {
           margin:0 0 5px 0; padding:0;
           border:none;
           a.candy_blue_button, a.candy_white_button { float:left; padding-right:0; }
-          p { float:left; padding:0; margin:0 0 0 10px; }
+          p { float:left; padding:0 0 9px 0; margin:0 0 0 8px; }
         }
 
         &.right {
@@ -807,7 +807,7 @@ a {
         }
 
         p {
-          line-height:40px;
+          line-height:34px;
           font-size:13px;
           color:$dark;
 

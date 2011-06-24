@@ -369,18 +369,16 @@ a {
 
   article.graph {
 
-    &.last { margin-right:0; }
-    &:last-child { margin-right:0; }
-
     .header {
       border-bottom: 1px solid #ccc;
       margin-bottom:20px;
     }
 
     div.graph {
-      margin-right:50px;
-
       float:left;
+      margin-right:24px;
+      &:last-child { margin-right:0; }
+
       div.summary {
         clear:left;
         text-align:right;
@@ -404,9 +402,7 @@ a {
             color:$darkest;
           }
         }
-
         color:$medium_dark;
-
       }
 
       ul {

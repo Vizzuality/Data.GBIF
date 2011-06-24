@@ -1,15 +1,21 @@
 $(function(){
 
- $('div.graph ul li .bar').each(function(index) {
-   var width = $(this).parents("div").attr("class").replace(/graph /, "");
-   $(this).parent().css("width", width);
-   console.log(width);
+  $('div.graph').each(function(index) {
+    $(this).find('ul li .bar').each(function(index) {
+      var width = $(this).parents("div").attr("class").replace(/graph /, "");
+      $(this).parent().css("width", width);
+      console.log(width);
 
-   var value = $(this).text();
+      var value = $(this).text();
 
-   $(this).delay($(this).text() * 10).animate({ height: value }, 500, 'easeInQuad');
- });
+      $(this).delay(index*100).animate({ height: value }, 400, 'easeOutBounce');
+    });
+  });
 
+
+  $('div.graph ul li a').click(function(e){
+    e.preventDefault();
+  });
 
   $("select").uniform();
   $("input[type='radio']").uniform();

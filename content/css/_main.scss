@@ -634,6 +634,24 @@ a {
       text-align:center;
       background:url('/img/boxes/box_dataset_bkg.png') repeat-y;
 
+      ul.species {
+        clear:both;
+        overflow:hidden;
+        margin:auto;
+        text-align:center;
+        margin-bottom:26px;
+
+        li {
+          background:none;
+          display:inline;
+          margin:0px;
+          padding:0;
+          &:after { content: "\00B7"; }
+          &:last-child:after { content:""; }
+          a { text-decoration:none; }
+        }
+
+      }
       .results {
         float:left;
         width:100%;

@@ -4,6 +4,9 @@ $(function(){
     var width, height, canvas, fillColor, fillOpacity, strokeColor, strokeOpacity, strokeWidth;
     var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DEC"];
     var template =  _.template("L<%= xpos %>.5 <%= old_ypos %>.5, L<%= xpos %>.5 <%= ypos %>.5,");
+    var processes = {};
+    var max, step, leftover;
+    var normalized_values = [];
 
     function initialize(opt) {
       width  = $("#holder").width();
@@ -14,18 +17,18 @@ $(function(){
       strokeColor   = opt.strokeColor || "#D9D9D9";
       strokeOpacity = opt.strokeOpacity || ".08";
       strokeWidth   = opt.strokeWidth || "1";
+      processes     = {} || opt.processes;
 
       canvas = Raphael("holder", width, height + 57);
+
+      max = _.max(values);
+      normalized_values = _.map(values, function(v) { return height - Math.round(v  * height/max); });
+
+      step     = Math.floor(width / values.length);
+      leftover = Math.round(Math.abs(step*values.length - width) / 2);
     }
 
-    function show(values) {
-
-      var max = _.max(values);
-      var normalized_values = _.map(values, function(v) { return height - Math.round(v  * height/max); });
-
-      var step     = Math.floor(width / values.length);
-      var leftover = Math.round(Math.abs(step*values.length - width) / 2);
-
+    function drawLine() {
       var path  = "M0 " + height + " ";
       var previous_value = height;
 
@@ -39,18 +42,23 @@ $(function(){
       var shape = canvas.path(path);
       shape.attr("stroke", strokeColor);
       shape.attr("stroke-width", strokeWidth);
+    }
 
-      var z = Math.round(step*values.length / 12);
+    function drawMonthLines() {
+      var monthWidth = Math.round(step*values.length / 12);
 
-      for (i = 0; i<12; i++) {
-        var line = canvas.path("M"+z*i+".5 450.5 L"+z*i+".5 0");
+      for (i = 0; i < 12; i++) {
+        var line = canvas.path("M"+monthWidth*i+".5 450.5 L"+monthWidth*i+".5 0");
         line.attr("stroke", "#D9D9D9");
-        var month = canvas.text(z*i + Math.round(z/2), height + 50, months[i]);
+        var month = canvas.text(monthWidth*i + Math.round(monthWidth/2), height + 50, months[i]);
         month.attr("fill", "#ccc");
       }
+
       var line = canvas.path("M"+(step*values.length)+".5 450.5 L"+(step*values.length)+".5 0");
       line.attr("stroke", "#D9D9D9");
+    }
 
+    function drawRects() {
       _.each(normalized_values, function(value, index) {
         var rect = canvas.rect(step*index + ".5", value + ".5", step, height - value + 20);
 
@@ -62,9 +70,15 @@ $(function(){
       });
     }
 
+    function drawGraph(values) {
+      drawLine();
+      drawMonthLines();
+      drawRects();
+    }
+
     return {
       initialize: initialize,
-      show: show
+      show: drawGraph
     };
   })();
 
@@ -84,7 +98,9 @@ $(function(){
   }
   var values = generateRandomValues(65);
 
-  dataHistory.initialize({height: 180});
+  var processes = { dates:[{start:"10/02", end: "10/02"}, {start:"13/02", end: "12/02"}, {start:"14/02"}] };
+
+  dataHistory.initialize({height: 180, processes: processes});
   dataHistory.show(values);
 
   $('div.graph').each(function(index) {

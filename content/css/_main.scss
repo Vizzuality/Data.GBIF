@@ -372,6 +372,12 @@ a {
     .header {
       border-bottom: 1px solid #ccc;
       margin-bottom:20px;
+      .right {
+        margin-top:7px;
+        color:$medium_dark;
+        text-align:right;
+        font-size:15px;
+      }
     }
 
     div.graph {
@@ -424,7 +430,7 @@ a {
           padding:0;
           background:none;
 
-          .bar { display: block; position: absolute; bottom:0; left: 0; height: 0; width: 100%; background:#f1f1f1;  background: rgba(#000, .1); text-indent: -9999px; overflow: hidden; }
+          .bar { display: block; position: absolute; bottom:0; left: 0; height: 0; width: 100%; background:#f1f1f1;  background: rgba(#000, .1); text-indent: -9999px; overflow: hidden; -webkit-border-top-left-radius: 3px; -moz-border-top-left-radius: 3px; border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; -moz-border-top-right-radius: 3px; border-top-right-radius: 3px; }
         }//li
       }//ul
     }//div.graph

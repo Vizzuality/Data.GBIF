@@ -1,91 +1,91 @@
 $(function(){
 
-  var width = $("#holder").width();
-  var height = 180;
+  var dataHistory = (function() {
+    var width, height, canvas, fillColor, fillOpacity, strokeColor, strokeOpacity, strokeWidth;
+    var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DEC"];
+    var template =  _.template("L<%= xpos %>.5 <%= old_ypos %>.5, L<%= xpos %>.5 <%= ypos %>.5,");
 
-  var r = Raphael("holder", width, height + 57);
-  var values = [5, 2, 4, 20, 10, 5, 6, 33, 3, 10, 5, 4];
+    function initialize(opt) {
+      width  = $("#holder").width();
+      height = opt.height || 180;
 
-  var last = 0;
+      fillColor     = opt.fillColor || "#000000";
+      fillOpacity   = opt.fillOpacity || ".08";
+      strokeColor   = opt.strokeColor || "#D9D9D9";
+      strokeOpacity = opt.strokeOpacity || ".08";
+      strokeWidth   = opt.strokeWidth || "1";
 
-  for (var i=0; i<=100; i++) {
-    if (Math.random()*100 > 90) {
-      values[i] = Math.floor(Math.random()*20);
-    } else {
-      values[i] = last;
+      canvas = Raphael("holder", width, height + 57);
     }
-    last = values[i];
+
+    function show(values) {
+
+      var max = _.max(values);
+      var normalized_values = _.map(values, function(v) { return height - Math.round(v  * height/max); });
+
+      var step     = Math.floor(width / values.length);
+      var leftover = Math.round(Math.abs(step*values.length - width) / 2);
+
+      var path  = "M0 " + height + " ";
+      var previous_value = height;
+
+      _.each(normalized_values, function(value, index) {
+        path += template({xpos:step*index, ypos:value, old_ypos:previous_value});
+        previous_value = value;
+      });
+
+      path += template({xpos:step*values.length, ypos:height, old_ypos:previous_value});
+
+      var shape = canvas.path(path);
+      shape.attr("stroke", strokeColor);
+      shape.attr("stroke-width", strokeWidth);
+
+      var z = Math.round(step*values.length / 12);
+
+      for (i = 0; i<12; i++) {
+        var line = canvas.path("M"+z*i+".5 450.5 L"+z*i+".5 0");
+        line.attr("stroke", "#D9D9D9");
+        var month = canvas.text(z*i + Math.round(z/2), height + 50, months[i]);
+        month.attr("fill", "#ccc");
+      }
+      var line = canvas.path("M"+(step*values.length)+".5 450.5 L"+(step*values.length)+".5 0");
+      line.attr("stroke", "#D9D9D9");
+
+      _.each(normalized_values, function(value, index) {
+        var rect = canvas.rect(step*index + ".5", value + ".5", step, height - value + 20);
+
+        rect.attr("fill-opacity", fillOpacity);
+        rect.attr("fill", fillColor);
+        rect.attr("stroke-width", "0");
+
+        rect.hover(function (event) { this.attr({fill: "#D9D9D9"}); }, function (event) { this.attr({fill: "#000"}); });
+      });
+    }
+
+    return {
+      initialize: initialize,
+      show: show
+    };
+  })();
+
+  function generateRandomValues(limit) {
+    var last = 0;
+    var values = [];
+
+    for (var i=0; i<=limit; i++) {
+      if (Math.random()*100 > 90) {
+        values[i] = Math.floor(Math.random()*20);
+      } else {
+        values[i] = last;
+      }
+      last = values[i];
+    }
+    return values;
   }
+  var values = generateRandomValues(65);
 
-  var max = _.max(values);
-  var normalized_values = _.map(values, function(v) { return height - Math.round(v  * height/max); });
-
-  var step  = Math.round(width / values.length);
-  var rstep = step*values.length - width;
-
-  console.log(step, step*values.length, width, rstep);
-
-  var lines = [];
-  var fonts = [];
-
-  var path  = "M0 " + height + " ";
-
-  var previous_value = height;
-  var template =  _.template("L<%= xpos %>.5 <%= old_ypos %>.5, L<%= xpos %>.5 <%= ypos %>.5,");
-
-  _.each(normalized_values, function(value, index) {
-    path += template({xpos:step*index, ypos:value, old_ypos:previous_value});
-    previous_value = value;
-  });
-
-  path += template({xpos:width-1, ypos:height, old_ypos:previous_value});
-  var c = r.path(path);
-  c.attr("stroke", "#D9D9D9");
-  c.attr("stroke-width", "1");
-
-  var z = Math.round(width / 12);
-
-  for (i = 0; i<12; i++) {
-    var line = r.path("M"+z*i+".5 450.5 L"+z*i+".5 0");
-    console.log(line);
-    line.attr("stroke", "#D9D9D9");
-  }
-    var line = r.path("M"+(width-1)+".5 450.5 L"+(width-1)+".5 0");
-    line.attr("stroke", "#D9D9D9");
-
-  //var line = r.path("M"+(step*index + step/2)+" " + height + " L"+ (step*index + step/2)+ " " + (normalized_values[index]+1)+".5");
-  //line.attr("stroke", "#ccc");
-
-  _.each(normalized_values, function(value, index) {
-      var rect = r.rect(step*index + ".5", value + ".5", step, height - value + 20);
-
-    rect.attr("fill-opacity", ".08");
-    rect.attr("fill", "#000");
-    rect.attr("stroke-width", "0");
-
-    rect.hover(function (event) {
-      this.attr({fill: "#D9D9D9"});
-    }, function (event) {
-      delete fonts[index];
-      this.attr({fill: "#000"});
-      //this.animate({fill: "#000"}, 300);
-    });
-  });
-
-  //  c.attr("stroke", "#D9D9D9");
-  //  c.attr("stroke-width", "1");
-  //_.each(normalized_values, function(value, index) {
-  //  var c = r.path(path);
-  //  var rect = r.rect(step*index + ".5", value + ".5", step+".5", height);
-
-  //  rect.attr("fill", "#f1f1f1");
-  //  rect.attr("stroke-width", "0");
-
-  //  rect.click(function() {
-  //    alert(values[index]);
-  //  });
-
-  //});
+  dataHistory.initialize({height: 180});
+  dataHistory.show(values);
 
   $('div.graph').each(function(index) {
     $(this).find('ul li .bar').each(function(index) {

@@ -64,7 +64,7 @@ a {
 
 #content {
   clear:both;
-  overflow:hidden;
+  //overflow:hidden;
   margin:auto;
   padding-top:60px;
   background-color:$background_color;
@@ -616,6 +616,7 @@ a {
         div.download {
           position:absolute;
           bottom:0;
+          z-index:1000;
 
           ul { margin:0; padding:0; }
 

@@ -21,17 +21,6 @@
     span { line-height:35px; background-position:right -70px; }
   }
 
-  &.dropdown {
-    height:38px;
-    background-position:left -105px;
-    span {
-      height:38px;
-      padding-right:25px;
-      line-height:35px;
-      background-position:right -105px;
-    }
-  }
-
   span {
     display:block;
     height:35px;
@@ -43,6 +32,111 @@
     color:$brightest;
     @include blue-shadow;
     @include transparency_fix;
+  }
+}
+
+.download .dropdown {
+  width:220px;
+  top:-40px;
+  position:absolute;
+}
+
+#content article .content .left .dropdown,
+#content article .content .right .dropdown {
+  float:left;
+
+  &.selected {
+    ul {
+      display:block;
+      li {
+        a {
+          background:url('/img/buttons/dropdown_left_side.png') no-repeat left -36px;
+          span {
+            background:url('/img/buttons/dropdown_right_side.png') repeat-x right -36px;
+          }
+        }
+      }
+
+    }
+    a {
+      background:url('/img/buttons/dropdown_left_side.png') no-repeat left top;
+      span {
+        background:url('/img/buttons/dropdown_right_side.png') repeat-x right top;
+      }
+    }
+  }
+
+  a {
+    display:block;
+    min-width:88px;
+    height:38px;
+    padding:0 0 0 9px;
+    border:none;
+    background:url('/img/buttons/button_blue_left_side.png') no-repeat left -105px;
+    text-align:center;
+    @include transparency_fix;
+
+    span {
+      cursor:hand;
+      display:block;
+      height:38px;
+      padding-right:35px;
+      line-height:35px;
+      background:url('/img/buttons/button_blue_right_side.png') repeat-x right -105px;
+      font-family:$font_medium;
+      font-size:15px;
+      color:$brightest;
+      @include blue-shadow;
+      @include transparency_fix;
+    }
+  }
+
+  ul {
+    display:none;
+    margin:0; padding:0;
+
+    li {
+      background:none;
+      margin:0;
+      padding:0;
+      display:block;
+
+      &.last {
+        a {
+          height:46px;
+          background:url('/img/buttons/dropdown_left_side.png') no-repeat left bottom;
+          span { height:46px; background:url('/img/buttons/dropdown_right_side.png') repeat-x right bottom; }
+        }
+      }
+
+      &:last-child {
+        a {
+          height:46px;
+          background:url('/img/buttons/dropdown_left_side.png') no-repeat left bottom;
+          span { height:46px; background:url('/img/buttons/dropdown_right_side.png') repeat-x right bottom; }
+        }
+      }
+
+      a {
+        text-decoration:none;
+        display:block;
+        height:36px;
+        text-align:left;
+        padding:0 0 0 9px;
+        background:url('/img/buttons/dropdown_left_side.png') no-repeat left -36px;
+
+        span {
+          display:block;
+          background:none;
+          text-shadow:none;
+          color:$medium_dark;
+          height:36px;
+          padding-right:10px;
+          line-height:35px;
+          background:url('/img/buttons/dropdown_right_side.png') repeat-x right -36px;
+        }
+      }
+    }
   }
 }
 

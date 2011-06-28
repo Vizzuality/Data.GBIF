@@ -196,6 +196,10 @@ $(function(){
     });
   });
 
+  $('.dropdown').click(function(e){
+    e.preventDefault();
+    $(this).toggleClass("selected");
+  });
 
   $('div.graph ul li a').click(function(e){
     e.preventDefault();

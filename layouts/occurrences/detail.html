@@ -30,10 +30,10 @@
 
   <script src="/js/modernizr-1.7.min.js"></script>
 </head>
-<body class="dataset">
+<body>
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/occurrences/header" %>
+  <%= render "/occurrences/detail_header" %>
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>

@@ -53,8 +53,6 @@ body  {
     #infoband {
       border-bottom:1px solid #4b8741;
       height: 129px - 33;
-
-      .content h3 { background: none; }
     }
   }
 }
@@ -302,7 +300,10 @@ header {
         margin-left: 1px;
         opacity:.75;
         padding-bottom:10px;
-        background:url('/img/header/tag_line.png') no-repeat left bottom;
+
+        &.separator {
+          background:url('/img/header/tag_line.png') no-repeat left bottom;
+        }
 
         a {
           color: $brightest;

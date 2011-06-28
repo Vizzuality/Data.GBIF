@@ -180,8 +180,10 @@ $(function(){
     {start:"2011-3-1"}
   ]};
 
-  dataHistory.initialize({height: 180, processes: processes});
-  dataHistory.show(values);
+  if ($("#holder").length ) {
+    dataHistory.initialize({height: 180, processes: processes});
+    dataHistory.show(values);
+  }
 
   $('div.graph').each(function(index) {
     $(this).find('ul li .bar').each(function(index) {

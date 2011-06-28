@@ -255,6 +255,24 @@ a {
         padding-top:20px;
 
         p a {text-decoration:underline; }
+
+        ul.taxonomy {
+          clear:both;
+          overflow:hidden;
+          margin:0; padding:0;
+
+          li {
+            float:left;
+            margin:0 6px 0 0;
+            padding:0 12px 0 0;
+            font-size:13px;
+            background:url('/img/icons/arrow_small_right.png') no-repeat right;
+            color:$dark;
+
+            &.last { background:none; }
+            li:last-child { background:none; }
+          }//li
+        }//ul
       }//.left
 
       .right  {
@@ -540,23 +558,6 @@ a {
             background:none;
             margin-top: 0px;
 
-            ul {
-              clear:both;
-              overflow:hidden;
-              margin:0; padding:0;
-
-              li {
-                float:left;
-                margin:0 6px 0 0;
-                padding:0 12px 0 0;
-                font-size:13px;
-                background:url('/img/icons/arrow_small_right.png') no-repeat right;
-                color:$dark;
-
-                &.last { background:none; }
-                li:last-child { background:none; }
-              }//li
-            }//ul
           }//.footer
         }//.result
       }//.left

@@ -15,6 +15,14 @@ abbr { font-size:11px; text-transform:uppercase; }
 sup  { font-size:11px; top:-3px; }
 
 #map { width:608px; height:140px; margin-bottom:23px; }
+#map_canvas {
+  position:relative;
+  .tl, .tr, .bl, .br { width:5px; height:5px; background:url('/img/circle.png') no-repeat; position:absolute; z-index:100 }
+  .tl {top:-3px; left:-3px;background-position: top left;}
+  .tr {top:-3px; right:-14px;background-position: top right;}
+  .bl {bottom:-3px; left:-3px;background-position: bottom left;}
+  .br {bottom:-3px; right:-14px;background-position: bottom right;}
+}
 
 address {
   font-size:13px;
@@ -68,6 +76,11 @@ a {
     strong { display:block; width:230px; margin-bottom:5px; font-weight:bold; font-size:15px; color:$ultra_dark; }
     span.date { font-size:13px; color:$dark; }
   } // mini-profile
+
+  article.legal {
+    h2 { padding-bottom: 20px; border-bottom: 1px solid $border_color; }
+    .content .left { margin:0; padding:5px 0 0 0; border:none; }
+  }
 
   article.infowindow {
     display:none;
@@ -285,6 +298,13 @@ a {
         border-top:1px solid $border_color;
 
         h3 { font-size:13px; }
+
+        div.location {
+          p.location { margin:0 0 5px 0; color:$medium_dark; }
+          p.coordinates { font-size:13px; color:$dark;}
+          border-bottom: 1px solid $border_color;
+          margin: 0 0 23px 0;
+        }
 
         ul{
           margin-left:0;

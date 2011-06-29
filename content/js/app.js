@@ -1,5 +1,45 @@
 $(function(){
 
+  var sortPopover = (function() {
+    var displayed = false;
+    var $popover;
+    var template = '<div class="white_popover">\
+      <div class="arrow"></div>\
+        <ul>\
+          <li class="first"><a href="#" class="selected"><span>Sort by relevance</span></a></li>\
+          <li><a href="#"><span>Sort by ocurrence</span></a></li>\
+          <li class="last"><a href="#"><span>Sort by size</span></a></li>\
+        </ul>\
+      </div>';
+
+    function show(e) {
+      if (!displayed) {
+        $("#content").prepend(template);
+        $popover = $(".white_popover");
+
+        var x = e.find("span").offset().left;
+        var y = e.find("span").offset().top;
+        var w = $(".white_popover").width();
+
+        $popover.css("left", x - w/2 + 4);
+        $popover.css("top", y - 5);
+
+        $popover.slideDown("fast", function() { displayed = true; });
+      } else {
+        $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+      }
+    }
+
+    return {
+      show: show
+    };
+  })();
+
+  $('.sort').click(function(e){
+    e.preventDefault();
+    sortPopover.show($(this));
+  });
+
   var dataHistory = (function() {
     var width, height, canvas, fillColor, fillOpacity, strokeColor, strokeOpacity, strokeWidth;
     var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DEC"];

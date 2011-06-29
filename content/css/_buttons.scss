@@ -21,6 +21,14 @@
         }
       }//li:first-child
 
+      &.last {
+        a {
+          height:34px;
+          background:url('/img/white_popover_left_side.png') no-repeat left bottom;
+          span { height:34px; background:url('/img/white_popover_right_side.png') repeat-x right bottom; }
+        }
+      }//li:last
+
       &:last-child {
         a {
           height:34px;

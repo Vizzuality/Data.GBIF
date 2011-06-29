@@ -131,13 +131,13 @@ header {
         li {
           float:left;
           display:block;
-          margin-top:3px;
+          margin-top:7px;
           margin-left:23px;
           font-size:15px;
           font-family:$font_medium;
 
           &.search {
-            margin-top:0px;
+            margin-top:0;
 
             form {
               clear:both;
@@ -145,17 +145,21 @@ header {
 
             span.input_text {
               float:left;
-              width:173px - 35;
-              height:27px;
-              padding:0px 10px 0 25px;
-              background: url('/img/header/input_bkg.png') no-repeat scroll left top;
+              width:179px - 40;
+              height:33px;
+              padding:0px 12px 0 28px;
+              background:url('/img/header/input_bkg.png') no-repeat scroll left 3px;
+              &.focus {
+                background-position:left -31px;
+              }
             }
+
 
             input {
               border:none;
               background:none;
-              width:173px - 35;
-              height:27px;
+              width:179px - 40;
+              height:33px;
               margin:0;
               padding:0;
 
@@ -169,7 +173,7 @@ header {
 
           a {
             display:block;
-            height:50px;
+            height:47px;
             position:relative;
 
             @include white-shadow;

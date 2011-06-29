@@ -332,6 +332,8 @@ $(function(){
     $(this).parent().removeClass("focus");
   });
 
+	//$('.box').jScrollPane();
+
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });

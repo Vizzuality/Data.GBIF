@@ -353,7 +353,7 @@ a {
 						background: none;
 						border: 1px solid red;
 					}
-					
+
         } // li
 
 				&.no_bottom {
@@ -406,7 +406,7 @@ a {
               color:$dark;
             }
 					} // h4
-					
+
         } // li
 
 				&.vertical {li {margin-bottom: 15px;}}
@@ -1246,3 +1246,5 @@ a {
 } // #content
 
 #lock_screen { position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:.5; background:$brightest; z-index:400; }
+
+

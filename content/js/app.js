@@ -324,13 +324,13 @@ $(function(){
     if (e.keyCode == 27) { infoWindow.hide(); }   // esc
   });
 
-  //$('span.input_text input').focus(function() {
-  //  $(this).parent().addClass("focus");
-  //});
+  $('span.input_text input').focus(function() {
+    $(this).parent().addClass("focus");
+  });
 
-  //$('span.input_text input').focusout(function() {
-  //  $(this).parent().removeClass("focus");
-  //});
+  $('span.input_text input').focusout(function() {
+    $(this).parent().removeClass("focus");
+  });
 
 	//$('.box').jScrollPane();
 

@@ -22,7 +22,6 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/css/style.css?v=2">
 
@@ -30,24 +29,16 @@
   <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
 
   <script src="/js/modernizr-1.7.min.js"></script>
-
 </head>
-<body>
-    <%= render 'partials/checklist/header' %>
-    <div id="content">
-      <%= yield %>
-      <%= render "/partials/login" %>
-    </div>
-    <%= render 'partials/footer' %>
-    <%= render 'partials/scripts' %>
-    
-    <script type="text/javascript" charset="utf-8">
-      if ($("#map").length ) {
-        var latlng = new google.maps.LatLng(-34.397, 150.644);
-        var myOptions = { zoom: 8, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
-        var map = new google.maps.Map(document.getElementById("map"), myOptions);
-      }
-    </script>
-    
+<body class="dataset">
+  <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
+
+  <%= render "/partials/species/header" %>
+  <div id="content">
+    <%= yield %>
+    <%= render "/partials/login" %>
+  </div>
+  <%= render "/partials/species/footer" %>
+  <%= render "/partials/scripts" %>
 </body>
 </html>

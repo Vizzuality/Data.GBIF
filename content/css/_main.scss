@@ -32,6 +32,7 @@ address {
 a.help { vertical-align:middle; }
 span.size { font-size:13px; color:$dark;}
 span.small {font-size:12px; color:$medium_dark;}
+span.number {font-family: $font-regular; color: $gray; font-size: 15px;}
 
 p.advice {
   margin-bottom:45px;
@@ -60,6 +61,16 @@ a {
     color:$ultra_dark;
     @include color-transition;
   }
+
+	&.small {
+		font-size: 11px;
+	}
+
+	&.more_link {
+		padding-left: 5px;
+		font-size: 13px;
+	}
+
 }
 
 #content {
@@ -270,7 +281,7 @@ a {
         padding-top:20px;
 
         a.specie {display:block; margin:0 0 5px 0; font-size:15px; text-decoration:none;}
-        p a {text-decoration:underline; }
+        p a {text-decoration:none; }
 
         ul.taxonomy {
           clear:both;
@@ -331,13 +342,24 @@ a {
           background:url('/img/icons/dot.png') no-repeat left 8px;
           color:$medium_dark;
 
-          a { text-decoration:underline; }
+          a { text-decoration:none; }
 
           &.download {
             padding-left:18px;
             background:url('/img/icons/arrow_down.png') no-repeat left 3px;
           }
+
+					&.no_bullets {
+						background: none;
+						border: 1px solid red;
+					}
+					
         } // li
+
+				&.no_bottom {
+					margin-bottom: 0;
+				}
+
       } // ul
 
       ol {
@@ -383,8 +405,12 @@ a {
               font-weight:normal;
               color:$dark;
             }
-          } // h4
+					} // h4
+					
         } // li
+
+				&.vertical {li {margin-bottom: 15px;}}
+
       } // ul.team
 
 
@@ -401,8 +427,16 @@ a {
           address { margin-top:10px; }
 
         }
+			}
 
-
+			ul.name_usages {
+				display: inline-block;
+				margin: 6px 0 25px 0;
+				width: 195px;
+				li {
+					padding-left: 0;
+					background: none;
+					}
       }
 
     } // .content

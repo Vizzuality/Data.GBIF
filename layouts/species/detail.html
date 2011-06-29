@@ -33,7 +33,7 @@
 <body class="dataset">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/partials/species/header" %>
+  <%= render "/species/header" %>
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>

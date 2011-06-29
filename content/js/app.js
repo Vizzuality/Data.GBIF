@@ -1,43 +1,73 @@
 $(function(){
 
   var sortPopover = (function() {
+    var el;
+    var selected_option = "Sort by relevance";
     var displayed = false;
     var $popover;
+
     var template = '<div class="white_popover">\
       <div class="arrow"></div>\
         <ul>\
-          <li class="first"><a href="#" class="selected"><span>Sort by relevance</span></a></li>\
+          <li class="first"><a href="#"><span>Sort by relevance</span></a></li>\
           <li><a href="#"><span>Sort by ocurrence</span></a></li>\
           <li class="last"><a href="#"><span>Sort by size</span></a></li>\
         </ul>\
       </div>';
 
-    function show(e) {
-      if (!displayed) {
-        $("#content").prepend(template);
-        $popover = $(".white_popover");
+    function toggle(e) {
+      el = e;
 
-        var x = e.find("span").offset().left;
-        var y = e.find("span").offset().top;
-        var w = $(".white_popover").width();
+      if (displayed) hide();
+      else show();
+    }
 
-        $popover.css("left", x - w/2 + 4);
-        $popover.css("top", y - 5);
+    function hide() {
+      $('html').unbind("click");
+      $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+    }
 
-        $popover.slideDown("fast", function() { displayed = true; });
-      } else {
-        $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
-      }
+    function show() {
+      $("#content").prepend(template);
+      $popover = $(".white_popover");
+
+      $('html').unbind("click");
+
+      $('html').click(function() {
+        if (displayed) {
+          hide();
+        }
+      });
+
+      $popover.find("a").click(function(event){
+        event.stopPropagation();
+        var t = $(this).text();
+        selected_option = t;
+        $popover.find("a").removeClass("selected");
+        var a = $('a *:contains('+selected_option+')');
+        a.parent().addClass("selected");
+        el.html(selected_option + "<span class='more'></span>");
+        hide();
+      });
+
+      var x = el.find("span").offset().left;
+      var y = el.find("span").offset().top;
+      var w = $(".white_popover").width();
+
+      $popover.css("left", x - w/2 + 4);
+      $popover.css("top", y - 5);
+
+      $popover.slideDown("fast", function() { displayed = true; });
     }
 
     return {
-      show: show
+      toggle: toggle
     };
   })();
 
   $('.sort').click(function(e){
     e.preventDefault();
-    sortPopover.show($(this));
+    sortPopover.toggle($(this));
   });
 
   var dataHistory = (function() {

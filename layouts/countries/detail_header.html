@@ -7,20 +7,19 @@
       <a href="#">Sign in</a> or <a href="#">Create your account</a>
     </div>
     <%= render "partials/logo" %>
-    <%= render "partials/nav", :selected => section %>
+    <%= render "partials/nav", :selected => "countries" %>
   </div>
 </div>
 <!-- /top -->
 
-<!-- infoband -->
-<div id="infoband">
-  <div class="content">
-    <h2>Search <%= section %></h2>
-    <form>
-      <input type="text" name="search" />
-    </form>
-  </div>
+<%= render "/countries/infoband" %>
+
+<!-- tabs -->
+<div id="tabs">
+  <ul>
+    <li class="selected"><a href="index.html"><span>Information</span></a></li>
+  </ul>
 </div>
-<!-- /infoband -->
+<!-- /tabs-->
 
 </header>

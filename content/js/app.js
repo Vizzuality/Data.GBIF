@@ -2,7 +2,7 @@ $(function(){
 
   var selectBox = (function() {
     var el;
-    var selected_option_text = "Sort by relevance";
+    var selected_option_text = "";
     var displayed = false;
     var $popover;
 
@@ -42,7 +42,18 @@ $(function(){
       el.find("li").unbind("click");
 
       el.find("li").click(function(event) {
-        el.find("div.selected_option span").text($(this).text());
+        var text = $(this).text();
+
+        el.find("li").removeClass("selected");
+        $(this).addClass("selected");
+
+        if (text != selected_option_text) {
+          el.find("div.selected_option span").animate({ color: "#FFFFFF" }, 400, function(){
+            el.find("div.selected_option span").text(text);
+            el.find("div.selected_option span").animate({ color: "#333" }, 400);
+          });
+        }
+        selected_option_text = text;
         hide();
       });
     }

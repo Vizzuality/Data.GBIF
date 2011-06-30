@@ -1,5 +1,5 @@
 #content .field {position:relative;}
-#content .field.select {height:50px;;}
+#content .field.select {height:70px;;}
 #content .field .select-box {
 -webkit-user-select: none;
 -khtml-user-select: none;
@@ -71,6 +71,7 @@ user-select: none;
         li { display:block; cursor:pointer; font-size:13px; color:$medium_dark; padding:0; margin:0 0 0px 0; background:none;
           @include color-transition;
           &:hover {color:$darkest;}
+          &.selected {color:$darkest;}
 
         }
       }

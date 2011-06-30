@@ -710,9 +710,8 @@ a {
         li {
           background:none;
           display:inline;
-          margin:0px;
-          padding:0;
-          &:after { content: "\00B7"; }
+          margin:0px; padding:0;
+          &:after { content: "\00a0\00B7"; }
           &:last-child:after { content:""; }
           a { text-decoration:none; }
         }

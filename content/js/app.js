@@ -31,16 +31,17 @@ $(function(){
       el.find('ul').jScrollPane({ verticalDragMinHeight: 20});
       displayed = true;
 
-      el.find('.jspVerticalBar').click(function(event) {
+      // don't do anything if we click inside of the select…
+      el.find('.listing, .jspVerticalBar').click(function(event) {
         event.stopPropagation();
       });
 
+      // … but clicking anywhere else closes the popover
       $('html').click(function() {
         displayed && hide();
       });
 
       el.find("li").unbind("click");
-
       el.find("li").click(function(event) {
         var text = $(this).text();
 
@@ -54,6 +55,7 @@ $(function(){
           });
         }
         selected_option_text = text;
+        $("input#country").val(selected_option_text);
         hide();
       });
     }

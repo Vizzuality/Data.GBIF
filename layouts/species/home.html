@@ -30,30 +30,15 @@
 
   <script src="/js/modernizr-1.7.min.js"></script>
 </head>
-<body>
+<body class="dataset">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/occurrences/detail_header" %>
+  <%= render "/species/header" %>
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>
   </div>
   <%= render "/partials/footer" %>
   <%= render "/partials/scripts" %>
-
-  <script type="text/javascript" charset="utf-8">
-
-   var latlng = new google.maps.LatLng(-24.397, 130.644);
-
-   var myOptions = { zoom: 8, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
-
-   var map    = new google.maps.Map(document.getElementById("map"), myOptions);
-   var image  = new google.maps.MarkerImage('/img/icons/marker.png', new google.maps.Size(26, 36), new google.maps.Point(0,0), new google.maps.Point(13, 36));
-   var shadow = new google.maps.MarkerImage('/img/icons/marker_shadow.png', new google.maps.Size(27, 15), new google.maps.Point(0,0), new google.maps.Point(13, 7));
-   var circle = new google.maps.Circle({map: map, radius: 30000, center: latlng, fillColor:"#fff", fillOpacity: .5, strokeWeight:0});
-
-   marker = new google.maps.Marker({ map:map, draggable:false, icon: image, shadow:shadow, animation: google.maps.Animation.DROP, position: latlng });
-  </script>
-
 </body>
 </html>

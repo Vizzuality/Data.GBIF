@@ -300,6 +300,13 @@ a {
             li:last-child { background:none; }
           }//li
         }//ul
+
+				.col {
+					width: 295px;
+					display: inline-block;
+					vertical-align: top;					
+				}
+
       }//.left
 
       .right  {
@@ -316,6 +323,24 @@ a {
           border-bottom: 1px solid $border_color;
           margin: 0 0 23px 0;
         }
+
+				div.big_number {
+					display: inline-block;
+					margin: 0 10px 20px 0; 
+					
+					span {
+						display: block;
+						width: 100%;
+						font-family: $font_medium;
+						font-size: 23px;
+					}
+					a {
+						display: block;
+						width: 100%;
+						margin-top: 5px;
+						font-size: 15px;
+					}
+				}
 
         ul{
           margin-left:0;
@@ -439,6 +464,14 @@ a {
 					}
       }
 
+			ul.notes {
+				margin: 0;
+				li {
+					a{display: block; width: 100%;}
+					span.note {color: $dark;font-size: 13px;}
+				}
+			}
+				
     } // .content
   } // article
 

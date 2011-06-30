@@ -300,6 +300,13 @@ a {
             li:last-child { background:none; }
           }//li
         }//ul
+
+				.col {
+					width: 295px;
+					display: inline-block;
+					vertical-align: top;					
+				}
+
       }//.left
 
       .right  {
@@ -439,6 +446,14 @@ a {
 					}
       }
 
+			ul.notes {
+				margin: 0;
+				li {
+					a{display: block; width: 100%;}
+					span.note {color: $dark;font-size: 13px;}
+				}
+			}
+				
     } // .content
   } // article
 

@@ -2,24 +2,29 @@ $(function(){
 
   var sortPopover = (function() {
     var el;
-    var selected_option = "Sort by relevance";
+    var selected_option_text = "Sort by relevance";
     var displayed = false;
     var $popover;
 
     var template = '<div class="white_popover">\
       <div class="arrow"></div>\
         <ul>\
-          <li class="first"><a href="#"><span>Sort by relevance</span></a></li>\
-          <li><a href="#"><span>Sort by ocurrence</span></a></li>\
-          <li class="last"><a href="#"><span>Sort by size</span></a></li>\
+          <li class="first"><a href="#" class="relevance"><span>Sort by relevance</span></a></li>\
+          <li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>\
+          <li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>\
         </ul>\
       </div>';
 
     function toggle(e) {
       el = e;
+      displayed ? hide(): show();
+    }
 
-      if (displayed) hide();
-      else show();
+    function select_option(option_text) {
+      selected_option_text = option_text;
+      $popover.find("a").removeClass("selected");
+      var selected_option = $('a *:contains('+selected_option_text+')');
+      selected_option.parent().addClass("selected");
     }
 
     function hide() {
@@ -31,29 +36,26 @@ $(function(){
       $("#content").prepend(template);
       $popover = $(".white_popover");
 
-      $('html').unbind("click");
-
+      // clicking anywhere closes the popover
       $('html').click(function() {
-        if (displayed) {
-          hide();
-        }
+        displayed && hide();
       });
 
       $popover.find("a").click(function(event){
         event.stopPropagation();
-        var t = $(this).text();
-        selected_option = t;
-        $popover.find("a").removeClass("selected");
-        var a = $('a *:contains('+selected_option+')');
-        a.parent().addClass("selected");
-        el.html(selected_option + "<span class='more'></span>");
+        select_option($(this).text());
+        el.html(selected_option_text + "<span class='more'></span>");
         hide();
       });
 
+      select_option(selected_option_text);
+
+      // get the coordinates and width of the popover
       var x = el.find("span").offset().left;
       var y = el.find("span").offset().top;
       var w = $(".white_popover").width();
 
+      // center the popover
       $popover.css("left", x - w/2 + 4);
       $popover.css("top", y - 5);
 

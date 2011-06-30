@@ -1,5 +1,58 @@
 $(function(){
 
+  var selectBox = (function() {
+    var el;
+    var selected_option_text = "Sort by relevance";
+    var displayed = false;
+    var $popover;
+
+    function toggle(e, event) {
+      event.stopPropagation();
+
+      el = e;
+      displayed ? hide(): show();
+    }
+
+    function select_option(option_text) {
+      selected_option_text = option_text;
+      $popover.find("a").removeClass("selected");
+      var selected_option = $('a *:contains('+selected_option_text+')');
+      selected_option.parent().addClass("selected");
+    }
+
+    function hide() {
+      $('html').unbind("click");
+      el.removeClass("selected");
+      displayed = false;
+    }
+
+    function show() {
+      el.toggleClass("selected");
+      el.find('ul').jScrollPane({ verticalDragMinHeight: 20});
+      displayed = true;
+
+      el.find('.jspVerticalBar').click(function(event) {
+        event.stopPropagation();
+      });
+
+      $('html').click(function() {
+        displayed && hide();
+      });
+
+      el.find("li").unbind("click");
+
+      el.find("li").click(function(event) {
+        el.find("div.selected_option span").text($(this).text());
+        hide();
+      });
+    }
+
+    return {
+      toggle: toggle
+    };
+  })();
+
+
   var sortPopover = (function() {
     var el;
     var selected_option_text = "Sort by relevance";
@@ -334,9 +387,8 @@ $(function(){
     $(this).parent().removeClass("focus");
   });
 
-  $('.select-box ul').jScrollPane();
-  $('.select-box').click(function() {
-    $(this).toggleClass("selected");
+  $('.select-box div.selected_option').click(function(e) {
+    selectBox.toggle($(this).parent(), e);
   });
 
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });

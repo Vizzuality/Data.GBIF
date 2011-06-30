@@ -1,22 +1,30 @@
+#content .field {position:relative;}
+#content .field.select {height:50px;;}
 #content .field .select-box {
+  z-index:100;
+  position:absolute;
+
+  &.countries div.selected_option {width:320px;}
   &.selected {
     .listing {
       display:block;
     }
-    a {
-      background:url('/img/select_left_side.png') no-repeat left -36px;
-    }
-    span {
-      background:url('/img/select_right_side.png') repeat-x right -36px;
+    div.selected_option {
+      background:url('/img/select_left_side.png') no-repeat left -39px;
+      span {
+        background:url('/img/select_right_side.png') repeat-x right -39px;
+      }
     }
   }
 
-  a {
-    z-index:10000;
+  div.selected_option {
+    cursor:pointer;
+    z-index:1000;
     display:block;
-    min-width:88px;
+    min-width:120px;
     height:41px;
     padding:0 0 0 17px;
+    margin-left:-5px;
     border:none;
     text-align:left;
     background:url('/img/select_left_side.png') no-repeat left top;
@@ -28,39 +36,36 @@
       display:block;
       height:41px;
       padding-right:19px;
-      line-height:42px;
+      line-height:37px;
       background:url('/img/select_right_side.png') repeat-x right top;
       font-family:$font_regular;
       font-size:13px;
     }
-  }
+  } //.selected_option
 
   .listing {
     display:none;
     padding:0 0 0 17px;
+    margin-left:-5px;
     background:url('/img/select_left_side.png') no-repeat left -73px;
 
     .inner {
       text-align:left;
       display:block;
       background: url('/img/select_right_side.png') repeat-x right -73px;
-      //display:none;
       padding:0 0 0px 0; margin:0 0 20px 0;
       height:150px;
 
-      ul  {
-      height:130px;
-      overflow: auto;
-      outline:none;
-      padding:5px 0 0 0; margin:0;
-        li {
-          font-size:13px;
-          color:$medium_dark;
+      ul {
+        height:130px;
+        overflow: auto;
+        outline:none;
+        padding:5px 0 0 0; margin:0;
 
-          a {background:none; height:auto; padding:0; margin:0;}
-          padding:0; margin:0 0 0px 0;
-          background:none;
-          z-index:1000;
+        li { display:block; cursor:pointer; font-size:13px; color:$medium_dark; padding:0; margin:0 0 0px 0; background:none;
+          @include color-transition;
+          &:hover {color:$darkest;}
+
         }
       }
     }

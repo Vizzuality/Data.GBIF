@@ -422,6 +422,7 @@ $(function(){
 
     function show() {
       el.find(".close").click(function(event) {
+        e.preventDefault();
         displayed && hide();
       });
 

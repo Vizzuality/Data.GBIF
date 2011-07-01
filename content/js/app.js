@@ -410,49 +410,61 @@ $(function(){
   $("input[type='radio']").uniform();
 
   var infoWindow = (function() {
-    var hidden = true;
+    var displayed = false;
     var $login;
+    var el;
 
-    function show(id) {
-      this.$login = $("#" + id);
+    function toggle(e, event) {
+      event.stopPropagation();
+      el = $("#"+e);
+      displayed ? hide(): show();
+    }
 
-      this.$login.css("top", ( $(window).height() - this.$login.height()) / 2+$(window).scrollTop() + "px");
-      this.$login.fadeIn("slow", function() { hidden = false; });
-      this.$login.draggable();
+    function show() {
+      el.find(".close").click(function(event) {
+        e.preventDefault();
+        displayed && hide();
+      });
+
+      el.click(function(event) {
+        event.stopPropagation();
+      });
+
+      $('html').click(function() {
+        displayed && hide();
+      });
+
+      el.css("top", ( $(window).height() - el.height()) / 2+$(window).scrollTop() + "px");
+      el.fadeIn("slow", function() { hidden = false; });
+      el.draggable();
       $("body").append("<div id='lock_screen'></div>");
       $("#lock_screen").height($(document).height());
       $("#lock_screen").fadeIn("slow");
+      displayed = true;
     }
 
     function hide(id) {
-      if (hidden) {return;}
-      this.$login.draggable(false);
-      this.$login.fadeOut("slow");
-      $("#lock_screen").fadeOut("slow", function() {
-        hidden = true;
-        $("#lock_screen").remove();
-      });
+      el.find('a.close').unbind("click");
+      $('html').unbind("click");
+      el.draggable(false);
+      el.fadeOut("slow");
+      $("#lock_screen").fadeOut("slow", function() { displayed = false; $("#lock_screen").remove(); });
     }
 
     return {
-      show: show,
+      toggle: toggle,
       hide: hide
     };
   })();
 
   $("a.login, a.download2, a.download3").click(function(e) {
     e.preventDefault();
-    infoWindow.show($(this).attr("class"));
+    infoWindow.toggle($(this).attr("class"), e);
   });
 
   $("a.download").click(function(e) {
     e.preventDefault();
-    infoWindow.show("download");
-  });
-
-  $(".infowindow .close").click(function(e) {
-    e.preventDefault();
-    infoWindow.hide();
+    infoWindow.toggle("download", e);
   });
 
   $(document).keyup(function(e) {

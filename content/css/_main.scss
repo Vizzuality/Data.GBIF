@@ -844,6 +844,15 @@ a {
 
           li { margin-bottom:14px; }
         }
+				
+				.tool {
+					float: left; 
+					margin: 0 0 30px 0;
+					img.tool_thumbnail {
+						float: left; margin-right: 20px;
+					}
+				}
+				
 
       }
       .right {

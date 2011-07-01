@@ -1,6 +1,5 @@
 .DS_Store
 .sass-cache
-output
 Gemfile.lock
 tmp/*
 tmp/dependencies

@@ -9,4 +9,6 @@ task :compile do
    %x(rm -rf output)
    %x(compass compile & nanoc3 compile)
    %x(cp -R output/* ../Data.GBIF.heroku/)
+   %x(cd ../Data.GBIF.heroku); #& git pull heroku master & git add . -u & git commit -m 'test')
+   %(pwd);
 end

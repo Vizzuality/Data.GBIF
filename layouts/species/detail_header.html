@@ -17,10 +17,14 @@
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li class="selected"><a href="index.html"><span>Information</span></a></li>
-    <li><a href="#"><span>Activity <sup>(2)</sup></span></a></li>
+    <li<%= ' class="selected highlighted"' if selected == "information" %>><a href="index.html"><span>Information</span></a></li>
+    <li<%= ' class="selected highlighted"' if selected == "activity" %>><a href="process_detail.html" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
   </ul>
 </div>
 <!-- /tabs-->
 
 </header>
+
+
+
+

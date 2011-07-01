@@ -97,18 +97,19 @@ a {
     top:-60px;
     background:$highlighted;
     text-align:left;
+
     .content {
       @include absolute_center(924px);
       a {
+        padding:0 0 0 10px;
+        margin: 0 0 0 2px;
+        background:url('/img/icons/arrow_dark_left.png') no-repeat left center;
         font-size:15px;
         color:$medium_dark;
         text-decoration:underline;
       }
-
-
     }
   }
-
 
   article.legal {
     h2 { padding-bottom: 20px; border-bottom: 1px solid $border_color; }

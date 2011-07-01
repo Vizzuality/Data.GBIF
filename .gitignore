@@ -3,5 +3,4 @@
 Gemfile.lock
 tmp/*
 tmp/dependencies
-heroku
 output

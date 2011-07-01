@@ -88,6 +88,28 @@ a {
     span.date { font-size:13px; color:$dark; }
   } // mini-profile
 
+
+  .back {
+    padding: 16px 0 0 0;
+    height:44px - 16;
+    border-bottom: 1px solid $gray;
+    position:relative;
+    top:-60px;
+    background:$highlighted;
+    text-align:left;
+    .content {
+      @include absolute_center(924px);
+      a {
+        font-size:15px;
+        color:$medium_dark;
+        text-decoration:underline;
+      }
+
+
+    }
+  }
+
+
   article.legal {
     h2 { padding-bottom: 20px; border-bottom: 1px solid $border_color; }
     .content .left { margin:0; padding:5px 0 0 0; border:none; }
@@ -844,20 +866,20 @@ a {
 
           li { margin-bottom:14px; }
         }
-				
+
 				.tool {
-					float: left; 
+					float: left;
 					margin: 0 0 30px 0;
 					img.tool_thumbnail {
-						float: left; 
-						margin-right: 20px; 
-						padding: 5px; 
+						float: left;
+						margin-right: 20px;
+						padding: 5px;
 						border: 1px solid $gray;
 						@include photo-shadow;
 						}
 					a.tool_url {margin: 0 0 20px 0; font-size: 15px;}
 				}
-				
+
 
       }
       .right {

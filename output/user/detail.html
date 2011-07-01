@@ -1,0 +1,543 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Detail - GBIF</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Place favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+  <!-- CSS: implied media="all" -->
+  <link rel="stylesheet" href="/css/style.css?v=2">
+
+  <!-- Uncomment if you are specifically targeting less enabled mobile browsers
+  <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
+
+  <script src="/js/modernizr-1.7.min.js"></script>
+
+</head>
+<body class="user">
+    <header>
+
+<!-- top -->
+<div id="top">
+  <div class="content">
+    <div class="account">
+      <a href="#" class="login">Sign in</a> or <a href="#">Create your account</a>
+    </div>
+    <div id="logo">
+  <a href="/reference.html" class="logo"><img src="/img/header/logo.png" /></a>
+  <h1><a href="/reference.html" title="DATA.GBIF.ORG">DATA.GBIF.ORG</a></h1>
+  <span>Free and open access to biodiversity data</span>
+</div>
+
+    
+<nav>
+<ul>
+  <li><a href="/occurrences/" title="Occurrences">Occurrences</a></li>
+  <li class="selected"><a href="/dataset/" title="Datasets">Datasets</a></li>
+  <li><a href="/species/" title="Species">Species</a></li>
+  <li><a href="#" class="more" title="More">More<span class="more"></span></a></li>
+  <li class="search">
+  <form action="/dataset/search.html" method="post">
+    <span class="input_text">
+      <input type="text" name="search" />
+    </span>
+  </form>
+  </li>
+</ul>
+</nav>
+
+  </div>
+</div>
+<!-- /top -->
+
+<!-- infoband -->
+<div id="infoband">
+  <div class="content">
+    <h1>Your account</h1>
+    <h3>Manage your personal data</h3>
+  </div>
+</div>
+<!-- /infoband -->
+
+
+</header>
+
+    <div id="content">
+      <article class="user">
+<header></header>
+<div class="content">
+
+  <div class="header">
+    <div class="left"><h2>Personal Data</h2></div>
+    <div class="right"><h4>Account details</h4></div>
+  </div>
+
+  <div class="left">
+    <form action="detail.html" method="get">
+
+      <div class="field">
+        <h3>Email</h3>
+        <span class="input_text">
+          <input id="email" name="email" type="text" />
+        </span>
+      </div>
+
+      <div class="fields">
+        <div class="field">
+          <h3>First name</h3>
+          <span class="input_text">
+            <input id="first_name" name="first_name" type="text" />
+          </span>
+        </div>
+
+        <div class="field last">
+          <h3>Last name</h3>
+          <span class="input_text">
+            <input id="last_name" name="last_name" type="text" />
+          </span>
+        </div>
+      </div>
+
+      <div class="field select">
+        <h3>Residential country</h3>
+
+        <input id="country" name="country" type="hidden" />
+
+        <div class="select-box countries">
+          <div class="selected_option"><span>Select country</span></div>
+          <div class="listing">
+            <div class="inner">
+              <ul>
+                <li>Antigua and Barbuda</li>
+                <li>Bosnia and Herzegovina</li>
+                <li>Cocos (Keeling) Islands</li>
+                <li>Congo, the Democratic Republic of the</li>
+                <li>Cote D'Ivoire</li>
+                <li>Fiji</li>
+                <li>French Southern Territories</li>
+                <li>Heard Island and Mcdonald Islands</li>
+                <li>Holy See (Vatican City State)</li>
+                <li>Iran, Islamic Republic of</li>
+                <li>Korea, Democratic People's Republic of</li>
+                <li>Korea, Republic of</li>
+                <li>Belarus</li>
+                <li>Lao People's Democratic Republic</li>
+                <li>Macedonia, the Former Yugoslav Republic of</li>
+                <li>United States</li>
+                <li>Micronesia, Federated States of</li>
+                <li>Moldova, Republic of</li>
+                <li>Palestinian Territory, Occupied</li>
+                <li>Pitcairn</li>
+                <li>Reunion</li>
+                <li>Saint Helena</li>
+                <li>Saint Kitts and Nevis</li>
+                <li>Saint Pierre and Miquelon</li>
+                <li>Sao Tome and Principe</li>
+                <li>Serbia and Montenegro</li>
+                <li>South Georgia and the South Sandwich Islands</li>
+                <li>Svalbard and Jan Mayen</li>
+                <li>Syrian Arab Republic</li>
+                <li>Taiwan, Province of China</li>
+                <li>Tanzania, United Republic of</li>
+                <li>Timor-Leste</li>
+                <li>Trinidad and Tobago</li>
+                <li>Mexico</li>
+                <li>Myanmar</li>
+                <li>Virgin Islands, British</li>
+                <li>Virgin Islands, U.s.</li>
+                <li>Wallis and Futuna</li>
+                <li>Albania</li>
+                <li>Algeria</li>
+                <li>American Samoa</li>
+                <li>Vanuatu</li>
+                <li>Yemen</li>
+                <li>Andorra</li>
+                <li>Angola</li>
+                <li>Anguilla</li>
+                <li>Argentina</li>
+                <li>Armenia</li>
+                <li>Aruba</li>
+                <li>Australia</li>
+                <li>Austria</li>
+                <li>Azerbaijan</li>
+                <li>Bahamas</li>
+                <li>Bahrain</li>
+                <li>Bangladesh</li>
+                <li>Barbados</li>
+                <li>Belgium</li>
+                <li>Benin</li>
+                <li>Bermuda</li>
+                <li>Bhutan</li>
+                <li>Bolivia</li>
+                <li>Botswana</li>
+                <li>Bouvet Island</li>
+                <li>Brazil</li>
+                <li>British Indian Ocean Territory</li>
+                <li>Brunei Darussalam</li>
+                <li>Bulgaria</li>
+                <li>Burkina Faso</li>
+                <li>Burundi</li>
+                <li>Cambodia</li>
+                <li>Cameroon</li>
+                <li>Canada</li>
+                <li>Cape Verde</li>
+                <li>Malta</li>
+                <li>Cayman Islands</li>
+                <li>Chad</li>
+                <li>Chile</li>
+                <li>China</li>
+                <li>Christmas Island</li>
+                <li>Colombia</li>
+                <li>Comoros</li>
+                <li>Cook Islands</li>
+                <li>Costa Rica</li>
+                <li>Croatia</li>
+                <li>Cuba</li>
+                <li>Cyprus</li>
+                <li>Czech Republic</li>
+                <li>Denmark</li>
+                <li>Djibouti</li>
+                <li>Dominica</li>
+                <li>Dominican Republic</li>
+                <li>Ecuador</li>
+                <li>Egypt</li>
+                <li>Equatorial Guinea</li>
+                <li>Eritrea</li>
+                <li>Estonia</li>
+                <li>Ethiopia</li>
+                <li>Faroe Islands</li>
+                <li>Finland</li>
+                <li>France</li>
+                <li>French Guiana</li>
+                <li>French Polynesia</li>
+                <li>Gabon</li>
+                <li>Gambia</li>
+                <li>Georgia</li>
+                <li>Germany</li>
+                <li>Ghana</li>
+                <li>Gibraltar</li>
+                <li>Greece</li>
+                <li>Greenland</li>
+                <li>Grenada</li>
+                <li>Guadeloupe</li>
+                <li>Guam</li>
+                <li>Guatemala</li>
+                <li>Guinea</li>
+                <li>Guinea-Bissau</li>
+                <li>Guyana</li>
+                <li>Haiti</li>
+                <li>Honduras</li>
+                <li>Hong Kong</li>
+                <li>Hungary</li>
+                <li>Iceland</li>
+                <li>India</li>
+                <li>Indonesia</li>
+                <li>Iraq</li>
+                <li>Israel</li>
+                <li>Italy</li>
+                <li>Jamaica</li>
+                <li>Japan</li>
+                <li>Jordan</li>
+                <li>Kazakhstan</li>
+                <li>Kenya</li>
+                <li>Kiribati</li>
+                <li>Kuwait</li>
+                <li>Kyrgyzstan</li>
+                <li>Latvia</li>
+                <li>Lesotho</li>
+                <li>Liberia</li>
+                <li>Libyan Arab Jamahiriya</li>
+                <li>Lithuania</li>
+                <li>Luxembourg</li>
+                <li>Macao</li>
+                <li>Madagascar</li>
+                <li>Malawi</li>
+                <li>Malaysia</li>
+                <li>Maldives</li>
+                <li>Mali</li>
+                <li>Marshall Islands</li>
+                <li>Martinique</li>
+                <li>Mauritius</li>
+                <li>Mayotte</li>
+                <li>Monaco</li>
+                <li>Mongolia</li>
+                <li>Montserrat</li>
+                <li>Morocco</li>
+                <li>Mozambique</li>
+                <li>Namibia</li>
+                <li>Nauru</li>
+                <li>Nepal</li>
+                <li>Netherlands</li>
+                <li>New Caledonia</li>
+                <li>New Zealand</li>
+                <li>Nicaragua</li>
+                <li>Niger</li>
+                <li>Nigeria</li>
+                <li>Niue</li>
+                <li>Norfolk Island</li>
+                <li>Northern Mariana Islands</li>
+                <li>Norway</li>
+                <li>Oman</li>
+                <li>Pakistan</li>
+                <li>Palau</li>
+                <li>Panama</li>
+                <li>Paraguay</li>
+                <li>Peru</li>
+                <li>Philippines</li>
+                <li>Poland</li>
+                <li>Portugal</li>
+                <li>Puerto Rico</li>
+                <li>Qatar</li>
+                <li>Romania</li>
+                <li>Russian Federation</li>
+                <li>Rwanda</li>
+                <li>Saint Lucia</li>
+                <li>Saint Vincent and the Grenadines</li>
+                <li>Samoa</li>
+                <li>San Marino</li>
+                <li>Senegal</li>
+                <li>Seychelles</li>
+                <li>Sierra Leone</li>
+                <li>Singapore</li>
+                <li>Slovakia</li>
+                <li>Slovenia</li>
+                <li>Solomon Islands</li>
+                <li>Somalia</li>
+                <li>South Africa</li>
+                <li>Spain</li>
+                <li>Sri Lanka</li>
+                <li>Sudan</li>
+                <li>Suriname</li>
+                <li>Swaziland</li>
+                <li>Sweden</li>
+                <li>Switzerland</li>
+                <li>Thailand</li>
+                <li>Togo</li>
+                <li>Tokelau</li>
+                <li>Tonga</li>
+                <li>Tunisia</li>
+                <li>Turkey</li>
+                <li>Turkmenistan</li>
+                <li>Turks and Caicos Islands</li>
+                <li>Tuvalu</li>
+                <li>Uganda</li>
+                <li>Ukraine</li>
+                <li>United Kingdom</li>
+                <li>United States Minor Outlying Islands</li>
+                <li>Uruguay</li>
+                <li>Uzbekistan</li>
+                <li>Venezuela</li>
+                <li>Viet Nam</li>
+                <li>Western Sahara</li>
+                <li>Zambia</li>
+                <li>Zimbabwe</li>
+                <li>Antarctica</li>
+                <li>Belize</li>
+                <li>Central African Republic</li>
+                <li>El Salvador</li>
+                <li>Ireland</li>
+                <li>Lebanon</li>
+                <li>Liechtenstein</li>
+                <li>Mauritania</li>
+                <li>Afghanistan</li>
+                <li>Falkland Islands (Malvinas)</li>
+                <li>Netherlands Antilles</li>
+                <li>Congo</li>
+                <li>Papua New Guinea</li>
+                <li>Saudi Arabia</li>
+                <li>Tajikistan</li>
+                <li>United Arab Emirates</li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!--<select name="data-policy">
+          <option>Select country</option>
+          <option>Country 1</option>
+          <option>Country 2</option>
+          <option>Country 3</option>
+          <option>Country 4</option>
+          <option>Country 5</option>
+        </select>-->
+      </div>
+
+      <h2>Scientific profile</h2>
+
+      <div class="field">
+        <h3>Organization</h3>
+        <span class="input_text">
+          <input id="organization" name="organization" type="text" />
+        </span>
+      </div>
+
+      <div class="fields">
+        <div class="field">
+          <h3>Academic degree <span>Not mandatory</span></h3>
+          <span class="input_text">
+            <input id="academic_degree" name="academic_degree" type="text" placeholder="Bachelor, PhD..." />
+          </span>
+        </div>
+
+        <div class="field last">
+          <h3>Field of study <span>Not mandatory</span></h3>
+          <span class="input_text">
+            <input id="field_study" name="field_study" type="text" placeholder="Biology, botany, weather sciences..." />
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>Intended data usage</h3>
+        <textarea id="data_usage" name="data_usage" rows="10" cols="30" placeholder="Personal research, publication, data visualization..."></textarea>
+      </div>
+
+      <button type="submit" class="candy_blue_button"><span>Save</span></button>
+    </form>
+  </div>
+
+  <div class="right">
+    <h3><a href="change_password.html" title="Change your password">CHANGE YOUR PASSWORD</a></h3>
+  </div>
+</div>
+<footer></footer>
+</article>
+
+      <article id="login" class="infowindow login">
+<header></header>
+<a href="#" class="close"></a>
+<div class="content">
+  <h2>SIGN IN TO GBIF</h2>
+  <p>You need to log in GBIF in order to download the data.</p>
+  <form autocomplete="off">
+    <div class="light_box">
+      <div class="field">
+        <h3>Email</h3>
+        <span class="input_text">
+          <input id="email" name="email" type="text" />
+        </span>
+      </div>
+
+      <div class="field">
+        <h3>Password</h3>
+        <span class="input_text">
+          <input id="password" name="password" type="password" />
+        </span>
+      </div>
+      <div class="tl"></div><div class="tr"></div><div class="bl"></div><div class="br"></div>
+    </div>
+    <a href="#" title="Recover your password">Forgot your password?</a>
+    <button type="submit" class="candy_blue_button"><span>Login</span></button>
+  </form>
+  <div class="footer">Do yo need to Sign up? <a href="#" title="Create your account">Create your account</a></div>
+</div>
+<footer></footer>
+</article>
+
+    </div>
+    <footer>
+<div class="content">
+<ul>
+  <li><h3>EXPLORE THE DATA</h3></li>
+  <li><a href="/occurrences/">Occurrences</a></li>
+  <li><a href="/dataset/">Datasets</a></li>
+  <li><a href="/species/">Species</a></li>
+  <li><a href="/countries/">Countries</a></li>
+  <li><a href="/members/">GBIF Network Member</a></li>
+</ul>
+
+<ul>
+  <li><h3>VIEW THE STATISTICS</h3></li>
+  <li><a href="#">Global numbers</a></li>
+  <li><a href="#">Taxonomic coverage</a></li>
+  <li><a href="#">Providers</a></li>
+  <li><a href="#">Countries</a></li>
+</ul>
+
+<ul >
+  <li><h3>JOIN THE COMMUNITY</h3></li>
+  <li><a href="#">Sign in</a></li>
+  <li><a href="#">Sign Up</a></li>
+  <li><a href="/static/terms_and_conditions.html">Terms and conditions</a></li>
+  <li><a href="/static/about.html">About GBIF</a></li>
+</ul>
+
+<ul class="first">
+  <li><h3>LATEST FROM THE GBIF DEVELOPER BLOG</h3></li>
+  <li>
+  <p><a href="#">The GBIF Development Team</a>
+  <span class="date">11th, April of 2011</span></p>
+
+  <p>Recently the GBIF development group have been asked to communicate more on the work being carried out in...</p>
+  </li>
+</ul>
+
+<ul>
+  <li class="no_title">
+  <p><a href="#">Setting up a Hadoop cluster - Part 1...</a>
+  <span class="date">11th, April of 2011</span></p>
+
+  <p>Recently the GBIF development group have been asked to communicate more on the work being carried out in the se...</p>
+  </li>
+</ul>
+
+<ul>
+  <li><h3>LATEST FROM THE GBIF NEWS</h3></li>
+  <li>
+  <p><a href="#">Experts Workshop on the GBIF...</a>
+  <span class="date">11th, April of 2011</span></p>
+
+  <p>The GBIF Secretariat is pleased to announce a new training opportunity for GBIF Participants: an Experts...</p>
+  </li>
+</ul>
+</div>
+</footer>
+
+<div class="copyright">
+  <p>2011 © GBIF. Data publishers retain all rights to data.</p>
+</div>
+
+    <!-- JavaScript at the bottom for fast page loading -->
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<script>window.jQuery || document.write("<script src='/js/jquery-1.6.1.min.js'>\x3C/script>"); document.write("<script src='/js/jquery-ui.min.js'>\x3C/script>");</script>
+    -->
+
+<!-- scripts concatenated and minified via ant build script  -->
+<script src="/js/jquery-1.6.1.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/mousewheel.js"></script>
+<script type="text/javascript" src="/js/jscrollpane.min.js"></script>
+<script src="/js/underscore-min.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/js/raphael-min.js"></script>
+<!-- end scripts-->
+<!--[if lt IE 7 ]>
+<script src="js/libs/dd_belatedpng.js"></script>
+<script>DD_belatedPNG.fix("img, .png_bg"); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
+<![endif]-->
+
+</body>
+</html>

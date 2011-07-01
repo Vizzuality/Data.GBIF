@@ -36,7 +36,8 @@
       <%= render 'partials/search/header', :section => "GBIF Network members" %>
     <div id="content">
       <%= yield %>
-      <%= render "partials/login" %>
+      <%= render "/partials/login" %>
+      <%= render "/partials/download" %>
     </div>
     <%= render 'partials/footer' %>
     <%= render 'partials/scripts' %>

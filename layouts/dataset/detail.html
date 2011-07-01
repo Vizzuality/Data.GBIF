@@ -34,14 +34,15 @@
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
   <%= render "/dataset/detail_header" %>
-  
+
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>
+    <%= render "/partials/download" %>
   </div>
   <%= render "/partials/footer" %>
   <%= render "/partials/scripts" %>
-  
+
     <script type="text/javascript" charset="utf-8">
       if ($("#map").length ) {
         var latlng = new google.maps.LatLng(-34.397, 150.644);
@@ -49,6 +50,6 @@
         var map = new google.maps.Map(document.getElementById("map"), myOptions);
       }
     </script>
-  
+
 </body>
 </html>

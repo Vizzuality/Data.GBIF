@@ -34,10 +34,11 @@
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
   <%= render "/species/header" %>
-  
+
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>
+    <%= render "/partials/download" %>
   </div>
   <%= render "/partials/footer" %>
   <%= render "/partials/scripts" %>

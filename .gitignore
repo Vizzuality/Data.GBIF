@@ -4,3 +4,4 @@ Gemfile.lock
 tmp/*
 tmp/dependencies
 output
+tmp/dependencies

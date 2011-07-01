@@ -990,10 +990,10 @@ body.search header h2 {
   margin-left: 25px;
 }
 body.dataset header #top nav ul li.selected a, body.register header #top nav ul li.selected a {
-  background: url("/img/header/triangle_gray.png") no-repeat center bottom;
+  background: url("img/header/triangle_gray.png") no-repeat center bottom;
 }
 body.dataset header #top nav ul li a:hover, body.register header #top nav ul li a:hover {
-  background: url("/img/header/triangle_gray.png") no-repeat center bottom;
+  background: url("img/header/triangle_gray.png") no-repeat center bottom;
 }
 body.dataset header #top .content #logo, body.register header #top .content #logo {
   top: 42px;
@@ -1034,7 +1034,7 @@ body.user header #infoband, body.static header #infoband {
 header {
   position: relative;
   padding-top: 3px;
-  background: url("/img/header/top_bar.jpg") repeat-x;
+  background: url("img/header/top_bar.jpg") repeat-x;
   height: 285px;
   text-align: center;
 }
@@ -1069,7 +1069,7 @@ header #logo span {
 }
 header #top {
   position: relative;
-  background: url("/img/header/top_header_bkg.jpg") repeat-x;
+  background: url("img/header/top_header_bkg.jpg") repeat-x;
   height: 97px;
   text-align: center;
 }
@@ -1091,7 +1091,7 @@ header #top .account {
   padding: 6px 0 0 7px;
   color: #ADD8B8;
   font-size: 11px;
-  background: url("/img/header/header_account_bkg.png") no-repeat;
+  background: url("img/header/header_account_bkg.png") no-repeat;
 }
 header #top .account a {
   color: white;
@@ -1135,7 +1135,7 @@ header #top nav ul li.search form span.input_text {
   width: 139px;
   height: 33px;
   padding: 0px 12px 0 28px;
-  background: url("/img/header/input_bkg.png") no-repeat scroll left 3px;
+  background: url("img/header/input_bkg.png") no-repeat scroll left 3px;
 }
 header #top nav ul li.search form span.input_text.focus {
   background-position: left -31px;
@@ -1153,7 +1153,7 @@ header #top nav ul li.search form input:focus {
 }
 header #top nav ul li.selected a {
   color: #333333;
-  background: url("/img/header/triangle.png") no-repeat center bottom;
+  background: url("img/header/triangle.png") no-repeat center bottom;
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
   /* IE8 */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
@@ -1174,7 +1174,7 @@ header #top nav ul li a {
 }
 header #top nav ul li a:hover {
   color: #333333;
-  background: url("/img/header/triangle.png") no-repeat center bottom;
+  background: url("img/header/triangle.png") no-repeat center bottom;
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
   /* IE8 */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
@@ -1182,7 +1182,7 @@ header #top nav ul li a:hover {
   zoom: 1;
 }
 header #top nav ul li a:hover span {
-  background: url("/img/icons/tiny_arrow_black.png") no-repeat right bottom;
+  background: url("img/icons/tiny_arrow_black.png") no-repeat right bottom;
 }
 header div#tabs {
   position: relative;
@@ -1250,7 +1250,7 @@ header #infoband {
   position: relative;
   height: 155px;
   padding-top: 33px;
-  background: url("/img/header/infoband.jpg") repeat-x;
+  background: url("img/header/infoband.jpg") repeat-x;
 }
 header #infoband .content {
   position: absolute;
@@ -1269,7 +1269,7 @@ header #infoband .content ul.breadcrumb li {
   margin-left: 2px;
   padding-right: 12px;
   margin-right: 3px;
-  background: url("/img/icons/arrow_header_right.png") no-repeat right;
+  background: url("img/icons/arrow_header_right.png") no-repeat right;
 }
 header #infoband .content ul.breadcrumb li.last {
   background: none;
@@ -1311,7 +1311,7 @@ header #infoband .content h3 {
   padding-bottom: 10px;
 }
 header #infoband .content h3.separator {
-  background: url("/img/header/tag_line.png") no-repeat left bottom;
+  background: url("img/header/tag_line.png") no-repeat left bottom;
 }
 header #infoband .content h3 a {
   color: white;
@@ -1325,7 +1325,7 @@ header #infoband .content form input {
   height: 37px;
   padding: 0 50px 0 25px;
   border: none;
-  background: url("/img/header/search_bkg.png") no-repeat left top;
+  background: url("img/header/search_bkg.png") no-repeat left top;
   font-size: 17px;
   color: #333333;
 }
@@ -1333,7 +1333,7 @@ header #infoband .content form input:focus {
   outline: none;
 }
 header #infoband .content ul.tags {
-  background: url("/img/icons/tags.png") no-repeat left;
+  background: url("img/icons/tags.png") no-repeat left;
   padding-left: 16px;
 }
 header #infoband .content ul.tags li {
@@ -1361,7 +1361,7 @@ header #infoband .content .box {
   position: absolute;
   top: 0;
   right: 37px;
-  background: url("/img/header/infoband_box_left.png") no-repeat left top;
+  background: url("img/header/infoband_box_left.png") no-repeat left top;
   padding: 0 12px;
 }
 header #infoband .content .box .content {
@@ -1372,7 +1372,7 @@ header #infoband .content .box .content {
   right: 0;
   height: 120px;
   padding: 12px 12px 0 0;
-  background: url("/img/header/infoband_box_right.png") repeat-x right top;
+  background: url("img/header/infoband_box_right.png") repeat-x right top;
 }
 header #infoband .content .box .content ul {
   clear: both;

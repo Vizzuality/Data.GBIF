@@ -2,21 +2,28 @@ $(function(){
 
   var selectBox = (function() {
     var el;
-    var selected_option_text = "";
+    var selectedOptionText = "";
     var displayed = false;
     var $popover;
+    var transitionSpeed = 200;
 
-    function toggle(e, event) {
+    function toggle(e, event, opt) {
       event.stopPropagation();
 
       el = e;
+
+      if (opt) {
+        transitionSpeed = opt.transitionSpeed;
+        transitionSpeed = opt.transitionSpeed;
+      }
+
       displayed ? hide(): show();
     }
 
     function select_option(option_text) {
-      selected_option_text = option_text;
+      selectedOptionText = option_text;
       $popover.find("a").removeClass("selected");
-      var selected_option = $('a *:contains('+selected_option_text+')');
+      var selected_option = $('a *:contains('+selectedOptionText+')');
       selected_option.parent().addClass("selected");
     }
 
@@ -48,14 +55,14 @@ $(function(){
         el.find("li").removeClass("selected");
         $(this).addClass("selected");
 
-        if (text != selected_option_text) {
-          el.find("div.selected_option span").animate({ color: "#FFFFFF" }, 400, function(){
+        if (text != selectedOptionText) {
+          el.find("div.selected_option span").animate({ color: "#FFFFFF" }, transitionSpeed, function(){
             el.find("div.selected_option span").text(text);
-            el.find("div.selected_option span").animate({ color: "#333" }, 400);
+            el.find("div.selected_option span").animate({ color: "#333" }, transitionSpeed);
           });
         }
-        selected_option_text = text;
-        $("input#country").val(selected_option_text);
+        selectedOptionText = text;
+        $("input#country").val(selectedOptionText);
         hide();
       });
     }
@@ -65,10 +72,60 @@ $(function(){
     };
   })();
 
+  var linkPopover = (function() {
+    var el;
+    var displayed = false;
+    var $popover;
+
+    var template = '<div class="white_narrow_popover">\
+      <div class="arrow"></div>\
+        <ul>\
+          <li class="first"><a href="#"><span>Countries</span></a></li>\
+          <li><a href="#"><span>Areas</span></a></li>\
+          <li><a href="#"><span>Stats</span></a></li>\
+          <li class="last"><a href="#"><span>About</span></a></li>\
+        </ul>\
+      </div>';
+
+    function toggle(e) {
+      el = e;
+      displayed ? hide(): show();
+    }
+
+    function hide() {
+      $('html').unbind("click");
+      $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+    }
+
+    function show() {
+      $("#content").prepend(template);
+      $popover = $(".white_narrow_popover");
+
+      // clicking anywhere closes the popover
+      $('html').click(function() {
+        displayed && hide();
+      });
+
+      // get the coordinates and width of the popover
+      var x = el.find("span").offset().left;
+      var y = el.find("span").offset().top;
+      var w = $(".white_narrow_popover").width();
+
+      // center the popover
+      $popover.css("left", x - w/2 + 4);
+      $popover.css("top", y - 5);
+
+      $popover.slideDown("fast", function() { displayed = true; });
+    }
+
+    return {
+      toggle: toggle
+    };
+  })();
 
   var sortPopover = (function() {
     var el;
-    var selected_option_text = "Sort by relevance";
+    var selectedOptionText = "Sort by relevance";
     var displayed = false;
     var $popover;
 
@@ -87,9 +144,9 @@ $(function(){
     }
 
     function select_option(option_text) {
-      selected_option_text = option_text;
+      selectedOptionText = option_text;
       $popover.find("a").removeClass("selected");
-      var selected_option = $('a *:contains('+selected_option_text+')');
+      var selected_option = $('a *:contains('+selectedOptionText+')');
       selected_option.parent().addClass("selected");
     }
 
@@ -110,11 +167,11 @@ $(function(){
       $popover.find("a").click(function(event){
         event.stopPropagation();
         select_option($(this).text());
-        el.html(selected_option_text + "<span class='more'></span>");
+        el.html(selectedOptionText + "<span class='more'></span>");
         hide();
       });
 
-      select_option(selected_option_text);
+      select_option(selectedOptionText);
 
       // get the coordinates and width of the popover
       var x = el.find("span").offset().left;
@@ -132,6 +189,11 @@ $(function(){
       toggle: toggle
     };
   })();
+
+  $('nav ul li a.more').click(function(e){
+    e.preventDefault();
+    linkPopover.toggle($(this));
+  });
 
   $('.sort').click(function(e){
     e.preventDefault();

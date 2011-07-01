@@ -42,7 +42,7 @@ p.advice {
   a { color:$dark; text-decoration:underline; }
 }
 
-.more {
+span.more {
   display:block;
   position:absolute;
   top:8px;
@@ -304,7 +304,7 @@ a {
 				.col {
 					width: 295px;
 					display: inline-block;
-					vertical-align: top;					
+					vertical-align: top;
 				}
 
       }//.left
@@ -326,8 +326,8 @@ a {
 
 				div.big_number {
 					display: inline-block;
-					margin: 0 10px 20px 0; 
-					
+					margin: 0 10px 20px 0;
+
 					span {
 						display: block;
 						width: 100%;
@@ -471,7 +471,7 @@ a {
 					span.note {color: $dark;font-size: 13px;}
 				}
 			}
-				
+
     } // .content
   } // article
 

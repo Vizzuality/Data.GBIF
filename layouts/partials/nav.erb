@@ -4,7 +4,7 @@
   <li<%= @selected == "occurrences" ? clase : nil %>><a href="/occurrences/" title="Occurrences">Occurrences</a></li>
   <li<%= @selected == "datasets" ? clase : nil %>><a href="/dataset/" title="Datasets">Datasets</a></li>
   <li<%= @selected == "species" ? clase : nil %>><a href="/species/" title="Species">Species</a></li>
-  <li<%= @selected == "more" ? clase : nil %>><a href="#" title="More">More<span class="more"></span></a></li>
+  <li<%= @selected == "more" ? clase : nil %>><a href="#" class="more" title="More">More<span class="more"></span></a></li>
   <li class="search">
   <form action="/dataset/search.html" method="post">
     <span class="input_text">

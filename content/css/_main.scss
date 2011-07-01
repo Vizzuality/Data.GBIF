@@ -849,8 +849,13 @@ a {
 					float: left; 
 					margin: 0 0 30px 0;
 					img.tool_thumbnail {
-						float: left; margin-right: 20px;
-					}
+						float: left; 
+						margin-right: 20px; 
+						padding: 5px; 
+						border: 1px solid $gray;
+						@include photo-shadow;
+						}
+					a.tool_url {margin: 0 0 20px 0; font-size: 15px;}
 				}
 				
 

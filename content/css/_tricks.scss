@@ -18,6 +18,13 @@
   text-shadow:0 -1px $dark_link_color; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
 }
 
+@mixin photo-shadow {
+	-moz-box-shadow:  0 0 1px 1px $light_gray;
+	-webkit-box-shadow:  0 0 1px 1px $light_gray;
+	-box-shadow: 0 0 1px 1px $light_gray;						
+}
+
+
 @mixin transparency_fix {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */

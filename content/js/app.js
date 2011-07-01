@@ -450,7 +450,6 @@ $(function(){
     infoWindow.show("download");
   });
 
-
   $(".infowindow .close").click(function(e) {
     e.preventDefault();
     infoWindow.hide();

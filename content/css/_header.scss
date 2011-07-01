@@ -11,8 +11,8 @@ body  {
   // ---------------------------------------
 
   &.dataset header, &.register header {
-    #top nav ul li.selected a { background: url('img/header/triangle_gray.png') no-repeat center bottom; }
-    #top nav ul li a:hover { background: url('img/header/triangle_gray.png') no-repeat center bottom; }
+    #top nav ul li.selected a { background: url('../img/header/triangle_gray.png') no-repeat center bottom; }
+    #top nav ul li a:hover { background: url('../img/header/triangle_gray.png') no-repeat center bottom; }
     #top .content #logo {top:42px;}
   }
 
@@ -61,7 +61,7 @@ body  {
 header {
   position:relative;
   padding-top:3px;
-  background:url('img/header/top_bar.jpg') repeat-x;
+  background:url('../img/header/top_bar.jpg') repeat-x;
   height:285px;
   text-align:center;
 
@@ -90,7 +90,7 @@ header {
 
   #top {
     position:relative;
-    background: url('img/header/top_header_bkg.jpg') repeat-x;
+    background: url('../img/header/top_header_bkg.jpg') repeat-x;
     height: 97px;
     text-align:center;
 
@@ -109,7 +109,7 @@ header {
       padding:6px 0 0 7px;
       color: #ADD8B8;
       font-size:11px;
-      background:url('img/header/header_account_bkg.png') no-repeat;
+      background:url('../img/header/header_account_bkg.png') no-repeat;
 
       a {
         color: $brightest;
@@ -148,7 +148,7 @@ header {
               width:179px - 40;
               height:33px;
               padding:0px 12px 0 28px;
-              background:url('img/header/input_bkg.png') no-repeat scroll left 3px;
+              background:url('../img/header/input_bkg.png') no-repeat scroll left 3px;
               &.focus {
                 background-position:left -31px;
               }
@@ -169,7 +169,7 @@ header {
           } //form
           } //li.search
 
-          &.selected a { color:$ultra_dark; background: url('img/header/triangle.png') no-repeat center bottom; @include transparency_fix; }
+          &.selected a { color:$ultra_dark; background: url('../img/header/triangle.png') no-repeat center bottom; @include transparency_fix; }
 
           a {
             display:block;
@@ -181,10 +181,10 @@ header {
 
             &:hover {
               color:$ultra_dark;
-              background: url('img/header/triangle.png') no-repeat center bottom;
+              background: url('../img/header/triangle.png') no-repeat center bottom;
               @include transparency_fix;
 
-              span { background:url('img/icons/tiny_arrow_black.png') no-repeat right bottom; }
+              span { background:url('../img/icons/tiny_arrow_black.png') no-repeat right bottom; }
             } // hover
           } // a
         } // li
@@ -258,7 +258,7 @@ header {
     position:relative;
     height: 188px - 33;
     padding-top: 33px;
-    background: url('img/header/infoband.jpg') repeat-x;
+    background: url('../img/header/infoband.jpg') repeat-x;
 
     .content {
       position:absolute;
@@ -278,7 +278,7 @@ header {
             margin-left:2px;
             padding-right:12px;
             margin-right:3px;
-            background: url('img/icons/arrow_header_right.png') no-repeat right;
+            background: url('../img/icons/arrow_header_right.png') no-repeat right;
 
             &.last { background:none; }
             &:last-child { background:none; }
@@ -306,7 +306,7 @@ header {
         padding-bottom:10px;
 
         &.separator {
-          background:url('img/header/tag_line.png') no-repeat left bottom;
+          background:url('../img/header/tag_line.png') no-repeat left bottom;
         }
 
         a {
@@ -322,7 +322,7 @@ header {
           height:37px;
           padding: 0 50px 0 25px;
           border:none;
-          background:url('img/header/search_bkg.png') no-repeat left top;
+          background:url('../img/header/search_bkg.png') no-repeat left top;
           font-size:17px;
           color:$ultra_dark;
 
@@ -331,7 +331,7 @@ header {
       } // form
 
       ul.tags {
-        background:url('img/icons/tags.png') no-repeat left;
+        background:url('../img/icons/tags.png') no-repeat left;
         padding-left:16px;
 
         li {
@@ -354,7 +354,7 @@ header {
         position:absolute;
         top: 0;
         right:37px;
-        background: url('img/header/infoband_box_left.png') no-repeat left top;
+        background: url('../img/header/infoband_box_left.png') no-repeat left top;
         padding: 0 12px;
 
         .content {
@@ -364,7 +364,7 @@ header {
           left:0; right:0;
           height:120px;
           padding:12px 12px 0 0;
-          background:url('img/header/infoband_box_right.png') repeat-x right top;
+          background:url('../img/header/infoband_box_right.png') repeat-x right top;
 
           ul {
             clear:both;

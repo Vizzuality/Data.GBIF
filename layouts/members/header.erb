@@ -1,0 +1,29 @@
+<header>
+<!-- top -->
+<div id="top">
+  <div class="content">
+
+    <div class="account">
+      <a href="#" class="login" title="Sign in">Sign in</a> or <a href="#" title="Create your account">Create your account</a>
+    </div>
+
+    <%= render "partials/logo" %>
+    <%= render "partials/nav", :selected => "" %>
+
+  </div>
+</div>
+<!-- /top -->
+
+<%= render "/members/infoband" %>
+
+<!-- tabs -->
+<div id="tabs">
+  <ul>
+    <li class="selected"><a href="/index.html" title="Information"><span>Information</span></a></li>
+    <li><a href="#" title="Datasets"><span>Datasets</span></a></li>
+    <li><a href="#" title="Occurrences"><span>Occurrences</span></a></li>
+    <li><a href="#" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+  </ul>
+</div>
+<!-- /tabs-->
+</header>

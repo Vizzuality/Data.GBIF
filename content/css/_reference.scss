@@ -1,0 +1,37 @@
+body {
+  &.reference header {
+    height:226px;
+
+
+    #infoband {
+      border-bottom:1px solid #4b8741;
+      height: 129px - 33;
+
+      .content h3 { background: none; }
+    }
+  }
+}
+article.reference {
+  .header {
+    .right {
+      h4 { margin-top:22px;}
+    }
+  }
+
+  ul li ul { margin-top: 10px!important; margin-bottom:0!important;}
+  strong {color:$ultra_dark;}
+
+  .color {
+    float:left;
+    margin-right:5px;
+    margin-top:4px;
+    height:10px;
+    width:10px;
+    background:#000;
+    border:1px solid #000;
+  }
+  span.code {
+    color:$dark;
+    font-size:11px;
+  }
+}

@@ -1,0 +1,26 @@
+<header>
+
+<!-- top -->
+<div id="top">
+  <div class="content">
+    <div class="account">
+      <a href="#">Sign in</a> or <a href="#">Create your account</a>
+    </div>
+    <%= render "partials/logo" %>
+    <%= render "partials/nav", :selected => section %>
+  </div>
+</div>
+<!-- /top -->
+
+<!-- infoband -->
+<div id="infoband">
+  <div class="content">
+    <h2>Search <%= section %></h2>
+    <form>
+      <input type="text" name="search" />
+    </form>
+  </div>
+</div>
+<!-- /infoband -->
+
+</header>

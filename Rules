@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+
+# Compass setup
+require 'compass'
+Compass.add_project_configuration('config.rb')
+
+# A few helpful tips about the Rules file:
+#
+# * The order of rules is important: for each item, only the first matching
+#   rule is applied.
+#
+# * Item identifiers start and end with a slash (e.g. “/about/” for the file
+#   “content/about.html”). To select all children, grandchildren, … of an
+#   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
+#   because “*” matches zero or more characters.
+
+# ----------------------------------------------------------------------
+# preprocess
+# handy rule to pre process items from the site before the compile/route
+# pieces run.
+# ----------------------------------------------------------------------
+preprocess do
+  # unpublish items by setting meta attribute publish: false
+  items.delete_if { |item| item[:publish] == false }
+
+  copy_assets
+end
+
+# ----------------------------------------------------------------------
+# stylesheets
+# compiles the sass or scss files using the sass engine then takes the
+# sass or scss, rips off the extention and changes it to .css
+# ----------------------------------------------------------------------
+
+compile '/js/*' do
+  # don’t compile js
+end
+
+compile '/css/_*/' do
+  # don’t compile partials
+end
+
+route '/css/_*/' do
+  # don't output partials
+  nil
+end
+
+compile '/css/*/' do
+  filter :sass, Compass.sass_engine_options
+end
+
+route '/css/*/' do
+  # prevents nanoc from generating a directory for each css file
+  item.identifier.chop + '.css'
+end
+
+# ----------------------------------------------------------------------
+# content
+# filters and compiles the haml content then takes the content
+# files and changes the extention to .html
+# ----------------------------------------------------------------------
+compile '*' do
+  # gets the extension of each item so we can run some basic logic
+  # and apply the correct filter
+  ext = item[:extension].nil? ? nil : item[:extension].split('.').last
+
+  if ext == 'erb'
+    filter :erb
+  elsif ext == 'md' || ext == 'markdown'
+    filter :erb
+    filter :rdiscount
+  elsif ext == 'html'
+  else
+    raise "Filter is not configured for #{item.identifier} in Rules file."
+  end
+
+  unless item[:layout].nil?
+    layout item[:layout]
+  else
+    "default"
+  end
+end
+
+route '*' do
+  item[:filename].gsub(/^content/, '')
+end
+
+# ----------------------------------------------------------------------
+# layout
+# universal rule to format haml content as HTML5 and set some formatting
+# options to Haml outputs pretty html. For production you can set
+# ':ugly' to 'true'.
+# ----------------------------------------------------------------------
+layout '*', :erb, :format => :html5, :ugly => true, :escape_html => true

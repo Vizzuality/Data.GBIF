@@ -652,6 +652,10 @@ a {
 
           h2 {
             margin: 0 0 5px 0;
+            font-family:$base;
+            font-size: 19px;
+            font-weight:bold;
+            letter-spacing: -1px;
 
             a {
               font-family:$base;
@@ -665,6 +669,14 @@ a {
 
           p { margin-bottom:1px; font-size:13px; }
 
+						span.note {
+							margin: 0 0 0 10px;
+							font-family: Arial;
+							font-size: 15px;
+							font-weight: normal;
+							color: $gray;
+						}
+
           .footer {
             position:relative;
             width:auto;
@@ -672,12 +684,13 @@ a {
             margin-bottom:20px;
             background:none;
             margin-top: 0px;
+						color: $dark;
 
             ul {
               li.last {background:none; }
               li:last-child {background:none; }
             }
-
+						
           }//.footer
         }//.result
       }//.left

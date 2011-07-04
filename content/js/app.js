@@ -473,7 +473,7 @@ $(function(){
     var el;
 
     function toggle(e, event) {
-      event.stopPropagation();
+      event.preventDefault();
       el = $("#"+e);
       displayed ? hide(): show();
     }
@@ -516,21 +516,26 @@ $(function(){
   })();
 
   $("a.login, a.download2, a.download3").click(function(e) {
-    e.preventDefault();
     infoWindow.toggle($(this).attr("class"), e);
   });
 
   $("a.download").click(function(e) {
-    e.preventDefault();
     infoWindow.toggle("download", e);
   });
 
-  $("a.help").hover(function(e) {
-    helpPopover.show($(this), e);
-  }, function(e){
-    helpPopover.hide();
-  });
+  $.fn.bindWithHelpPopver = function() {
+    $(this).click(function(e) {
+      e.preventDefault();
+    });
 
+    $(this).hover(function(e) {
+      helpPopover.show($(this), e);
+    }, function(e){
+      helpPopover.hide();
+    });
+  };
+
+  $("a.help").bindWithHelpPopver();
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { infoWindow.hide(); }   // esc

@@ -17,7 +17,7 @@ $(function(){
     function hide() {
       if (displayed) {
         $('html').unbind("click");
-        $popover.animate({opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+        $popover.animate({top:$popover.position().top - 20,opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
       }
     }
 
@@ -26,15 +26,6 @@ $(function(){
       el = e;
       $("#content").prepend(template);
       $popover = $(".yellow_popover");
-
-      //$('.yellow_popover').click(function() {
-      //  event.stopPropagation();
-      //});
-
-      // clicking anywhere closes the popover
-      $('html').click(function() {
-        displayed && hide();
-      });
 
       // get the coordinates and width of the popover
       var x = el.offset().left;

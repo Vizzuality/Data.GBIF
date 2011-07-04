@@ -54,6 +54,8 @@ span.more {
   background: url('/img/icons/tiny_arrow.png') no-repeat left top;
 }
 
+a.sort {position:relative; }
+
 a {
   color:$link_color;
   font-weight:normal;
@@ -72,7 +74,7 @@ a {
 		padding-left: 5px;
 		font-size: 13px;
 	}
-	
+
 	&.previous_slide {
 		display: inline-block;
 		width: 25px;
@@ -80,7 +82,7 @@ a {
 		margin: 0 0 20px 0;
   	background: url('/img/buttons/button_slide.png') no-repeat 0px 0px;
 		&:hover {
-  		background: url('/img/buttons/button_slide.png') no-repeat 0px -25px;					
+  		background: url('/img/buttons/button_slide.png') no-repeat 0px -25px;
 		}
 	}
 
@@ -88,10 +90,10 @@ a {
 		display: inline-block;
 		width: 25px;
 		height: 25px;
-		margin: 0 0 20px 0;		
+		margin: 0 0 20px 0;
   	background: url('/img/buttons/button_slide.png') no-repeat -29px 0px;
 		&:hover {
-  		background: url('/img/buttons/button_slide.png') no-repeat -29px -25px;					
+  		background: url('/img/buttons/button_slide.png') no-repeat -29px -25px;
 		}
 	}
 
@@ -518,7 +520,7 @@ a {
 					span.note {color: $dark;font-size: 13px;}
 				}
 			}
-			
+
 			ul.thumbs_list {
 				margin: 0 0 20px 0;
 				padding: 0;
@@ -528,13 +530,13 @@ a {
 					margin: 0 5px 0 0;
 					padding: 0;
 					background: none;
-					
+
 					img {
 						margin: 0px;
-						padding: 3px; 
+						padding: 3px;
 						border: 1px solid $gray;
 					}
-					
+
 					&.last {
 						img {margin-right: 0px;}
 					}
@@ -542,9 +544,9 @@ a {
 					&:last-child {
 						img {margin-right: 0px;}
 					}
-					
+
 				} // li
-				
+
 			} // thumbs_list
 
     } // .content
@@ -635,7 +637,7 @@ a {
   } // .map
 
   article.photo_gallery {
-		
+
 		h2 {margin-bottom: 20px;}
 
 		img {display: none;}

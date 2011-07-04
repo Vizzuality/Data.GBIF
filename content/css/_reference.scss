@@ -34,4 +34,13 @@ article.reference {
     color:$dark;
     font-size:11px;
   }
+  .example {
+    overflow:hidden;
+    clear:both;
+    margin-bottom: 10px;
+
+    .field {
+      height:35px;
+    }
+  }
 }

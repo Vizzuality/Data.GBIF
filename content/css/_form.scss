@@ -289,8 +289,8 @@
   text-align:center;
   @include transparency_fix;
 
-  &.left { float:left; }
-  &.right { float:right; }
+  &.lft { float:left; }
+  &.rgt { float:right; }
 
   &:focus, &:hover {
     background-position:left -35px;
@@ -430,6 +430,9 @@
   text-align:center;
   background:url('/img/buttons/button_white_left.png') no-repeat left top;
   @include transparency_fix;
+
+  &.lft { float:left; }
+  &.rgt { float:right; }
 
   &:hover {
     background-position:left -38px!important;

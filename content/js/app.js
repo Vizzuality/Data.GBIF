@@ -166,7 +166,7 @@ $(function(){
       });
 
       $popover.find("a").click(function(event){
-        event.stopPropagation();
+        event.preventDefault();
         select_option($(this).text());
         el.html(selectedOptionText + "<span class='more'></span>");
         hide();

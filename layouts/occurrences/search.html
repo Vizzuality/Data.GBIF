@@ -41,5 +41,16 @@
     </div>
     <%= render 'partials/footer' %>
     <%= render 'partials/scripts' %>
+    
+<script type="text/javascript" charset="utf-8">
+
+   var latlng = new google.maps.LatLng(-24.397, 130.644);
+
+   var myOptions = { zoom: 3, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+
+   var map    = new google.maps.Map(document.getElementById("map"), myOptions);
+
+</script>
+
 </body>
 </html>

@@ -735,6 +735,27 @@ a {
 
         }//.footer
 
+				.result_summary {
+					
+					margin-bottom: 15px;
+          border-bottom: 1px solid $gray;
+
+					#map { width:598px; height:160px; margin-bottom:23px; }
+					
+					.geographic_coverage {
+						display: inline-block;
+						width: 293px;						
+						}
+					.temporal_coverage {
+						display: inline-block;
+						width: 293px;											
+						
+					}
+					.taxonomic_coverage {}
+					
+					.sort {float: right;}
+				}
+
         .result {
           margin: 0 0 12px 0;
           border-bottom: 1px solid $light_gray;

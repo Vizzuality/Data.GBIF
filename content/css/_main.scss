@@ -323,6 +323,25 @@ a {
           }//.content
         }//.contact
 
+				&.data_repatriation {
+					padding: 15px;
+					margin-bottom: 20px;
+					
+					.number {
+						color: $medium_dark;					
+						font-size: 31px;
+						font-family: $font_medium;						
+					}
+					
+					p {
+						margin: 5px 0 0 0;
+						color: $medium_dark;					
+						font-size: 13px;
+						line-height: 15px;
+					}
+					
+				}
+
         .content {
           padding:10px;
           background:#e5f5fa;
@@ -391,6 +410,8 @@ a {
         width:230px;
         padding-top:25px;
         border-top:1px solid $border_color;
+
+				&.no_border {border-top: none; padding-top:0;}
 
         h3 { font-size:13px; }
 

@@ -1316,7 +1316,9 @@ a {
 
       clear:both;
       overflow:hidden;
-      margin-bottom:25px;
+			margin-bottom: 25px;
+			
+			p {margin: 0;}
 
       .left {
         border-top:1px solid #ccc;
@@ -1324,35 +1326,10 @@ a {
 
         a { text-decoration:underline; }
 
-        .footer {
-          position:auto;
-          bottom:auto;
-          width:auto;
-          height:auto;
-          margin:0;
-          padding:0;
-          background:none;
-          font-family:$base;
-          font-size:13px;
-
-          a { padding-left:16px; background:url('/img/icons/comment.png') no-repeat 0 4px; }
-          span.reply-count { color:$dark; }
-        }
       } //.left
 
       .right { margin:0; background:none; padding-top:25px; border-top:1px solid #ccc; }
 
-      &.reply {
-        .left {
-          padding-top:35px;
-          border:none;
-          background:url('/img/reply_line.png') no-repeat left top;
-        }
-
-        .right     { margin-top:7px; }
-        p, .footer { margin-left:32px; }
-
-      } //.comment.reply
     } //.comment
   } //article.comments
 

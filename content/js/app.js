@@ -1,4 +1,60 @@
 $(function(){
+  var helpPopover = (function() {
+    var el;
+    var displayed = false;
+    var $popover;
+    var transitionSpeed = 150;
+
+    var template="<div class='yellow_popover'>\
+      <div class='t'></div>\
+        <div class='c'>\
+          <h3>Hi, I'm a yellow popover</h3>\
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim nisi, sodales in molestie et, elementum vitae orci. Nam quis ante nisi, sit amet pretium sapien. Fusce nec diam nulla, id accumsan ipsum.\
+        </div>\
+      <div class='b'></div>\
+      </div>";
+
+    function toggle(e, event) {
+      event.preventDefault();
+      el = e;
+      displayed ? hide(): show();
+    }
+
+    function hide() {
+      $('html').unbind("click");
+      $popover.animate({opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+    }
+
+    function show() {
+      $("#content").prepend(template);
+      $popover = $(".yellow_popover");
+
+      //$('.yellow_popover').click(function() {
+      //  event.stopPropagation();
+      //});
+
+      // clicking anywhere closes the popover
+      $('html').click(function() {
+        displayed && hide();
+      });
+
+      // get the coordinates and width of the popover
+      var x = el.offset().left;
+      var y = el.offset().top ;
+      var w = $popover.width();
+      var h = $popover.height();
+
+      // center the popover
+      $popover.css("left", x - w/2 + 7);
+      $popover.css("top", y - h);
+
+      $popover.animate({opacity:1}, transitionSpeed, function() { displayed = true; });
+    }
+
+    return {
+      toggle: toggle
+    };
+  })();
 
   var selectBox = (function() {
     var el;
@@ -234,7 +290,7 @@ $(function(){
       bigStepWidth = Math.ceil(width / values.length);
 
       leftover     = Math.abs(stepWidth*values.length - width);
-      console.log("Step: " + stepWidth, "bigStep: " + bigStepWidth, bigStepWidth*leftover, "Leftover: " + leftover + " px");
+      //console.log("Step: " + stepWidth, "bigStep: " + bigStepWidth, bigStepWidth*leftover, "Leftover: " + leftover + " px");
     }
 
     function drawLines() {
@@ -468,6 +524,11 @@ $(function(){
     e.preventDefault();
     infoWindow.toggle("download", e);
   });
+
+  $("a.help").click(function(e) {
+    helpPopover.toggle($(this), e);
+  });
+
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { infoWindow.hide(); }   // esc

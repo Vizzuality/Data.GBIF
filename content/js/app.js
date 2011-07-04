@@ -14,18 +14,16 @@ $(function(){
       <div class='b'></div>\
       </div>";
 
-    function toggle(e, event) {
-      event.preventDefault();
-      el = e;
-      displayed ? hide(): show();
-    }
-
     function hide() {
-      $('html').unbind("click");
-      $popover.animate({opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+      if (displayed) {
+        $('html').unbind("click");
+        $popover.animate({opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+      }
     }
 
-    function show() {
+    function show(e, event) {
+      if (!displayed){
+      el = e;
       $("#content").prepend(template);
       $popover = $(".yellow_popover");
 
@@ -49,10 +47,12 @@ $(function(){
       $popover.css("top", y - h);
 
       $popover.animate({opacity:1}, transitionSpeed, function() { displayed = true; });
+      }
     }
 
     return {
-      toggle: toggle
+      show: show,
+      hide: hide
     };
   })();
 
@@ -525,8 +525,10 @@ $(function(){
     infoWindow.toggle("download", e);
   });
 
-  $("a.help").click(function(e) {
-    helpPopover.toggle($(this), e);
+  $("a.help").hover(function(e) {
+    helpPopover.show($(this), e);
+  }, function(e){
+    helpPopover.hide();
   });
 
 

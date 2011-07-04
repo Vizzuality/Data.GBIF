@@ -220,6 +220,29 @@ a {
     header { position:absolute; top:-20px;    width:924px; height:20px; padding:0; background:url('/img/boxes/box_top.png') no-repeat left top; }
     footer { position:absolute; bottom:-20px; width:924px; height:20px; padding:0; background:url('/img/boxes/box_bottom.png') no-repeat left top; text-align:left; }
 
+		&.notice {
+			
+			.content {
+				background:url('/img/boxes/box_yellow_bkg.png') repeat-y;
+				
+				p {
+					font-size: 13px;
+					width: 700px;
+					margin: 0;	
+					a {
+						color: $medium_dark; text-decoration: underline;
+						}
+					}
+				
+				img#notice_icon {position: absolute; top: 8px; right: 30px;}
+				
+			}
+
+    	header { background:url('/img/boxes/box_yellow_top.png') no-repeat left top; }
+    	footer { background:url('/img/boxes/box_yellow_bottom.png') no-repeat left top; text-align:left; }
+			
+		}
+
     .content {
       clear:both;
       overflow:hidden;

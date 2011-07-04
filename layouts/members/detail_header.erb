@@ -1,0 +1,26 @@
+<header>
+<!-- top -->
+<div id="top">
+  <div class="content">
+
+    <%= render "partials/account_header" %>
+    <%= render "partials/logo" %>
+    <%= render "partials/nav", :selected => "" %>
+
+  </div>
+</div>
+<!-- /top -->
+
+<%= render "/members/infoband" %>
+
+<!-- tabs -->
+<div id="tabs">
+  <ul>
+    <li<%= ' class="selected"' if selected == "information" %>><a href="/index.html" title="Information"><span>Information</span></a></li>
+    <li><a href="#" title="Datasets"><span>Datasets</span></a></li>
+    <li><a href="#" title="Occurrences"><span>Occurrences</span></a></li>
+    <li<%= ' class="selected highlighted"' if selected == "activity" %>><a href="process_detail.html" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+  </ul>
+</div>
+<!-- /tabs-->
+</header>

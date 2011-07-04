@@ -11,7 +11,7 @@ body {
     }
   }
 }
-article.reference {
+article {
   .header {
     .right {
       h4 { margin-top:22px;}
@@ -47,6 +47,23 @@ article.reference {
     clear:both;
     margin-bottom: 10px;
 
+    &.big {
+      height:100px;
+
+    }
+
+    ul {
+
+      padding:0; margin:0;
+      li {
+        background:none!important;
+        padding:0!important;
+        margin:0!important;
+
+
+      }
+
+    }
 
     .field {
       height:35px;

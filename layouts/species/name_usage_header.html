@@ -1,0 +1,38 @@
+<header>
+
+<!-- top -->
+<div id="top">
+  <div class="content">
+
+    <%= render "partials/account_header" %>
+    <%= render "partials/logo" %>
+    <%= render "partials/nav", :selected => "species" %>
+  </div>
+</div>
+<!-- /top -->
+
+<%= render "/species/name_usage_infoband" %>
+
+<%
+information = (selected == "information") ? "selected" : ""
+information += (highlighted == "information") ? " highlighted" : ""
+information_classes = (information.strip == '') ? "" : " class='#{information.strip}'"
+
+activity = (selected == "activity") ? "selected" : ""
+activity += (highlighted == "activity") ? " highlighted" : ""
+activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
+
+classes = {:information => information_classes, :activity_classes => activity_classes }
+
+%>
+
+<!-- tabs -->
+<div id="tabs">
+  <ul>
+    <li<%= classes[:information] %>><a href="index.html"><span>Information</span></a></li>
+    <li<%= classes[:activity] %>><a href="process_detail.html" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+  </ul>
+</div>
+<!-- /tabs-->
+
+</header>

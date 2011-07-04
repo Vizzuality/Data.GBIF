@@ -211,7 +211,7 @@ a {
     color:$ultra_dark;
     z-index:100;
 
-    header { position:absolute; top:-20px;    width:924px; height:20px; padding:0; background:url('/img/boxes/box_top.png') no-repeat left top; }
+    header {position:absolute; top:-20px;    width:924px; height:20px; padding:0; background:url('/img/boxes/box_top.png') no-repeat left top; }
     footer { position:absolute; bottom:-20px; width:924px; height:20px; padding:0; background:url('/img/boxes/box_bottom.png') no-repeat left top; text-align:left; }
 
 		&.notice {
@@ -245,6 +245,7 @@ a {
 
       h2 { margin-bottom:20px; font-family:$font_medium; font-size:23px; line-height:28px; color:$ultra_dark; @include white-shadow; }
       h3 { margin-bottom:8px;  font-family:$font_medium; font-size:13px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
+
       p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
       a:hover { color:$hover_link_color; }
 
@@ -258,8 +259,18 @@ a {
           border:none;
           padding-top:0;
 
-          a {text-decoration:none; }
-          h2 { float:left; line-height:20px; }
+          a {text-decoration:none;}
+          h2 { float:left; line-height:20px;}
+					hgroup {
+      			h2 { float:none; margin-bottom:10px}
+      			h3 {
+							margin-bottom: 23px;
+							font-family: "Arial";
+							font-size: 15px;						
+							text-transform: none;
+						}
+					}
+
         }
         .right {
           padding:0;
@@ -311,6 +322,25 @@ a {
             }//ul
           }//.content
         }//.contact
+
+				&.data_repatriation {
+					padding: 15px;
+					margin-bottom: 20px;
+					
+					.number {
+						color: $medium_dark;					
+						font-size: 31px;
+						font-family: $font_medium;						
+					}
+					
+					p {
+						margin: 5px 0 0 0;
+						color: $medium_dark;					
+						font-size: 13px;
+						line-height: 15px;
+					}
+					
+				}
 
         .content {
           padding:10px;
@@ -381,6 +411,8 @@ a {
         padding-top:25px;
         border-top:1px solid $border_color;
 
+				&.no_border {border-top: none; padding-top:0;}
+
         h3 { font-size:13px; }
 
         div.location {
@@ -442,9 +474,8 @@ a {
 
 					&.no_bullets {
 						background: none;
-						border: 1px solid red;
 					}
-
+					
         } // li
 
 				&.no_bottom {
@@ -565,6 +596,21 @@ a {
 				} // li
 
 			} // thumbs_list
+			
+			
+			ul.extended_taxonomy {
+				margin: 0;
+				padding: 0;
+				li {
+					padding: 0;					
+					background: none;
+					
+					.taxon_level {}
+					.separator {display: inline-block;  width: 150px; height: 15px; margin-left: 10px; background: url("/img/dotted_line_bck.png") repeat-x left bottom;}
+					.taxon_name {position: absolute; left: 210px; padding-left: 10px; background: #FFFFFF;}
+					
+				}
+			}
 
     } // .content
 
@@ -1416,6 +1462,15 @@ a {
 
 
   } // article.reply
+
+	article.extended_taxonomy {
+		.taxon {
+			font-size: 15px;
+			margin-bottom: 25px;
+			
+		}
+		
+	}
 } // #content
 
 #lock_screen { position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:.5; background:$brightest; z-index:400; }

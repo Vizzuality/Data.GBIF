@@ -464,6 +464,7 @@ $(function(){
     var el;
 
     function toggle(e, event) {
+      event.stopPropagation();
       event.preventDefault();
       el = $("#"+e);
       displayed ? hide(): show();
@@ -543,6 +544,19 @@ $(function(){
   $('.select-box div.selected_option').click(function(e) {
     selectBox.toggle($(this).parent(), e);
   });
+
+
+$( "#slider-range" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 75, 300 ],
+			slide: function( event, ui ) {
+				$( "#range" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+
+		$( "#range" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });

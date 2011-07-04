@@ -33,6 +33,8 @@ $(function(){
       displayed = false;
     }
 
+      $('.example div.white_scrollable_popover ul').jScrollPane({ verticalDragMinHeight: 20});
+
     function show() {
       el.toggleClass("selected");
       el.find('ul').jScrollPane({ verticalDragMinHeight: 20});

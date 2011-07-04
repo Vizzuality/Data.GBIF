@@ -222,18 +222,18 @@
 
   div.t {
     height:20px;
-    background:url('/img/borrar.png') no-repeat left top;
+    background:url('/img/yellow_popover.png') no-repeat left top;
   }
 
   div.b {
     height:27px;
-    background:url('/img/borrar.png') no-repeat right top;
+    background:url('/img/yellow_popover.png') no-repeat right top;
   }
 
   div.c {
       h3 { margin-bottom:3px;  font-family:$font_medium; font-size:13px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
 
-    background:url('/img/borrar.png') repeat-y -212px top;
+    background:url('/img/yellow_popover.png') repeat-y -212px top;
     padding:0 20px;
     line-height:20px;
     color:$medium_dark;

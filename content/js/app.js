@@ -1,4 +1,51 @@
 $(function(){
+  var helpPopover = (function() {
+    var el;
+    var displayed = false;
+    var $popover;
+    var transitionSpeed = 150;
+
+    var template="<div class='yellow_popover'>\
+      <div class='t'></div>\
+        <div class='c'>\
+          <h3>Hi, I'm a yellow popover</h3>\
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim nisi, sodales in molestie et, elementum vitae orci. Nam quis ante nisi, sit amet pretium sapien. Fusce nec diam nulla, id accumsan ipsum.\
+        </div>\
+      <div class='b'></div>\
+      </div>";
+
+    function hide() {
+      if (displayed) {
+        $('html').unbind("click");
+        $popover.animate({top:$popover.position().top - 20,opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+      }
+    }
+
+    function show(e, event) {
+      if (!displayed){
+      el = e;
+      $("#content").prepend(template);
+      $popover = $(".yellow_popover");
+
+      // get the coordinates and width of the popover
+      var x = el.offset().left;
+      var y = el.offset().top ;
+      var w = $popover.width();
+      var h = $popover.height();
+
+      // center the popover
+      $popover.css("left", x - w/2 + 7);
+      $popover.css("top", y - h);
+
+      $popover.animate({opacity:1}, transitionSpeed, function() { displayed = true; });
+      }
+    }
+
+    return {
+      show: show,
+      hide: hide
+    };
+  })();
 
   var selectBox = (function() {
     var el;
@@ -234,7 +281,7 @@ $(function(){
       bigStepWidth = Math.ceil(width / values.length);
 
       leftover     = Math.abs(stepWidth*values.length - width);
-      console.log("Step: " + stepWidth, "bigStep: " + bigStepWidth, bigStepWidth*leftover, "Leftover: " + leftover + " px");
+      //console.log("Step: " + stepWidth, "bigStep: " + bigStepWidth, bigStepWidth*leftover, "Leftover: " + leftover + " px");
     }
 
     function drawLines() {
@@ -417,7 +464,7 @@ $(function(){
     var el;
 
     function toggle(e, event) {
-      event.stopPropagation();
+      event.preventDefault();
       el = $("#"+e);
       displayed ? hide(): show();
     }
@@ -460,14 +507,26 @@ $(function(){
   })();
 
   $("a.login, a.download2, a.download3").click(function(e) {
-    e.preventDefault();
     infoWindow.toggle($(this).attr("class"), e);
   });
 
   $("a.download").click(function(e) {
-    e.preventDefault();
     infoWindow.toggle("download", e);
   });
+
+  $.fn.bindWithHelpPopver = function() {
+    $(this).click(function(e) {
+      e.preventDefault();
+    });
+
+    $(this).hover(function(e) {
+      helpPopover.show($(this), e);
+    }, function(e){
+      helpPopover.hide();
+    });
+  };
+
+  $("a.help").bindWithHelpPopver();
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { infoWindow.hide(); }   // esc

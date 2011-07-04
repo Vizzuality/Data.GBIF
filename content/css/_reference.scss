@@ -18,6 +18,14 @@ article.reference {
     }
   }
 
+
+  div.download {
+    position:absolute;
+    bottom:0;
+    z-index:1000;
+  }
+
+
   ul li ul { margin-top: 10px!important; margin-bottom:0!important;}
   strong {color:$ultra_dark;}
 
@@ -33,5 +41,15 @@ article.reference {
   span.code {
     color:$dark;
     font-size:11px;
+  }
+  .example {
+    overflow:hidden;
+    clear:both;
+    margin-bottom: 10px;
+
+
+    .field {
+      height:35px;
+    }
   }
 }

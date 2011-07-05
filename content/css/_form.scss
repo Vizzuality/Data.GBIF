@@ -534,26 +534,27 @@
   width:300px;
 
   h4 {float:left; margin-left:9px; margin-bottom:10px; font-size:11px; color:$medium_dark;text-transform:uppercase;}
-  input{float:right; margin-right:10px; outline:none; text-align:right; color:$gray; border:none; font-size:11px;text-transform:uppercase; border:none; }
+  input{float:right; width:200px; margin-right:10px; outline:none; text-align:right; color:$gray; font-size:11px;text-transform:uppercase; border:none; }
 
-#slider-range {
-  clear:both;
-  margin:5px 13px 5px 10px;
+  #slider-range {
+    clear:both;
+    margin:5px 13px 5px 10px;
 
-  &.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background:none; }
-  &.ui-slider-horizontal { height: 5px; background:url('/img/icons/slider_horizontal.png') repeat-x; border:none; }
+    &.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background:none; }
+    &.ui-slider-horizontal { height: 5px; background:url('/img/icons/slider_horizontal.png') repeat-x; border:none; }
 
+    &.ui-slider .ui-slider-range.ui-widget-header { background:url('/img/icons/slider_header.png') repeat-x; }
 
-  &.ui-slider .ui-slider-range.ui-widget-header { background:url('/img/icons/slider_header.png') repeat-x; }
-  .ui-slider-handle {
-    border:none;
-    outline:none;
-    background:url('/img/icons/handler.png') no-repeat;
-    width:21px; height:11px;
+    .ui-slider-handle { border:none; outline:none; background:url('/img/icons/handler.png') no-repeat right; width:27px; height:11px; }
+
+    &.ui-slider-horizontal .ui-slider-handle { top: -3px; cursor:pointer;}
+
+    .ui-slider-container { background-color: #eceded; padding: 0 0.6em;}
+    a.ui-slider-handle.ui-state-default.ui-corner-all {margin-left:-15px;}
+    .ui-slider-handle.last {
+      margin-left:-15px;
+      width:27px;
+      background:url('/img/icons/right_handler.png') no-repeat left;
+    }
   }
-  &.ui-slider-horizontal .ui-slider-handle {
-    top: -3px;
-    left: -4px;
-  }
-}
 }

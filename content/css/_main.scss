@@ -266,7 +266,7 @@ a {
       			h3 {
 							margin-bottom: 23px;
 							font-family: "Arial";
-							font-size: 15px;						
+							font-size: 15px;
 							text-transform: none;
 						}
 					}
@@ -326,13 +326,12 @@ a {
 				&.data_repatriation {
 					padding: 15px;
 					margin-bottom: 20px;
-					
+
 					.number {
-						color: $medium_dark;					
+						color: $medium_dark;
 						font-size: 31px;
-						font-family: $font_medium;						
+						font-family: $font_medium;
 					}
-					
 					.percentage_bar_background {
 						display: inline-block;
 						width: 123px;
@@ -354,11 +353,11 @@ a {
 					
 					p {
 						margin: 5px 0 0 0;
-						color: $medium_dark;					
+						color: $medium_dark;
 						font-size: 13px;
 						line-height: 15px;
 					}
-					
+
 				}
 
         .content {
@@ -494,7 +493,7 @@ a {
 					&.no_bullets {
 						background: none;
 					}
-					
+
         } // li
 
 				&.no_bottom {
@@ -615,19 +614,19 @@ a {
 				} // li
 
 			} // thumbs_list
-			
-			
+
+
 			ul.extended_taxonomy {
 				margin: 0;
 				padding: 0;
 				li {
-					padding: 0;					
+					padding: 0;
 					background: none;
-					
+
 					.taxon_level {}
 					.separator {display: inline-block;  width: 150px; height: 15px; margin-left: 10px; background: url("/img/dotted_line_bck.png") repeat-x left bottom;}
 					.taxon_name {position: absolute; left: 210px; padding-left: 10px; background: #FFFFFF;}
-					
+
 				}
 			}
 
@@ -800,23 +799,23 @@ a {
         }//.footer
 
 				.result_summary {
-					
+
 					margin-bottom: 15px;
           border-bottom: 1px solid $gray;
 
 					#map { width:598px; height:160px; margin-bottom:23px; }
-					
+
 					.geographic_coverage {
 						display: inline-block;
-						width: 293px;						
+						width: 293px;
 						}
 					.temporal_coverage {
 						display: inline-block;
-						width: 293px;											
-						
+						width: 293px;
+
 					}
 					.taxonomic_coverage {}
-					
+
 					.sort {float: right;}
 				}
 
@@ -1486,9 +1485,9 @@ a {
 		.taxon {
 			font-size: 15px;
 			margin-bottom: 25px;
-			
+
 		}
-		
+
 	}
 } // #content
 

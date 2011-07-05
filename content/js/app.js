@@ -518,7 +518,7 @@ $(function(){
     var transitionSpeed = 200;
     var selected_template;
 
-    var templates = { kownload_selector: "<article class='infowindow download_popover download_selector'>\
+    var templates = { download_selector: "<article class='infowindow download_popover download_selector'>\
       <header></header>\
         <span class='close'></span>\
         <div class='content'>\
@@ -568,12 +568,12 @@ $(function(){
       event.preventDefault();
       el = e;
 
+      selected_template = templates.download_selector;
+
       if (opt) {
         explanation = opt.explanation;
         if (opt.template && opt.template == "direct_download") {
           selected_template = templates.direct_download;
-        } else {
-          selected_template = templates.download_selector;
         }
       }
 

@@ -516,8 +516,9 @@ $(function(){
     var el;
     var explanation = "";
     var transitionSpeed = 200;
+    var selected_template;
 
-    var templates = { step1: "<article id='download' class='infowindow download_select'>\
+    var templates = { kownload_selector: "<article class='infowindow download_popover download_selector'>\
       <header></header>\
         <span class='close'></span>\
         <div class='content'>\
@@ -532,11 +533,25 @@ $(function(){
             </ul>\
             <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
             </div>\
-            <a class='candy_blue_button download' target='_blank' href='#'><span>Download</span></a>\
+            <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/img/download.zip'><span>Download</span></a>\
         </div>\
         <footer></footer>\
         </article>",
-    step2: "<article id='download3' class='infowindow download3'>\
+    direct_download: "<article class='infowindow download_popover direct_download'>\
+      <header></header>\
+      <span class='close'></span>\
+        <div class='content'>\
+          <h2>DOWNLOAD DATA</h2>\
+            <div class='light_box package'>\
+              <div class='content'>\
+                <p><%= explanation %></p>\
+              </div>\
+            </div>\
+            <span class='filetype'><strong>CSV file</strong> <span class='size'>(≈150Kb)</span></span> <a href='#' class='candy_blue_button download'><span>Download</span></a>\
+        </div>\
+        <footer></footer>\
+       </article>",
+    download_started: "<article class='infowindow download_has_started'>\
 <header></header>\
 <span class='close'></span>\
 <div class='content'>\
@@ -555,6 +570,11 @@ $(function(){
 
       if (opt) {
         explanation = opt.explanation;
+        if (opt.template && opt.template == "direct_download") {
+          selected_template = templates.direct_download;
+        } else {
+          selected_template = templates.download_selector;
+        }
       }
 
       displayed ? hide(): show();
@@ -563,6 +583,7 @@ $(function(){
     function setupBindings() {
       $popover.find(".close").click(function(event) {
         event.preventDefault();
+        console.log("Closing");
         displayed && hide();
       });
 
@@ -575,28 +596,41 @@ $(function(){
       });
     }
 
+    function showDownloadHasStarted(){
+      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() {
+
+        // let's remove the old popover and unbind the old buttons
+        $popover.find('a.download').unbind("click");
+        $popover.find('a.close').unbind("click");
+        $popover.remove();
+
+        // we can now open the new popover: "download_has_started"
+        rendered_template = _.template(templates.download_started);
+        $("#content").prepend(rendered_template);
+        $popover = $(".download_has_started");
+
+        // bind everyhting so it keeps working
+        setupBindings();
+
+        $popover.css("top", (( $(window).height() - $popover.height()) / 2+$(window).scrollTop()) + 40 + "px");
+        $popover.animate({top:$popover.position().top - 40, opacity:1}, transitionSpeed*2);
+      });
+    }
+
     function show() {
-      var rendered_template = _.template(templates.step1, {explanation:explanation});
+      var rendered_template = _.template(selected_template, {explanation:explanation});
       $("#content").prepend(rendered_template);
-      $popover = $(".download_select");
+      $popover = $(".download_popover");
 
       $popover.find(".download").click(function(event) {
+        console.log("Downloading");
         event.stopPropagation();
         event.preventDefault();
-        window.location.href = "http://localhost:3000/img/download.zip";
+        //window.location.href = $(this).attr("href");
 
         var checked = $popover.find("ul li input:checked");
-        $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() {
-          $popover.remove();
-          rendered_template = _.template(templates.step2);
-          $("#content").prepend(rendered_template);
-          $popover = $("#download3");
-          setupBindings();
-          $popover.css("opacity", 0);
-          $popover.css("display", "block");
-          $popover.css("top", (( $(window).height() - $popover.height()) / 2+$(window).scrollTop()) + 40 + "px");
-          $popover.animate({top:$popover.position().top - 40, opacity:1}, transitionSpeed*2);
-        });
+
+        showDownloadHasStarted();
       });
 
       setupBindings();
@@ -610,8 +644,10 @@ $(function(){
     }
 
     function hide(id) {
+
       $popover.find('a.close').unbind("click");
       $('html').unbind("click");
+
       //$popover.draggable(false);
       $popover.fadeOut("fast", function() { $popover.remove(); displayed = false; });
       $("#lock_screen").fadeOut("slow", function() { $("#lock_screen").remove(); });
@@ -643,6 +679,7 @@ $(function(){
 
   $("a.help").bindHelpPopver({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong>."});
   $("a.download").bindDownloadPopver({explanation:"Occurrences of “Puma concolor”, collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
+  $("a.download_2").bindDownloadPopver({template: "direct_download", explanation:"Occurrences of “Puma concolor”, collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { // esc key

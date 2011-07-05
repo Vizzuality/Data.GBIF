@@ -149,7 +149,7 @@ a {
     header { position:absolute; top:-20px;    width:404px; height:20px; padding:0; background:url('/img/boxes/box_min_top.png') no-repeat left top; }
     footer { position:absolute; bottom:-54px; width:404px; height:54px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left bottom; }
 
-    &.download_select {
+    &.download_selector {
       form .light_box {
         padding-top:22px;
         padding-bottom:10px;
@@ -160,12 +160,26 @@ a {
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 
-    &.download2 {
-      .content {font-size:13px; margin:0; padding:0;}
+    &.direct_download {
+      .filetype {
+        float:left; margin-top: 20px;
+        strong {
+          font-weight:bold;
+          color:$medium_dark;
+        }
+      }
+
+      .content {
+        font-size:13px; margin:0; padding:0 34px;
+        .light_box { clear:both; overflow:hidden; margin-bottom:20px; padding:7px 0 13px 15px;
+          p {line-height:15px; font-size:13px; }
+        }
+      }
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 
-    &.download3 {
+    &.download_has_started {
+      display:block; opacity:0;
       .content {font-size:13px; margin:0; padding:0 34px;}
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }

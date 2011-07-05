@@ -161,14 +161,16 @@ a {
     }
 
     &.download2 {
-
       .content {font-size:13px; margin:0; padding:0;}
-
-
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 
-    a.close { position:absolute; width:8px; height:6px; top:-12px; right:8px; padding: 5px 5px 10px; background:url('/img/icons/close.png') no-repeat center center; }
+    &.download3 {
+      .content {font-size:13px; margin:0; padding:0 34px;}
+      footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
+    }
+
+    span.close { position:absolute; width:8px; height:6px; top:-12px; right:8px; padding: 5px 5px 10px; background:url('/img/icons/close.png') no-repeat center center; cursor:pointer; }
 
     .content {
       clear:both;
@@ -176,16 +178,15 @@ a {
       padding:0 34px;
       background:url('/img/boxes/box_min_bkg.png') repeat-y;
 
-      p {margin-bottom:14px; font-size:13px; color:$medium_dark;}
+      p {
+        margin-bottom:14px; font-size:13px; color:$medium_dark;
+        a { text-decoration:underline; }
+      }
 
       h2 {margin-bottom:20px;}
 
-      form {
-        margin-bottom:27px;
-
-        a { display:block; float:left; margin-top:10px; text-decoration:underline; }
-        button {float:right; margin-right:0;}
-      }
+      a.candy_white_button, a.candy_blue_button { display:block; float:right; margin-top:10px; text-decoration:none; cursor:pointer; }
+      button {float:right; margin-right:0;}
 
       .light_box { clear:both; overflow:hidden; margin-bottom:20px; padding:27px 0 13px 25px; }
 

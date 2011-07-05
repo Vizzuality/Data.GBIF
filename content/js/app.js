@@ -515,28 +515,38 @@ $(function(){
     var $login;
     var el;
     var explanation = "";
+    var transitionSpeed = 200;
 
-    var template ="<article id='download' class='infowindow download_select'>\
+    var templates = { step1: "<article id='download' class='infowindow download_select'>\
       <header></header>\
-        <a href='#' class='close'></a>\
-          <div class='content'>\
-            <h2>DOWNLOAD DATA</h2>\
-              <p><%= explanation %></p>\
-                <form autocomplete='off'>\
-                  <div class='light_box'>\
-                    <h3>Select a format</h3>\
-                      <ul>\
-                        <li><input type='radio' name='format' value='csv' /> CSV <span class='size'>(≈150Kb)</span></li>\
-                          <li><input type='radio' name='format' value='xls' /> XLS</li>\
-                            <li><input type='radio' name='format' value='xml' /> XML</li>\
-                              </ul>\
-                                <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
-                                  </div>\
-                                    <button type='submit' class='candy_blue_button'><span>Download</span></button>\
-                                      </form>\
-                                        </div>\
-                                          <footer></footer>\
-                                            </article>";
+        <span class='close'></span>\
+        <div class='content'>\
+          <h2>DOWNLOAD DATA</h2>\
+          <p><%= explanation %></p>\
+            <div class='light_box'>\
+            <h3>Select a format</h3>\
+              <ul>\
+                <li><input type='radio' name='format' value='csv' id='format_csv' /> <label for='format_csv'>CSV</label> <span class='size'>(≈150Kb)</span></li>\
+                <li><input type='radio' name='format' value='xls' id='format_xls' /> <label for='format_xls'>XLS</label></li>\
+                <li><input type='radio' name='format' value='xml' id='format_xml' /> <label for='format_xml'>XML</label></li>\
+            </ul>\
+            <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+            </div>\
+            <a class='candy_blue_button download' target='_blank' href='#'><span>Download</span></a>\
+        </div>\
+        <footer></footer>\
+        </article>",
+    step2: "<article id='download3' class='infowindow download3'>\
+<header></header>\
+<span class='close'></span>\
+<div class='content'>\
+  <h2>DOWNLOAD DATA</h2>\
+  <p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>\
+  <p>If you have any doubt about the legal terms, please check our <a href='#' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
+  <a href='#' class='candy_white_button close'><span>Close</span></a>\
+</div>\
+<footer></footer>\
+</article>"};
 
     function toggle(e, event, opt) {
       event.stopPropagation();
@@ -550,11 +560,7 @@ $(function(){
       displayed ? hide(): show();
     }
 
-    function show() {
-      var rendered_template = _.template(template, {explanation:explanation});
-      $("#content").prepend(rendered_template);
-      $popover = $(".download_select");
-
+    function setupBindings() {
       $popover.find(".close").click(function(event) {
         event.preventDefault();
         displayed && hide();
@@ -567,10 +573,36 @@ $(function(){
       $('html').click(function() {
         displayed && hide();
       });
+    }
 
+    function show() {
+      var rendered_template = _.template(templates.step1, {explanation:explanation});
+      $("#content").prepend(rendered_template);
+      $popover = $(".download_select");
+
+      $popover.find(".download").click(function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        window.location.href = "http://localhost:3000/img/download.zip";
+
+        var checked = $popover.find("ul li input:checked");
+        $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() {
+          $popover.remove();
+          rendered_template = _.template(templates.step2);
+          $("#content").prepend(rendered_template);
+          $popover = $("#download3");
+          setupBindings();
+          $popover.css("opacity", 0);
+          $popover.css("display", "block");
+          $popover.css("top", (( $(window).height() - $popover.height()) / 2+$(window).scrollTop()) + 40 + "px");
+          $popover.animate({top:$popover.position().top - 40, opacity:1}, transitionSpeed*2);
+        });
+      });
+
+      setupBindings();
       $popover.css("top", ( $(window).height() - $popover.height()) / 2+$(window).scrollTop() + "px");
       $popover.fadeIn("slow", function() { hidden = false; });
-      $popover.draggable();
+      //$popover.draggable();
       $("body").append("<div id='lock_screen'></div>");
       $("#lock_screen").height($(document).height());
       $("#lock_screen").fadeIn("slow");
@@ -580,7 +612,7 @@ $(function(){
     function hide(id) {
       $popover.find('a.close').unbind("click");
       $('html').unbind("click");
-      $popover.draggable(false);
+      //$popover.draggable(false);
       $popover.fadeOut("fast", function() { $popover.remove(); displayed = false; });
       $("#lock_screen").fadeOut("slow", function() { $("#lock_screen").remove(); });
     }

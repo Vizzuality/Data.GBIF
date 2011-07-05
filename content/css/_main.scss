@@ -161,14 +161,6 @@ a {
     }
 
     &.direct_download {
-      .filetype {
-        float:left; margin-top: 20px;
-        strong {
-          font-weight:bold;
-          color:$medium_dark;
-        }
-      }
-
       .content {
         font-size:13px; margin:0; padding:0 34px;
         .light_box { clear:both; overflow:hidden; margin-bottom:20px; padding:7px 0 13px 15px;
@@ -185,6 +177,12 @@ a {
 
     span.close { position:absolute; width:8px; height:6px; top:-12px; right:8px; padding: 5px 5px 10px; background:url('/img/icons/close.png') no-repeat center center; cursor:pointer; }
 
+    .recover_password, .filetype {
+      float:left; margin-top: 20px;
+      strong { font-weight:bold; color:$medium_dark; }
+    }
+
+
     .content {
       clear:both;
       overflow:hidden;
@@ -198,8 +196,8 @@ a {
 
       h2 {margin-bottom:20px;}
 
-      a.candy_white_button, a.candy_blue_button { display:block; float:right; margin-top:10px; text-decoration:none; cursor:pointer; }
-      button {float:right; margin-right:0;}
+      .candy_white_button, .candy_blue_button { display:block; float:right; margin-top:10px; text-decoration:none; cursor:pointer; }
+      button {float:right; margin-right:0; margin-bottom:20px;}
 
       .light_box { clear:both; overflow:hidden; margin-bottom:20px; padding:27px 0 13px 25px; }
 
@@ -208,7 +206,6 @@ a {
         bottom:-30px;
         z-index:100;
         width:404px - 34*2;
-        margin:auto!Important;
         text-align:center;
         color:$medium_dark;
         font-size:13px;

@@ -510,6 +510,113 @@ $(function(){
     };
   })();
 
+  var loginPopover = (function() {
+    var displayed = false;
+    var $login;
+    var el;
+    var explanation = "";
+    var transitionSpeed = 200;
+
+    var template = "<article id='login' class='infowindow login'>\
+    <header></header>\
+        <span class='close'></span>\
+    <div class='content'>\
+  <h2>SIGN IN TO GBIF</h2>\
+  <p>You need to log in GBIF in order to download the data.</p>\
+  <form autocomplete='off'>\
+    <div class='light_box'>\
+      <div class='field'>\
+        <h3>Email</h3>\
+        <span class='input_text'>\
+          <input id='email' name='email' type='text' />\
+        </span>\
+      </div>\
+      <div class='field'>\
+        <h3>Password</h3>\
+        <span class='input_text'>\
+          <input id='password' name='password' type='password' />\
+        </span>\
+      </div>\
+      <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+    </div>\
+    <span class='recover_password'><a href='#' title='Recover your password'>Forgot your password?</a></span>\
+    <button type='submit' class='candy_blue_button'><span>Login</span></button>\
+  </form>\
+  <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
+    </div>\
+<footer></footer>\
+</article>";
+
+    function toggle(e, event, opt) {
+      event.stopPropagation();
+      event.preventDefault();
+      el = e;
+
+      displayed ? hide(): show();
+    }
+
+    function getTopPosition() {
+      return (( $(window).height() - $popover.height()) / 2) + $(window).scrollTop();
+    }
+
+    function setupBindings() {
+
+      $popover.find("button").click(function(event) {
+        event.preventDefault();
+        displayed && hide();
+      });
+
+      $popover.find(".footer a, span.recover_password a").click(function(event) {
+        event.preventDefault();
+        displayed && hide(function(){ window.location.href = $(this).attr("href"); });
+      });
+
+      $popover.find(".close").click(function(event) {
+        event.preventDefault();
+        displayed && hide();
+      });
+
+      $popover.click(function(event) {
+        event.stopPropagation();
+      });
+
+      $('html').click(function() {
+        displayed && hide();
+      });
+    }
+
+    function show() {
+      var rendered_template = _.template(template);
+      $("#content").prepend(rendered_template);
+      $popover = $("#login");
+
+      setupBindings();
+      $popover.css("top", getTopPosition() + "px");
+      $popover.fadeIn("slow", function() { hidden = false; });
+      $("body").append("<div id='lock_screen'></div>");
+      $("#lock_screen").height($(document).height());
+      $("#lock_screen").fadeIn("slow");
+      displayed = true;
+    }
+
+    function hide(callback) {
+      $popover.find('a.close').unbind("click");
+      $('html').unbind("click");
+
+      $popover.fadeOut(transitionSpeed, function() {
+        $popover.remove(); displayed = false;
+        callback && callback();
+      });
+
+      $("#lock_screen").fadeOut(transitionSpeed, function() { $("#lock_screen").remove(); });
+    }
+
+    return {
+      toggle: toggle,
+      hide: hide
+    };
+  })();
+
   var downloadPopover = (function() {
     var displayed = false;
     var $login;
@@ -668,13 +775,19 @@ $(function(){
     };
   })();
 
-  $.fn.bindDownloadPopver = function(opt) {
+  $.fn.bindDownloadPopover = function(opt) {
     $(this).click(function(event) {
       downloadPopover.toggle($(this), event, opt);
     });
   };
 
-  $.fn.bindHelpPopver = function(opt) {
+  $.fn.bindLoginPopover = function(opt) {
+    $(this).click(function(event) {
+      loginPopover.toggle($(this), event, opt);
+    });
+  };
+
+  $.fn.bindHelpPopover = function(opt) {
     $(this).click(function(e) {
       e.preventDefault();
     });
@@ -686,9 +799,10 @@ $(function(){
     });
   };
 
-  $("a.help").bindHelpPopver({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong>."});
-  $("a.download").bindDownloadPopver({explanation:"Occurrences of “Puma concolor”, collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
-  $("a.download_2").bindDownloadPopver({template: "direct_download", explanation:"Occurrences of “Puma concolor”, collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
+  $("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong>."});
+  $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
+  $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
+  $("a.login").bindLoginPopover();
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { // esc key

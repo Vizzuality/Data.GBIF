@@ -179,7 +179,6 @@ a {
     }
 
     &.download_has_started {
-      display:block; opacity:0;
       .content {font-size:13px; margin:0; padding:0 34px;}
       footer { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
@@ -354,18 +353,18 @@ a {
 						background: $subtle_gray;
 						vertical-align: top;
 						margin: 14px 0 0 7px;
-						@include border_radius(3px, 3px, 3px, 3px);	
+						@include border_radius(3px, 3px, 3px, 3px);
 					}
-					
+
 					.percentage_bar {
 						display: inline-block;
 						width: 30px;
 						height: 4px;
 						background: $percentage_bar;
 						vertical-align: top;
-						@include border_radius(3px, 0px, 0px, 3px);	
+						@include border_radius(3px, 0px, 0px, 3px);
 					}
-					
+
 					p {
 						margin: 5px 0 0 0;
 						color: $medium_dark;

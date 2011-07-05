@@ -533,7 +533,7 @@ $(function(){
             </ul>\
             <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
             </div>\
-            <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/img/download.zip'><span>Download</span></a>\
+            <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
         </div>\
         <footer></footer>\
         </article>",
@@ -547,7 +547,7 @@ $(function(){
                 <p><%= explanation %></p>\
               </div>\
             </div>\
-            <span class='filetype'><strong>CSV file</strong> <span class='size'>(≈150Kb)</span></span> <a href='#' class='candy_blue_button download'><span>Download</span></a>\
+            <span class='filetype'><strong>CSV file</strong> <span class='size'>(≈150Kb)</span></span> <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
         </div>\
         <footer></footer>\
        </article>",
@@ -557,7 +557,7 @@ $(function(){
 <div class='content'>\
   <h2>DOWNLOAD DATA</h2>\
   <p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>\
-  <p>If you have any doubt about the legal terms, please check our <a href='#' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
+  <p>If you have any doubt about the legal terms, please check our <a href='/static/terms_and_conditions.html' class='about' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
   <a href='#' class='candy_white_button close'><span>Close</span></a>\
 </div>\
 <footer></footer>\
@@ -580,10 +580,18 @@ $(function(){
       displayed ? hide(): show();
     }
 
+    function getTopPosition() {
+      return (( $(window).height() - $popover.height()) / 2) + $(window).scrollTop() - 50;
+    }
+
     function setupBindings() {
+      $popover.find(".about").click(function(event) {
+        event.preventDefault();
+        displayed && hide(function(){ window.location.href = $(this).attr("href"); });
+      });
+
       $popover.find(".close").click(function(event) {
         event.preventDefault();
-        console.log("Closing");
         displayed && hide();
       });
 
@@ -597,11 +605,11 @@ $(function(){
     }
 
     function showDownloadHasStarted(){
-      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() {
+
+      $popover.fadeOut(transitionSpeed, function() {
 
         // let's remove the old popover and unbind the old buttons
-        $popover.find('a.download').unbind("click");
-        $popover.find('a.close').unbind("click");
+        $popover.find('a.download, a.close').unbind("click");
         $popover.remove();
 
         // we can now open the new popover: "download_has_started"
@@ -612,8 +620,8 @@ $(function(){
         // bind everyhting so it keeps working
         setupBindings();
 
-        $popover.css("top", (( $(window).height() - $popover.height()) / 2+$(window).scrollTop()) + 40 + "px");
-        $popover.animate({top:$popover.position().top - 40, opacity:1}, transitionSpeed*2);
+        $popover.css("top", getTopPosition() + "px");
+        $popover.fadeIn(transitionSpeed);
       });
     }
 
@@ -623,10 +631,9 @@ $(function(){
       $popover = $(".download_popover");
 
       $popover.find(".download").click(function(event) {
-        console.log("Downloading");
         event.stopPropagation();
         event.preventDefault();
-        //window.location.href = $(this).attr("href");
+        window.location.href = $(this).attr("href");
 
         var checked = $popover.find("ul li input:checked");
 
@@ -634,23 +641,25 @@ $(function(){
       });
 
       setupBindings();
-      $popover.css("top", ( $(window).height() - $popover.height()) / 2+$(window).scrollTop() + "px");
+      $popover.css("top", getTopPosition() + "px");
       $popover.fadeIn("slow", function() { hidden = false; });
-      //$popover.draggable();
       $("body").append("<div id='lock_screen'></div>");
       $("#lock_screen").height($(document).height());
       $("#lock_screen").fadeIn("slow");
       displayed = true;
     }
 
-    function hide(id) {
+    function hide(callback) {
 
       $popover.find('a.close').unbind("click");
       $('html').unbind("click");
 
-      //$popover.draggable(false);
-      $popover.fadeOut("fast", function() { $popover.remove(); displayed = false; });
-      $("#lock_screen").fadeOut("slow", function() { $("#lock_screen").remove(); });
+      $popover.fadeOut(transitionSpeed, function() { $popover.remove(); displayed = false; });
+
+      $("#lock_screen").fadeOut(transitionSpeed, function() {
+        $("#lock_screen").remove();
+        callback && callback();
+      });
     }
 
     return {

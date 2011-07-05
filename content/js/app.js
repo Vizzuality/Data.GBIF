@@ -662,7 +662,7 @@ $(function(){
 <header></header>\
 <span class='close'></span>\
 <div class='content'>\
-  <h2>DOWNLOAD DATA</h2>\
+  <h2>DOWNLOAD STARTED</h2>\
   <p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>\
   <p>If you have any doubt about the legal terms, please check our <a href='/static/terms_and_conditions.html' class='about' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
   <a href='#' class='candy_white_button close'><span>Close</span></a>\

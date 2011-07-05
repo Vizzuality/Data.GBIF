@@ -533,12 +533,12 @@
   overflow:hidden;
   width:300px;
 
-  h4 {float:left; margin-left:9px; margin-bottom:10px; font-size:11px; color:$medium_dark;text-transform:uppercase;}
+  h4 {float:left; margin-left:5px; margin-bottom:10px; font-size:11px; color:$medium_dark;text-transform:uppercase;}
   input{float:right; width:200px; margin-right:10px; outline:none; text-align:right; color:$gray; font-size:11px;text-transform:uppercase; border:none; }
 
   #slider-range {
     clear:both;
-    margin:5px 13px 5px 10px;
+    margin:5px 13px 5px 5px;
 
     &.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background:none; }
     &.ui-slider-horizontal { height: 5px; background:url('/img/icons/slider_horizontal.png') repeat-x; border:none; }
@@ -552,7 +552,7 @@
     .ui-slider-container { background-color: #eceded; padding: 0 0.6em;}
     a.ui-slider-handle.ui-state-default.ui-corner-all {margin-left:-15px;}
     .ui-slider-handle.last {
-      margin-left:-15px;
+      margin-left:-20px;
       width:27px;
       background:url('/img/icons/right_handler.png') no-repeat left;
     }

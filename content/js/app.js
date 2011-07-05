@@ -324,6 +324,24 @@ $(function(){
 
   $( "#range" ).val( "BETWEEN " + $( "#slider-range" ).slider( "values", 0 ) + " AND " + $( "#slider-range" ).slider( "values", 1 ) );
 
+  var photo_length = $("div.photos > img").length;
+  $(".photos").width(photo_length*627);
+  var p = 0;
+  $(".previous_slide").click(function(event) {
+    event.preventDefault();
+    if (p > 0) {
+      $('.slideshow').scrollTo('-=627px', 500,{easing:'easeOutQuart', axis:'x'});
+      p--;
+    }
+  });
+
+  $(".next_slide").click(function(event) {
+    event.preventDefault();
+    if (p < photo_length) {
+      $('.slideshow').scrollTo("+=627px", 500, {easing:'easeOutQuart', axis:'x'});
+      p++;
+    }
+  });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });

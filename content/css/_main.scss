@@ -732,13 +732,34 @@ a {
 
 		h2 {margin-bottom: 20px;}
 
-		img {display: none;}
+    //img {display: none;}
 
     .content {
-      height:387px;
+      height:406px;
+
+      .controllers {
+        border-bottom: 1px solid $border_color;
+        margin-bottom: 20px;
+      }
+
+      .slideshow {
+        width:627px;
+        overflow:hidden;
+        top:0; height:423px; left:2px; z-index:100;
+        position:absolute;
+
+        .photos {
+          top:0; height:423px;
+          position:relative;
+          img { display:inline-block; }
+        }
+
+      }
       .right {
-        margin-left:620px;
+        z-index:1000;
+        margin-left:640px;
         float:left;
+        border:none;
       }
     } // .content
   } // .photo_gallery

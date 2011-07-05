@@ -4,15 +4,10 @@ $(function(){
     var displayed = false;
     var $popover;
     var transitionSpeed = 150;
+    var title;
+    var message;
 
-    var template="<div class='yellow_popover'>\
-      <div class='t'></div>\
-        <div class='c'>\
-          <h3>Hi, I'm a yellow popover</h3>\
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim nisi, sodales in molestie et, elementum vitae orci. Nam quis ante nisi, sit amet pretium sapien. Fusce nec diam nulla, id accumsan ipsum.\
-        </div>\
-      <div class='b'></div>\
-      </div>";
+    var template="<div class='yellow_popover'><div class='t'></div><div class='c'><h3><%= title %></h3><%= message %></div><div class='b'></div></div>";
 
     function hide() {
       if (displayed) {
@@ -21,23 +16,31 @@ $(function(){
       }
     }
 
-    function show(e, event) {
+    function show(e, event, opt) {
       if (!displayed){
-      el = e;
-      $("#content").prepend(template);
-      $popover = $(".yellow_popover");
+        el = e;
 
-      // get the coordinates and width of the popover
-      var x = el.offset().left;
-      var y = el.offset().top ;
-      var w = $popover.width();
-      var h = $popover.height();
+        if (opt) {
+          title   = opt.title;
+          message = opt.message;
+        }
 
-      // center the popover
-      $popover.css("left", x - w/2 + 7);
-      $popover.css("top", y - h);
+        var rendered_template = _.template(template, {title:title, message:message});
+        $("#content").prepend(rendered_template);
 
-      $popover.animate({opacity:1}, transitionSpeed, function() { displayed = true; });
+        $popover = $(".yellow_popover");
+
+        // get the coordinates and width of the popover
+        var x = el.offset().left;
+        var y = el.offset().top ;
+        var w = $popover.width();
+        var h = $popover.height();
+
+        // center the popover
+        $popover.css("left", x - w/2 + 7);
+        $popover.css("top", y - h);
+
+        $popover.animate({opacity:1}, transitionSpeed, function() { displayed = true; });
       }
     }
 
@@ -80,7 +83,7 @@ $(function(){
       displayed = false;
     }
 
-      $('.example div.white_scrollable_popover ul').jScrollPane({ verticalDragMinHeight: 20});
+    $('.example div.white_scrollable_popover ul').jScrollPane({ verticalDragMinHeight: 20});
 
     function show() {
       el.toggleClass("selected");
@@ -130,12 +133,12 @@ $(function(){
       <div class="arrow"></div>\
         <ul>\
           <li class="first"><a href="/countries/index.html"><span>Countries</span></a></li>\
-          <li><a href="/members/index.html"><span>GBIF network</span></a></li>\
-          <li><a href="/areas/index.html"><span>Areas</span></a></li>\
-          <li><a href="/stats/index.html"><span>Stats</span></a></li>\
-          <li class="last"><a href="/static/about.html"><span>About</span></a></li>\
-        </ul>\
-      </div>';
+            <li><a href="/members/index.html"><span>GBIF network</span></a></li>\
+              <li><a href="/areas/index.html"><span>Areas</span></a></li>\
+                <li><a href="/stats/index.html"><span>Stats</span></a></li>\
+                  <li class="last"><a href="/static/about.html"><span>About</span></a></li>\
+                    </ul>\
+                      </div>';
 
     function toggle(e) {
       el = e;
@@ -183,10 +186,10 @@ $(function(){
       <div class="arrow"></div>\
         <ul>\
           <li class="first"><a href="#" class="relevance"><span>Sort by relevance</span></a></li>\
-          <li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>\
-          <li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>\
-        </ul>\
-      </div>';
+            <li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>\
+              <li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>\
+                </ul>\
+                  </div>';
 
     function toggle(e) {
       el = e;
@@ -377,23 +380,23 @@ $(function(){
     }
 
     function drawProcesses() {
-     _.each(processes, function(date) {
-       //console.log(date);
-       var startDate = new Date(date.start);
-       var endDate   = new Date(date.end);
+      _.each(processes, function(date) {
+        //console.log(date);
+        var startDate = new Date(date.start);
+        var endDate   = new Date(date.end);
 
-      x = numberOfDay(startDate);
-      y = numberOfDay(endDate);
+        x = numberOfDay(startDate);
+        y = numberOfDay(endDate);
 
-      var days = daysBetween(startDate, endDate);
+        var days = daysBetween(startDate, endDate);
 
-       if (days) {
-         //console.log(startDate, endDate, x, y, y - x, p*stepWidth);
-         drawLine(x*stepWidth + 1, 210, (y-x)*stepWidth + stepWidth*2);
-       } else {
-         drawPoint(x*stepWidth + 1, 210);
-       }
-     });
+        if (days) {
+          //console.log(startDate, endDate, x, y, y - x, p*stepWidth);
+          drawLine(x*stepWidth + 1, 210, (y-x)*stepWidth + stepWidth*2);
+        } else {
+          drawPoint(x*stepWidth + 1, 210);
+        }
+      });
     }
 
     function drawGraph(values) {
@@ -507,30 +510,112 @@ $(function(){
     };
   })();
 
-  $("a.login, a.download2, a.download3").click(function(e) {
-    infoWindow.toggle($(this).attr("class"), e);
-  });
+  var downloadPopover = (function() {
+    var displayed = false;
+    var $login;
+    var el;
+    var explanation = "";
 
-  $("a.download").click(function(e) {
-    infoWindow.toggle("download", e);
-  });
+    var template ="<article id='download' class='infowindow download_select'>\
+      <header></header>\
+        <a href='#' class='close'></a>\
+          <div class='content'>\
+            <h2>DOWNLOAD DATA</h2>\
+              <p><%= explanation %></p>\
+                <form autocomplete='off'>\
+                  <div class='light_box'>\
+                    <h3>Select a format</h3>\
+                      <ul>\
+                        <li><input type='radio' name='format' value='csv' /> CSV <span class='size'>(≈150Kb)</span></li>\
+                          <li><input type='radio' name='format' value='xls' /> XLS</li>\
+                            <li><input type='radio' name='format' value='xml' /> XML</li>\
+                              </ul>\
+                                <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+                                  </div>\
+                                    <button type='submit' class='candy_blue_button'><span>Download</span></button>\
+                                      </form>\
+                                        </div>\
+                                          <footer></footer>\
+                                            </article>";
 
-  $.fn.bindWithHelpPopver = function() {
+    function toggle(e, event, opt) {
+      event.stopPropagation();
+      event.preventDefault();
+      el = e;
+
+      if (opt) {
+        explanation = opt.explanation;
+      }
+
+      displayed ? hide(): show();
+    }
+
+    function show() {
+      var rendered_template = _.template(template, {explanation:explanation});
+      $("#content").prepend(rendered_template);
+      $popover = $(".download_select");
+
+      $popover.find(".close").click(function(event) {
+        event.preventDefault();
+        displayed && hide();
+      });
+
+      $popover.click(function(event) {
+        event.stopPropagation();
+      });
+
+      $('html').click(function() {
+        displayed && hide();
+      });
+
+      $popover.css("top", ( $(window).height() - $popover.height()) / 2+$(window).scrollTop() + "px");
+      $popover.fadeIn("slow", function() { hidden = false; });
+      $popover.draggable();
+      $("body").append("<div id='lock_screen'></div>");
+      $("#lock_screen").height($(document).height());
+      $("#lock_screen").fadeIn("slow");
+      displayed = true;
+    }
+
+    function hide(id) {
+      $popover.find('a.close').unbind("click");
+      $('html').unbind("click");
+      $popover.draggable(false);
+      $popover.fadeOut("fast", function() { $popover.remove(); displayed = false; });
+      $("#lock_screen").fadeOut("slow", function() { $("#lock_screen").remove(); });
+    }
+
+    return {
+      toggle: toggle,
+      hide: hide
+    };
+  })();
+
+  $.fn.bindDownloadPopver = function(opt) {
+    $(this).click(function(event) {
+      downloadPopover.toggle($(this), event, opt);
+    });
+  };
+
+  $.fn.bindHelpPopver = function(opt) {
     $(this).click(function(e) {
       e.preventDefault();
     });
 
     $(this).hover(function(e) {
-      helpPopover.show($(this), e);
+      helpPopover.show($(this), e, opt);
     }, function(e){
       helpPopover.hide();
     });
   };
 
-  $("a.help").bindWithHelpPopver();
+  $("a.help").bindHelpPopver({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong>."});
+  $("a.download").bindDownloadPopver({explanation:"Occurrences of “Puma concolor”, collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
 
   $(document).keyup(function(e) {
-    if (e.keyCode == 27) { infoWindow.hide(); }   // esc
+    if (e.keyCode == 27) { // esc key
+      downloadPopover.hide();
+    }
   });
 
   $('span.input_text input').focus(function() {

@@ -157,7 +157,7 @@ var filterPopover = (function() {
   var $popover;
 
   var template = '<div class="select-filter">\
-    <div class='arrow'></div>\
+    <div class="arrow"></div>\
         <div class="inner">\
         <ul>\
           <li>Value number 1 </li>\

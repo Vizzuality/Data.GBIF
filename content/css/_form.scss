@@ -67,29 +67,70 @@
   }
 }
 
+  .add_more {
+    clear:both;
+    padding-left:15px;
+    display:block;
+    font-size:12px;
+    background:url('/img/icons/plus.png') no-repeat left top;
+    height:11px;
+    margin-top:10px;
+    display:block;
+    position:relative;
+  }
+
+  .filter_selected {
+    float:left;
+    display:block;
+    position:relative;
+    color:$medium_dark;
+    &:hover .delete {display:block;}
+    margin-bottom:10px;
+  }
+  .filter_delete {
+    //display:none;
+    position:absolute;
+    top:5px;
+    right:-10px;
+    color:$medium_dark;
+    background:url('/img/icons/cross.png') no-repeat left top;
+    width:5px; height:5px;
+  }
+#content a.filter {
+  float:left;
+  display:block;
+  position:relative;
+
+
+
+}
 #content .select-filter {
   display:none;
   position:absolute;
   float:left;
-  min-width:120px;
-  background:url('/img/select_filter_left_side.png') no-repeat left top;
-  padding:0 0 0 20px;
   z-index:1000;
 
-  .arrow { top:8px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+  -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;
+  .arrow { top:6px; position:relative; width:38px; height:23px; margin:auto; background: url('/img/white_popover_arrow.png') no-repeat center bottom; }
 
-  .inner {
-    height:160px;
-    background:url('/img/select_filter_right_side.png') repeat-x right top;
-    padding:25px 0 0 5px;
-    ul {
-      height:110px;
-      overflow: auto;
-      outline:none;
-      padding:5px 20px 0 0; margin:0;
-      li {
-        text-align:left;
-        line-height:20px;
+  .listing {
+
+    background:url('/img/select_filter_left_side.png') no-repeat left top;
+    padding:0 0 0 20px;
+    .inner {
+      height:160px;
+      background:url('/img/select_filter_right_side.png') repeat-x right top;
+      padding:15px 0 0 5px;
+      ul {
+        height:110px;
+        overflow: auto;
+        outline:none;
+        padding:5px 40px 0 0; margin:0;
+        li {
+          text-align:left;
+          line-height:20px;
+          width:60px;
+        }
       }
     }
   }

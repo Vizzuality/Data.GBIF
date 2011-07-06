@@ -156,22 +156,25 @@ var filterPopover = (function() {
   var displayed = false;
   var $popover;
 
-  var template = '<div class="select-filter">\
+  var templates = {
+  add: '<a href="#" class="filter add_more">Add more</a>',
+  remove: '<div class="filter_delete"></div>',
+  list: '<div class="select-filter">\
     <div class="arrow"></div>\
+    <div class="listing">\
         <div class="inner">\
         <ul>\
-          <li>Value number 1 </li>\
-          <li>Value number 2</li>\
-          <li>Value number 3</li>\
-          <li>Value number 1</li>\
-          <li>Value number 1</li>\
-          <li>Value number 2</li>\
-          <li>Value number 3</li>\
-          <li>Value number 2</li>\
-          <li>Value number 3</li>\
+          <li><a href="#">Value A</a></li>\
+          <li><a href="#">Value B</a></li>\
+          <li><a href="#">Value C</a></li>\
+          <li><a href="#">Value D</a></li>\
+          <li><a href="#">Value E</a></li>\
+          <li><a href="#">Value F</a></li>\
+          <li><a href="#">Value G</a></li>\
         </ul>\
       </div>\
-      </div>';
+      </div>\
+    </div>'};
 
   function toggle(e, event) {
     event.stopPropagation();
@@ -182,16 +185,52 @@ var filterPopover = (function() {
 
   function hide() {
     $('html').unbind("click");
+    $popover.find("li a").unbind("click");
+    $popover.find("li a").die("click");
     $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
   }
 
+  function select(selected) {
+    el.html(selected + templates.remove);
+    el.removeClass("add_more");
+    el.addClass("filter_selected");
+
+    el.bind("click", function(event){
+      event.preventDefault();
+   //   $(this).fadeOut("slow", function() { remove();});
+    });
+  }
+
   function show() {
-    $("#content").prepend(template);
+    $("#content").prepend(templates.list);
     $popover = $(".select-filter");
-    //
+
     // don't do anything if we click inside of the select…
     $popover.click(function(event) {
       event.stopPropagation();
+    });
+
+    $popover.find("li a").click(function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+     // el.die("click");
+     // el.unbind("click");
+     // el.removeClass("filter");
+
+      displayed && hide();
+
+      var selected = $(this).html();
+      select(selected);
+
+     // el.after(templates.add);
+
+      //$(".add_more").die("click");
+      //$(".add_more").bindFilterPopover();
+    });
+
+    $popover.find(".arrow").click(function(event) {
+      displayed && hide();
     });
 
     // … but clicking anywhere else closes the popover
@@ -202,11 +241,13 @@ var filterPopover = (function() {
     // get the coordinates and width of the popover
     var x = el.offset().left;
     var y = el.offset().top;
-    var w = $(".select-filter").width();
+    var w = $popover.width();
+
+    console.log(x, w);
 
     // center the popover
-    $popover.css("left", x - w/2 + 4);
-    $popover.css("top", y - 5);
+    $popover.css("left", x + Math.floor(el.width() / 2) - 9 - Math.floor(w/2) + 9);
+    $popover.css("top", y - 2);
 
     $popover.slideDown("fast", function() { displayed = true; });
     $popover.find('ul').jScrollPane({ verticalDragMinHeight: 20});

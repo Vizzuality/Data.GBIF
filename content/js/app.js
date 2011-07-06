@@ -256,7 +256,7 @@ $(function(){
   })();
 
   $.fn.bindFilterPopover = function(opt) {
-    $(this).click(function(event) {
+    $(this).live("click", function(event) {
       filterPopover.toggle($(this), event, opt);
     });
   };

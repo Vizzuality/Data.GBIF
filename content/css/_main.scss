@@ -1133,7 +1133,8 @@ a {
 						border: 1px solid $gray;
 						@include photo-shadow;
 						}
-					a.tool_url {margin: 0 0 20px 0; font-size: 15px;}
+						h3 {margin: 0 0 10px 0; }
+					a {display:block; margin: 0 0 10px 0; font-size: 15px;}
 				}
 
 

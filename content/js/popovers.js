@@ -154,7 +154,9 @@ var selectBox = (function() {
 var filterPopover = (function() {
   var el;
   var displayed = false;
+  var instantiated;
   var $popover;
+  var count = 0;
 
   var templates = {
   add: '<a href="#" class="filter add_more">Add more</a>',
@@ -176,10 +178,20 @@ var filterPopover = (function() {
       </div>\
     </div>'};
 
+  function initialize() {
+    console.log("initialized");
+    $("#content").prepend(templates.list);
+    return true;
+  }
+
   function toggle(e, event) {
     event.stopPropagation();
     event.preventDefault();
     el = e;
+
+    if (!instantiated){
+      instantiated = initialize();
+    }
     displayed ? hide(): show();
   }
 
@@ -187,7 +199,7 @@ var filterPopover = (function() {
     $('html').unbind("click");
     $popover.find("li a").unbind("click");
     $popover.find("li a").die("click");
-    $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+    $popover.slideUp("fast", function() { displayed = false; });
   }
 
   function select(selected) {
@@ -202,7 +214,6 @@ var filterPopover = (function() {
   }
 
   function show() {
-    $("#content").prepend(templates.list);
     $popover = $(".select-filter");
 
     // don't do anything if we click inside of the select…
@@ -214,14 +225,28 @@ var filterPopover = (function() {
       event.preventDefault();
       event.stopPropagation();
 
+      displayed && hide();
+
+      var selected = $(this).html();
+
+      $(this).hide("slow");
+
+      if (count == 0) {
+        el.hide();
+        el.after('<ul class="values"></ul>');
+        $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+        $("ul.values").after(templates.add);
+      } else {
+        $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+      }
+
+      count++;
+
      // el.die("click");
      // el.unbind("click");
      // el.removeClass("filter");
 
-      displayed && hide();
-
-      var selected = $(this).html();
-      select(selected);
+      //select(selected);
 
      // el.after(templates.add);
 
@@ -256,7 +281,7 @@ var filterPopover = (function() {
   return {
     toggle: toggle
   };
-})();
+});
 
 /*
 * =============
@@ -618,6 +643,10 @@ var downloadPopover = (function() {
       rendered_template = _.template(templates.download_started);
       $("#content").prepend(rendered_template);
       $popover = $(".download_has_started");
+
+      $popover.find("p a").click(function(event) {
+        window.location.href = $(this).attr("href");
+      });
 
       // bind everyhting so it keeps working
       setupBindings();

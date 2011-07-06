@@ -255,11 +255,12 @@ $(function(){
     };
   })();
 
-  $.fn.bindFilterPopover = function(opt) {
-    $(this).live("click", function(event) {
-      filterPopover.toggle($(this), event, opt);
-    });
-  };
+  //$.fn.bindFilterPopover = function(opt) {
+  //  $(this).live("click", function(event) {
+  //    var c = filterPopover();
+  //    c.toggle($(this), event, opt);
+  //  });
+  //};
 
   $.fn.bindDownloadPopover = function(opt) {
     $(this).click(function(event) {
@@ -292,7 +293,11 @@ $(function(){
   };
 
   // Bindings
-  $("a.filter").bindFilterPopover();
+  var c = filterPopover();
+  $("a.filter").click(function(event){
+    c.toggle($(this), event);
+  });
+
   $("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
@@ -330,25 +335,44 @@ $(function(){
 
   $( "#range" ).val( "BETWEEN " + $( "#slider-range" ).slider( "values", 0 ) + " AND " + $( "#slider-range" ).slider( "values", 1 ) );
 
-  var photo_length = $("div.photos > img").length;
-  $(".photos").width(photo_length*627);
-  var p = 0;
-  $(".previous_slide").click(function(event) {
-    event.preventDefault();
-    if (p > 0) {
-      $('.slideshow').scrollTo('-=627px', 500,{easing:'easeOutQuart', axis:'x'});
-      p--;
-    }
-  });
 
-  $(".next_slide").click(function(event) {
-    event.preventDefault();
-    if (p < photo_length) {
-      $('.slideshow').scrollTo("+=627px", 500, {easing:'easeOutQuart', axis:'x'});
-      p++;
-    }
-  });
-    $(".select-filter ul").jScrollPane({ verticalDragMinHeight: 20});
+
+  $.fn.bindSlideshow = function(opt) {
+    var $this = $(this);
+    var photo_width = 627;
+    var currentPhoto = 0;
+    var num_of_photos = $this.find("div.photos > img").length;
+    var downloads = $this.find("div.download a");
+
+    var $previous_button = $this.find(".previous_slide");
+    var $next_button = $this.find(".next_slide");
+
+    $this.find(".photos").width(num_of_photos*photo_width);
+
+    $previous_button.click(function(event) {
+      event.preventDefault();
+      if (currentPhoto > 0) {
+        $this.find('.slideshow').scrollTo('-=627px', 500,{easing:'easeOutQuart', axis:'x'});
+        $(downloads[currentPhoto]).parent().hide();
+        currentPhoto--;
+        $(downloads[currentPhoto]).parent().show();
+      }
+    });
+
+    $next_button.click(function(event) {
+      event.preventDefault();
+      if (currentPhoto < num_of_photos - 1) {
+        $this.find('div.content div.slideshow').scrollTo("+=627px", 500, {easing:'easeOutQuart', axis:'x'});
+        $(downloads[currentPhoto]).parent().hide();
+        currentPhoto++;
+        $(downloads[currentPhoto]).parent().show();
+      }
+    });
+  };
+
+  $("article#slideshow-1").bindSlideshow();
+
+  //  $(".select-filter ul").jScrollPane({ verticalDragMinHeight: 20});
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });

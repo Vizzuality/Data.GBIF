@@ -67,6 +67,33 @@
   }
 }
 
+#content article .content ul.values {
+  clear:both;
+  margin:0!important; padding:0;
+  li {
+    overflow:hidden;
+    clear:both;
+    margin:0; padding:0;
+    font-size:15px;
+
+    div.value {
+      float:left;
+      position:relative;
+      span.remove {
+        display:none;
+        top:8px;
+        right:-10px;
+        position:absolute;
+        width:5px; height:5px;
+        background:url('/img/icons/cross.png') no-repeat left top;
+      }
+    }
+    &:hover div.value span {
+      display:block;
+    }
+  }
+}
+
   .add_more {
     clear:both;
     padding-left:15px;
@@ -80,7 +107,6 @@
   }
 
   .filter_selected {
-    float:left;
     display:block;
     position:relative;
     color:$medium_dark;

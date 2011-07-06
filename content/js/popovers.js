@@ -106,8 +106,6 @@ var selectBox = (function() {
     displayed = false;
   }
 
-  $('.example div.white_scrollable_popover ul').jScrollPane({ verticalDragMinHeight: 20});
-
   function show() {
     el.toggleClass("selected");
     el.find('ul').jScrollPane({ verticalDragMinHeight: 20});
@@ -140,6 +138,72 @@ var selectBox = (function() {
       $("input#country").val(selectedOptionText);
       hide();
     });
+  }
+
+  return {
+    toggle: toggle
+  };
+})();
+
+/*
+* =============
+*  FILTER POPOVER
+* =============
+*/
+
+var filterPopover = (function() {
+  var el;
+  var displayed = false;
+  var $popover;
+
+  var template = '<div class="select-filter">\
+        <div class="inner">\
+        <ul>\
+          <li>Value number 1 </li>\
+          <li>Value number 2</li>\
+          <li>Value number 3</li>\
+          <li>Value number 1</li>\
+          <li>Value number 1</li>\
+          <li>Value number 2</li>\
+          <li>Value number 3</li>\
+          <li>Value number 2</li>\
+          <li>Value number 3</li>\
+        </ul>\
+      </div>\
+      </div>';
+
+  function toggle(e, event) {
+    event.stopPropagation();
+    event.preventDefault();
+    el = e;
+    displayed ? hide(): show();
+  }
+
+  function hide() {
+    $('html').unbind("click");
+    $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+  }
+
+  function show() {
+    $("#content").prepend(template);
+    $popover = $(".select-filter");
+
+    // clicking anywhere closes the popover
+    $('html').click(function() {
+      displayed && hide();
+    });
+
+    // get the coordinates and width of the popover
+    var x = el.offset().left;
+    var y = el.offset().top;
+    var w = $(".select-filter").width();
+
+    // center the popover
+    $popover.css("left", x - w/2 + 4);
+    $popover.css("top", y - 5);
+
+    $popover.slideDown("fast", function() { displayed = true; });
+    $popover.find('ul').jScrollPane({ verticalDragMinHeight: 20});
   }
 
   return {
@@ -520,6 +584,8 @@ var downloadPopover = (function() {
     var rendered_template = _.template(selected_template, {explanation:explanation});
     $("#content").prepend(rendered_template);
     $popover = $(".download_popover");
+
+    $popover.find("input[type='radio']").uniform();
 
     $popover.find(".download").click(function(event) {
       event.stopPropagation();

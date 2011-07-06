@@ -205,7 +205,6 @@ $(function(){
   });
 
   $("select").uniform();
-  $("input[type='radio']").uniform();
 
   var infoWindow = (function() {
     var displayed = false;
@@ -256,6 +255,12 @@ $(function(){
     };
   })();
 
+  $.fn.bindFilterPopover = function(opt) {
+    $(this).click(function(event) {
+      filterPopover.toggle($(this), event, opt);
+    });
+  };
+
   $.fn.bindDownloadPopover = function(opt) {
     $(this).click(function(event) {
       downloadPopover.toggle($(this), event, opt);
@@ -287,7 +292,8 @@ $(function(){
   };
 
   // Bindings
-  $("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong>."});
+  $("a.filter").bindFilterPopover();
+  $("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.login").bindLoginPopover();
@@ -342,6 +348,7 @@ $(function(){
       p++;
     }
   });
+    $(".select-filter ul").jScrollPane({ verticalDragMinHeight: 20});
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseup(function() { $(this).removeClass('active'); });
   //  $('.search_button, .candy_white_button, .candy_blue_button').mouseleave(function() { $(this).removeClass('active'); });

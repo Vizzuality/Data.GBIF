@@ -157,6 +157,7 @@ var filterPopover = (function() {
   var $popover;
 
   var template = '<div class="select-filter">\
+    <div class='arrow'></div>\
         <div class="inner">\
         <ul>\
           <li>Value number 1 </li>\
@@ -187,8 +188,13 @@ var filterPopover = (function() {
   function show() {
     $("#content").prepend(template);
     $popover = $(".select-filter");
+    //
+    // don't do anything if we click inside of the select…
+    $popover.click(function(event) {
+      event.stopPropagation();
+    });
 
-    // clicking anywhere closes the popover
+    // … but clicking anywhere else closes the popover
     $('html').click(function() {
       displayed && hide();
     });

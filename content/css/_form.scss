@@ -73,12 +73,15 @@
   float:left;
   min-width:120px;
   background:url('/img/select_filter_left_side.png') no-repeat left top;
-  padding:0 0 0 10px;
+  padding:0 0 0 20px;
   z-index:1000;
+
+  .arrow { top:8px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+
   .inner {
     height:160px;
     background:url('/img/select_filter_right_side.png') repeat-x right top;
-    padding:25px 0 0 10px;
+    padding:25px 0 0 5px;
     ul {
       height:110px;
       overflow: auto;

@@ -16,12 +16,13 @@ sup  { font-size:11px; top:-3px; }
 
 #map { width:608px; height:140px; margin-bottom:23px; }
 #map_canvas {
+  #map {width:597px;}
   position:relative;
   .tl, .tr, .bl, .br { width:4px; height:4px; background:url('/img/circle.png') no-repeat; position:absolute; z-index:100 }
   .tl {top:-1px; left:-1px;background-position: top left;}
-  .tr {top:-1px; right:-12px;background-position: top right;}
+  .tr {top:-1px; right:-1px;background-position: top right;}
   .bl {bottom:-1px; left:-1px;background-position: bottom left;}
-  .br {bottom:-1px; right:-12px;background-position: bottom right;}
+  .br {bottom:-1px; right:-1px;background-position: bottom right;}
 }
 
 #photo_gallery { width:608px; height:140px; margin-bottom:23px; }
@@ -859,7 +860,7 @@ a {
 					margin-bottom: 15px;
           border-bottom: 1px solid $gray;
 
-					#map { width:598px; height:160px; margin-bottom:23px; }
+					#map { width:597px; height:160px; margin-bottom:23px; }
 
 					.geographic_coverage {
 						display: inline-block;

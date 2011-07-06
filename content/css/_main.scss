@@ -868,9 +868,16 @@ a {
 						width: 293px;
 
 					}
-					.taxonomic_coverage {}
+					.taxonomic_coverage {
+					  .placeholder {
+					    background:red;
+					    height:300px;
+					    margin-bottom:50px;
+            }
 
-					.sort {float: right;}
+					}
+
+					.sort {float: right; top: -35px; margin-right:10px; font-size:15px;}
 				}
 
         .result {

@@ -668,22 +668,36 @@
   line-height: 23px;
   -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;
 
-  div.month, div.day, div.year { position:relative; float:left; height:23px; top:18px; padding-left: 5px; background:url('/img/date_bkg.png') no-repeat; }
+  div.month, div.day, div.year { position:relative; float:left; height:23px; top:18px; padding-left: 5px; background:url('/img/date_bkg.png') no-repeat; cursor:pointer; }
 
   div.month { width:55px - 5px; background-position: -0px -54px;   left:14px; }
   div.day   { width:42px - 5px; background-position: -60px -54px;  left:19px; }
   div.year  { width:58px - 5px; background-position: -107px -54px; left:24px; }
 
-  div.month.selected {
-    height:115px;
-    background-position: -0px -80px;
-  }
-  div.day.selected {
-    height:115px;
-    background-position: -60px -80px;
-  }
-  div.year.selected {
-    height:115px;
-    background-position: -107px -80px;
+  div.month.selected { height:115px; background-position: -0px -80px; }
+  div.day.selected   { height:115px; background-position: -60px -80px; }
+  div.year.selected  { height:115px; background-position: -107px -80px; }
+
+  div.month.selected .listing { display:block; }
+  div.month .listing {
+    height: 80px;
+    margin-top:5px;
+    overflow:hidden;
+    display:none;
+    width:60px;
+
+    div.inner {
+      height: 80px;
+      ul {
+        margin:0;
+        padding:0;
+
+        li {
+          margin:0;
+          padding:0;
+          line-height:16px;
+        }
+      }
+    }
   }
 }

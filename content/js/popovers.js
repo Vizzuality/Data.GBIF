@@ -40,6 +40,7 @@ var datePopover = (function() {
       $(this).toggleClass("selected");
       $day.removeClass("selected");
       $month.removeClass("selected");
+      $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
     });
 
     $month.click(function(event) {
@@ -47,6 +48,7 @@ var datePopover = (function() {
       $(this).toggleClass("selected");
       $year.removeClass("selected");
       $day.removeClass("selected");
+      $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
     });
 
     $day.click(function(event) {
@@ -54,6 +56,7 @@ var datePopover = (function() {
       $(this).toggleClass("selected");
       $year.removeClass("selected");
       $month.removeClass("selected");
+      $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
     });
 
     // … but clicking anywhere else closes the popover
@@ -64,6 +67,7 @@ var datePopover = (function() {
 
   function hide() {
     if (displayed) {
+      $(".day, .month, .year").removeClass("selected");
       $('html').unbind("click");
       $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
     }
@@ -82,9 +86,6 @@ var datePopover = (function() {
   }
 
   function captureDate() {
-   // day = el.find("span.day").html();
-   // month = el.find("span.month").html();
-   // year = el.find("span.year").html();
     var date = new Date(el.attr("datetime"));
     day = date.getDate();
     month = date.getMonth();
@@ -99,6 +100,12 @@ var datePopover = (function() {
     $month.html(months[month]);
     $day.html(day);
     $year.html(year);
+
+    $month.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
+    _.each(months, function(m) {
+      $month.find(".listing ul").append("<li>"+m+"</li>");
+    });
+
 
     var x = el.offset().left;
     var y = el.offset().top ;

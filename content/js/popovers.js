@@ -430,6 +430,7 @@ var loginPopover = (function() {
   var el;
   var explanation = "";
   var selected_template;
+  var errorEmail, errorPassword;
   var transitionSpeed = 200;
 
   var templates = {login: "<article id='login' class='infowindow'>\
@@ -438,16 +439,16 @@ var loginPopover = (function() {
                 <div class='content'>\
                 <h2>SIGN IN TO GBIF</h2>\
                 <p>You need to log in GBIF in order to download the data.</p>\
-                <form autocomplete='off'>\
+                <form autocomplete='off' method='post' action='test'>\
                 <div class='light_box'>\
-                <div class='field'>\
+                <div class='field email'>\
                 <h3>Email</h3>\
                 <span class='input_text'>\
                 <input id='email' name='email' type='text' />\
                 </span>\
                 </div>\
-                <div class='field error'>\
-                <h3>Password <span class='error'>Wrong password</span></h3>\
+                <div class='field password'>\
+                <h3>Password</h3>\
                 <span class='input_text'>\
                 <input id='password' name='password' type='password' />\
                 </span>\
@@ -466,10 +467,10 @@ var loginPopover = (function() {
                 <span class='close'></span>\
                 <div class='content'>\
                 <h2>RECOVER YOUR PASSWORD</h2>\
-                <form autocomplete='off'>\
+                <form autocomplete='off' method='post'>\
                 <div class='light_box'>\
                 <div class='field'>\
-                <h3>Email</h3>\
+                <h3>Your email</h3>\
                 <span class='input_text'>\
                 <input id='email' name='email' type='text' />\
                 </span>\
@@ -505,6 +506,8 @@ var loginPopover = (function() {
       // we can now open the new popover: "password"
       rendered_template = _.template(selected_template);
       $("#content").prepend(rendered_template);
+
+      // get the id of the popover
       popover_id = $(selected_template).attr("id");
       $popover = $("#"+popover_id);
 
@@ -512,7 +515,7 @@ var loginPopover = (function() {
         window.location.href = $(this).attr("href");
       });
 
-      // bind everyhting so it keeps working
+      // finally bind everyhting so it keeps working
       setupBindings();
 
       $popover.css("top", getTopPosition() + "px");
@@ -525,10 +528,33 @@ var loginPopover = (function() {
   }
 
   function setupBindings() {
-
-    $popover.find("button").click(function(event) {
+    $popover.find("form").submit(function(event) {
       event.preventDefault();
-      displayed && hide();
+
+      if (!errorEmail) {
+        $popover.find(".field.email").addClass("error");
+        $popover.find(".field.email h3").append("<span class='error' style='display:none'>Email not recognized</span>");
+        $popover.find(".field.email h3 span").fadeIn(transitionSpeed);
+        errorEmail = true;
+      }
+      if (!errorPassword) {
+        $popover.find(".field.password").addClass("error");
+        $popover.find(".field.password h3").append("<span class='error' style='display:none'>Wrong password</span>");
+        $popover.find(".field.password h3 span").fadeIn(transitionSpeed);
+        errorPassword = true;
+      }
+    });
+
+    $popover.find("input").focus(function(event) {
+      event.preventDefault();
+        if ($(this).parents(".field.error").hasClass("email")) {
+          errorEmail = false;
+        } else {
+          errorPassword = false;
+        }
+
+        $(this).parents(".field.error").find("h3 span").fadeOut(transitionSpeed, function() {$(this).remove();});
+        $(this).parents(".field.error").removeClass("error");
     });
 
     $popover.find(".back_to_login").click(function(event) {

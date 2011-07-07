@@ -1,9 +1,20 @@
-@mixin color-transition {
-  -webkit-transition: color .3s ease-in-out;
-  -moz-transition: color .3s ease-in-out;
-  -o-transition: color .3s ease-in-out;
-  -ms-transition: color .3s ease-in-out;
-  transition: color .3s ease-in-out;
+$speed:'';
+@mixin color-transition($speed) {
+  @if $speed == '' {
+
+    -webkit-transition: color $speed ease-in-out;
+    -moz-transition: color $speed ease-in-out;
+    -o-transition: color $speed, ease-in-out;
+    -ms-transition: color $speed ease-in-out;
+    transition: color $speed ease-in-out;
+
+  } @else {
+    -webkit-transition: color .3s ease-in-out;
+    -moz-transition: color .3s ease-in-out;
+    -o-transition: color .3s ease-in-out;
+    -ms-transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out;
+  }
 }
 
 @mixin remove-transition {
@@ -21,7 +32,7 @@
 @mixin photo-shadow {
 	-moz-box-shadow:  0 0 1px 1px $light_gray;
 	-webkit-box-shadow:  0 0 1px 1px $light_gray;
-	-box-shadow: 0 0 1px 1px $light_gray;						
+	-box-shadow: 0 0 1px 1px $light_gray;
 }
 
 

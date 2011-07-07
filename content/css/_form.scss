@@ -48,19 +48,16 @@
     }//textarea
 
     span.input_text { float:left; height:31px; padding:0 0 0 5px; background: url('/img/input_bkg.png') no-repeat left -99px; }
+
+    // Error styles
     &.error span.input_text, span.input_text.error {background-position: left -130px; }
+    &.error span.input_text input[type="text"], &.error span.input_text input[type="password"], span.input_text.error input[type="text"], span.input_text.error input[type="password"] {background-position: right -161px; color:$error_color; }
+    span.error { float:right; color:$error_color; font-style:normal; font-weight:normal; }
 
-    &.error span.input_text input[type="text"],
-    &.error span.input_text input[type="password"],
-    span.input_text.error input[type="text"], span.input_text.error input[type="password"] {background-position: right -161px!important; }
-    span.error {
-      float:right;
-      color:$error_color;
-      font-style:normal;
-      font-weight:normal;
-    }
-
+    // Normal styles
     input[type="text"], input[type="password"] {
+
+      @include color-transition(200);
       float:left;
       width:288px - 18;
       height:31px;

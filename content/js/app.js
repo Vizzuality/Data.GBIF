@@ -352,7 +352,7 @@ $(function(){
     $previous_button.click(function(event) {
       event.preventDefault();
       if (currentPhoto > 0) {
-          $next_button.removeClass("disabled");
+        $next_button.removeClass("disabled");
         $this.find('.slideshow').scrollTo('-=627px', 500,{easing:'easeOutQuart', axis:'x'});
         $(downloads[currentPhoto]).parent().hide();
         currentPhoto--;
@@ -367,7 +367,7 @@ $(function(){
     $next_button.click(function(event) {
       event.preventDefault();
       if (currentPhoto < num_of_photos) {
-          $previous_button.removeClass("disabled");
+        $previous_button.removeClass("disabled");
 
         $this.find('div.content div.slideshow').scrollTo("+=627px", 500, {easing:'easeOutQuart', axis:'x'});
         $(downloads[currentPhoto]).parent().hide();

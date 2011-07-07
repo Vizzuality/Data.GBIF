@@ -1,4 +1,6 @@
-// Header variations
+
+// HEADER VARIATIONS
+
 body  {
   &.search header {
     height:226px;
@@ -9,6 +11,8 @@ body  {
   }
 
   // ---------------------------------------
+  // DATASET AND REGISTER HEADER
+  // ---------------------------------------
 
   &.dataset header, &.register header {
     #top nav ul li.selected a { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
@@ -17,15 +21,18 @@ body  {
   }
 
   // ---------------------------------------
+  // DATASET HEADER
+  // ---------------------------------------
 
   &.dataset header {
     height:98px;
 
     #top { border-bottom:1px solid $gray; }
     h2 { margin-left: 25px; }
-
   }
 
+  // ---------------------------------------
+  // REGISTER HEADER
   // ---------------------------------------
 
   &.register header {
@@ -46,6 +53,8 @@ body  {
   }
 
   // ---------------------------------------
+  // USER AND STATIC HEADER
+  // ---------------------------------------
 
   &.user header, &.static header {
     height:226px;
@@ -57,6 +66,9 @@ body  {
   }
 }
 
+// ---------------------------------------
+// COMMON HEADER
+// ---------------------------------------
 
 header {
   position:relative;
@@ -74,19 +86,12 @@ header {
     color:$ultra_dark;
     font-size:11px;
 
-    .logo {
-      position:relative;
-      float:left;
-      width:41px;
-      height:38px;
-      margin: 0 10px 0 0;
-      top:-5px;
-    }
+    .logo { position:relative; float:left; width:41px; height:38px; margin: 0 10px 0 0; top:-5px; }
 
     a    { font-family:$font_medium; font-size:17px; color:$ultra_dark; }
     h1   { display:block; margin-bottom:4px; }
     span { opacity:.5; }
-  }
+  }//header #logo
 
   #top {
     position:relative;
@@ -94,10 +99,7 @@ header {
     height: 97px;
     text-align:center;
 
-    .content {
-      @include absolute_center(1024px);
-      text-align:left;
-    }
+    .content { @include absolute_center(1024px); text-align:left; }
 
     .account {
       position:absolute;
@@ -115,7 +117,7 @@ header {
         color: $brightest;
         &:hover { color:$ultra_dark; @include color-transition; }
       }
-    }
+    }//#top.account
 
     nav {
       position:absolute;
@@ -149,10 +151,11 @@ header {
               height:33px;
               padding:0px 12px 0 28px;
               background:url('/img/header/input_bkg.png') no-repeat scroll left 3px;
+
               &.focus {
                 background-position:left -31px;
               }
-            }
+            }//span.input_text
 
 
             input {
@@ -412,5 +415,4 @@ header {
       } // .box
     } // .content
   } // infoband
-}
-
+}//header

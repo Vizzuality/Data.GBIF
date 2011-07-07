@@ -698,13 +698,10 @@ a {
           text-align:left;
           margin-top:3px;
 
-          strong {
-            display:block;
-            color:$darkest;
-          }
+          strong { display:block; color:$darkest; }
         }
         color:$medium_dark;
-      }
+      }//div.summary
 
       ul {
         padding:0;
@@ -716,7 +713,7 @@ a {
 
         li {
           a { display:block; height:100%; }
-          &:hover .bar { background:rgba(#000, .4); }
+          &:hover .bar { background:$link_color; }
 
           position: relative;
           float: left;

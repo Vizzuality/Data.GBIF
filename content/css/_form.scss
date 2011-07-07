@@ -680,32 +680,9 @@
 
   div.day.selected .listing, div.year.selected .listing, div.month.selected .listing { display:block; }
 
-  div.month .listing {
-    height: 80px;
-    margin-top:5px;
-    overflow:hidden;
-    display:none;
-    width:63px;
-
-  }
-
-  div.day .listing {
-    height: 80px;
-    margin-top:5px;
-    overflow:hidden;
-    display:none;
-    width:50px;
-
-  }
-
-  div.year .listing {
-    height: 80px;
-    margin-top:5px;
-    overflow:hidden;
-    display:none;
-    width:65px;
-
-  }
+  div.month .listing { height: 80px; margin-top:5px; overflow:hidden; display:none; width:63px; }
+  div.day   .listing { height: 80px; margin-top:5px; overflow:hidden; display:none; width:50px; }
+  div.year  .listing { height: 80px; margin-top:5px; overflow:hidden; display:none; width:65px; }
 
   div.day div.inner,
   div.month div.inner,
@@ -716,6 +693,7 @@
       margin:0;
       padding:0;
       line-height:16px;
+      z-index:1000;
 
       &.selected {
         font-weight:bold;

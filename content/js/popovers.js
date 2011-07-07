@@ -17,9 +17,9 @@ var datePopover = (function() {
   var months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG", "SEP","OCT","NOV","DEC"];
 
   var template = '<div id="date-selector" class="date-selector">\
-    <div class="month"></div>\
-    <div class="day"></div>\
-    <div class="year"></div>\
+    <div class="month"><span></span></div>\
+    <div class="day"><span></span></div>\
+    <div class="year"><span></span></div>\
   </div>';
   function toggle(e, event, opt) {
     event.stopPropagation();
@@ -39,21 +39,24 @@ var datePopover = (function() {
       event.stopPropagation();
       $(this).toggleClass("selected");
       $(".day, .month").removeClass("selected");
-      $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+      var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+      pane.data('jsp').scrollToY(13*(2020 - year));
     });
 
     $month.click(function(event) {
       event.stopPropagation();
       $(this).toggleClass("selected");
       $(".year, .day").removeClass("selected");
-      $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+      var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+      pane.data('jsp').scrollToY(13*month);
     });
 
     $day.click(function(event) {
       event.stopPropagation();
       $(this).toggleClass("selected");
       $(".year, .month").removeClass("selected");
-      $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+      var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+      pane.data('jsp').scrollToY(13*day);
     });
 
     // … but clicking anywhere else closes the popover
@@ -94,9 +97,9 @@ var datePopover = (function() {
     setupBindings();
     captureDate();
 
-    $month.html(months[month]);
-    $day.html(day);
-    $year.html(year);
+    $month.find("span").html(months[month]);
+    $day.find("span").html(day);
+    $year.find("span").html(year);
 
     $month.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
     $day.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
@@ -105,7 +108,6 @@ var datePopover = (function() {
     _.each(months, function(m, index) {
       if (index == month) {
         $month.find(".listing ul").append('<li class="selected">'+m+'</li>');
-        $month.find(".listing ul li.selected").scrollTop();
       } else {
         $month.find(".listing ul").append("<li>"+m+"</li>");
       }
@@ -126,6 +128,24 @@ var datePopover = (function() {
         $year.find(".listing ul").append("<li>"+i+"</li>");
       }
     }
+
+    $year.find("li").click(function(event){
+      event.stopPropagation();
+      $year.find("span").html($(this).html());
+      $year.removeClass("selected");
+    });
+
+    $month.find("li").click(function(event){
+      event.stopPropagation();
+      $month.find("span").html($(this).html());
+      $month.removeClass("selected");
+    });
+
+    $day.find("li").click(function(event){
+      event.stopPropagation();
+      $day.find("span").html($(this).html());
+      $day.removeClass("selected");
+    });
 
     var x = el.offset().left;
     var y = el.offset().top ;

@@ -57,7 +57,7 @@
     // Normal styles
     input[type="text"], input[type="password"] {
 
-      @include color-transition(200);
+      @include color-transition(.1s);
       float:left;
       width:288px - 18;
       height:31px;
@@ -121,23 +121,12 @@
     &:hover .delete {display:block;}
     margin-bottom:10px;
   }
-  .filter_delete {
-    //display:none;
-    position:absolute;
-    top:5px;
-    right:-10px;
-    color:$medium_dark;
-    background:url('/img/icons/cross.png') no-repeat left top;
-    width:5px; height:5px;
+  span.remove {
+    cursor:pointer;
   }
-#content a.filter {
-  float:left;
-  display:block;
-  position:relative;
+  .filter_delete { position:absolute; top:5px; right:-10px; color:$medium_dark; background:url('/img/icons/cross.png') no-repeat left top; width:5px; height:5px; cursor:pointer; }
 
-
-
-}
+#content a.filter { float:left; display:block; position:relative; }
 #content .select-filter {
   display:none;
   position:absolute;
@@ -151,19 +140,21 @@
 
     background:url('/img/select_filter_left_side.png') no-repeat left top;
     padding:0 0 0 20px;
+
     .inner {
       height:160px;
       background:url('/img/select_filter_right_side.png') repeat-x right top;
       padding:15px 0 0 5px;
       ul {
         height:110px;
+        float:left;
+        width:100px;
         overflow: auto;
         outline:none;
         padding:5px 40px 0 0; margin:0;
         li {
           text-align:left;
           line-height:20px;
-          width:60px;
         }
       }
     }
@@ -662,4 +653,18 @@
       background:url('/img/icons/right_handler.png') no-repeat left;
     }
   }
+}
+
+#content div.date-selector {
+  position:absolute;
+  opacity:0;
+  width:192px;
+  height:54px;
+  float:left;
+  background:url('/img/date_bkg.png') no-repeat left top;
+  z-index:1000;
+
+  div.month { position:relative; float:left; width:55px; height:23px; background:url('/img/date_bkg.png') no-repeat left -54px; top:18px; left:14px; }
+  div.day { position:relative; float:left; width:42px; height:23px; background:url('/img/date_bkg.png') no-repeat -60px -54px; top:18px; left:19px; }
+  div.year { position:relative; float:left; width:58px; height:23px; background:url('/img/date_bkg.png') no-repeat -107px -54px; top:18px; left:24px; }
 }

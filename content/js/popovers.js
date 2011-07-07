@@ -1,5 +1,92 @@
 /*
 * =============
+* DATE POPOVER
+* =============
+*/
+
+var datePopover = (function() {
+  var el;
+  var displayed = false;
+  var $popover;
+  var transitionSpeed = 150;
+  var title;
+  var message;
+  var day, month, year;
+
+  var template = '<div id="date-selector" class="date-selector">\
+    <div class="month"></div>\
+    <div class="day"></div>\
+    <div class="year"></div>\
+  </div>';
+  function toggle(e, event, opt) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    el = e;
+    displayed ? hide(): show();
+  }
+
+  function setupBindings() {
+    // don't do anything if we click inside of the select…
+    $popover.click(function(event) {
+      event.stopPropagation();
+    });
+
+    // … but clicking anywhere else closes the popover
+    $('html').click(function() {
+      displayed && hide();
+    });
+  }
+
+  function hide() {
+    if (displayed) {
+      $('html').unbind("click");
+      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+    }
+  }
+
+  function createPopover() {
+    $("#content").prepend(template);
+
+    // get id of the popover
+    popover_id = $(template).attr("id");
+    $popover = $("#"+popover_id);
+  }
+
+  function captureDate() {
+   // day = el.find("span.day").html();
+   // month = el.find("span.month").html();
+   // year = el.find("span.year").html();
+    var myDate = new Date(el.attr("datetime"));
+    console.log(myDate);
+  }
+
+  function show() {
+    createPopover();
+    setupBindings();
+    captureDate();
+
+    var x = el.offset().left;
+    var y = el.offset().top ;
+    var w = $popover.width();
+    var el_w = el.width();
+
+    // center the popover
+    $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
+    $popover.css("top", y + 9 + 20);
+
+    $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
+  }
+
+  return {
+    toggle: toggle
+  };
+})();
+
+
+
+/*
+* =============
 * HELP POPOVER
 * =============
 */
@@ -152,6 +239,7 @@ var selectBox = (function() {
 */
 
 var filterPopover = (function() {
+  var that = this;
   var el;
   var displayed = false;
   var instantiated;
@@ -179,7 +267,6 @@ var filterPopover = (function() {
     </div>'};
 
   function initialize() {
-    console.log("initialized");
     $("#content").prepend(templates.list);
     return true;
   }
@@ -234,17 +321,23 @@ var filterPopover = (function() {
       if (count == 0) {
         el.hide();
         el.after('<ul class="values"></ul>');
-        $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+        var $li =  $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
         $("ul.values").after(templates.add);
+
+
       } else {
-        $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+        var $li = $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
       }
+
+      $li.find("span.remove").click(function() {
+        alert('remove');
+      });
 
       count++;
 
      // el.die("click");
      // el.unbind("click");
-     // el.removeClass("filter");
+     // el.removeclass("filter");
 
       //select(selected);
 
@@ -267,8 +360,6 @@ var filterPopover = (function() {
     var x = el.offset().left;
     var y = el.offset().top;
     var w = $popover.width();
-
-    console.log(x, w);
 
     // center the popover
     $popover.css("left", x + Math.floor(el.width() / 2) - 9 - Math.floor(w/2) + 9);

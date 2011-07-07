@@ -133,12 +133,25 @@ $(function(){
     });
   };
 
+  $.fn.bindDatePopover = function() {
+    $(this).click(function(event) {
+      datePopover.toggle($(this), event);
+    });
+  };
+
   // Bindings
   var c = filterPopover();
   $("a.filter").click(function(event){
     c.toggle($(this), event);
   });
 
+  $("a.add_more").live("click", function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    c.toggle($(this), event);
+  });
+
+  $("time.selectable").bindDatePopover();
   $("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});

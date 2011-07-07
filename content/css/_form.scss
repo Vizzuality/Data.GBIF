@@ -678,25 +678,47 @@
   div.day.selected   { height:115px; background-position: -60px -80px; }
   div.year.selected  { height:115px; background-position: -107px -80px; }
 
-  div.month.selected .listing { display:block; }
+  div.day.selected .listing, div.year.selected .listing, div.month.selected .listing { display:block; }
+
   div.month .listing {
     height: 80px;
     margin-top:5px;
     overflow:hidden;
     display:none;
-    width:60px;
+    width:63px;
 
-    div.inner {
-      height: 80px;
-      ul {
-        margin:0;
-        padding:0;
+  }
 
-        li {
-          margin:0;
-          padding:0;
-          line-height:16px;
-        }
+  div.day .listing {
+    height: 80px;
+    margin-top:5px;
+    overflow:hidden;
+    display:none;
+    width:50px;
+
+  }
+
+  div.year .listing {
+    height: 80px;
+    margin-top:5px;
+    overflow:hidden;
+    display:none;
+    width:65px;
+
+  }
+
+  div.day div.inner,
+  div.month div.inner,
+  div.year div.inner {
+    height: 80px;
+    ul { margin:0; padding:0;}
+    ul li {
+      margin:0;
+      padding:0;
+      line-height:16px;
+
+      &.selected {
+        font-weight:bold;
       }
     }
   }

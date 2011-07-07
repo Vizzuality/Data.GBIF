@@ -38,24 +38,21 @@ var datePopover = (function() {
     $year.click(function(event) {
       event.stopPropagation();
       $(this).toggleClass("selected");
-      $day.removeClass("selected");
-      $month.removeClass("selected");
+      $(".day, .month").removeClass("selected");
       $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
     });
 
     $month.click(function(event) {
       event.stopPropagation();
       $(this).toggleClass("selected");
-      $year.removeClass("selected");
-      $day.removeClass("selected");
+      $(".year, .day").removeClass("selected");
       $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
     });
 
     $day.click(function(event) {
       event.stopPropagation();
       $(this).toggleClass("selected");
-      $year.removeClass("selected");
-      $month.removeClass("selected");
+      $(".year, .month").removeClass("selected");
       $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
     });
 
@@ -102,10 +99,33 @@ var datePopover = (function() {
     $year.html(year);
 
     $month.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
-    _.each(months, function(m) {
-      $month.find(".listing ul").append("<li>"+m+"</li>");
+    $day.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
+    $year.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
+
+    _.each(months, function(m, index) {
+      if (index == month) {
+        $month.find(".listing ul").append('<li class="selected">'+m+'</li>');
+        $month.find(".listing ul li.selected").scrollTop();
+      } else {
+        $month.find(".listing ul").append("<li>"+m+"</li>");
+      }
     });
 
+    for(var i = 1; i <= 31; i++) {
+      if (i == day) {
+        $day.find(".listing ul").append("<li class='selected'>"+i+"</li>");
+      } else {
+        $day.find(".listing ul").append("<li>"+i+"</li>");
+      }
+    }
+
+    for(var i = 1950; i <= 2020; i++) {
+      if (i == year) {
+        $year.find(".listing ul").append("<li class='selected'>"+i+"</li>");
+      } else {
+        $year.find(".listing ul").append("<li>"+i+"</li>");
+      }
+    }
 
     var x = el.offset().left;
     var y = el.offset().top ;

@@ -528,6 +528,10 @@ var loginPopover = (function() {
   }
 
   function setupBindings() {
+
+    errorEmail = false;
+    errorPassword = false;
+
     $popover.find("form").submit(function(event) {
       event.preventDefault();
 

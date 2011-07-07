@@ -192,11 +192,16 @@ a {
 
     span.close { position:absolute; width:8px; height:6px; top:-12px; right:8px; padding: 5px 5px 10px; background:url('/img/icons/close.png') no-repeat center center; cursor:pointer; }
 
-    .recover_password, .filetype {
+    a.back_to_login, a.recover_password {
       float:left; margin-top: 20px;
+      text-decoration:underline;
       strong { font-weight:bold; color:$medium_dark; }
     }
 
+    .filetype {
+      float:left; margin-top: 20px;
+      strong { font-weight:bold; color:$medium_dark; }
+    }
 
     .content {
       clear:both;

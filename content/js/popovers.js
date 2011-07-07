@@ -429,37 +429,62 @@ var loginPopover = (function() {
   var $login;
   var el;
   var explanation = "";
+  var selected_template;
   var transitionSpeed = 200;
 
-  var template = "<article id='login' class='infowindow login'>\
-    <header></header>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>SIGN IN TO GBIF</h2>\
-            <p>You need to log in GBIF in order to download the data.</p>\
-              <form autocomplete='off'>\
+  var templates = {login: "<article id='login' class='infowindow'>\
+                <header></header>\
+                <span class='close'></span>\
+                <div class='content'>\
+                <h2>SIGN IN TO GBIF</h2>\
+                <p>You need to log in GBIF in order to download the data.</p>\
+                <form autocomplete='off'>\
                 <div class='light_box'>\
-                  <div class='field'>\
-                    <h3>Email</h3>\
-                      <span class='input_text'>\
-                        <input id='email' name='email' type='text' />\
-                          </span>\
-                            </div>\
-                              <div class='field'>\
-                                <h3>Password</h3>\
-                                  <span class='input_text'>\
-                                    <input id='password' name='password' type='password' />\
-                                      </span>\
-                                        </div>\
-                                          <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
-                                            </div>\
-                                              <span class='recover_password'><a href='#' title='Recover your password'>Forgot your password?</a></span>\
-                                                <button type='submit' class='candy_blue_button'><span>Login</span></button>\
-                                                  </form>\
-                                                    <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
-                                                      </div>\
-                                                        <footer></footer>\
-                                                          </article>";
+                <div class='field'>\
+                <h3>Email</h3>\
+                <span class='input_text'>\
+                <input id='email' name='email' type='text' />\
+                </span>\
+                </div>\
+                <div class='field error'>\
+                <h3>Password <span class='error'>Wrong password</span></h3>\
+                <span class='input_text'>\
+                <input id='password' name='password' type='password' />\
+                </span>\
+                </div>\
+                <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+                </div>\
+                <a href='#' class='recover_password' title='Recover your password'>Forgot your password?</a>\
+                <button type='submit' class='candy_blue_button'><span>Login</span></button>\
+                </form>\
+                <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
+                </div>\
+                <footer></footer>\
+                </article>",
+                password: "<article id='recover_password' class='infowindow'>\
+                <header></header>\
+                <span class='close'></span>\
+                <div class='content'>\
+                <h2>RECOVER YOUR PASSWORD</h2>\
+                <form autocomplete='off'>\
+                <div class='light_box'>\
+                <div class='field'>\
+                <h3>Email</h3>\
+                <span class='input_text'>\
+                <input id='email' name='email' type='text' />\
+                </span>\
+                </div>\
+                <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+                </div>\
+                <a href='#' class='back_to_login' title='Back to the sign in form'>Back to the sign in form</a>\
+                <button type='submit' class='candy_blue_button'><span>Send email</span></button>\
+                </form>\
+                <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
+                </div>\
+                <footer></footer>\
+                </article>"};
+
+
 
   function toggle(e, event, opt) {
     event.stopPropagation();
@@ -467,6 +492,32 @@ var loginPopover = (function() {
     el = e;
 
     displayed ? hide(): show();
+  }
+
+  function changePopover(selected_template){
+
+    $popover.fadeOut(transitionSpeed, function() {
+
+      // let's remove the old popover and unbind the old buttons
+      $popover.find('a.download, a.close').unbind("click");
+      $popover.remove();
+
+      // we can now open the new popover: "password"
+      rendered_template = _.template(selected_template);
+      $("#content").prepend(rendered_template);
+      popover_id = $(selected_template).attr("id");
+      $popover = $("#"+popover_id);
+
+      $popover.find("p a").click(function(event) {
+        window.location.href = $(this).attr("href");
+      });
+
+      // bind everyhting so it keeps working
+      setupBindings();
+
+      $popover.css("top", getTopPosition() + "px");
+      $popover.fadeIn(transitionSpeed);
+    });
   }
 
   function getTopPosition() {
@@ -478,6 +529,16 @@ var loginPopover = (function() {
     $popover.find("button").click(function(event) {
       event.preventDefault();
       displayed && hide();
+    });
+
+    $popover.find(".back_to_login").click(function(event) {
+      event.preventDefault();
+      changePopover(templates.login);
+    });
+
+    $popover.find(".recover_password").click(function(event) {
+      event.preventDefault();
+      changePopover(templates.password);
     });
 
     $popover.find(".footer a, span.recover_password a").click(function(event) {
@@ -500,7 +561,7 @@ var loginPopover = (function() {
   }
 
   function show() {
-    var rendered_template = _.template(template);
+    var rendered_template = _.template(templates.login);
     $("#content").prepend(rendered_template);
     $popover = $("#login");
 

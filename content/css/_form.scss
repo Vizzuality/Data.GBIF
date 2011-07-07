@@ -47,7 +47,18 @@
       &:focus { outline:none; }
     }//textarea
 
-    span.input_text { float:left; height:31px; padding:0 0 0 5px; background: url('/img/input_bkg.png') no-repeat left bottom; }
+    span.input_text { float:left; height:31px; padding:0 0 0 5px; background: url('/img/input_bkg.png') no-repeat left -99px; }
+    &.error span.input_text, span.input_text.error {background-position: left -130px; }
+
+    &.error span.input_text input[type="text"],
+    &.error span.input_text input[type="password"],
+    span.input_text.error input[type="text"], span.input_text.error input[type="password"] {background-position: right -161px!important; }
+    span.error {
+      float:right;
+      color:$error_color;
+      font-style:normal;
+      font-weight:normal;
+    }
 
     input[type="text"], input[type="password"] {
       float:left;

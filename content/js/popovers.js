@@ -12,6 +12,9 @@ var datePopover = (function() {
   var title;
   var message;
   var day, month, year;
+  var $day, $month, $year;
+
+  var months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG", "SEP","OCT","NOV","DEC"];
 
   var template = '<div id="date-selector" class="date-selector">\
     <div class="month"></div>\
@@ -30,6 +33,27 @@ var datePopover = (function() {
     // don't do anything if we click inside of the select…
     $popover.click(function(event) {
       event.stopPropagation();
+    });
+
+    $year.click(function(event) {
+      event.stopPropagation();
+      $(this).toggleClass("selected");
+      $day.removeClass("selected");
+      $month.removeClass("selected");
+    });
+
+    $month.click(function(event) {
+      event.stopPropagation();
+      $(this).toggleClass("selected");
+      $year.removeClass("selected");
+      $day.removeClass("selected");
+    });
+
+    $day.click(function(event) {
+      event.stopPropagation();
+      $(this).toggleClass("selected");
+      $year.removeClass("selected");
+      $month.removeClass("selected");
     });
 
     // … but clicking anywhere else closes the popover
@@ -51,20 +75,30 @@ var datePopover = (function() {
     // get id of the popover
     popover_id = $(template).attr("id");
     $popover = $("#"+popover_id);
+
+    $day   = $popover.find(".day");
+    $month = $popover.find(".month");
+    $year  = $popover.find(".year");
   }
 
   function captureDate() {
    // day = el.find("span.day").html();
    // month = el.find("span.month").html();
    // year = el.find("span.year").html();
-    var myDate = new Date(el.attr("datetime"));
-    console.log(myDate);
+    var date = new Date(el.attr("datetime"));
+    day = date.getDate();
+    month = date.getMonth();
+    year = date.getFullYear();
   }
 
   function show() {
     createPopover();
     setupBindings();
     captureDate();
+
+    $month.html(months[month]);
+    $day.html(day);
+    $year.html(year);
 
     var x = el.offset().left;
     var y = el.offset().top ;

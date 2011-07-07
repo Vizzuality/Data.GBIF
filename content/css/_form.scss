@@ -459,9 +459,9 @@
       display:block;
       li {
         a {
-          background:red url('/img/buttons/dropdown_left_side.png') no-repeat left -74px;
+          background: url('/img/buttons/dropdown_left_side.png') no-repeat left -74px;
           span {
-            background: green green  url('/img/buttons/dropdown_right_side.png') repeat-x right -74px;
+            background: url('/img/buttons/dropdown_right_side.png') repeat-x right -74px;
           }
         }
       }

@@ -335,37 +335,49 @@ $(function(){
 
   $( "#range" ).val( "BETWEEN " + $( "#slider-range" ).slider( "values", 0 ) + " AND " + $( "#slider-range" ).slider( "values", 1 ) );
 
-
-
   $.fn.bindSlideshow = function(opt) {
     var $this = $(this);
     var photo_width = 627;
     var currentPhoto = 0;
-    var num_of_photos = $this.find("div.photos > img").length;
+    var num_of_photos = $this.find("div.photos > img").length - 1;
     var downloads = $this.find("div.download a");
 
     var $previous_button = $this.find(".previous_slide");
     var $next_button = $this.find(".next_slide");
+
+    $previous_button.addClass("disabled");
 
     $this.find(".photos").width(num_of_photos*photo_width);
 
     $previous_button.click(function(event) {
       event.preventDefault();
       if (currentPhoto > 0) {
+          $next_button.removeClass("disabled");
         $this.find('.slideshow').scrollTo('-=627px', 500,{easing:'easeOutQuart', axis:'x'});
         $(downloads[currentPhoto]).parent().hide();
         currentPhoto--;
         $(downloads[currentPhoto]).parent().show();
+
+        if (currentPhoto == 0) {
+          $previous_button.addClass("disabled");
+        }
       }
     });
 
     $next_button.click(function(event) {
       event.preventDefault();
-      if (currentPhoto < num_of_photos - 1) {
+      if (currentPhoto < num_of_photos) {
+          $previous_button.removeClass("disabled");
+
         $this.find('div.content div.slideshow').scrollTo("+=627px", 500, {easing:'easeOutQuart', axis:'x'});
         $(downloads[currentPhoto]).parent().hide();
         currentPhoto++;
         $(downloads[currentPhoto]).parent().show();
+
+        if (currentPhoto >= num_of_photos) {
+          $next_button.addClass("disabled");
+        }
+
       }
     });
   };

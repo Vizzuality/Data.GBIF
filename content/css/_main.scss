@@ -290,6 +290,38 @@ a {
       p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
       a:hover { color:$hover_link_color; }
 
+      ul.triptic {
+        clear:both;
+        overflow:hidden;
+        padding:0; margin:0;
+
+        &.last {
+          li {margin-bottom:0;}
+        }
+
+        li {
+          h3 {
+            font-size:19px; text-transform:none;
+            span {
+              font-family:$base;
+              margin-left:7px;
+              font-size:15px;
+              font-weight:normal;
+              color:$gray;
+            }
+          }
+
+          float:left;
+          width:229px;
+          padding:0; margin:0 90px 22px 0;
+          background:none;
+          p { width:180px;}
+          &.last {
+            margin:0;
+          }
+        }
+      }
+
       .header {
         clear:both;
         overflow:hidden;
@@ -404,6 +436,7 @@ a {
         .content {
           padding:10px;
           background:#e5f5fa;
+
         }//.content
 
         p { color:$ultra_dark; font-size:15px; }
@@ -812,6 +845,11 @@ a {
     .content .left { padding:5px 0 0 0; border:none; }
     .content .right { margin:0; padding:5px 0 0 0; border:none; }
   }//article.credits
+
+  article.simple {
+    h2 { padding-bottom: 20px; border-bottom: 1px solid $border_color; }
+    .content .left { margin:0; padding:5px 0 0 0; border:none; }
+  }//article.simple
 
   article.light_pane {
     .content {

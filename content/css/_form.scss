@@ -704,25 +704,25 @@
 
 #content span.autocomplete {
   float:left;
-  width:179px - 40;
-  height:33px;
-  padding:0px 12px 0 28px;
-  background:url('/img/header/input_bkg.png') no-repeat scroll left 3px;
+  height:22px;
+  padding:0 0 0 5px;
+  background: url('/img/input_bkg.png') no-repeat left -192px;
 
-  &.focus {
-    background-position:left -31px;
-  }
-
-  input {
-    border:none;
-    background:none;
-    width:179px - 40;
-    height:33px;
+  input[type="text"] {
+    @include color-transition(.1s);
+    float:left;
+    width:288px - 18;
+    height:22px;
     margin:0;
-    padding:0;
+    padding: 2px 10px 0 3px;
+    background: url('/img/input_bkg.png') no-repeat right -214px;
+    font-family:$base;
+    font-size:13px;
+    color:$ultra_dark;
+    border:none;
+    resize:none;
 
     &:focus { outline:none; }
-
-  } //input
+  }
 }
 

@@ -577,6 +577,7 @@ var linkPopover = (function() {
   var el;
   var displayed = false;
   var $popover;
+  var transitionSpeed = 200;
 
   var template = '<div class="white_narrow_popover">\
     <div class="arrow"></div>\
@@ -598,7 +599,34 @@ var linkPopover = (function() {
 
   function hide() {
     $('html').unbind("click");
-    $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+
+    if (is_ie) {
+      $popover.hide();
+      $popover.remove();
+      displayed = false;
+    } else {
+      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+    }
+  }
+
+  function showPopover() {
+    // get the coordinates and width of the popover
+    var x = el.find("span").offset().left;
+    var y = el.find("span").offset().top;
+    var w = $(".white_narrow_popover").width();
+
+    // center the popover
+    $popover.css("left", x - w/2 + 4);
+
+    if (is_ie) {
+      $popover.css("top", y - 5);
+      $popover.show(transitionSpeed, function() {
+        displayed = true;
+      });
+    } else {
+      $popover.css("top", y + 15);
+      $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
+    }
   }
 
   function show() {
@@ -610,16 +638,8 @@ var linkPopover = (function() {
       displayed && hide();
     });
 
-    // get the coordinates and width of the popover
-    var x = el.find("span").offset().left;
-    var y = el.find("span").offset().top;
-    var w = $(".white_narrow_popover").width();
+    showPopover();
 
-    // center the popover
-    $popover.css("left", x - w/2 + 4);
-    $popover.css("top", y - 5);
-
-    $popover.slideDown("fast", function() { displayed = true; });
   }
 
   return {

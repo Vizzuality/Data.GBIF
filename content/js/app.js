@@ -165,6 +165,10 @@ $(function(){
   $('nav ul li a.more').bindLinkPopover();
   $('.sort').bindSortPopover();
 
+
+	var availableTags = [ "ActionScript", "AppleScript", "Asp", "Puma Concolor", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
+  $(".autocomplete input" ).autocomplete({ source: availableTags });
+
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { // esc key
       downloadPopover.hide();

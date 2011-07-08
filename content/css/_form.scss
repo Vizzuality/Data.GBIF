@@ -701,3 +701,28 @@
     }
   }
 }
+
+#content span.autocomplete {
+  float:left;
+  width:179px - 40;
+  height:33px;
+  padding:0px 12px 0 28px;
+  background:url('/img/header/input_bkg.png') no-repeat scroll left 3px;
+
+  &.focus {
+    background-position:left -31px;
+  }
+
+  input {
+    border:none;
+    background:none;
+    width:179px - 40;
+    height:33px;
+    margin:0;
+    padding:0;
+
+    &:focus { outline:none; }
+
+  } //input
+}
+

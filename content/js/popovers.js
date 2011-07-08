@@ -151,7 +151,15 @@ var datePopover = (function() {
   }
 
   function updateDate() {
-    el.html(months[month].toProperCase() + " " + day + "nd" + ", " + year);
+    if (day == 1) {
+      n = "st";
+    } else if (day == 2){
+      n = "nd";
+    } else {
+      n = "th";
+    }
+
+    el.html(months[month].toProperCase() + " " + day + n + ", " + year);
     el.attr("datetime", year+"/"+zeroPad(month+1, 2)+"/"+day);
   }
 

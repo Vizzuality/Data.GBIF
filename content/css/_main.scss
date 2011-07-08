@@ -14,6 +14,18 @@ em {font-style:italic;}
 abbr { font-size:11px; text-transform:uppercase; }
 sup  { font-size:11px; top:-3px; }
 
+time {
+  color:$link_color;
+  font-weight:normal;
+  text-decoration:none;
+  cursor:pointer;
+
+  &:hover {
+    color:$ultra_dark;
+    @include color-transition;
+  }
+}
+
 #map { width:608px; height:140px; margin-bottom:23px; }
 #map_canvas {
   #map {width:597px;}

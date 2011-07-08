@@ -72,7 +72,14 @@ var datePopover = (function() {
     if (displayed) {
       $(".day, .month, .year").removeClass("selected");
       $('html').unbind("click");
-      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+
+      if (is_ie) {
+        $popover.hide();
+        $popover.remove();
+        displayed = false;
+      } else {
+        $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+      }
     }
   }
 
@@ -90,7 +97,6 @@ var datePopover = (function() {
 
   function captureDate() {
     var date = new Date(el.attr("datetime"));
-    console.log(date, el.attr("datetime"));
 
     day = date.getDate();
     month = date.getMonth();
@@ -168,6 +174,28 @@ var datePopover = (function() {
     }
   }
 
+  function showPopover() {
+    var x = el.offset().left;
+    var y = el.offset().top ;
+    var w = $popover.width();
+    var el_w = el.width();
+
+    if (is_ie) {
+      // center the popover
+      $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
+      $popover.css("top", y + 9);
+
+      $popover.show();
+      displayed = true;
+    } else {
+      // center the popover
+      $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
+      $popover.css("top", y + 9 + 20);
+
+      $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
+    }
+  }
+
   function show() {
     createPopover();
     setupBindings();
@@ -224,16 +252,7 @@ var datePopover = (function() {
       updateDate();
     });
 
-    var x = el.offset().left;
-    var y = el.offset().top ;
-    var w = $popover.width();
-    var el_w = el.width();
-
-    // center the popover
-    $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
-    $popover.css("top", y + 9 + 20);
-
-    $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
+    showPopover();
   }
 
   return {
@@ -275,7 +294,33 @@ var helpPopover = (function() {
   function hide() {
     if (displayed) {
       $('html').unbind("click");
-      $popover.animate({top:$popover.position().top - 20,opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+
+      if (is_ie) {
+        $popover.hide();
+        $popover.remove();
+        displayed = false;
+      } else {
+        $popover.animate({top:$popover.position().top - 20,opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+      }
+    }
+  }
+
+  function showPopover() {
+    // get the coordinates and width of the popover
+    var x = el.offset().left;
+    var y = el.offset().top ;
+    var w = $popover.width();
+    var h = $popover.height();
+
+    $popover.css("left", x - w/2 + 7);
+
+    if (is_ie) {
+      $popover.css("top", y - h);
+      $popover.show();
+      displayed = true;
+    } else {
+      $popover.css("top", y - h - 10);
+      $popover.animate({top: y-h,opacity:1}, transitionSpeed, function() { displayed = true; });
     }
   }
 
@@ -285,6 +330,7 @@ var helpPopover = (function() {
 
     $popover = $(".yellow_popover");
     // don't do anything if we click inside of the select…
+
     $popover.click(function(event) {
       event.stopPropagation();
     });
@@ -294,17 +340,7 @@ var helpPopover = (function() {
       displayed && hide();
     });
 
-    // get the coordinates and width of the popover
-    var x = el.offset().left;
-    var y = el.offset().top ;
-    var w = $popover.width();
-    var h = $popover.height();
-
-    // center the popover
-    $popover.css("left", x - w/2 + 7);
-    $popover.css("top", y - h - 10);
-
-    $popover.animate({top: y-h,opacity:1}, transitionSpeed, function() { displayed = true; });
+    showPopover();
   }
 
   return {

@@ -90,6 +90,8 @@ var datePopover = (function() {
 
   function captureDate() {
     var date = new Date(el.attr("datetime"));
+    console.log(date, el.attr("datetime"));
+
     day = date.getDate();
     month = date.getMonth();
     year = date.getFullYear();
@@ -133,9 +135,18 @@ var datePopover = (function() {
     }
   }
 
+  function zeroPad(num,count)
+  {
+    var numZeropad = num + '';
+    while(numZeropad.length < count) {
+      numZeropad = "0" + numZeropad;
+    }
+    return numZeropad;
+  }
+
   function updateDate() {
     el.html(months[month].toProperCase() + " " + day + "nd" + ", " + year);
-    el.attr("datetime", year+"-"+(month+1)+"-"+day);
+    el.attr("datetime", year+"/"+zeroPad(month+1, 2)+"/"+day);
   }
 
   function adjustCalendar() {

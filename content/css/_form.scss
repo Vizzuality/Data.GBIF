@@ -726,3 +726,32 @@
   }
 }
 
+ul.ui-autocomplete {
+  text-align:left!important;
+  background:none!important;
+  padding:0!important; margin:0!important;
+  border:0!Important;
+  li.ui-menu-item {
+  border:0!Important;
+    background:#fff;
+    a {
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+
+      border:none;
+      padding:0!important; margin:0;
+      height: 45px;
+      font-size:15px;
+      color:$link_color;
+      line-height:25px!Important;
+      &.ui-state-hover {
+      line-height:25px!Important;
+        border:none;
+        padding:0; margin:0;
+        background:#daebf1;
+      }
+    }
+  //  background:red!important;
+  }
+}

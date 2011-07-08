@@ -2,10 +2,27 @@
 // HEADER VARIATIONS
 
 body  {
+
+  // ---------------------------------------
+  // SEARCH HEADER
+  // ---------------------------------------
+
   &.search header {
     height:226px;
 
     #infoband { border-bottom:1px solid #4b8741; height: 129px - 33; }
+    h2 { margin-left: 25px; }
+
+  }
+
+  // ---------------------------------------
+  // THEMES HEADER
+  // ---------------------------------------
+
+  &.themes header {
+    height:226px;
+
+    #infoband { border-bottom:1px solid #4b8741; height: 140px - 33; }
     h2 { margin-left: 25px; }
 
   }

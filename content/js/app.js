@@ -166,8 +166,15 @@ $(function(){
   $('.sort').bindSortPopover();
 
 
-	var availableTags = [ "ActionScript", "AppleScript", "Asp", "Puma Concolor", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
-  $(".autocomplete input" ).autocomplete({ source: availableTags });
+  var renderItemOverride = function (ul, item) {
+    return $("<li></li>")
+    .data("item.autocomplete", item)
+    .append('<a href="#" title="a"> - ' + item.label + '</a>')
+    .appendTo(ul);
+  };
+
+  var availableTags = [ "ActionScript", "AppleScript", "Asp", "Puma Concolor", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
+  $(".autocomplete input" ).autocomplete({ source: availableTags })._renderItem = renderItemOverride;
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { // esc key

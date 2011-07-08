@@ -18,9 +18,9 @@ var datePopover = (function() {
 
   var template = '<div id="date-selector" class="date-selector">\
     <div class="month"><span></span></div>\
-    <div class="day"><span></span></div>\
-    <div class="year"><span></span></div>\
-  </div>';
+      <div class="day"><span></span></div>\
+        <div class="year"><span></span></div>\
+          </div>';
   function toggle(e, event, opt) {
     event.stopPropagation();
     event.preventDefault();
@@ -180,18 +180,15 @@ var datePopover = (function() {
     var w = $popover.width();
     var el_w = el.width();
 
+      $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
+
     if (is_ie) {
-      // center the popover
-      $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
-      $popover.css("top", y + 9);
-
-      $popover.show();
-      displayed = true;
+      $popover.css("top", y + 9 );
+      $popover.show(transitionSpeed, function() {
+        displayed = true;
+      });
     } else {
-      // center the popover
-      $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
       $popover.css("top", y + 9 + 20);
-
       $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
     }
   }
@@ -316,8 +313,10 @@ var helpPopover = (function() {
 
     if (is_ie) {
       $popover.css("top", y - h);
-      $popover.show();
-      displayed = true;
+      $popover.show(transitionSpeed, function() {
+        $popover.show();
+        displayed = true;
+      });
     } else {
       $popover.css("top", y - h - 10);
       $popover.animate({top: y-h,opacity:1}, transitionSpeed, function() { displayed = true; });
@@ -639,6 +638,7 @@ var sortPopover = (function() {
   var selectedOptionText = "Sort by relevance";
   var displayed = false;
   var $popover;
+  var transitionSpeed = 200;
 
   var template = '<div class="white_popover">\
     <div class="arrow"></div>\
@@ -665,7 +665,34 @@ var sortPopover = (function() {
 
   function hide() {
     $('html').unbind("click");
-    $popover.slideUp("fast", function() { $popover.remove(); displayed = false; });
+
+    if (is_ie) {
+      $popover.hide();
+      $popover.remove();
+      displayed = false;
+    } else {
+      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+    }
+  }
+
+  function showPopover() {
+    // get the coordinates and width of the popover
+    var x = el.find("span").offset().left;
+    var y = el.find("span").offset().top;
+    var w = $(".white_popover").width();
+
+    // center the popover
+    $popover.css("left", x - w/2 + 4);
+
+    if (is_ie) {
+      $popover.css("top", y - 5);
+      $popover.show(transitionSpeed, function() {
+        displayed = true;
+      });
+    } else {
+      $popover.css("top", y + 15);
+      $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
+    }
   }
 
   function show() {
@@ -686,16 +713,7 @@ var sortPopover = (function() {
 
     select_option(selectedOptionText);
 
-    // get the coordinates and width of the popover
-    var x = el.find("span").offset().left;
-    var y = el.find("span").offset().top;
-    var w = $(".white_popover").width();
-
-    // center the popover
-    $popover.css("left", x - w/2 + 4);
-    $popover.css("top", y - 5);
-
-    $popover.slideDown("fast", function() { displayed = true; });
+    showPopover();
   }
 
   return {

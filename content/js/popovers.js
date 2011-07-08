@@ -31,6 +31,7 @@ var datePopover = (function() {
 
   function setupBindings() {
     // don't do anything if we click inside of the select…
+
     $popover.click(function(event) {
       event.stopPropagation();
     });
@@ -40,7 +41,7 @@ var datePopover = (function() {
       $(this).toggleClass("selected");
       $(".day, .month").removeClass("selected");
       var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
-      pane.data('jsp').scrollToY(13*(2020 - year));
+      pane.data('jsp').scrollToY(15*(year - 1950));
     });
 
     $month.click(function(event) {
@@ -48,7 +49,7 @@ var datePopover = (function() {
       $(this).toggleClass("selected");
       $(".year, .day").removeClass("selected");
       var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
-      pane.data('jsp').scrollToY(13*month);
+      pane.data('jsp').scrollToY(month);
     });
 
     $day.click(function(event) {
@@ -56,7 +57,9 @@ var datePopover = (function() {
       $(this).toggleClass("selected");
       $(".year, .month").removeClass("selected");
       var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
-      pane.data('jsp').scrollToY(13*day);
+      pane.data('jsp').scrollToY(15*(day - 1));
+
+
     });
 
     // … but clicking anywhere else closes the popover
@@ -92,11 +95,7 @@ var datePopover = (function() {
     year = date.getFullYear();
   }
 
-  function show() {
-    createPopover();
-    setupBindings();
-    captureDate();
-
+  function setupLists() {
     $month.find("span").html(months[month]);
     $day.find("span").html(day);
     $year.find("span").html(year);
@@ -104,6 +103,10 @@ var datePopover = (function() {
     $month.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
     $day.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
     $year.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
+
+    $popover.find('.listing, .jspVerticalBar').click(function(event) {
+      event.stopPropagation();
+    });
 
     _.each(months, function(m, index) {
       if (index == month) {
@@ -128,23 +131,86 @@ var datePopover = (function() {
         $year.find(".listing ul").append("<li>"+i+"</li>");
       }
     }
+  }
+
+  function updateDate() {
+    el.html(months[month].toProperCase() + " " + day + "nd" + ", " + year);
+    el.attr("datetime", year+"-"+(month+1)+"-"+day);
+  }
+
+  function adjustCalendar() {
+    var month_index = _.indexOf(months, month) + 1;
+
+    if (month_index == 2) { // February has only 28 days
+      var isLeap = new Date(year,1,29).getDate() == 29;
+
+      isLeap ?  $day.find("li").eq(28).show() : $day.find("li").eq(28).hide();
+
+      $day.find("li").eq(29).hide(); // 30
+      $day.find("li").eq(30).hide(); // 31
+    } else if (_.include([4, 6, 9, 11], month_index)) {
+      $day.find("li").eq(30).hide(); // 31
+    } else {
+      $day.find("li").eq(28).show(); // 29
+      $day.find("li").eq(29).show(); // 30
+      $day.find("li").eq(30).show(); // 31
+    }
+  }
+
+  function show() {
+    createPopover();
+    setupBindings();
+    captureDate();
+    setupLists();
 
     $year.find("li").click(function(event){
       event.stopPropagation();
-      $year.find("span").html($(this).html());
+      year = $(this).html();
+
+      adjustCalendar();
+
+      $year.find("li").removeClass("selected");
+      $(this).addClass("selected");
+
+      $year.find("span").animate({opacity:0}, transitionSpeed, function() {
+        $(this).html(year);
+        $(this).animate({opacity:1}, transitionSpeed);
+      });
       $year.removeClass("selected");
+      updateDate();
     });
 
     $month.find("li").click(function(event){
       event.stopPropagation();
-      $month.find("span").html($(this).html());
+      month = _.indexOf(months, $(this).html());
+
+      adjustCalendar();
+
+      $month.find("li").removeClass("selected");
+      $(this).addClass("selected");
+
+      $month.find("span").animate({opacity:0}, transitionSpeed, function() {
+        $(this).html(months[month]);
+        $(this).animate({opacity:1}, transitionSpeed);
+      });
       $month.removeClass("selected");
+      updateDate();
     });
 
     $day.find("li").click(function(event){
       event.stopPropagation();
-      $day.find("span").html($(this).html());
+      day = $(this).html();
+
+      $day.find("li").removeClass("selected");
+      $(this).addClass("selected");
+
+      $day.find("span").animate({opacity:0}, transitionSpeed, function() {
+        $(this).html(day);
+        $(this).animate({opacity:1}, transitionSpeed);
+      });
+
       $day.removeClass("selected");
+      updateDate();
     });
 
     var x = el.offset().left;

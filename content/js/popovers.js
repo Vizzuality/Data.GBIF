@@ -592,7 +592,7 @@ var linkPopover = (function() {
       <ul>\
         <li class="first"><a href="/countries/index.html"><span>Countries</span></a></li>\
           <li><a href="/members/index.html"><span>GBIF network</span></a></li>\
-            <li><a href="/areas/index.html"><span>Areas</span></a></li>\
+            <li><a href="/themes/index.html"><span>Themes</span></a></li>\
               <li><a href="/stats/index.html"><span>Stats</span></a></li>\
                 <li class="last"><a href="/static/about.html"><span>About</span></a></li>\
                   </ul>\

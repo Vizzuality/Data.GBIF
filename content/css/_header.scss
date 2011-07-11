@@ -27,6 +27,20 @@ body  {
 
   }
 
+  &.themes_detail header {
+
+    height:98px;
+
+    #top nav ul li.selected a { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
+    #top nav ul li a:hover { background: url('/img/header/triangle_gray.png') no-repeat center bottom; }
+    #top .content #logo {top:42px;}
+    #infoband { border-bottom:1px solid #4b8741; height: 140px - 33; }
+
+    h2 { margin-left: 25px; }
+    #top { border-bottom:1px solid $gray; }
+    h2 { margin-left: 25px; }
+  }
+
   // ---------------------------------------
   // DATASET AND REGISTER HEADER
   // ---------------------------------------

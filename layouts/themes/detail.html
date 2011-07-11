@@ -7,8 +7,8 @@
 <head>
     <%= render 'partials/head' %>
 </head>
-<body>
-    <%= render '/themes/header_detail' %>
+<body class="themes_detail">
+  <%= render '/themes/header_detail', :section => "datasets" %>
     <div id="content">
       <%= yield %>
     </div>

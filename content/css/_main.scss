@@ -705,10 +705,45 @@ a {
 
 				}
 			}
-
     } // .content
-
   } // article
+
+  article.big {
+    div.content {
+    div.header {
+      text-align:center;
+      margin-bottom:25px;
+      border-bottom: 1px solid $border_color;
+      hgroup{ margin:71px auto 70px auto; }
+      h1 { margin:0 0 10px 0; font-family:$font_medium; color: $medium_dark; font-size: 35px; }
+      h5 {font-family:$base; font-size:13px; color:$medium_dark; }
+    }
+
+    h5 {margin-bottom: 5px; font-family:$font_medium; font-weight:medium; font-size:13px; color:$ultra_dark; }
+
+    ul.triptic {
+      li {
+        width:260px;
+        margin-right:40px;
+        &.last {margin-right:0;}
+        p { width:auto; font-size:15px; color:$medium_dark; }
+        ul {
+            margin-left:0;
+          li {
+            float:none;
+            width:auto;
+            margin-bottom:5px;
+            padding-left:7px;
+            line-height:18px;
+            font-size:15px;
+            background:url('/img/icons/dot.png') no-repeat left 8px;
+            color:$medium_dark;
+          }
+        }
+      }
+    }
+  }
+  }
 
   article.graph {
 

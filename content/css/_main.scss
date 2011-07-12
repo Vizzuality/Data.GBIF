@@ -1656,13 +1656,7 @@ a {
     width:289px;
     float:left;
 
-    .start, .end {
-      position:absolute;
-      bottom: 0px;
-      font-size:11px;
-      color:$gray;
-      font-family:$font_medium;
-    }
+    .start, .end { position:absolute; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
     .start {left:0;}
     .end {right:0;}
 
@@ -1675,7 +1669,6 @@ a {
       padding-right: 10px;
       &.up { background:url('/img/icons/tiny_triangle_up.png') no-repeat right center; }
       &.down { background:url('/img/icons/tiny_triangle_down.png') no-repeat right center; }
-
     }
 
     h3 {
@@ -1693,10 +1686,12 @@ a {
         font-size:13px;
         font-family:$base;
       }
-
     }
     &.last-child { margin:0;}
     &.last { margin:0;}
+
+    .lt { position:absolute; bottom:16px; left:3px; width:4px; height:4px; background:url('/img/mingraph_left_corner.png') no-repeat; }
+    .rt { position:absolute; bottom:16px; right:3px; width:4px; height:4px; background:url('/img/mingraph_right_corner.png') no-repeat; }
   }
 
   &.last-child { margin:0;}

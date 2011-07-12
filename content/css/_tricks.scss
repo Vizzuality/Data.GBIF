@@ -25,6 +25,9 @@ $speed:'';
   text-shadow:0 1px $brightest; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
 }
 
+@mixin remove-shadow {
+  text-shadow:0 0;
+}
 @mixin blue-shadow {
   text-shadow:0 -1px $dark_link_color; filter:progid:DXImageTransform.Microsoft.DropShadow(offx=0, offy=1, color=#FFFFFF);
 }

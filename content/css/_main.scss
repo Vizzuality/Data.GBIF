@@ -1646,3 +1646,56 @@ a {
 } // #content
 
 #lock_screen { position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:.5; background:$brightest; z-index:400; }
+
+#content article .content .left .minigraphs {
+  clear:both; overflow:hidden;
+  margin-bottom:45px;
+  .minigraph {
+    position:relative;
+    margin-right:19px;
+    width:289px;
+    float:left;
+
+    .start, .end {
+      position:absolute;
+      bottom: 0px;
+      font-size:11px;
+      color:$gray;
+      font-family:$font_medium;
+    }
+    .start {left:0;}
+    .end {right:0;}
+
+    .percentage {
+      position:absolute;
+      right: 10px;
+      bottom: 25px;
+      font-size:14px;
+      color:$medium_dark;
+
+    }
+
+    h3 {
+      position:absolute;
+      color:$link_color;
+      font-size:31px;
+      font-weight:normal;
+      font-family:$font_medium;
+      top: 0px; left: 0px;
+      @include remove-shadow;
+      span {
+        display:block;
+        text-transform:none;
+        color:$medium_dark;
+        font-size:13px;
+        font-family:$base;
+      }
+
+    }
+    &.last-child { margin:0;}
+    &.last { margin:0;}
+  }
+
+  &.last-child { margin:0;}
+  &.last { margin:0;}
+}

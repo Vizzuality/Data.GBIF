@@ -4,22 +4,8 @@ String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
+
 $(function(){
-  function generateRandomValues(limit) {
-    var last = 0;
-    var values = [];
-
-    for (var i=0; i<=limit; i++) {
-      if (Math.random()*100 > 80) {
-        values[i] = Math.floor(Math.random()*20 + 5);
-      } else {
-        values[i] = last;
-      }
-      last = values[i];
-    }
-    return values;
-  }
-
   var values = generateRandomValues(365);
   var processes = { dates:[
     {start:"2011-1-1", end: "2011-2-11"},
@@ -282,7 +268,9 @@ $(function(){
   var values = generateRandomValues2(365);
 
 
-  function drawMiniGraph(holder, data) {
+  function drawMiniGraph(ob, data) {
+    var holder_id = ob.attr("id");
+
     function getAnchors(p1x, p1y, p2x, p2y, p3x, p3y) {
         var l1 = (p2x - p1x) / 2,
             l2 = (p3x - p2x) / 2,
@@ -309,7 +297,7 @@ $(function(){
         bottomgutter = 15,
         topgutter = 50,
         color = "#E5E5E5",
-        r = Raphael(holder, width, height),
+        r = Raphael(holder_id, width, height),
         X = (width - leftgutter) / data.length,
         max = Math.max.apply(Math, data),
         Y = (height - bottomgutter - topgutter) / max;
@@ -350,11 +338,9 @@ $(function(){
     bgp.attr({ path: bgpp });
   }
 
-  drawMiniGraph("dataset-graph1", generateRandomValues(50));
-  drawMiniGraph("dataset-graph2", generateRandomValues(50));
-  drawMiniGraph("dataset-graph3", generateRandomValues(50));
-  drawMiniGraph("dataset-graph4", generateRandomValues(50));
-
+  $.fn.minigraph = function(data) {
+    drawMiniGraph(this, data);
+  };
 
   //  $(".select-filter ul").jScrollPane({ verticalDragMinHeight: 20});
   //  $('.search_button, .candy_white_button, .candy_blue_button').mousedown(function() { $(this).addClass('active'); });

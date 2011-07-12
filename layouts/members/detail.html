@@ -44,11 +44,19 @@
   <%= render '/partials/popovers' %>
 
     <script type="text/javascript" charset="utf-8">
-      if ($("#map").length ) {
-        var latlng = new google.maps.LatLng(-34.397, 150.644);
-        var myOptions = { zoom: 8, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
-        var map = new google.maps.Map(document.getElementById("map"), myOptions);
-      }
+      $(function() {
+          if ($("#map").length ) {
+          var latlng = new google.maps.LatLng(-34.397, 150.644);
+          var myOptions = { zoom: 8, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+          var map = new google.maps.Map(document.getElementById("map"), myOptions);
+          }
+
+          $("#dataset-graph1").minigraph(generateRandomValues(50));
+          $("#dataset-graph2").minigraph(generateRandomValues(50));
+          $("#dataset-graph3").minigraph(generateRandomValues(50));
+          $("#dataset-graph4").minigraph(generateRandomValues(50));
+          });
+
     </script>
 
 </body>

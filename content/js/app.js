@@ -304,10 +304,10 @@ $(function(){
     }
     // Draw
     var width = 289,
-        height = 113,
+        height = 163,
         leftgutter = 0,
         bottomgutter = 15,
-        topgutter = 0,
+        topgutter = 50,
         color = "#E5E5E5",
         r = Raphael(holder, width, height),
         X = (width - leftgutter) / data.length,

@@ -1668,10 +1668,13 @@ a {
 
     .percentage {
       position:absolute;
-      right: 10px;
+      right: 14px;
       bottom: 25px;
       font-size:14px;
       color:$medium_dark;
+      padding-right: 10px;
+      &.up { background:url('/img/icons/tiny_triangle_up.png') no-repeat right center; }
+      &.down { background:url('/img/icons/tiny_triangle_down.png') no-repeat right center; }
 
     }
 

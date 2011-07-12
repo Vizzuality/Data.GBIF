@@ -586,23 +586,32 @@ var linkPopover = (function() {
   var displayed = false;
   var $popover;
   var transitionSpeed = 200;
+  var links = {};
 
-  var template = '<div class="white_narrow_popover">\
-    <div class="arrow"></div>\
-      <ul>\
-        <li class="first"><a href="/countries/index.html"><span>Countries</span></a></li>\
-          <li><a href="/members/index.html"><span>GBIF network</span></a></li>\
-            <li><a href="/themes/index.html"><span>Themes</span></a></li>\
-              <li><a href="/stats/index.html"><span>Stats</span></a></li>\
-                <li class="last"><a href="/static/about.html"><span>About</span></a></li>\
-                  </ul>\
-                    </div>';
+  var templates = {
+    main:'<div class="white_narrow_popover"><div class="arrow"></div><ul></ul></div>',
+    li:'<li><a href="<%=value%>"><span><%=label%></span></a></li>'
+  }
 
-  function toggle(e, event) {
+  function toggle(e, event, opt) {
     event.stopPropagation();
     event.preventDefault();
     el = e;
+
+    if (opt) {
+      links = opt.links
+    }
+
     displayed ? hide(): show();
+  }
+  function setupInterface () {
+    _.each(links, addLink);
+    $popover.find("ul li:first-child").addClass("first");
+    $popover.find("ul li:last-child").addClass("last");
+  }
+
+  function addLink(value, label) {
+    $popover.find("ul").append(_.template(templates.li, {value:value, label:label}));
   }
 
   function hide() {
@@ -638,8 +647,9 @@ var linkPopover = (function() {
   }
 
   function show() {
-    $("#content").prepend(template);
+    $("#content").prepend(templates.main);
     $popover = $(".white_narrow_popover");
+    setupInterface();
 
     // clicking anywhere closes the popover
     $('html').click(function() {

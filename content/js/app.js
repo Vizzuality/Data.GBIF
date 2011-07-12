@@ -127,9 +127,9 @@ $(function(){
     });
   };
 
-  $.fn.bindLinkPopover = function() {
+  $.fn.bindLinkPopover = function(opt) {
     $(this).click(function(event) {
-      linkPopover.toggle($(this), event);
+      linkPopover.toggle($(this), event, opt);
     });
   };
 
@@ -162,19 +162,43 @@ $(function(){
   $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.login").bindLoginPopover();
-  $('nav ul li a.more').bindLinkPopover();
+
+  $('nav ul li a.more').bindLinkPopover({
+    links:{
+      "Countries":"/countries/index.html",
+      "GBIF network":"/members/index.html",
+      "Themes":"/themes/index.html",
+      "Stats":"/stats/index.html",
+      "About":"/static/about.html"
+    }
+  });
+
   $('.sort').bindSortPopover();
 
 
-  var renderItemOverride = function (ul, item) {
-    return $("<li></li>")
-    .data("item.autocomplete", item)
-    .append('<a href="#" title="a"> - ' + item.label + '</a>')
-    .appendTo(ul);
-  };
-
-  var availableTags = [ "ActionScript", "AppleScript", "Asp", "Puma Concolor", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
-  $(".autocomplete input" ).autocomplete({ source: availableTags })._renderItem = renderItemOverride;
+//$(".autocomplete input").autocomplete({
+//  close: function(event, ui) {
+//  },
+//  create: function(event, ui) {
+//    $(".ui-autocomplete").append("<div class='inner'></div>");
+//  },
+//  open: function(event, ui) {
+//
+//    $("ul.ui-autocomplete").find("li:first-child").addClass("first");
+//
+//        //$('.ui-autocomplete .inner').addClass('scroll-pane').jScrollPane();
+//       // $('.jScrollPaneContainer').css({
+//       //   'position': 'absolute',
+//       //   'top': ($(this).offset().top + $(this).height() + 5) + 'px',
+//       //   'left': $(this).offset().left + 'px'
+//       // });
+//
+//
+//  },
+//  source: [ { label: 'Puma Concolor', desc: 'Species' }, { label: 'Puma Concolor Mexicanensis', desc: 'Subspecies'}, { label: 'Puma Concolor', desc: 'Family '} ]
+//}).data("autocomplete")._renderItem = function(ul, item) {
+//  return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>" + item.desc).appendTo(ul);
+//};
 
   $(document).keyup(function(e) {
     if (e.keyCode == 27) { // esc key

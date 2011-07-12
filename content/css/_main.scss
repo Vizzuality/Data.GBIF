@@ -1697,3 +1697,19 @@ a {
   &.last-child { margin:0;}
   &.last { margin:0;}
 }
+
+
+#content article.raw {
+  .content .left {
+    padding-top:0;
+    border: 0;
+    div.row {
+      &.even { background-color:#FFFFE7; }
+      &.first { border-top: 1px solid #e5e5cf; }
+      &.last { border:none; padding-bottom: 0; }
+      left: -23px; width: 884px; position:relative; padding: 18px; background: #FFFFDF;
+      border-bottom: 1px solid #e5e5cf;
+    }
+  }
+    	footer { background:url('/img/boxes/box_yellow_bottom.png') no-repeat left top; text-align:left; }
+}

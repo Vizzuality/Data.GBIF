@@ -295,9 +295,7 @@ a {
         overflow:hidden;
         padding:0; margin:0;
 
-        &.last {
-          li {margin-bottom:0;}
-        }
+        &.last li {margin-bottom:0;}
 
         li {
           h3 {

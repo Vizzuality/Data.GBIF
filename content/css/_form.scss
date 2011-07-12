@@ -102,29 +102,29 @@
   }
 }
 
-  .add_more {
-    clear:both;
-    padding-left:15px;
-    display:block;
-    font-size:12px;
-    background:url('/img/icons/plus.png') no-repeat left top;
-    height:11px;
-    margin-top:10px;
-    display:block;
-    position:relative;
-  }
+.add_more {
+  clear:both;
+  padding-left:15px;
+  display:block;
+  font-size:12px;
+  background:url('/img/icons/plus.png') no-repeat left top;
+  height:11px;
+  margin-top:10px;
+  display:block;
+  position:relative;
+}
 
-  .filter_selected {
-    display:block;
-    position:relative;
-    color:$medium_dark;
-    &:hover .delete {display:block;}
-    margin-bottom:10px;
-  }
-  span.remove {
-    cursor:pointer;
-  }
-  .filter_delete { position:absolute; top:5px; right:-10px; color:$medium_dark; background:url('/img/icons/cross.png') no-repeat left top; width:5px; height:5px; cursor:pointer; }
+.filter_selected {
+  display:block;
+  position:relative;
+  color:$medium_dark;
+  &:hover .delete {display:block;}
+  margin-bottom:10px;
+}
+span.remove {
+  cursor:pointer;
+}
+.filter_delete { position:absolute; top:5px; right:-10px; color:$medium_dark; background:url('/img/icons/cross.png') no-repeat left top; width:5px; height:5px; cursor:pointer; }
 
 #content a.filter { float:left; display:block; position:relative; }
 #content .select-filter {
@@ -726,32 +726,56 @@
   }
 }
 
-ul.ui-autocomplete {
-  text-align:left!important;
-  background:none!important;
-  padding:0!important; margin:0!important;
-  border:0!Important;
-  li.ui-menu-item {
-  border:0!Important;
-    background:#fff;
-    a {
-      -webkit-border-radius: 0px;
-      -moz-border-radius: 0px;
-      border-radius: 0px;
 
-      border:none;
-      padding:0!important; margin:0;
-      height: 45px;
-      font-size:15px;
-      color:$link_color;
-      line-height:25px!Important;
-      &.ui-state-hover {
-      line-height:25px!Important;
-        border:none;
-        padding:0; margin:0;
-        background:#daebf1;
+    ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
+      text-align:left;
+      padding:0; margin:0;
+      height:140px;
+      border:0;
+      overflow: auto;
+
+    .inner {
+      clear:both;
+      overflow:hidden;
+      position:absolute;
+      background:url("/img/autocomplete_bkg.png") no-repeat left top;
+      width:227px;
+      height:560px;
+    }
+      li.ui-menu-item {
+        margin:0 0 0 10px;
+        padding: 11px 0;
+        border:0;
+        width:225px;
+
+        color:$gray;
+        font-size:11px;
+        text-transform:uppercase;
+        font-family:$font_medium;
+        background:none;
+
+        &.first {
+          margin-top:10px;
+        }
+
+        a {
+          padding:0;
+          margin:0;
+
+          text-transform:none;
+          font-size:15px;
+          font-family:$base;
+          -webkit-border-radius: 0px;
+          -moz-border-radius: 0px;
+          border-radius: 0px;
+          border:none;
+          color:$link_color;
+          &.ui-state-hover {
+            border:none;
+            padding:0; margin:0;
+            background:none;
+          }
+        }
       }
     }
-  //  background:red!important;
-  }
-}
+

@@ -1115,7 +1115,7 @@ var downloadPopover = (function() {
   }
 
   function hide(callback) {
-
+    $popover = $(".download_popover");
     $popover.find('a.close').unbind("click");
     $('html').unbind("click");
 

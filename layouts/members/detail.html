@@ -52,10 +52,10 @@
           var map = new google.maps.Map(document.getElementById("map"), myOptions);
           }
 
-          $("#dataset-graph1").minigraph(generateRandomValues(50));
-          $("#dataset-graph2").minigraph(generateRandomValues(50));
-          $("#dataset-graph3").minigraph(generateRandomValues(50));
-          $("#dataset-graph4").minigraph(generateRandomValues(50));
+          $("#dataset-graph1").addGraph(generateRandomValues(50));
+          $("#dataset-graph2").addGraph(generateRandomValues(50));
+          $("#dataset-graph3").addGraph(generateRandomValues(50));
+          $("#dataset-graph4").addGraph(generateRandomValues(50));
           });
 
     </script>

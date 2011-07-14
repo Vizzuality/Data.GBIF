@@ -268,21 +268,23 @@ $(function(){
   var values = generateRandomValues2(365);
 
 
-  function drawMiniGraph(ob, data) {
-    var holder_id = ob.attr("id");
+  function drawGraph(ob, data, opt) {
+    var container_id = ob.attr("id");
 
     function getAnchors(p1x, p1y, p2x, p2y, p3x, p3y) {
-        var l1 = (p2x - p1x) / 2,
-            l2 = (p3x - p2x) / 2,
-            a = Math.atan((p2x - p1x) / Math.abs(p2y - p1y)),
-            b = Math.atan((p3x - p2x) / Math.abs(p2y - p3y));
+        var l1 = (p2x - p1x) / 2, l2 = (p3x - p2x) / 2;
+        var a = Math.atan((p2x - p1x) / Math.abs(p2y - p1y));
+        var b = Math.atan((p3x - p2x) / Math.abs(p2y - p3y));
+
         a = p1y < p2y ? Math.PI - a : a;
         b = p3y < p2y ? Math.PI - b : b;
-        var alpha = Math.PI / 2 - ((a + b) % (Math.PI * 2)) / 2,
-            dx1 = l1 * Math.sin(alpha + a),
-            dy1 = l1 * Math.cos(alpha + a),
-            dx2 = l2 * Math.sin(alpha + b),
-            dy2 = l2 * Math.cos(alpha + b);
+
+        var alpha = Math.PI / 2 - ((a + b) % (Math.PI * 2)) / 2;
+        var dx1 = l1 * Math.sin(alpha + a);
+        var dy1 = l1 * Math.cos(alpha + a);
+        var dx2 = l2 * Math.sin(alpha + b);
+        var dy2 = l2 * Math.cos(alpha + b);
+
         return {
             x1: p2x - dx1,
             y1: p2y + dy1,
@@ -290,56 +292,62 @@ $(function(){
             y2: p2y + dy2
         };
     }
-    // Draw
-    var width = 289,
-        height = 163,
-        leftgutter = 0,
-        bottomgutter = 15,
-        topgutter = 50,
-        color = "#E5E5E5",
-        r = Raphael(holder_id, width, height),
-        X = (width - leftgutter) / data.length,
-        max = Math.max.apply(Math, data),
-        Y = (height - bottomgutter - topgutter) / max;
 
-    var path = r.path().attr({ stroke: "none"}),
-        bgp = r.path().attr({ stroke: "none", fill: color }),
-        blanket = r.set();
+    if (!opt) {
+      var opt = {};
+    }
+
+    // Dimensions
+    var width = $("#"+container_id).width();
+    var height = opt.height || 163;
+
+    // Gutter
+    var leftGutter = opt.leftGutter || 0;
+    var bottomGutter = opt.bottomGutter || 15;
+    var topGutter = opt.topGutter || 50;
+
+    var color = "#E5E5E5";
+
+    var container = Raphael(container_id, width, height);
+    var X = (width - leftGutter) / data.length;
+    var max = Math.max.apply(Math, data);
+    var Y = (height - bottomGutter - topGutter) / max;
+
+    var path = container.path().attr({ stroke: "none"});
+    var bgp = container.path().attr({ stroke: "none", fill: color });
+    var blanket = container.set();
 
     var p, bgpp;
 
     for (var i = 0, ii = data.length; i < ii; i++) {
-        var y = Math.round(height - bottomgutter - Y * data[i]),
-            x = Math.round(leftgutter + X * (i + .5));
+        var y = Math.round(height - bottomGutter - Y * data[i]),
+            x = Math.round(leftGutter + X * (i + .5));
         if (!i) {
             p = ["M", x, y, "C", x, y];
-            bgpp = ["M", leftgutter + X * .5, height - bottomgutter, "L", x, y, "C", x, y];
+            bgpp = ["M", leftGutter + X * .5, height - bottomGutter, "L", x, y, "C", x, y];
         }
         if (i && i < ii - 1) {
-            var Y0 = Math.round(height - bottomgutter - Y * data[i - 1]),
-                X0 = Math.round(leftgutter + X * (i - .5)),
-                Y2 = Math.round(height - bottomgutter - Y * data[i + 1]),
-                X2 = Math.round(leftgutter + X * (i + 1.5));
+            var Y0 = Math.round(height - bottomGutter - Y * data[i - 1]);
+            var X0 = Math.round(leftGutter + X * (i - .5));
+            var Y2 = Math.round(height - bottomGutter - Y * data[i + 1]);
+            var X2 = Math.round(leftGutter + X * (i + 1.5));
             var a = getAnchors(X0, Y0, x, y, X2, Y2);
             p = p.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
             bgpp = bgpp.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
         }
-        blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr({
-            stroke: "none",
-            fill: "#fff",
-            opacity: 0
-        }));
+
+        blanket.push(container.rect(leftGutter + X * i, 0, X, height - bottomGutter).attr({ stroke: "none", fill: "#fff", opacity: 0 }));
         var rect = blanket[blanket.length - 1];
     }
 
     p = p.concat([x, y, x, y]);
-    bgpp = bgpp.concat([x, y, x, y, "L", x, height - bottomgutter, "z"]);
+    bgpp = bgpp.concat([x, y, x, y, "L", x, height - bottomGutter, "z"]);
     path.attr({ path: p });
     bgp.attr({ path: bgpp });
   }
 
-  $.fn.minigraph = function(data) {
-    drawMiniGraph(this, data);
+  $.fn.addGraph = function(data, opt) {
+    drawGraph(this, data, opt);
   };
 
   //  $(".select-filter ul").jScrollPane({ verticalDragMinHeight: 20});

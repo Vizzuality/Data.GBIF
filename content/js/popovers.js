@@ -1063,7 +1063,7 @@ var downloadPopover = (function() {
     });
   }
 
-  function showDownloadHasStarted(){
+  function showDownloadHasStarted(url){
 
     $popover.fadeOut(transitionSpeed, function() {
 
@@ -1084,7 +1084,10 @@ var downloadPopover = (function() {
       setupBindings();
 
       $popover.css("top", getTopPosition() + "px");
-      $popover.fadeIn(transitionSpeed);
+      $popover.fadeIn(transitionSpeed, function() {
+        window.location.href = url;
+      });
+
     });
   }
 
@@ -1098,11 +1101,11 @@ var downloadPopover = (function() {
     $popover.find(".download").click(function(event) {
       event.stopPropagation();
       event.preventDefault();
-      window.location.href = $(this).attr("href");
+      var url = $(this).attr("href");
 
       var checked = $popover.find("ul li input:checked");
 
-      showDownloadHasStarted();
+      showDownloadHasStarted(url);
     });
 
     setupBindings();
@@ -1115,7 +1118,6 @@ var downloadPopover = (function() {
   }
 
   function hide(callback) {
-    $popover = $(".download_popover");
     $popover.find('a.close').unbind("click");
     $('html').unbind("click");
 

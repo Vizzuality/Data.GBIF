@@ -117,3 +117,18 @@ input:-moz-placeholder { color:$gray; }
     zoom:1!important;
   }
 }
+
+.ie9 {
+  h1,h2,h3,h4,h5,h6,
+  #content article .content h2,
+  #content article .left h2,
+  #content article .left h3,
+  #content article .right h3,
+  #content article .right h2,
+  .right h3,
+  #tabs ul li a,
+  header #top nav ul li a {
+    text-shadow:none!Important;
+    zoom: 1!important; filter: none!important;
+  }
+}

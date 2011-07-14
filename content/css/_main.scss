@@ -333,13 +333,9 @@ a {
           a {text-decoration:none;}
           h2 { float:left; line-height:20px;}
 					hgroup {
-      			h2 { float:none; margin-bottom:10px}
-      			h3 {
-							margin-bottom: 23px;
-							font-family: "Arial";
-							font-size: 15px;
-							text-transform: none;
-						}
+            margin: 0 0 23px 0;
+      			h2 { float:none; margin-bottom:15px}
+      			h3 { font-family: $base; color:$medium_dark; font-size: 15px; text-transform: none; }
 					}
 
         }
@@ -696,10 +692,11 @@ a {
 				li {
 					padding: 0;
 					background: none;
+					margin: 0 0 15px 0;
 
-					.taxon_level {}
-					.separator {display: inline-block;  width: 150px; height: 15px; margin-left: 10px; background: url("/img/dotted_line_bck.png") repeat-x left bottom;}
-					.taxon_name {position: absolute; left: 210px; padding-left: 10px; background: #FFFFFF;}
+					.taxon_level {width:50px; display:inline-block; font-size:13px; color:$medium_dark; }
+					.separator {display: inline-block;  width: 100px; height: 15px; margin: 0 10px; background: url("/img/dotted_line_bck.png") repeat-x left bottom;}
+					a {font-size:19px; font-weight:bold;}
 
 				}
 			}
@@ -1704,11 +1701,18 @@ a {
     padding-top:0;
     border: 0;
     div.row {
-      &.even { background-color:#FFFFE7; }
-      &.first { border-top: 1px solid #e5e5cf; }
-      &.last { border:none; padding-bottom: 0; }
-      left: -23px; width: 884px; position:relative; padding: 18px; background: #FFFFDF;
+      left: -23px;
+      width: 884px;
+      position:relative;
+      padding: 18px;
+      background: $raw_data_odd_color;
+      font-size:15px;
+      color:$medium_dark;
       border-bottom: 1px solid #e5e5cf;
+      &.even { background-color: $raw_data_even_color; }
+      &.first { border-top: 1px solid $border_raw_data_color; }
+      &.last { border:none; padding-bottom: 0; }
+      h4 { text-transform:uppercase; float:left; margin-right:50px; font-family:$font_medium; font-size:13px; }
     }
   }
     	footer { background:url('/img/boxes/box_yellow_bottom.png') no-repeat left top; text-align:left; }

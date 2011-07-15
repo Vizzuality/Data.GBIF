@@ -1,0 +1,45 @@
+    <script type="text/javascript" charset="utf-8">
+      if ($("#map").length ) {
+        
+        function ZoomControl(controlDiv, map) {
+          controlDiv.style.padding = '10px';
+          
+          var controlUI = document.createElement('DIV');
+          controlDiv.appendChild(controlUI);
+
+          var zoomInButton = document.createElement('DIV');
+          zoomInButton.style.background = 'url("/img/buttons/map_zoom_control.png") 0 0';          
+          zoomInButton.style.width = '21px';
+          zoomInButton.style.height = '21px';
+          zoomInButton.style.cursor = 'pointer';
+          controlUI.appendChild(zoomInButton);
+          google.maps.event.addDomListener(zoomInButton, 'click', function() {
+            map.setZoom(map.getZoom() + 1);
+          });          
+
+          var zoomOutButton = document.createElement('DIV');
+          zoomOutButton.style.background = 'url("/img/buttons/map_zoom_control.png") 0 21px';          
+          zoomOutButton.style.width = '21px';
+          zoomOutButton.style.height = '21px';
+          zoomOutButton.style.margin = '10px 0 0 0';
+          zoomOutButton.style.cursor = 'pointer';          
+          controlUI.appendChild(zoomOutButton);
+          google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+            map.setZoom(map.getZoom() - 1);
+          });          
+        
+        }
+        
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = { zoom: 8, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        
+        var zoomControlDiv = document.createElement('DIV');
+        var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+        zoomControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(zoomControlDiv);
+        
+      }
+    </script>
+

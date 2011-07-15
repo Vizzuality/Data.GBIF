@@ -1147,3 +1147,118 @@ var downloadPopover = (function() {
     hide: hide
   };
 })();
+
+
+/*
+* ================
+* POPOVER BINDINGS
+* ================
+*/
+
+$.fn.bindSlider = function(min, max, values) {
+  var $slider = $(this).find(".slider");
+  var $legend = $(this).find(".legend");
+
+  $slider.slider({
+    range: true,
+    min: min,
+    max: max,
+    values: values,
+    slide: function(event, ui) {
+      $legend.val("BETWEEN " + ui.values[ 0 ] + " AND " + ui.values[ 1 ] );
+    }
+  });
+
+  $legend.val( "BETWEEN " + $slider.slider( "values", 0 ) + " AND " + $slider.slider( "values", 1 ) );
+};
+
+$.fn.bindDownloadPopover = function(opt) {
+  $(this).click(function(event) {
+    downloadPopover.toggle($(this), event, opt);
+  });
+};
+
+$.fn.bindLoginPopover = function(opt) {
+  $(this).click(function(event) {
+    loginPopover.toggle($(this), event, opt);
+  });
+};
+
+$.fn.bindSortPopover = function() {
+  $(this).click(function(event) {
+    sortPopover.toggle($(this), event);
+  });
+};
+
+$.fn.bindLinkPopover = function(opt) {
+  $(this).click(function(event) {
+    linkPopover.toggle($(this), event, opt);
+  });
+};
+
+$.fn.bindHelpPopover = function(opt) {
+  $(this).click(function(event) {
+    helpPopover.toggle($(this), event, opt);
+  });
+};
+
+$.fn.bindDatePopover = function() {
+  $(this).click(function(event) {
+    datePopover.toggle($(this), event);
+  });
+};
+
+$.fn.bindSlideshow = function(opt) {
+  var $this = $(this);
+
+  var photoWidth      = 627;
+  var currentPhoto    = 0;
+  var transitionSpeed = 500;
+  var easingMethod    = "easeOutQuart";
+
+  var num_of_photos   = $this.find("div.photos > img").length - 1;
+  var downloads       = $this.find("div.download a");
+
+  var $previous_button = $this.find(".previous_slide");
+  var $next_button     = $this.find(".next_slide");
+  var $slideshow       = $this.find('.slideshow');
+
+  // The previous button is disabled by default
+  $previous_button.addClass("disabled");
+
+  // Calculate the width of the slideshow
+  $this.find(".photos").width(num_of_photos*photoWidth);
+
+  $previous_button.click(function(event) {
+    event.preventDefault();
+
+    if (currentPhoto > 0) {
+      $next_button.removeClass("disabled");
+
+      $slideshow.scrollTo('-='+photoWidth+'px', transitionSpeed, {easing:easingMethod, axis:'x'});
+      $(downloads[currentPhoto]).parent().hide();
+      currentPhoto--;
+      $(downloads[currentPhoto]).parent().show();
+
+      if (currentPhoto == 0) {
+        $previous_button.addClass("disabled");
+      }
+    }
+  });
+
+  $next_button.click(function(event) {
+    event.preventDefault();
+    if (currentPhoto < num_of_photos) {
+      $previous_button.removeClass("disabled");
+
+      $slideshow.scrollTo('+='+photoWidth+'px', transitionSpeed, {easing:easingMethod, axis:'x'});
+      $(downloads[currentPhoto]).parent().hide();
+      currentPhoto++;
+      $(downloads[currentPhoto]).parent().show();
+
+      if (currentPhoto >= num_of_photos) {
+        $next_button.addClass("disabled");
+      }
+    }
+  });
+};

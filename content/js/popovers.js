@@ -1208,6 +1208,7 @@ $.fn.bindDatePopover = function() {
   });
 };
 
+
 $.fn.bindSlideshow = function(opt) {
   var $this = $(this);
 

@@ -143,6 +143,30 @@ $(function(){
 
   var values = generateRandomValues2(365);
 
+  function drawPie(ob, r, s, endAngle) {
+    var container_id = ob.attr("id"),
+    rad = Math.PI / 180,
+    startAngle = 0,
+    raphael = Raphael(container_id, r*2, r*2);
+
+    var startAngle = 0;
+
+    raphael.circle(r, r, r).attr({ stroke: "none", fill: "#0099CC"});
+
+    function sector(cx, cy, r, startAngle, endAngle, params) {
+      var x1 = cx + r * Math.cos(-startAngle * rad),
+      x2 = cx + r * Math.cos(-endAngle * rad),
+      y1 = cy + r * Math.sin(-startAngle * rad),
+      y2 = cy + r * Math.sin(-endAngle * rad);
+      return raphael.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(params);
+    }
+    p = sector(r, r, r, 0, endAngle, { stroke: "#E5E5E5", fill: "#E5E5E5" });
+  }
+
+  $.fn.bindPie = function(x, y, s, endAngle) {
+    drawPie($(this), x, y, s, endAngle);
+  };
+
 
   function drawGraph(ob, data, opt) {
     var container_id = ob.attr("id");

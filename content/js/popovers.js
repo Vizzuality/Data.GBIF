@@ -164,15 +164,28 @@ var datePopover = (function() {
   }
 
   function adjustCalendar() {
-    var month_index = _.indexOf(months, month) + 1;
+    var month_index = month + 1;
 
     if (month_index == 2) { // February has only 28 days
       var isLeap = new Date(year,1,29).getDate() == 29;
 
-      isLeap ?  $day.find("li").eq(28).show() : $day.find("li").eq(28).hide();
+      if (isLeap) {
+        $day.find("li").eq(28).show(); // leap year -> show 29th
+      } else {
+        $day.find("li").eq(28).hide(); // regular year -> hide 29th
+
+        if (day > 28) {
+          $day.find("li.selected").removeClass("selected");
+          $day.find("li").eq(27).addClass("selected"); // select the 28th
+          day = 28;
+          $day.find("span").html(day)
+        }
+      }
 
       $day.find("li").eq(29).hide(); // 30
       $day.find("li").eq(30).hide(); // 31
+
+
     } else if (_.include([4, 6, 9, 11], month_index)) {
       $day.find("li").eq(30).hide(); // 31
     } else {

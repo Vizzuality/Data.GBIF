@@ -1,4 +1,5 @@
 /*
+* po
 * =============
 * DATE POPOVER
 * =============
@@ -71,7 +72,7 @@ var datePopover = (function() {
   function hide() {
     if (displayed) {
       $(".day, .month, .year").removeClass("selected");
-      $('html').unbind("click");
+      //$('html').unbind("click");
 
       if (is_ie) {
         $popover.hide();
@@ -201,7 +202,7 @@ var datePopover = (function() {
     var w = $popover.width();
     var el_w = el.width();
 
-      $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
+    $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
 
     if (is_ie) {
       $popover.css("top", y + 9 );
@@ -286,6 +287,180 @@ var datePopover = (function() {
 * =============
 */
 
+(function($, window, document) {
+  // Plugins should not declare more than one namespace in the $.fn object.
+  // So we declare methods in a methods array
+  var methods = {
+    addPopover:function(data, el) {
+      var rendered_template = _.template(data.template, { popoverID:data.popoverID, id:data.id, title: data.title, message: data.message });
+
+      $("#content").prepend(rendered_template);
+      var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
+
+      var x = el.offset().left;
+      var y = el.offset().top;
+      var w = $popover.width();
+      var h = $popover.height();
+
+      $popover.css("left", x - w/2 + 7);
+      $popover.css("top", y - h - 10);
+    },
+    init: function(options) {
+      // build main options before element iteration
+      var opts = $.extend({}, $.fn.pluginName.defaults, options);
+      // iterate over matched elements
+      return this.each(function() {
+        var $this = $(this);
+        // Build element specific options. Uses the Metadata plugin if available
+        // @see http://docs.jquery.com/Plugins/Metadata/metadata
+        var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+        // implementations
+        var data = $this.data('pluginName');
+        var pluginName = $('<div />', {
+          id: "plugingName"
+        });
+
+        if (!data) { /* Set up the data. */
+
+          $(this).data('pluginName', {
+            target: $this,
+            popoverID:"help_popover",
+            id: $(this).attr("id"),
+            title:o.title,
+            message:o.message,
+            template:"<div id='<%= popoverID %>_<%=id %>' class='yellow_popover'><div class='t'></div><div class='c'><h3><%= title %></h3><%= message %></div><div class='b'></div></div>",
+            pluginName: pluginName
+          });
+        }
+
+        var data = $(this).data('pluginName');
+        methods.addPopover(data, $(this));
+
+        $(this).click(function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          $("html").find(".yellow_popover").not("#"+data.popoverID + "_"+data.id).each(function(index, el) {
+            console.log($(el));
+            var $popover = $(el);
+
+            $popover.unbind("click");
+
+            if (is_ie) {
+              $popover.hide();
+              displayed = false;
+            } else {
+              $popover.animate({top:$popover.position().top - 40, opacity:0}, 250);
+            }
+
+          });
+
+          $("html").find(".open").removeClass("open");
+
+          $(this).addClass("open");
+
+          methods.showPopover(this, data);
+        });
+
+        $("html").click(function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var $el = $(e.target).find(".open");
+          //var $popover = $("html").find(".yellow_popover");
+
+          var $popover = $("#"+data.popoverID + "_"+data.id);
+          if ($popover) {
+
+            if (is_ie) {
+              $popover.hide();
+              displayed = false;
+            } else {
+              $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
+            }
+
+            $popover.unbind("click ");
+          }
+          $el.removeClass("open");
+          $el.unbind('.pluginName');
+        });
+      });
+    },
+    onClickPopover: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if ($(e.target).attr("href")) {
+        window.location.href = $(e.target).attr("href");
+
+      }
+    },
+
+    showPopover: function(el, data) {
+
+      var $popover = $("#content").find('#'+data.popoverID+"_"+data.id);
+
+      var x = $(el).offset().left;
+      var y = $(el).offset().top;
+      var w = $popover.width();
+      var h = $popover.height();
+
+      $popover.css("left", x - w/2 + 7);
+
+      if (is_ie) {
+        $popover.css("top", y - h);
+        $popover.show(150, function() {
+          $popover.show();
+        });
+      } else {
+        $popover.css("top", y - h - 10);
+        $popover.animate({top: y-h,opacity:1}, 150);
+      }
+
+      $popover.unbind("click");
+      $popover.click(methods.onClickPopover);
+    }
+  };
+
+  // replace 'pluginName' with the name of your plugin
+  $.fn.pluginName = function(method) {
+
+    // debug(this);
+    // Method calling logic
+    if (methods[method]) {
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method) {
+      return methods.init.apply(this, arguments);
+    } else {
+      $.error('Method ' + method + ' does not exist on jQuery.pluginName');
+    }
+  };
+
+  // plugin defaults
+  $.fn.pluginName.defaults = {};
+
+  // public functions definition
+  $.fn.pluginName.functionName = function(foo) {
+    return this;
+  };
+
+  // private functions definition
+
+  function foobar() {}
+
+  // private function for debugging
+
+  function debug() {
+    var $this = $(this);
+    if (window.console && window.console.log) {
+      window.console.log('selection count: ' + $this.size());
+    }
+  }
+})(jQuery, window, document);
+
+
+
+
 var helpPopover = (function() {
   var el;
   var displayed = false;
@@ -311,7 +486,7 @@ var helpPopover = (function() {
 
   function hide() {
     if (displayed) {
-      $('html').unbind("click");
+      //$('html').unbind("click");
 
       if (is_ie) {
         $popover.hide();
@@ -402,7 +577,7 @@ var selectBox = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
+    //$('html').unbind("click");
     el.removeClass("selected");
     displayed = false;
   }
@@ -461,131 +636,131 @@ var filterPopover = (function() {
   var count = 0;
 
   var templates = {
-  add: '<a href="#" class="filter add_more">Add more</a>',
-  remove: '<div class="filter_delete"></div>',
-  list: '<div class="select-filter">\
-    <div class="arrow"></div>\
-    <div class="listing">\
-        <div class="inner">\
-        <ul>\
-          <li><a href="#">Value A</a></li>\
-          <li><a href="#">Value B</a></li>\
-          <li><a href="#">Value C</a></li>\
-          <li><a href="#">Value D</a></li>\
-          <li><a href="#">Value E</a></li>\
-          <li><a href="#">Value F</a></li>\
-          <li><a href="#">Value G</a></li>\
-        </ul>\
-      </div>\
-      </div>\
-    </div>'};
+    add: '<a href="#" class="filter add_more">Add more</a>',
+    remove: '<div class="filter_delete"></div>',
+    list: '<div class="select-filter">\
+      <div class="arrow"></div>\
+        <div class="listing">\
+          <div class="inner">\
+            <ul>\
+              <li><a href="#">Value A</a></li>\
+                <li><a href="#">Value B</a></li>\
+                  <li><a href="#">Value C</a></li>\
+                    <li><a href="#">Value D</a></li>\
+                      <li><a href="#">Value E</a></li>\
+                        <li><a href="#">Value F</a></li>\
+                          <li><a href="#">Value G</a></li>\
+                            </ul>\
+                              </div>\
+                                </div>\
+                                  </div>'};
 
-  function initialize() {
-    $("#content").prepend(templates.list);
-    return true;
-  }
-
-  function toggle(e, event) {
-    event.stopPropagation();
-    event.preventDefault();
-    el = e;
-
-    if (!instantiated){
-      instantiated = initialize();
+    function initialize() {
+      $("#content").prepend(templates.list);
+      return true;
     }
-    displayed ? hide(): show();
-  }
 
-  function hide() {
-    $('html').unbind("click");
-    $popover.find("li a").unbind("click");
-    $popover.find("li a").die("click");
-    $popover.slideUp("fast", function() { displayed = false; });
-  }
-
-  function select(selected) {
-    el.html(selected + templates.remove);
-    el.removeClass("add_more");
-    el.addClass("filter_selected");
-
-    el.bind("click", function(event){
-      event.preventDefault();
-   //   $(this).fadeOut("slow", function() { remove();});
-    });
-  }
-
-  function show() {
-    $popover = $(".select-filter");
-
-    // don't do anything if we click inside of the select…
-    $popover.click(function(event) {
+    function toggle(e, event) {
       event.stopPropagation();
-    });
-
-    $popover.find("li a").click(function(event) {
       event.preventDefault();
-      event.stopPropagation();
+      el = e;
 
-      displayed && hide();
-
-      var selected = $(this).html();
-
-      $(this).hide("slow");
-
-      if (count == 0) {
-        el.hide();
-        el.after('<ul class="values"></ul>');
-        var $li =  $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
-        $("ul.values").after(templates.add);
-
-
-      } else {
-        var $li = $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+      if (!instantiated){
+        instantiated = initialize();
       }
+      displayed ? hide(): show();
+    }
 
-      $li.find("span.remove").click(function() {
-        alert('remove');
+    function hide() {
+      //$('html').unbind("click");
+      $popover.find("li a").unbind("click");
+      $popover.find("li a").die("click");
+      $popover.slideUp("fast", function() { displayed = false; });
+    }
+
+    function select(selected) {
+      el.html(selected + templates.remove);
+      el.removeClass("add_more");
+      el.addClass("filter_selected");
+
+      el.bind("click", function(event){
+        event.preventDefault();
+        //   $(this).fadeOut("slow", function() { remove();});
+      });
+    }
+
+    function show() {
+      $popover = $(".select-filter");
+
+      // don't do anything if we click inside of the select…
+      $popover.click(function(event) {
+        event.stopPropagation();
       });
 
-      count++;
+      $popover.find("li a").click(function(event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-     // el.die("click");
-     // el.unbind("click");
-     // el.removeclass("filter");
+        displayed && hide();
 
-      //select(selected);
+        var selected = $(this).html();
 
-     // el.after(templates.add);
+        $(this).hide("slow");
 
-      //$(".add_more").die("click");
-      //$(".add_more").bindFilterPopover();
-    });
+        if (count == 0) {
+          el.hide();
+          el.after('<ul class="values"></ul>');
+          var $li =  $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+          $("ul.values").after(templates.add);
 
-    $popover.find(".arrow").click(function(event) {
-      displayed && hide();
-    });
 
-    // … but clicking anywhere else closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
+        } else {
+          var $li = $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
+        }
 
-    // get the coordinates and width of the popover
-    var x = el.offset().left;
-    var y = el.offset().top;
-    var w = $popover.width();
+        $li.find("span.remove").click(function() {
+          alert('remove');
+        });
 
-    // center the popover
-    $popover.css("left", x + Math.floor(el.width() / 2) - 9 - Math.floor(w/2) + 9);
-    $popover.css("top", y - 2);
+        count++;
 
-    $popover.slideDown("fast", function() { displayed = true; });
-    $popover.find('ul').jScrollPane({ verticalDragMinHeight: 20});
-  }
+        // el.die("click");
+        // el.unbind("click");
+        // el.removeclass("filter");
 
-  return {
-    toggle: toggle
-  };
+        //select(selected);
+
+        // el.after(templates.add);
+
+        //$(".add_more").die("click");
+        //$(".add_more").bindFilterPopover();
+      });
+
+      $popover.find(".arrow").click(function(event) {
+        displayed && hide();
+      });
+
+      // … but clicking anywhere else closes the popover
+      $('html').click(function() {
+        displayed && hide();
+      });
+
+      // get the coordinates and width of the popover
+      var x = el.offset().left;
+      var y = el.offset().top;
+      var w = $popover.width();
+
+      // center the popover
+      $popover.css("left", x + Math.floor(el.width() / 2) - 9 - Math.floor(w/2) + 9);
+      $popover.css("top", y - 2);
+
+      $popover.slideDown("fast", function() { displayed = true; });
+      $popover.find('ul').jScrollPane({ verticalDragMinHeight: 20});
+    }
+
+    return {
+      toggle: toggle
+    };
 });
 
 /*
@@ -628,7 +803,7 @@ var linkPopover = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
+    //$('html').unbind("click");
 
     if (is_ie) {
       $popover.hide();
@@ -715,7 +890,7 @@ var sortPopover = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
+    //$('html').unbind("click");
 
     if (is_ie) {
       $popover.hide();
@@ -788,56 +963,56 @@ var loginPopover = (function() {
   var transitionSpeed = 200;
 
   var templates = {login: "<article id='login' class='infowindow'>\
-                <header></header>\
-                <span class='close'></span>\
-                <div class='content'>\
-                <h2>SIGN IN TO GBIF</h2>\
-                <p>You need to log in GBIF in order to download the data.</p>\
-                <form autocomplete='off' method='post' action='test'>\
+    <header></header>\
+      <span class='close'></span>\
+        <div class='content'>\
+          <h2>SIGN IN TO GBIF</h2>\
+            <p>You need to log in GBIF in order to download the data.</p>\
+              <form autocomplete='off' method='post' action='test'>\
                 <div class='light_box'>\
-                <div class='field email'>\
-                <h3>Email</h3>\
-                <span class='input_text'>\
-                <input id='email' name='email' type='text' />\
-                </span>\
-                </div>\
-                <div class='field password'>\
-                <h3>Password</h3>\
-                <span class='input_text'>\
-                <input id='password' name='password' type='password' />\
-                </span>\
-                </div>\
-                <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
-                </div>\
-                <a href='#' class='recover_password' title='Recover your password'>Forgot your password?</a>\
-                <button type='submit' class='candy_blue_button'><span>Login</span></button>\
-                </form>\
-                <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
-                </div>\
-                <footer></footer>\
-                </article>",
-                password: "<article id='recover_password' class='infowindow'>\
-                <header></header>\
-                <span class='close'></span>\
-                <div class='content'>\
-                <h2>RECOVER YOUR PASSWORD</h2>\
-                <form autocomplete='off' method='post'>\
-                <div class='light_box'>\
+                  <div class='field email'>\
+                    <h3>Email</h3>\
+                      <span class='input_text'>\
+                        <input id='email' name='email' type='text' />\
+                          </span>\
+                            </div>\
+                              <div class='field password'>\
+                                <h3>Password</h3>\
+                                  <span class='input_text'>\
+                                    <input id='password' name='password' type='password' />\
+                                      </span>\
+                                        </div>\
+                                          <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+                                            </div>\
+                                              <a href='#' class='recover_password' title='Recover your password'>Forgot your password?</a>\
+                                                <button type='submit' class='candy_blue_button'><span>Login</span></button>\
+                                                  </form>\
+                                                    <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
+                                                      </div>\
+                                                        <footer></footer>\
+                                                          </article>",
+  password: "<article id='recover_password' class='infowindow'>\
+    <header></header>\
+      <span class='close'></span>\
+        <div class='content'>\
+          <h2>RECOVER YOUR PASSWORD</h2>\
+            <form autocomplete='off' method='post'>\
+              <div class='light_box'>\
                 <div class='field'>\
-                <h3>Your email</h3>\
-                <span class='input_text'>\
-                <input id='email' name='email' type='text' />\
-                </span>\
-                </div>\
-                <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
-                </div>\
-                <a href='#' class='back_to_login' title='Back to the sign in form'>Back to the sign in form</a>\
-                <button type='submit' class='candy_blue_button'><span>Send email</span></button>\
-                </form>\
-                <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
-                </div>\
-                <footer></footer>\
-                </article>"};
+                  <h3>Your email</h3>\
+                    <span class='input_text'>\
+                      <input id='email' name='email' type='text' />\
+                        </span>\
+                          </div>\
+                            <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
+                              </div>\
+                                <a href='#' class='back_to_login' title='Back to the sign in form'>Back to the sign in form</a>\
+                                  <button type='submit' class='candy_blue_button'><span>Send email</span></button>\
+                                    </form>\
+                                      <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
+                                        </div>\
+                                          <footer></footer>\
+                                            </article>"};
 
 
 
@@ -905,14 +1080,14 @@ var loginPopover = (function() {
 
     $popover.find("input").focus(function(event) {
       event.preventDefault();
-        if ($(this).parents(".field.error").hasClass("email")) {
-          errorEmail = false;
-        } else {
-          errorPassword = false;
-        }
+      if ($(this).parents(".field.error").hasClass("email")) {
+        errorEmail = false;
+      } else {
+        errorPassword = false;
+      }
 
-        $(this).parents(".field.error").find("h3 span").fadeOut(transitionSpeed, function() {$(this).remove();});
-        $(this).parents(".field.error").removeClass("error");
+      $(this).parents(".field.error").find("h3 span").fadeOut(transitionSpeed, function() {$(this).remove();});
+      $(this).parents(".field.error").removeClass("error");
     });
 
     $popover.find(".back_to_login").click(function(event) {
@@ -960,7 +1135,7 @@ var loginPopover = (function() {
 
   function hide(callback) {
     $popover.find('a.close').unbind("click");
-    $('html').unbind("click");
+    //$('html').unbind("click");
 
     $popover.fadeOut(transitionSpeed, function() {
       $popover.remove(); displayed = false;
@@ -1132,7 +1307,7 @@ var downloadPopover = (function() {
 
   function hide(callback) {
     $popover.find('a.close').unbind("click");
-    $('html').unbind("click");
+    //$('html').unbind("click");
 
     $popover.fadeOut(transitionSpeed, function() { $popover.remove(); displayed = false; });
 

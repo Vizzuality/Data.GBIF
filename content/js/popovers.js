@@ -1,5 +1,4 @@
 /*
-* po
 * =============
 * DATE POPOVER
 * =============
@@ -72,7 +71,7 @@ var datePopover = (function() {
   function hide() {
     if (displayed) {
       $(".day, .month, .year").removeClass("selected");
-      //$('html').unbind("click");
+      $('html').unbind("click");
 
       if (is_ie) {
         $popover.hide();
@@ -350,7 +349,6 @@ var datePopover = (function() {
             } else {
               $popover.animate({top:$popover.position().top - 40, opacity:0}, 250);
             }
-
           });
 
           $("html").find(".open").removeClass("open");
@@ -358,28 +356,6 @@ var datePopover = (function() {
           $(this).addClass("open");
 
           methods.showPopover(this, data);
-        });
-
-        $("html").click(function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-
-          var $el = $(e.target).find(".open");
-          //var $popover = $("html").find(".yellow_popover");
-
-          var $popover = $("#"+data.popoverID + "_"+data.id);
-          if ($popover) {
-
-            if (is_ie) {
-              $popover.css("opacity", "0");
-            } else {
-              $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
-            }
-
-            $popover.unbind("click ");
-          }
-          $el.removeClass("open");
-          $el.unbind('.pluginName');
         });
       });
     },
@@ -389,10 +365,8 @@ var datePopover = (function() {
 
       if ($(e.target).attr("href")) {
         window.location.href = $(e.target).attr("href");
-
       }
     },
-
     showPopover: function(el, data) {
 
       var $popover = $("#content").find('#'+data.popoverID+"_"+data.id);
@@ -414,6 +388,30 @@ var datePopover = (function() {
 
       $popover.unbind("click");
       $popover.click(methods.onClickPopover);
+
+      $("html").click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $el = $(e.target).find(".open");
+        //var $popover = $("html").find(".yellow_popover");
+
+        var $popover = $("#"+data.popoverID + "_"+data.id);
+        if ($popover) {
+
+          if (is_ie) {
+            $popover.css("opacity", "0");
+          } else {
+            $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
+          }
+
+          $popover.unbind("click ");
+          $('html').unbind("click ");
+        }
+
+        $el.removeClass("open");
+        $el.unbind('.pluginName');
+      });
     }
   };
 
@@ -481,7 +479,7 @@ var helpPopover = (function() {
 
   function hide() {
     if (displayed) {
-      //$('html').unbind("click");
+      $('html').unbind("click");
 
       if (is_ie) {
         $popover.hide();
@@ -572,7 +570,7 @@ var selectBox = (function() {
   }
 
   function hide() {
-    //$('html').unbind("click");
+    $('html').unbind("click");
     el.removeClass("selected");
     displayed = false;
   }
@@ -667,7 +665,7 @@ var filterPopover = (function() {
     }
 
     function hide() {
-      //$('html').unbind("click");
+      $('html').unbind("click");
       $popover.find("li a").unbind("click");
       $popover.find("li a").die("click");
       $popover.slideUp("fast", function() { displayed = false; });
@@ -798,7 +796,7 @@ var linkPopover = (function() {
   }
 
   function hide() {
-    //$('html').unbind("click");
+    $('html').unbind("click");
 
     if (is_ie) {
       $popover.hide();
@@ -885,7 +883,7 @@ var sortPopover = (function() {
   }
 
   function hide() {
-    //$('html').unbind("click");
+    $('html').unbind("click");
 
     if (is_ie) {
       $popover.hide();
@@ -1130,7 +1128,7 @@ var loginPopover = (function() {
 
   function hide(callback) {
     $popover.find('a.close').unbind("click");
-    //$('html').unbind("click");
+    $('html').unbind("click");
 
     $popover.fadeOut(transitionSpeed, function() {
       $popover.remove(); displayed = false;
@@ -1302,7 +1300,7 @@ var downloadPopover = (function() {
 
   function hide(callback) {
     $popover.find('a.close').unbind("click");
-    //$('html').unbind("click");
+    $('html').unbind("click");
 
     $popover.fadeOut(transitionSpeed, function() { $popover.remove(); displayed = false; });
 

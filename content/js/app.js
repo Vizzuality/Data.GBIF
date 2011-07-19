@@ -1,9 +1,3 @@
-var is_ie = $.browser.msie;
-
-String.prototype.toProperCase = function () {
-  return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
-
 $(function(){
   var values = generateRandomValues(365);
   var processes = { dates:[
@@ -101,11 +95,11 @@ $(function(){
 
   $("time.selectable").bindDatePopover();
 
-
   $("a#help-new").pluginName({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help-new2").pluginName({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
+  $("a#help-new3").pluginName({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a long long long text. Look: lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."});
 
-  $("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
+  //$("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
     $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.login").bindLoginPopover();
@@ -148,15 +142,32 @@ $(function(){
 
   var values = generateRandomValues2(365);
 
-  function drawPie(ob, r, s, endAngle) {
+  function drawPie(ob, r, percentage) {
+    var endAngle = Math.floor(percentage / 100 * 360);
+
     var container_id = ob.attr("id"),
     rad = Math.PI / 180,
-    startAngle = 0,
-    raphael = Raphael(container_id, r*2, r*2);
+    startAngle = 180 - endAngle,
+    raphael = Raphael(container_id, ob.width(), r * 2);
 
-    var startAngle = 0;
+    function addLabel() {
+      var percentage_label = raphael.text(2*r + 10, r - 10, percentage + "%");
+      percentage_label.attr({'font-size': 31, 'font-family': 'DINOT-Medium, Sans-Serif'});
+      percentage_label.attr("fill", "#0099CC");
+      percentage_label.attr("text-anchor", "start");
 
-    raphael.circle(r, r, r).attr({ stroke: "none", fill: "#0099CC"});
+      var extra_label = raphael.text(2*r + 10, r + 12, "fullfiled");
+      extra_label.attr({'font-size': 13, 'font-family': 'Arial, Sans-Serif'});
+      extra_label.attr("fill", "#666666");
+      extra_label.attr("text-anchor", "start");
+    }
+
+    if (percentage >= 100) {
+      c = raphael.circle(r, r, r).attr({ stroke: "none", fill: "#0099CC" });
+      addLabel();
+      return;
+    }
+    c = raphael.circle(r, r, r).attr({ stroke: "#E5E5E5", fill: "#E5E5E5" });
 
     function sector(cx, cy, r, startAngle, endAngle, params) {
       var x1 = cx + r * Math.cos(-startAngle * rad),
@@ -165,13 +176,15 @@ $(function(){
       y2 = cy + r * Math.sin(-endAngle * rad);
       return raphael.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(params);
     }
-    p = sector(r, r, r, 0, endAngle, { stroke: "#E5E5E5", fill: "#E5E5E5" });
+
+    p = sector(r, r, r, 0, endAngle, { stroke: "none", fill: "#0099CC" });
+    addLabel();
+
   }
 
-  $.fn.bindPie = function(x, y, s, endAngle) {
-    drawPie($(this), x, y, s, endAngle);
+  $.fn.bindPie = function(r, percentage) {
+    drawPie($(this), r, percentage);
   };
-
 
   function drawGraph(ob, data, opt) {
     var container_id = ob.attr("id");

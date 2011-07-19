@@ -1,4 +1,232 @@
 /*
+* ==============
+* SELECT POPOVER
+* ==============
+*/
+
+(function($, window, document) {
+
+  var ie6 = false;
+
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
+  }
+
+  var
+  // Public methods exposed to $.fn.selectPopover()
+  methods = {},
+
+  // HTML template for the dropdowns
+  templates = {
+    main: [
+      '<div class="ps_container" id="ps_container_<%= id %>">',
+        '<a href="#" class="select">Any value</a>',
+        '<div class="ps_options">',
+          '<ul class="ps_options_inner">',
+          '</ul>',
+        '</div>',
+        '<ul class="ps_selected">',
+        '</ul>',
+        '<a href="#" class="more">Add more</a>',
+      '</div>'
+    ].join(''),
+
+    li: '<li><a data-ps-dropdown-value="<%=value %>"><%= text %></a> <span class="remove">x</span></li>'
+  },
+
+  // Some nice default values
+  defaults = {
+    startSpeed: 1000,
+    // I recommend a high value here, I feel it makes the changes less noticeable to the user
+    change: false
+  };
+  // Called by using $('foo').selectPopover();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $select = $(this),
+
+      // Save all of the <option> elements
+      $options = $select.find('option'),
+
+      // We store lots of great stuff using jQuery data
+      data = $select.data('selectPopover') || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $select.attr('id') || $select.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $select.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup selectPopover on this element
+      if (data.id) {
+        return $select;
+      } else {
+        data.settings = settings;
+        data.id = id;
+        data.$select = $select;
+        data.options = $options;
+      }
+
+      // Build the dropdown HTML
+      $ps = _build(templates.main, data);
+
+      // Hide the <select> list and place our new one in front of it
+      $select.before($ps);
+
+      // Update the reference to $ps
+      $ps = $('#ps_container_' + id).fadeIn(settings.startSpeed);
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+
+      // Save the selectPopover data onto the <select> element
+      $select.data('selectPopover', data);
+
+      // Do the same for the dropdown, but add a few helpers
+      $ps.data('selectPopover', data);
+
+      // Focus events
+      $select.hide();
+
+      $ps.find(".select").click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _openDropdown($ps)
+      });
+    });
+  };
+
+  // Expose the plugin
+  $.fn.selectPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // private methods
+  function _build(tpl, view) {
+
+    var $ps = $(_.template(tpl, view));
+    var elements = [];
+
+    _.each(view.options, function(option) {
+
+      var value = $(option).attr("value");
+      var text = $(option).html();
+
+      elements.push(_.template(templates.li, {
+        value: value,
+        text: text
+      }));
+    });
+
+    $ps.find("ul.ps_options_inner").append(elements.join(" "));
+    return $ps;
+  }
+
+  // Close a dropdown
+  function _closeDropdown($ps) {
+    $('html').unbind("click");
+    $ps.removeClass('ps_open');
+  }
+
+  // Open a dropdown
+
+  function _openDropdown($ps) {
+    var data = $ps.data('selectPopover');
+    $ps.toggleClass('ps_open');
+
+    var $select = $ps.find(".select:visible");
+
+    if ($select.length < 1) {
+      $select = $ps.find(".more");
+    }
+
+    $('html').click(function(e) {
+      _closeDropdown($ps);
+    });
+
+    var $popover = $ps.find('.ps_options');
+    $popover.css("top", $select.position().top + 20 + "px");
+  }
+
+  $(function() {
+    // Handle click events on individual dropdown options
+    $('.ps_selected .remove').live('click', function(e) {
+      var $option = $(this);
+      var $ps = $option.parents('.ps_container').first();
+      var count = $ps.find(".ps_selected li").length;
+
+      var countSelected = $ps.find(".ps_selected li").length;
+      var countOptions = $ps.find(".ps_options_inner li").length;
+
+      if (count <= 1) {
+        $ps.find(".select").show();
+        $ps.find(".more").hide();
+      } else if (count == countOptions) {
+        $ps.find(".more").show();
+      }
+
+      var selected = $option.siblings('a').attr('data-ps-dropdown-value');
+      _closeDropdown($ps);
+
+      $option.parent().remove();
+      $ps.find("ul.ps_options_inner li a[data-ps-dropdown-value=" + selected + "]").parent().removeClass("selected");
+    });
+
+    $('a.more').live('click', function(e) {
+      e.preventDefault();
+
+      var $option = $(this);
+      var $ps = $option.parents('.ps_container').first();
+      _openDropdown($ps)
+    });
+
+    $('.ps_options a').live('click', function(e) {
+      var
+      $option = $(this),
+      $ps = $option.parents('.ps_container').first(),
+      data = $ps.data('selectPopover');
+
+      _closeDropdown($ps);
+
+      $ps.find("a.select").hide();
+
+      var countSelected = $ps.find(".ps_selected li").length;
+      var countOptions = $ps.find(".ps_options_inner li").length;
+
+      if (countSelected + 1 < countOptions) {
+        $ps.find("a.more").show();
+      } else {
+        $ps.find("a.more").hide();
+      }
+
+      $option.parent().addClass('selected');
+      var $c = _.template(templates.li, { value: $option.attr("data-ps-dropdown-value"), text: $option.html()});
+
+      $ps.find(".ps_selected").append($c);
+
+      e.preventDefault();
+      return false;
+    });
+  });
+})(jQuery, window, document);
+
+/*
 * =============
 * DATE POPOVER
 * =============

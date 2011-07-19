@@ -1797,3 +1797,35 @@ a {
   }
 
 }
+
+
+
+
+#content article .content {
+  .ps_container {
+    ul {
+      margin:0;
+    }
+  }
+
+    .ps_fouc select {
+      position: relative;
+      top: -99999em;
+      visibility: hidden;
+    }
+
+    a.more {display:none}
+
+    span.remove {color:red; cursor:pointer}
+    li { margin-bottom:2px; }
+
+    ul li a {cursor:pointer}
+    ul.ps_selected li { background:none}
+    li { background:#f1f1f1; padding:3px; display:block; }
+    ul.ps_selected li:hover .remove {display:inline}
+    .remove {display:none}
+
+    .ps_options {display:none; position:absolute; z-index:1000; width:300px;}
+    .ps_open .ps_options {display:block;}
+    li.selected {display:none;}
+}

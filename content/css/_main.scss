@@ -1740,7 +1740,32 @@ a {
       &.even { background-color: $raw_data_even_color; }
       &.first { border-top: 1px solid $border_raw_data_color; }
       &.last { border:none; padding-bottom: 0; }
-      h4 { text-transform:uppercase; float:left; margin-right:50px; font-family:$font_medium; font-size:13px; }
+
+      h4 {
+				display: inline-block; 
+				vertical-align: top;
+				text-transform:uppercase; 
+				width: 180px; 
+				font-family:$font_medium; 
+				font-size:13px; }
+			
+			div.value {
+				display: inline-block;
+				width: 700px;
+				line-height: 120%;
+			}
+			
+			ul {
+				padding: 0;
+				margin: 0;
+				li {
+					margin: 0 0 10px 0;
+					padding: 0;
+					background: none;
+					&.last {margin: 0;}
+				}				
+			}
+
     }
   }
     	footer { background:url('/img/boxes/box_yellow_bottom.png') no-repeat left top; text-align:left; }

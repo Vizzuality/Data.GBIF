@@ -341,14 +341,12 @@ var datePopover = (function() {
           e.stopPropagation();
 
           $("html").find(".yellow_popover").not("#"+data.popoverID + "_"+data.id).each(function(index, el) {
-            console.log($(el));
             var $popover = $(el);
 
             $popover.unbind("click");
 
             if (is_ie) {
-              $popover.hide();
-              displayed = false;
+              $popover.css("opacity", "0");
             } else {
               $popover.animate({top:$popover.position().top - 40, opacity:0}, 250);
             }
@@ -373,8 +371,7 @@ var datePopover = (function() {
           if ($popover) {
 
             if (is_ie) {
-              $popover.hide();
-              displayed = false;
+              $popover.css("opacity", "0");
             } else {
               $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
             }
@@ -409,9 +406,7 @@ var datePopover = (function() {
 
       if (is_ie) {
         $popover.css("top", y - h);
-        $popover.show(150, function() {
-          $popover.show();
-        });
+        $popover.css("opacity", 1);
       } else {
         $popover.css("top", y - h - 10);
         $popover.animate({top: y-h,opacity:1}, 150);

@@ -1784,19 +1784,15 @@ a {
   } //ul
 }
 
+#content article .content ul.pies {
+  margin:0;
+  li {
+    float:left;
+    width:250px;
+    margin:0 42px 0 0;
+    background:none;
+    &:last-child {margin:0;}
+    &.last {margin:0;}
+  }
 
-
-div.test.open {background:red; color:#fff}
-div.test {position:realative; background:#f1f1f1; height:50px;  margin-bottom: 20px; width:110px; outline:none;}
-
-
-
-.popover {
-  z-index:1000;
-    display:none;
-    background:blue;
-    width:200px;
-    height:30px;
-    position:absolute;
 }
-

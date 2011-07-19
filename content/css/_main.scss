@@ -1788,9 +1788,10 @@ a {
   margin:0;
   li {
     float:left;
-    width:250px;
+    width:251px;
     margin:0 42px 0 0;
     background:none;
+    p { font-size:14px;}
     &:last-child {margin:0;}
     &.last {margin:0;}
   }

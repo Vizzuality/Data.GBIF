@@ -157,12 +157,12 @@ $(function(){
     raphael = Raphael(container_id, ob.width(), r * 2);
 
     function addLabel() {
-      var percentage_label = raphael.text(2*r + 10, r, percentage + "%");
+      var percentage_label = raphael.text(2*r + 10, r - 10, percentage + "%");
       percentage_label.attr({'font-size': 31, 'font-family': 'DINOT-Medium, Sans-Serif'});
       percentage_label.attr("fill", "#0099CC");
       percentage_label.attr("text-anchor", "start");
 
-      var extra_label = raphael.text(2*r + 15, r + 25, "fullfiled");
+      var extra_label = raphael.text(2*r + 10, r + 12, "fullfiled");
       extra_label.attr({'font-size': 13, 'font-family': 'Arial, Sans-Serif'});
       extra_label.attr("fill", "#666666");
       extra_label.attr("text-anchor", "start");

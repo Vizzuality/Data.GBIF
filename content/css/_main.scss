@@ -1797,3 +1797,104 @@ a {
   }
 
 }
+
+
+
+
+#content article .content {
+  .ps_container {
+    ul { margin:0; }
+
+    div.ps_options {
+
+      position:relative;
+      float:left;
+
+      .inner {
+        position:absolute;
+        clear:both;
+        overflow:hidden;
+        background:red;
+        height:360px;
+      }
+
+      ul.ps_options_inner {
+        margin:0; padding:0;
+
+        li {
+          background:none;
+          margin:0; padding:0;
+
+          span.label {cursor:pointer;}
+
+          &.hidden {display:none;}
+
+          &.first {
+            a {
+              height:38px ;
+              background:url('/img/white_popover_left_side.png') no-repeat left top;
+              span.label { height:38px - 15; padding-top:15px; background:url('/img/white_popover_right_side.png') repeat-x right top; }
+            }
+          }//li.first
+
+          &.last {
+            a {
+              height:34px;
+              background:url('/img/white_popover_left_side.png') no-repeat left bottom;
+              span.label { height:34px; background:url('/img/white_popover_right_side.png') repeat-x right bottom; }
+            }
+          }//li:last
+
+          a {
+            display:block;
+            min-width:88px;
+            height:24px;
+            padding:0 0 0 19px;
+            border:none;
+            background:url('/img/white_popover_left_side.png') no-repeat left -41px;
+            font-size:15px;
+            text-align:left;
+            text-decoration:none;
+            @include transparency_fix;
+
+            &.selected {
+              color:$medium_dark;
+            }
+
+            span.label {
+              display:block;
+              height:24px;
+              padding-right:19px;
+              background:url('/img/white_popover_right_side.png') repeat-x right -41px;
+              font-family:$font_regular;
+              font-size:15px;
+            }
+          }//a
+        } //li
+      }
+    }
+  }
+
+  ul.ps_selected {
+    li {
+      margin-bottom: 15px;
+
+      a { color:$medium_dark; margin-right:10px; }
+
+      &:hover .remove {display:inline}
+    }
+  }
+  .remove {display:none}
+  .ps_fouc select {
+    position: relative;
+    top: -99999em;
+    visibility: hidden;
+  }
+
+  a.more {display:none}
+
+  span.remove {color:$link_color; cursor:pointer}
+
+  .ps_options {display:none; position:absolute; z-index:1000;}
+  .ps_open .ps_options {display:block;}
+}

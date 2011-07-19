@@ -25,8 +25,10 @@
       '<div class="ps_container" id="ps_container_<%= id %>">',
         '<a href="#" class="select">Any value</a>',
         '<div class="ps_options">',
-          '<ul class="ps_options_inner">',
-          '</ul>',
+          '<div class="inner">',
+            '<ul class="ps_options_inner">',
+            '</ul>',
+          '</div>',
         '</div>',
         '<ul class="ps_selected">',
         '</ul>',
@@ -154,6 +156,9 @@
   // Open a dropdown
 
   function _openDropdown($ps) {
+
+    //$ps.find('div.ps_options').jScrollPane({ verticalDragMinHeight: 20});
+
     var data = $ps.data('selectPopover');
     $ps.toggleClass('ps_open');
 
@@ -166,6 +171,7 @@
     $('html').click(function(e) {
       _closeDropdown($ps);
     });
+
 
     var $popover = $ps.find('.ps_options');
     $popover.css("top", $select.position().top + 20 + "px");

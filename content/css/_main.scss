@@ -1807,15 +1807,25 @@ a {
 
     div.ps_options {
 
-      position:absolute;
+      position:relative;
       float:left;
+
+      .inner {
+        position:absolute;
+        clear:both;
+        overflow:hidden;
+        background:red;
+        height:360px;
+      }
 
       ul.ps_options_inner {
         margin:0; padding:0;
-        li {
 
+        li {
           background:none;
           margin:0; padding:0;
+
+          span.label {cursor:pointer;}
 
           &.hidden {display:none;}
 

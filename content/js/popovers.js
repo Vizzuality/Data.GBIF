@@ -34,7 +34,7 @@
       '</div>'
     ].join(''),
 
-    li: '<li><a data-ps-dropdown-value="<%=value %>"><%= text %></a> <span class="remove">x</span></li>'
+    li: '<li<%= li_class %>><a data-ps-dropdown-value="<%=value %>"><span class="label"><%= text %><span></a><span class="remove">x</span></li>'
   },
 
   // Some nice default values
@@ -122,16 +122,23 @@
 
     var $ps = $(_.template(tpl, view));
     var elements = [];
+    var li_class;
 
-    _.each(view.options, function(option) {
+    _.each(view.options, function(option, index) {
 
       var value = $(option).attr("value");
       var text = $(option).html();
 
-      elements.push(_.template(templates.li, {
-        value: value,
-        text: text
-      }));
+      if (index == 0) {
+        li_class = ' class="first"';
+      }
+      else if (index >= view.options.length - 1) {
+        li_class = ' class="last"';
+      } else {
+        li_class = "";
+      }
+
+      elements.push(_.template(templates.li, { li_class: li_class, value: value, text: text }));
     });
 
     $ps.find("ul.ps_options_inner").append(elements.join(" "));
@@ -165,7 +172,7 @@
   }
 
   $(function() {
-    // Handle click events on individual dropdown options
+    // Bind remove action over an element
     $('.ps_selected .remove').live('click', function(e) {
       var $option = $(this);
       var $ps = $option.parents('.ps_container').first();
@@ -182,12 +189,32 @@
       }
 
       var selected = $option.siblings('a').attr('data-ps-dropdown-value');
+
       _closeDropdown($ps);
 
+      // Remove the element from the temporary list
       $option.parent().remove();
-      $ps.find("ul.ps_options_inner li a[data-ps-dropdown-value=" + selected + "]").parent().removeClass("selected");
+
+      // Remove the hide class
+      var $selected_element = $ps.find("ul.ps_options_inner li a[data-ps-dropdown-value=" + selected + "]").parent();
+
+      var $first = $ps.find("ul.ps_options_inner li").not(".hidden").first();
+      var $last  = $ps.find("ul.ps_options_inner li").not(".hidden").last();
+
+      $selected_element.removeClass("hidden");
+
+      if ($selected_element.index() <= $first.index()) {
+        $selected_element.addClass("first");
+        $first.removeClass("first");
+      }
+      else if ($selected_element.index() >= $last.index()) {
+        $selected_element.addClass("last");
+        $last.removeClass("last");
+      }
+
     });
 
+    // "Add more" action
     $('a.more').live('click', function(e) {
       e.preventDefault();
 
@@ -196,6 +223,7 @@
       _openDropdown($ps)
     });
 
+    // Bind click action over an original element
     $('.ps_options a').live('click', function(e) {
       var
       $option = $(this),
@@ -207,7 +235,7 @@
       $ps.find("a.select").hide();
 
       var countSelected = $ps.find(".ps_selected li").length;
-      var countOptions = $ps.find(".ps_options_inner li").length;
+      var countOptions  = $ps.find(".ps_options_inner li").length;
 
       if (countSelected + 1 < countOptions) {
         $ps.find("a.more").show();
@@ -215,8 +243,22 @@
         $ps.find("a.more").hide();
       }
 
-      $option.parent().addClass('selected');
-      var $c = _.template(templates.li, { value: $option.attr("data-ps-dropdown-value"), text: $option.html()});
+      $selected = $option.parent();
+      $selected.addClass('hidden');
+
+      if ($selected.hasClass("first")){
+        $selected.removeClass("first");
+        $f = $ps.find(".ps_options_inner li").not(".hidden").first();
+        $f.addClass("first");
+      }
+
+      if ($option.parent().hasClass("last")){
+        $selected.removeClass("last");
+        $l = $ps.find(".ps_options_inner li").not(".hidden").last();
+        $l.addClass("last");
+      }
+
+      var $c = _.template(templates.li, { li_class:"", value: $option.attr("data-ps-dropdown-value"), text: $option.html()});
 
       $ps.find(".ps_selected").append($c);
 

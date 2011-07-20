@@ -1742,13 +1742,13 @@ a {
       &.last { border:none; padding-bottom: 0; }
 
       h4 {
-				display: inline-block; 
+				display: inline-block;
 				vertical-align: top;
-				text-transform:uppercase; 
-				width: 180px; 
-				font-family:$font_medium; 
+				text-transform:uppercase;
+				width: 180px;
+				font-family:$font_medium;
 				font-size:13px; }
-			
+
 			div.row_number {
 				position: absolute;
 				margin: 3px 0 0 0;
@@ -1756,7 +1756,7 @@ a {
 				font-size: 12px;
 				color: #B2B29C;
 			}
-			
+
 			div.value {
 				display: inline-block;
 				width: 700px;
@@ -1764,12 +1764,12 @@ a {
 
 				span.source {font-size: 12px; color: #B2B29C;}
 			}
-			
+
 			a {
       	color:$medium_dark;
-				text-decoration: underline;				
+				text-decoration: underline;
 			}
-			
+
 			ul {
 				padding: 0;
 				margin: 0;
@@ -1778,7 +1778,7 @@ a {
 					padding: 0;
 					background: none;
 					&.last {margin: 0;}
-				}				
+				}
 			}
 
     }
@@ -1845,96 +1845,56 @@ a {
   .ps_container {
     ul { margin:0; }
 
+    &.ps_open .ps_options {display:block;}
+
     div.ps_options {
 
-      position:relative;
+      display:none;
+      position:absolute;
       float:left;
+      z-index:1000;
 
-      .inner {
-        position:absolute;
-        clear:both;
-        overflow:hidden;
-        background:red;
-        height:360px;
+      .scrollpane {
+        position:relative;
+        width:300px;
+        overflow:auto;
+        height:100px;
+        background:#f1f1f1;
       }
 
-      ul.ps_options_inner {
-        margin:0; padding:0;
-
-        li {
-          background:none;
+        ul.ps_options_inner {
           margin:0; padding:0;
 
-          span.label {cursor:pointer;}
+          li {
+            background:none;
+            margin:0; padding:0;
 
-          &.hidden {display:none;}
+            span.label {cursor:pointer;}
 
-          &.first {
-            a {
-              height:38px ;
-              background:url('/img/white_popover_left_side.png') no-repeat left top;
-              span.label { height:38px - 15; padding-top:15px; background:url('/img/white_popover_right_side.png') repeat-x right top; }
-            }
-          }//li.first
-
-          &.last {
-            a {
-              height:34px;
-              background:url('/img/white_popover_left_side.png') no-repeat left bottom;
-              span.label { height:34px; background:url('/img/white_popover_right_side.png') repeat-x right bottom; }
-            }
-          }//li:last
-
-          a {
-            display:block;
-            min-width:88px;
-            height:24px;
-            padding:0 0 0 19px;
-            border:none;
-            background:url('/img/white_popover_left_side.png') no-repeat left -41px;
-            font-size:15px;
-            text-align:left;
-            text-decoration:none;
-            @include transparency_fix;
-
-            &.selected {
-              color:$medium_dark;
-            }
-
-            span.label {
-              display:block;
-              height:24px;
-              padding-right:19px;
-              background:url('/img/white_popover_right_side.png') repeat-x right -41px;
-              font-family:$font_regular;
-              font-size:15px;
-            }
-          }//a
-        } //li
+            &.hidden {display:none;}
+          } //li
+        }
       }
     }
-  }
 
-  ul.ps_selected {
-    li {
-      margin-bottom: 15px;
+    ul.ps_selected {
+      li {
+        margin-bottom: 15px;
 
-      a { color:$medium_dark; margin-right:10px; }
+        a { color:$medium_dark; margin-right:10px; }
 
-      &:hover .remove {display:inline}
+        &:hover .remove {display:inline}
+      }
     }
+    .remove {display:none}
+    .ps_fouc select {
+      position: relative;
+      top: -99999em;
+      visibility: hidden;
+    }
+
+    a.more {display:none}
+
+    span.remove {color:$link_color; cursor:pointer}
+
   }
-  .remove {display:none}
-  .ps_fouc select {
-    position: relative;
-    top: -99999em;
-    visibility: hidden;
-  }
-
-  a.more {display:none}
-
-  span.remove {color:$link_color; cursor:pointer}
-
-  .ps_options {display:none; position:absolute; z-index:1000;}
-  .ps_open .ps_options {display:block;}
-}

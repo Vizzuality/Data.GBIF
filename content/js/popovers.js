@@ -25,7 +25,7 @@
       '<div class="ps_container" id="ps_container_<%= id %>">',
         '<a href="#" class="select">Any value</a>',
         '<div class="ps_options">',
-          '<div class="inner">',
+          '<div class="scrollpane">',
             '<ul class="ps_options_inner">',
             '</ul>',
           '</div>',
@@ -90,6 +90,8 @@
 
       // Save the updated $ps reference into our data object
       data.$ps = $ps;
+
+      data.$scroll = data.$ps.find('div.ps_options .scrollpane').jScrollPane({ verticalDragMinHeight: 20});
 
       // Save the selectPopover data onto the <select> element
       $select.data('selectPopover', data);
@@ -157,10 +159,21 @@
 
   function _openDropdown($ps) {
 
-    //$ps.find('div.ps_options').jScrollPane({ verticalDragMinHeight: 20});
-
     var data = $ps.data('selectPopover');
     $ps.toggleClass('ps_open');
+
+    //var s = $ps.find("ul.ps_options_inner li").not(".hidden").length;
+    //console.log(s, $ps.find("ul.ps_options_inner").height());
+    var h = $ps.find("ul.ps_options_inner").height()
+    if (h < 100) {
+      $ps.find(".scrollpane").height(h);
+    } else {
+
+      $ps.find(".scrollpane").height("100");
+    }
+
+    var api = $(".ps_options .scrollpane").data('jsp');
+    api.reinitialise();
 
     var $select = $ps.find(".select:visible");
 
@@ -171,7 +184,6 @@
     $('html').click(function(e) {
       _closeDropdown($ps);
     });
-
 
     var $popover = $ps.find('.ps_options');
     $popover.css("top", $select.position().top + 20 + "px");
@@ -226,6 +238,7 @@
 
       var $option = $(this);
       var $ps = $option.parents('.ps_container').first();
+
       _openDropdown($ps)
     });
 

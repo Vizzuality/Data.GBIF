@@ -23,20 +23,24 @@
   templates = {
     main: [
       '<div class="ps_container" id="ps_container_<%= id %>">',
-        '<a href="#" class="select">Any value</a>',
-        '<div class="ps_options">',
-          '<div class="inner">',
-            '<ul class="ps_options_inner">',
-            '</ul>',
-          '</div>',
-        '</div>',
-        '<ul class="ps_selected">',
-        '</ul>',
-        '<a href="#" class="more">Add more</a>',
+      '<a href="#" class="select">Any value</a>',
+      '<div class="ps_options">',
+      '<div class="background">',
+      '<div class="l">',
+      '<div class="scrollpane">',
+      '<ul class="ps_options_inner">',
+      '</ul>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '<ul class="ps_selected">',
+      '</ul>',
+      '<a href="#" class="more">Add more</a>',
       '</div>'
     ].join(''),
 
-    li: '<li<%= li_class %>><a data-ps-dropdown-value="<%=value %>"><span class="label"><%= text %><span></a><span class="remove">x</span></li>'
+    li: '<li><a ps-value="<%=value %>"><span class="label"><%= text %><span></a><span class="remove">x</span></li>'
   },
 
   // Some nice default values
@@ -69,12 +73,14 @@
       // The completed ps_container element
       $ps = false;
 
+
       // Dont do anything if we've already setup selectPopover on this element
       if (data.id) {
         return $select;
       } else {
         data.settings = settings;
         data.id = id;
+        data.w = 0;
         data.$select = $select;
         data.options = $options;
       }
@@ -91,6 +97,8 @@
       // Save the updated $ps reference into our data object
       data.$ps = $ps;
 
+      $ps.find('.ps_options .scrollpane').jScrollPane({ verticalDragMinHeight: 20});
+
       // Save the selectPopover data onto the <select> element
       $select.data('selectPopover', data);
 
@@ -103,7 +111,14 @@
       $ps.find(".select").click(function(e) {
         e.preventDefault();
         e.stopPropagation();
-        _openDropdown($ps)
+
+        $(".ps_container.ps_open").removeClass("ps_open");
+
+        if ($ps.hasClass("ps_open")) {
+          _closeDropdown($ps);
+        } else {
+          _openDropdown($ps);
+        }
       });
     });
   };
@@ -124,26 +139,19 @@
 
     var $ps = $(_.template(tpl, view));
     var elements = [];
-    var li_class;
+    var max_width = 0;
 
     _.each(view.options, function(option, index) {
 
       var value = $(option).attr("value");
       var text = $(option).html();
 
-      if (index == 0) {
-        li_class = ' class="first"';
-      }
-      else if (index >= view.options.length - 1) {
-        li_class = ' class="last"';
-      } else {
-        li_class = "";
-      }
-
-      elements.push(_.template(templates.li, { li_class: li_class, value: value, text: text }));
+      var li = _.template(templates.li, { value: value, text: text });
+      elements.push(li);
     });
 
     $ps.find("ul.ps_options_inner").append(elements.join(" "));
+
     return $ps;
   }
 
@@ -157,10 +165,29 @@
 
   function _openDropdown($ps) {
 
-    //$ps.find('div.ps_options').jScrollPane({ verticalDragMinHeight: 20});
-
     var data = $ps.data('selectPopover');
     $ps.toggleClass('ps_open');
+
+    var w = $ps.find("ul.ps_options_inner").width();
+
+    var h = $ps.find("ul.ps_options_inner").height()
+
+    var widerElement = _.max($ps.find(".ps_options li"), function(f){ return $(f).width() });
+    w = $(widerElement).width();
+
+    if (w > data.w) {
+      data.w = w;
+    }
+
+    $ps.find(".ps_options .background").width(data.w + 15);
+    var api = $ps.find(".ps_options .scrollpane").data('jsp');
+    api.reinitialise();
+
+    // Uncomment the following line to reset the scroll
+    // api.scrollTo(0, 0);
+
+    $ps.find(".jspContainer").width(data.w + 15);
+    $ps.find(".jspPane").width(data.w + 15);
 
     var $select = $ps.find(".select:visible");
 
@@ -168,20 +195,33 @@
       $select = $ps.find(".more");
     }
 
-    $('html').click(function(e) {
+    $ps.find('.jspVerticalBar').click(function(event) {
+      event.stopPropagation();
+    });
+
+    $('html').unbind("click");
+    $('html').click(function() {
       _closeDropdown($ps);
     });
 
-
     var $popover = $ps.find('.ps_options');
-    $popover.css("top", $select.position().top + 20 + "px");
+    var el_w = $select.width();
+    var w = $popover.width();
+    var t = $select.position().top;
+    var l = $select.position().left;
+
+    $popover.css("left", l - Math.floor(w/2) + Math.floor(el_w/2) + 4); // 4px == shadow
+    $popover.css("top", t + 20 + "px");
   }
 
   $(function() {
+
+
     // Bind remove action over an element
     $('.ps_selected .remove').live('click', function(e) {
+
       var $option = $(this);
-      var $ps = $option.parents('.ps_container').first();
+      var $ps   = $option.parents('.ps_container').first();
       var count = $ps.find(".ps_selected li").length;
 
       var countSelected = $ps.find(".ps_selected li").length;
@@ -194,82 +234,69 @@
         $ps.find(".more").show();
       }
 
-      var selected = $option.siblings('a').attr('data-ps-dropdown-value');
-
-      _closeDropdown($ps);
+      var selected = $option.siblings('a').attr('ps-value');
 
       // Remove the element from the temporary list
       $option.parent().remove();
 
       // Remove the hide class
-      var $selected_element = $ps.find("ul.ps_options_inner li a[data-ps-dropdown-value=" + selected + "]").parent();
-
-      var $first = $ps.find("ul.ps_options_inner li").not(".hidden").first();
-      var $last  = $ps.find("ul.ps_options_inner li").not(".hidden").last();
+      var $selected_element = $ps.find("ul.ps_options_inner li a[ps-value=" + selected + "]").parent();
 
       $selected_element.removeClass("hidden");
-
-      if ($selected_element.index() <= $first.index()) {
-        $selected_element.addClass("first");
-        $first.removeClass("first");
-      }
-      else if ($selected_element.index() >= $last.index()) {
-        $selected_element.addClass("last");
-        $last.removeClass("last");
-      }
-
+      _closeDropdown($ps);
     });
 
     // "Add more" action
     $('a.more').live('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
 
-      var $option = $(this);
-      var $ps = $option.parents('.ps_container').first();
-      _openDropdown($ps)
-    });
-
-    // Bind click action over an original element
-    $('.ps_options a').live('click', function(e) {
       var
       $option = $(this),
       $ps = $option.parents('.ps_container').first(),
       data = $ps.data('selectPopover');
 
-      _closeDropdown($ps);
-
-      $ps.find("a.select").hide();
-
-      var countSelected = $ps.find(".ps_selected li").length;
-      var countOptions  = $ps.find(".ps_options_inner li").length;
-
-      if (countSelected + 1 < countOptions) {
-        $ps.find("a.more").show();
+      if ($ps.hasClass("ps_open")) {
+        _closeDropdown($ps);
       } else {
-        $ps.find("a.more").hide();
+        _openDropdown($ps);
       }
+    });
 
-      $selected = $option.parent();
-      $selected.addClass('hidden');
 
-      if ($selected.hasClass("first")){
-        $selected.removeClass("first");
-        $f = $ps.find(".ps_options_inner li").not(".hidden").first();
-        $f.addClass("first");
-      }
-
-      if ($option.parent().hasClass("last")){
-        $selected.removeClass("last");
-        $l = $ps.find(".ps_options_inner li").not(".hidden").last();
-        $l.addClass("last");
-      }
-
-      var $c = _.template(templates.li, { li_class:"", value: $option.attr("data-ps-dropdown-value"), text: $option.html()});
-
-      $ps.find(".ps_selected").append($c);
+    // Bind click action over an original element
+    $('.ps_options a').live('click', function(e) {
 
       e.preventDefault();
-      return false;
+      e.stopPropagation();
+
+      var $option = $(this);
+      var $ps = $option.parents('.ps_container').first();
+      var data = $ps.data('selectPopover');
+
+      var $selected_element = $ps.find(".ps_selected li a[ps-value=" + $option.attr("ps-value") + "]").parent();
+
+      if ($selected_element.length < 1) {
+
+        $ps.find("a.select").hide();
+
+        var countSelected = $ps.find(".ps_selected li").length;
+        var countOptions  = $ps.find(".ps_options_inner li").length;
+
+        _closeDropdown($ps);
+        if (countSelected + 1 < countOptions) {
+          $ps.find("a.more").show();
+        } else {
+          $ps.find("a.more").hide();
+        }
+
+        $selected = $option.parent();
+        $selected.addClass('hidden');
+
+        var $c = _.template(templates.li, { value: $option.attr("ps-value"), text: $option.html()});
+
+        $ps.find(".ps_selected").append($c);
+      }
     });
   });
 })(jQuery, window, document);
@@ -713,12 +740,7 @@ var datePopover = (function() {
     return this;
   };
 
-  // private functions definition
-
-  function foobar() {}
-
   // private function for debugging
-
   function debug() {
     var $this = $(this);
     if (window.console && window.console.log) {

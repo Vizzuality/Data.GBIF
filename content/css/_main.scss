@@ -1732,7 +1732,7 @@ a {
       left: -23px;
       width: 884px;
       position:relative;
-      padding: 18px;
+      padding: 18px 18px 18px 30px;
       background: $raw_data_odd_color;
       font-size:15px;
       color:$medium_dark;
@@ -1749,14 +1749,25 @@ a {
 				font-family:$font_medium; 
 				font-size:13px; }
 			
+			div.row_number {
+				position: absolute;
+				margin: 3px 0 0 0;
+				left: 12px;
+				font-size: 12px;
+				color: #B2B29C;
+			}
+			
 			div.value {
 				display: inline-block;
 				width: 700px;
 				line-height: 120%;
 
-			span.source {font-size: 12px; color: #B2B29C;}
+				span.source {font-size: 12px; color: #B2B29C;}
+			}
 			
-
+			a {
+      	color:$medium_dark;
+				text-decoration: underline;				
 			}
 			
 			ul {

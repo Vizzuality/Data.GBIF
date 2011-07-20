@@ -609,7 +609,7 @@ var datePopover = (function() {
     },
     init: function(options) {
       // build main options before element iteration
-      var opts = $.extend({}, $.fn.pluginName.defaults, options);
+      var opts = $.extend({}, $.fn.helpPopover.defaults, options);
       // iterate over matched elements
       return this.each(function() {
         var $this = $(this);
@@ -617,25 +617,25 @@ var datePopover = (function() {
         // @see http://docs.jquery.com/Plugins/Metadata/metadata
         var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
         // implementations
-        var data = $this.data('pluginName');
-        var pluginName = $('<div />', {
+        var data = $this.data('helpPopover');
+        var helpPopover = $('<div />', {
           id: "plugingName"
         });
 
         if (!data) { /* Set up the data. */
 
-          $(this).data('pluginName', {
+          $(this).data('helpPopover', {
             target: $this,
             popoverID:"help_popover",
             id: $(this).attr("id"),
             title:o.title,
             message:o.message,
             template:"<div id='<%= popoverID %>_<%=id %>' class='yellow_popover'><div class='t'></div><div class='c'><h3><%= title %></h3><%= message %></div><div class='b'></div></div>",
-            pluginName: pluginName
+            helpPopover: helpPopover
           });
         }
 
-        var data = $(this).data('pluginName');
+        var data = $(this).data('helpPopover');
         methods.addPopover(data, $(this));
 
         $(this).click(function(e) {
@@ -713,13 +713,13 @@ var datePopover = (function() {
         }
 
         $el.removeClass("open");
-        $el.unbind('.pluginName');
+        $el.unbind('.helpPopover');
       });
     }
   };
 
-  // replace 'pluginName' with the name of your plugin
-  $.fn.pluginName = function(method) {
+  // replace 'helpPopover' with the name of your plugin
+  $.fn.helpPopover = function(method) {
 
     // debug(this);
     // Method calling logic
@@ -728,15 +728,15 @@ var datePopover = (function() {
     } else if (typeof method === 'object' || !method) {
       return methods.init.apply(this, arguments);
     } else {
-      $.error('Method ' + method + ' does not exist on jQuery.pluginName');
+      $.error('Method ' + method + ' does not exist on jQuery.helpPopover');
     }
   };
 
   // plugin defaults
-  $.fn.pluginName.defaults = {};
+  $.fn.helpPopover.defaults = {};
 
   // public functions definition
-  $.fn.pluginName.functionName = function(foo) {
+  $.fn.helpPopover.functionName = function(foo) {
     return this;
   };
 
@@ -1577,18 +1577,11 @@ $.fn.bindLinkPopover = function(opt) {
   });
 };
 
-$.fn.bindHelpPopover = function(opt) {
-  $(this).click(function(event) {
-    helpPopover.toggle($(this), event, opt);
-  });
-};
-
 $.fn.bindDatePopover = function() {
   $(this).click(function(event) {
     datePopover.toggle($(this), event);
   });
 };
-
 
 $.fn.bindSlideshow = function(opt) {
   var $this = $(this);

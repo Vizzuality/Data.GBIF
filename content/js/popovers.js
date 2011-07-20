@@ -73,7 +73,6 @@
       // The completed ps_container element
       $ps = false;
 
-
       // Dont do anything if we've already setup selectPopover on this element
       if (data.id) {
         return $select;
@@ -105,7 +104,7 @@
       // Do the same for the dropdown, but add a few helpers
       $ps.data('selectPopover', data);
 
-      // Focus events
+      // hide the source of the data
       $select.hide();
 
       $ps.find(".select").click(function(e) {
@@ -597,6 +596,7 @@ var datePopover = (function() {
       var rendered_template = _.template(data.template, { popoverID:data.popoverID, id:data.id, title: data.title, message: data.message });
 
       $("#content").prepend(rendered_template);
+
       var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
 
       var x = el.offset().left;
@@ -606,6 +606,18 @@ var datePopover = (function() {
 
       $popover.css("left", x - w/2 + 7);
       $popover.css("top", y - h - 10);
+    },
+    refresh:function(data, el) {
+
+      var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
+
+      var x = el.offset().left;
+      var y = el.offset().top;
+      var w = $popover.width();
+      var h = $popover.height();
+
+      $popover.css("left", x - w/2 + 7);
+      $popover.css("top", y - h);
     },
     init: function(options) {
       // build main options before element iteration
@@ -618,9 +630,7 @@ var datePopover = (function() {
         var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
         // implementations
         var data = $this.data('helpPopover');
-        var helpPopover = $('<div />', {
-          id: "plugingName"
-        });
+        var helpPopover = $('<div />', { id: "plugingName" });
 
         if (!data) { /* Set up the data. */
 
@@ -634,6 +644,8 @@ var datePopover = (function() {
             helpPopover: helpPopover
           });
         }
+
+        $(window).bind('resize.helpPopover', function(){ methods.refresh(data, $this)});
 
         var data = $(this).data('helpPopover');
         methods.addPopover(data, $(this));
@@ -683,7 +695,7 @@ var datePopover = (function() {
 
       if (is_ie) {
         $popover.css("top", y - h);
-        $popover.css("opacity", 1);
+        $popover.show();
       } else {
         $popover.css("top", y - h - 10);
         $popover.animate({top: y-h,opacity:1}, 150);
@@ -703,7 +715,7 @@ var datePopover = (function() {
         if ($popover) {
 
           if (is_ie) {
-            $popover.css("opacity", "0");
+            $popover.hide();
           } else {
             $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
           }

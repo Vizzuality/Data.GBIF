@@ -1856,22 +1856,49 @@ a {
 
       .scrollpane {
         position:relative;
-        width:300px;
+        width:920px;
         overflow:auto;
-        height:100px;
-        background:#f1f1f1;
+        height:110px;
+        top:20px;
+        left:20px;
+        outline:none;
       }
 
-        ul.ps_options_inner {
-          margin:0; padding:0;
+      .l {
+        float:left;
+        height:153px;
+        width:20px;
+        margin:0 0 0 -20px;
+        padding:0 0 0 7px;
+        background:url('/img/select_filter_left_side.png') no-repeat left top;
+      }
 
-          li {
-            background:none;
-            margin:0; padding:0;
+      .background {
+        padding-right:30px;
+        //position:relative;
+        width:20px;
+        height:153px;
+        background:url('/img/select_filter_right_side.png') repeat-x right top;
+      }
+
+      .jspVerticalBar {right:0;}
+
+      ul.ps_options_inner {
+        float:left;
+        position:relative;
+        margin:0; padding:0;
+
+        li {
+          background:none;
+          float:left;
+          clear:both;
+          margin:0; padding:0;
+          margin-bottom:5px!important;
 
             span.label {cursor:pointer;}
 
-            &.hidden {display:none;}
+            &.hidden a {cursor:default!important; color:$gray; }
+            &.hidden span {cursor:default!important; }
           } //li
         }
       }

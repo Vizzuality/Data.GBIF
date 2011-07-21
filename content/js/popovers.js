@@ -1007,6 +1007,10 @@ var sortPopover = (function() {
               </ul>\
                 </div>';
 
+  $(function() {
+    $(window).bind('close.sortPopover', hide);
+  });
+
   function toggle(e, event) {
     event.stopPropagation();
     event.preventDefault();
@@ -1022,6 +1026,8 @@ var sortPopover = (function() {
   }
 
   function hide() {
+
+    GOD.unsubscribe("close.sortPopover");
 
     if (is_ie) {
       $popover.hide();
@@ -1055,6 +1061,11 @@ var sortPopover = (function() {
   function show() {
     $("#content").prepend(template);
     $popover = $(".white_popover");
+
+    // setup the close event & signal the other subscribers
+    var event = "close.sortPopover";
+    GOD.subscribe(event);
+    GOD.broadcast(event);
 
     $popover.find("a").click(function(event){
       event.preventDefault();

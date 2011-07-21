@@ -22,15 +22,20 @@ activity = (selected == "activity") ? "selected" : ""
 activity += (highlighted == "activity") ? " highlighted" : ""
 activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
 
-classes = {:information => information_classes, :activity_classes => activity_classes }
+raw = (selected == "raw") ? "selected" : ""
+raw += (highlighted == "raw") ? " highlighted" : ""
+raw_classes = (raw.strip == '') ? "" : " class='#{raw.strip}'"
+
+classes = {:information => information_classes, :activity => activity_classes, :raw => raw_classes}
 
 %>
 
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li<%= classes[:information] %>><a href="index.html"><span>Information</span></a></li>
-    <li<%= classes[:activity] %>><a href="process_detail.html" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+    <li<%= classes[:information] %>><a href="name_usage.html"><span>Information</span></a></li>
+    <li<%= classes[:activity] %>><a href="" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+    <li<%= classes[:raw] %>><a href="name_usage_raw.html"><span>Details</span></a></li>
   </ul>
 </div>
 <!-- /tabs-->

@@ -1,4 +1,253 @@
 /*
+* GOD sees everything
+*/
+var GOD = (function() {
+  var subscribers = {};
+  var debug = false;
+
+  function unsubscribe(event) {
+    debug && console.log("Unsubscribe -> ", event, subscribers[event]);
+    delete subscribers[event];
+  }
+
+  function subscribe(event) {
+    debug && console.log("Subscribe -> ", event, subscribers[event]);
+
+    subscribers[event] = event
+  }
+
+  function _signal(event) {
+    debug && console.log("Signal to ", event);
+
+    $(window).trigger(event);
+    unsubscribe(event);
+  }
+
+  function _signalAll() {
+    if (!_.isEmpty(subscribers)) {
+      _.each(subscribers, _signal);
+    }
+  }
+
+  // send signal to all the other subscribers
+  function signalOthers(protectedEvent) {
+    _.each(subscribers, function(event) {
+      protectedEvent != event && _signal(event);
+    });
+  }
+
+  $(function() {
+    $(document).keyup(function(e) {
+      e.keyCode == 27 && _signalAll();
+    });
+
+    $('html').click(_signalAll);
+  });
+
+  return {
+    subscribe: subscribe,
+    unsubscribe: unsubscribe,
+    signalOthers: signalOthers
+  };
+})();
+
+/*
+* ================
+* PLUGIN STRUCTURE
+* ================
+*/
+
+(function($, window, document) {
+
+  var ie6 = false;
+
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
+  }
+
+  var
+  // Public methods exposed to $.fn.pluginName()
+  methods = {},
+
+  // HTML template for the dropdowns
+  templates = {
+    main: ['<div id="<%= name %>_<%= id %>" class="yellow_popover"><div class="t"></div><div class="c"><h3><%= title %></h3><%= message %></div><div class="b"></div></div>'].join('')
+  },
+
+  // Some nice default values
+  defaults = {
+    startSpeed: 1000
+  };
+
+  // Called by using $('foo').pluginName();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current element
+      $this = $(this),
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data('pluginName') || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup pluginName on this element
+      if (data.id) {
+        return $this;
+      } else {
+        data.id = id;
+        data.$this     = $this;
+        data.name      = "pluginName";
+        data.templates = templates;
+        data.title     = settings.title;
+        data.message   = settings.message;
+        data.settings  = settings;
+      }
+
+      // Hide the <select> list and place our new one in front of it
+      $this.before($ps);
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+
+      // Save the pluginName data onto the <this> element
+      $this.data('pluginName', data);
+
+      $(this).click(_open);
+
+      $(window).bind('resize.yellow_popover', function() {
+        _refresh($this, data.name, data.id);
+      });
+
+      $(window).bind('close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this, $ps);
+      });
+
+    });
+  };
+
+  // Expose the plugin
+  $.fn.pluginName = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // Build popover
+  function _build(data) {
+    var $ps = $(_.template(data.templates.main, {name:data.name, id:data.id, title: data.title, message:data.message}));
+
+    $ps.bind('click', function(e) {
+      //e.preventDefault();
+      e.stopPropagation();
+      console.log("click");
+    });
+
+    return $ps;
+  }
+
+  // Close popover
+  function _close($this, $ps) {
+    var data = $this.data('pluginName');
+    GOD.unsubscribe("close."+data.name+"."+data.id);
+
+    if (is_ie) {
+      $ps.css("opacity", 0);
+      $ps.remove();
+      $this.removeClass("open");
+    } else {
+      $ps.animate({top:$ps.position().top - 10, opacity:0}, 150, function() {
+        $ps.remove();
+        $this.removeClass("open");
+      });
+    }
+  }
+
+  // Refresh popover
+  function _refresh($this, name, id) {
+    var $ps = $("#" + name + "_" + id);
+    if ($this.hasClass("open")) {
+
+      var x = $this.offset().left;
+      var y = $this.offset().top;
+      var w = $ps.width();
+      var h = $ps.height();
+
+      $ps.css("left", x - w/2 + 7);
+      $ps.css("top", y - h);
+    }
+  }
+
+  // Open a popover
+  function _open(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var $this = $(this);
+    var data = $this.data('pluginName');
+
+    if ($(this).hasClass("open")) {
+      var $ps = $("#" + data.name + "_" + data.id);
+      _close($this, $ps);
+    } else {
+      data.$ps = _build(data);
+      var $ps = data.$ps;
+
+      // setup the close event & signal the other subscribers
+      var event = "close."+data.name+"."+data.id;
+      GOD.subscribe(event);
+      GOD.signalOthers(event);
+
+      $("#content").prepend($ps);
+      _center($this, $ps);
+
+      if (is_ie) {
+        $ps.css("opacity", 1);
+        $this.addClass("open");
+      } else {
+        $ps.animate({top:$ps.position().top + 10, opacity:1}, 150, function() {
+          $this.addClass("open");
+        });
+      }
+    }
+  }
+
+  function _center ($this, $ps) {
+    var x = $this.offset().left;
+    var y = $this.offset().top;
+    var w = $ps.width();
+    var h = $ps.height();
+
+    $ps.css("left", x - w/2 + 7);
+    $ps.css("top", y - h - 10);
+  }
+
+  $(function() {
+
+  });
+
+})(jQuery, window, document);
+
+
+
+/*
 * ==============
 * SELECT POPOVER
 * ==============
@@ -23,13 +272,13 @@
   templates = {
     main: [
       '<div class="ps_container" id="ps_container_<%= id %>">',
-      '<a href="#" class="select">Any value</a>',
-      '<div class="ps_options">',
-      '<div class="background">',
-      '<div class="l">',
-      '<div class="scrollpane">',
-      '<ul class="ps_options_inner">',
-      '</ul>',
+        '<a href="#" class="select">Any value</a>',
+        '<div class="ps_options">',
+        '<div class="background">',
+          '<div class="l">',
+        '<div class="scrollpane">',
+        '<ul class="ps_options_inner">',
+        '</ul>',
       '</div>',
       '</div>',
       '</div>',
@@ -941,17 +1190,6 @@ var filterPopover = (function() {
         });
 
         count++;
-
-        // el.die("click");
-        // el.unbind("click");
-        // el.removeclass("filter");
-
-        //select(selected);
-
-        // el.after(templates.add);
-
-        //$(".add_more").die("click");
-        //$(".add_more").bindFilterPopover();
       });
 
       $popover.find(".arrow").click(function(event) {

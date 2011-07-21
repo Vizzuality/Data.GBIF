@@ -270,6 +270,7 @@ var GOD = (function() {
       '<div class="ps_container" id="ps_container_<%= id %>">',
         '<a href="#" class="select">Any value</a>',
         '<div class="ps_options">',
+        '<div class="arrow"></div>',
         '<div class="background">',
           '<div class="l">',
         '<div class="scrollpane">',
@@ -419,6 +420,7 @@ var GOD = (function() {
     if ($ps.hasClass("ps_open")) {
       $ps.removeClass('ps_open');
     } else {
+
       $ps.addClass('ps_open');
 
       var w = $ps.find("ul.ps_options_inner").width();
@@ -446,6 +448,17 @@ var GOD = (function() {
       if ($select.length < 1) {
         $select = $ps.find(".more");
       }
+
+      var x = $select.position().left;
+      var y = $select.position().top;
+      var w = $ps.find(".ps_options").width();
+      var h = $ps.find(".ps_options").height();
+
+      console.log(x, y, w, h);
+
+      $ps.find(".ps_options").css("left", x - w/2 + 40);
+      $ps.find(".ps_options").css("top", y + 5);
+
 
       $ps.find('.jspVerticalBar').click(function(event) {
         event.stopPropagation();

@@ -131,7 +131,7 @@ var GOD = (function() {
         _refresh($this, data.name, data.id);
       });
 
-      $(window).bind('close.'+data.name+'.'+data.id, function() {
+      $(window).bind('_close.'+data.name+'.'+data.id, function() {
         var $ps = $("#" + data.name + "_" + data.id);
         _close($this, $ps);
       });
@@ -164,10 +164,10 @@ var GOD = (function() {
   // Close popover
   function _close($this, $ps) {
     var data = $this.data('helpPopover');
-    GOD.unsubscribe("close."+data.name+"."+data.id);
+    GOD.unsubscribe("_close."+data.name+"."+data.id);
 
     if (is_ie) {
-      $ps.css("opacity", 0);
+      $ps.hide();
       $ps.remove();
       $this.removeClass("open");
     } else {
@@ -209,7 +209,7 @@ var GOD = (function() {
       var $ps = data.$ps;
 
       // setup the close event & signal the other subscribers
-      var event = "close."+data.name+"."+data.id;
+      var event = "_close."+data.name+"."+data.id;
       GOD.subscribe(event);
       GOD.broadcast(event);
 
@@ -217,7 +217,7 @@ var GOD = (function() {
       _center($this, $ps);
 
       if (is_ie) {
-        $ps.css("opacity", 1);
+        $ps.show();
         $this.addClass("open");
       } else {
         $ps.animate({top:$ps.position().top + 10, opacity:1}, 150, function() {
@@ -270,22 +270,21 @@ var GOD = (function() {
       '<div class="ps_container" id="ps_container_<%= id %>">',
         '<a href="#" class="select">Any value</a>',
         '<div class="ps_options">',
+        '<div class="arrow"></div>',
         '<div class="background">',
           '<div class="l">',
-        '<div class="scrollpane">',
-        '<ul class="ps_options_inner">',
-        '</ul>',
+            '<div class="scrollpane">',
+              '<ul class="ps_options_inner"></ul>',
+            '</div>',
+          '</div>',
+        '</div>',
       '</div>',
-      '</div>',
-      '</div>',
-      '</div>',
-      '<ul class="ps_selected">',
-      '</ul>',
+      '<ul class="ps_selected"></ul>',
       '<a href="#" class="more">Add more</a>',
       '</div>'
     ].join(''),
 
-    li: '<li><a ps-value="<%=value %>"><span class="label"><%= text %><span></a><span class="remove">x</span></li>'
+    li: '<li><a ps-value="<%=value %>"><span class="label"><%= text %><span></a> <span class="remove"><img src="/img/icons/cross.png" /></span></li>'
   },
 
   // Some nice default values
@@ -355,7 +354,7 @@ var GOD = (function() {
 
       $ps.find(".select").click(function(e){_toggle(e, $this)});
 
-      $(window).bind('close.'+data.name+'.'+data.id, function() {
+      $(window).bind('_close.'+data.name+'.'+data.id, function() {
         var $ps = $("#" + data.name + "_" + data.id);
         _close($this);
       });
@@ -397,7 +396,7 @@ var GOD = (function() {
   // Close a dropdown
   function _close($this) {
     var data = $this.data('selectPopover');
-    GOD.unsubscribe("close."+data.name+"."+data.id);
+    GOD.unsubscribe("_close."+data.name+"."+data.id);
 
     data.$ps.removeClass('ps_open');
   }
@@ -412,13 +411,14 @@ var GOD = (function() {
     var $ps = data.$ps;
 
     // setup the close event & signal the other subscribers
-    var event = "close."+data.name+"."+data.id;
+    var event = "_close."+data.name+"."+data.id;
     GOD.subscribe(event);
     GOD.broadcast(event);
 
     if ($ps.hasClass("ps_open")) {
       $ps.removeClass('ps_open');
     } else {
+
       $ps.addClass('ps_open');
 
       var w = $ps.find("ul.ps_options_inner").width();
@@ -446,6 +446,17 @@ var GOD = (function() {
       if ($select.length < 1) {
         $select = $ps.find(".more");
       }
+
+      var x = $select.position().left;
+      var y = $select.position().top;
+      var w = $ps.find(".ps_options").width();
+      var h = $ps.find(".ps_options").height();
+
+      console.log(x, y, w, h);
+
+      $ps.find(".ps_options").css("left", x - w/2 + 40);
+      $ps.find(".ps_options").css("top", y + 5);
+
 
       $ps.find('.jspVerticalBar').click(function(event) {
         event.stopPropagation();
@@ -548,6 +559,7 @@ var datePopover = (function() {
   var message;
   var day, month, year;
   var $day, $month, $year;
+  var id;
 
   var months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG", "SEP","OCT","NOV","DEC"];
 
@@ -556,9 +568,15 @@ var datePopover = (function() {
       <div class="day"><span></span></div>\
         <div class="year"><span></span></div>\
           </div>';
+
   function toggle(e, event, opt) {
     event.stopPropagation();
     event.preventDefault();
+
+    if (!id) { // TODO: improve this popover
+      id = e.attr("id");
+      $(window).bind('_close.datepopover.' + id, hide);
+    }
 
     el = e;
     displayed ? hide(): show();
@@ -566,7 +584,6 @@ var datePopover = (function() {
 
   function setupBindings() {
     // don't do anything if we click inside of the select…
-
     $popover.click(function(event) {
       event.stopPropagation();
     });
@@ -593,13 +610,13 @@ var datePopover = (function() {
       $(".year, .month").removeClass("selected");
       var pane = $(this).find('.inner').jScrollPane({ verticalDragMinHeight: 20});
       pane.data('jsp').scrollToY(15*(day - 1));
-
-
     });
   }
 
   function hide() {
     if (displayed) {
+      GOD.unsubscribe("_close.datepopover." + id);
+
       $(".day, .month, .year").removeClass("selected");
 
       if (is_ie) {
@@ -744,6 +761,13 @@ var datePopover = (function() {
   }
 
   function show() {
+
+    // setup the close event & signal the other subscribers
+
+    var event = "_close.datepopover." + id;
+    GOD.subscribe(event);
+    GOD.broadcast(event);
+
     createPopover();
     setupBindings();
     captureDate();
@@ -821,7 +845,7 @@ var selectBox = (function() {
   var transitionSpeed = 200;
 
   $(function() {
-    $(window).bind('close.selectbox', hide);
+    $(window).bind('_close.selectbox', hide);
   });
 
   function toggle(e, event, opt) {
@@ -848,7 +872,7 @@ var selectBox = (function() {
     el.removeClass("selected");
     displayed = false;
 
-    GOD.unsubscribe("close.selectbox");
+    GOD.unsubscribe("_close.selectbox");
   }
 
   function show() {
@@ -857,7 +881,7 @@ var selectBox = (function() {
     displayed = true;
 
     // setup the close event & signal the other subscribers
-    var event = "close.selectbox";
+    var event = "_close.selectbox";
     GOD.subscribe(event);
     GOD.broadcast(event);
 
@@ -910,7 +934,7 @@ var linkPopover = (function() {
   }
 
   $(function() {
-    $(window).bind('close.linkpopover', hide);
+    $(window).bind('_close.linkpopover', hide);
   });
 
   function toggle(e, event, opt) {
@@ -935,7 +959,7 @@ var linkPopover = (function() {
   }
 
   function hide() {
-    GOD.unsubscribe("close.linkpopover");
+    GOD.unsubscribe("_close.linkpopover");
 
     if (is_ie) {
       $popover.hide();
@@ -957,7 +981,7 @@ var linkPopover = (function() {
 
 
       // setup the close event & signal the other subscribers
-      var event = "close.linkpopover";
+      var event = "_close.linkpopover";
       GOD.subscribe(event);
       GOD.broadcast(event);
 
@@ -1008,7 +1032,7 @@ var sortPopover = (function() {
                 </div>';
 
   $(function() {
-    $(window).bind('close.sortPopover', hide);
+    $(window).bind('_close.sortPopover', hide);
   });
 
   function toggle(e, event) {
@@ -1027,7 +1051,7 @@ var sortPopover = (function() {
 
   function hide() {
 
-    GOD.unsubscribe("close.sortPopover");
+    GOD.unsubscribe("_close.sortPopover");
 
     if (is_ie) {
       $popover.hide();
@@ -1063,7 +1087,7 @@ var sortPopover = (function() {
     $popover = $(".white_popover");
 
     // setup the close event & signal the other subscribers
-    var event = "close.sortPopover";
+    var event = "_close.sortPopover";
     GOD.subscribe(event);
     GOD.broadcast(event);
 

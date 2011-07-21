@@ -286,9 +286,9 @@ a {
 
       h2 { margin-bottom:20px; font-family:$font_medium; font-size:23px; line-height:28px; color:$ultra_dark; @include white-shadow; }
       h3 { margin-bottom:8px;  font-family:$font_medium; font-size:13px; text-transform:uppercase; color:$ultra_dark; @include white-shadow; }
-			
+
 			.subtitle {font-family: $base; font-size: 15px; color: $medium_dark;}
-			
+
       p  { margin-bottom:18px; font-size:15px; line-height:18px; color:$medium_dark; }
       a:hover { color:$hover_link_color; }
 
@@ -702,13 +702,13 @@ a {
 
 				}
 			}
-			
+
 			.logo_holder {
 				background: url("/img/logos/logo_frame.png") no-repeat left top;
 				padding: 10px;
 				margin: 0 0 10px -2px;
 			}
-			
+
     } // .content
   } // article
 
@@ -1852,7 +1852,19 @@ a {
 
 #content article .content {
   .ps_container {
-    ul { margin:0; }
+
+    ul.ps_selected {
+        margin:0;
+
+      li { margin: 0 0 5px 0!important;
+
+        a { color:$medium_dark; }
+    .remove {padding:3px; }
+        &:hover .remove {display:inline}
+      }
+    }
+
+    .remove {display:none; }
 
     &.ps_open .ps_options {display:block;}
 
@@ -1873,6 +1885,8 @@ a {
         outline:none;
       }
 
+      .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+
       .l {
         float:left;
         height:153px;
@@ -1884,7 +1898,6 @@ a {
 
       .background {
         padding-right:30px;
-        //position:relative;
         width:20px;
         height:153px;
         background:url('/img/select_filter_right_side.png') repeat-x right top;
@@ -1904,33 +1917,21 @@ a {
           margin:0; padding:0;
           margin-bottom:5px!important;
 
-            span.label {cursor:pointer;}
+          span.label {cursor:pointer;}
 
-            &.hidden a {cursor:default!important; color:$gray; }
-            &.hidden span {cursor:default!important; }
-          } //li
-        }
+          &.hidden a {cursor:default!important; color:$gray; }
+          &.hidden span {cursor:default!important; }
+        } //li
       }
     }
-
-    ul.ps_selected {
-      li {
-        margin-bottom: 15px;
-
-        a { color:$medium_dark; margin-right:10px; }
-
-        &:hover .remove {display:inline}
-      }
-    }
-    .remove {display:none}
-    .ps_fouc select {
-      position: relative;
-      top: -99999em;
-      visibility: hidden;
-    }
-
-    a.more {display:none}
-
-    span.remove {color:$link_color; cursor:pointer}
-
   }
+
+
+  .ps_fouc select {
+    position: relative;
+    top: -99999em;
+    visibility: hidden;
+  }
+
+  a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
+}

@@ -1010,9 +1010,7 @@ var selectBox = (function() {
   var transitionSpeed = 200;
 
   $(function() {
-    $(window).bind('close.selectbox', function() {
-      hide();
-    });
+    $(window).bind('close.selectbox', hide);
   });
 
   function toggle(e, event, opt) {
@@ -1038,6 +1036,8 @@ var selectBox = (function() {
   function hide() {
     el.removeClass("selected");
     displayed = false;
+
+    GOD.unsubscribe("close.selectbox");
   }
 
   function show() {
@@ -1082,137 +1082,6 @@ var selectBox = (function() {
 
 /*
 * =============
-*  FILTER POPOVER
-* =============
-*/
-
-var filterPopover = (function() {
-  var that = this;
-  var el;
-  var displayed = false;
-  var instantiated;
-  var $popover;
-  var count = 0;
-
-  var templates = {
-    add: '<a href="#" class="filter add_more">Add more</a>',
-    remove: '<div class="filter_delete"></div>',
-    list: '<div class="select-filter">\
-      <div class="arrow"></div>\
-        <div class="listing">\
-          <div class="inner">\
-            <ul>\
-              <li><a href="#">Value A</a></li>\
-                <li><a href="#">Value B</a></li>\
-                  <li><a href="#">Value C</a></li>\
-                    <li><a href="#">Value D</a></li>\
-                      <li><a href="#">Value E</a></li>\
-                        <li><a href="#">Value F</a></li>\
-                          <li><a href="#">Value G</a></li>\
-                            </ul>\
-                              </div>\
-                                </div>\
-                                  </div>'};
-
-    function initialize() {
-      $("#content").prepend(templates.list);
-      return true;
-    }
-
-    function toggle(e, event) {
-      event.stopPropagation();
-      event.preventDefault();
-      el = e;
-
-      if (!instantiated){
-        instantiated = initialize();
-      }
-      displayed ? hide(): show();
-    }
-
-    function hide() {
-      $('html').unbind("click");
-      $popover.find("li a").unbind("click");
-      $popover.find("li a").die("click");
-      $popover.slideUp("fast", function() { displayed = false; });
-    }
-
-    function select(selected) {
-      el.html(selected + templates.remove);
-      el.removeClass("add_more");
-      el.addClass("filter_selected");
-
-      el.bind("click", function(event){
-        event.preventDefault();
-        //   $(this).fadeOut("slow", function() { remove();});
-      });
-    }
-
-    function show() {
-      $popover = $(".select-filter");
-
-      // don't do anything if we click inside of the select…
-      $popover.click(function(event) {
-        event.stopPropagation();
-      });
-
-      $popover.find("li a").click(function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        displayed && hide();
-
-        var selected = $(this).html();
-
-        $(this).hide("slow");
-
-        if (count == 0) {
-          el.hide();
-          el.after('<ul class="values"></ul>');
-          var $li =  $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
-          $("ul.values").after(templates.add);
-
-
-        } else {
-          var $li = $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
-        }
-
-        $li.find("span.remove").click(function() {
-          alert('remove');
-        });
-
-        count++;
-      });
-
-      $popover.find(".arrow").click(function(event) {
-        displayed && hide();
-      });
-
-      // … but clicking anywhere else closes the popover
-      $('html').click(function() {
-        displayed && hide();
-      });
-
-      // get the coordinates and width of the popover
-      var x = el.offset().left;
-      var y = el.offset().top;
-      var w = $popover.width();
-
-      // center the popover
-      $popover.css("left", x + Math.floor(el.width() / 2) - 9 - Math.floor(w/2) + 9);
-      $popover.css("top", y - 2);
-
-      $popover.slideDown("fast", function() { displayed = true; });
-      $popover.find('ul').jScrollPane({ verticalDragMinHeight: 20});
-    }
-
-    return {
-      toggle: toggle
-    };
-});
-
-/*
-* =============
 *  LINK POPOVER
 * =============
 */
@@ -1228,6 +1097,10 @@ var linkPopover = (function() {
     main:'<div class="white_narrow_popover"><div class="arrow"></div><ul></ul></div>',
     li:'<li><a href="<%=value%>"><span><%=label%></span></a></li>'
   }
+
+  $(function() {
+    $(window).bind('close.linkpopover', hide);
+  });
 
   function toggle(e, event, opt) {
     event.stopPropagation();
@@ -1252,6 +1125,7 @@ var linkPopover = (function() {
 
   function hide() {
     $('html').unbind("click");
+    GOD.unsubscribe("close.linkpopover");
 
     if (is_ie) {
       $popover.hide();
@@ -1270,6 +1144,12 @@ var linkPopover = (function() {
 
     // center the popover
     $popover.css("left", x - w/2 + 4);
+
+
+      // setup the close event & signal the other subscribers
+      var event = "close.linkpopover";
+      GOD.subscribe(event);
+      GOD.broadcast(event);
 
     if (is_ie) {
       $popover.css("top", y - 5);

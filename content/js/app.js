@@ -81,18 +81,6 @@ $(function(){
     };
   })();
 
-  // Bindings
-  var c = filterPopover();
-  $("a.filter").click(function(event){
-    c.toggle($(this), event);
-  });
-
-  $("a.add_more").live("click", function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    c.toggle($(this), event);
-  });
-
   $("time.selectable").bindDatePopover();
   $("#select-popover, #select-popover2").selectPopover();
 

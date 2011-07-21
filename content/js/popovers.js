@@ -30,7 +30,7 @@ var GOD = (function() {
   }
 
   // send signal to all the other subscribers
-  function signalOthers(protectedEvent) {
+  function broadcast(protectedEvent) {
     _.each(subscribers, function(event) {
       protectedEvent != event && _signal(event);
     });
@@ -47,7 +47,7 @@ var GOD = (function() {
   return {
     subscribe: subscribe,
     unsubscribe: unsubscribe,
-    signalOthers: signalOthers
+    broadcast: broadcast
   };
 })();
 
@@ -125,7 +125,7 @@ var GOD = (function() {
       // Save the pluginName data onto the <this> element
       $this.data('pluginName', data);
 
-      $(this).click(_open);
+      $(this).click(_toggle);
 
       $(window).bind('resize.yellow_popover', function() {
         _refresh($this, data.name, data.id);
@@ -155,9 +155,7 @@ var GOD = (function() {
     var $ps = $(_.template(data.templates.main, {name:data.name, id:data.id, title: data.title, message:data.message}));
 
     $ps.bind('click', function(e) {
-      //e.preventDefault();
       e.stopPropagation();
-      console.log("click");
     });
 
     return $ps;
@@ -196,7 +194,7 @@ var GOD = (function() {
   }
 
   // Open a popover
-  function _open(e) {
+  function _toggle(e) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -213,7 +211,7 @@ var GOD = (function() {
       // setup the close event & signal the other subscribers
       var event = "close."+data.name+"."+data.id;
       GOD.subscribe(event);
-      GOD.signalOthers(event);
+      GOD.broadcast(event);
 
       $("#content").prepend($ps);
       _center($this, $ps);
@@ -305,39 +303,40 @@ var GOD = (function() {
     return this.each(function() {
       var
       // The current <select> element
-      $select = $(this),
+      $this = $(this),
 
       // Save all of the <option> elements
-      $options = $select.find('option'),
+      $options = $this.find('option'),
 
       // We store lots of great stuff using jQuery data
-      data = $select.data('selectPopover') || {},
+      data = $this.data('selectPopover') || {},
 
       // This gets applied to the 'ps_container' element
-      id = $select.attr('id') || $select.attr('name'),
+      id = $this.attr('id') || $this.attr('name'),
 
       // This gets updated to be equal to the longest <option> element
-      width = settings.width || $select.outerWidth(),
+      width = settings.width || $this.outerWidth(),
 
       // The completed ps_container element
       $ps = false;
 
       // Dont do anything if we've already setup selectPopover on this element
       if (data.id) {
-        return $select;
+        return $this;
       } else {
         data.settings = settings;
         data.id = id;
+        data.name      = "selectPopover";
         data.w = 0;
-        data.$select = $select;
+        data.$this = $this;
         data.options = $options;
       }
 
       // Build the dropdown HTML
       $ps = _build(templates.main, data);
 
-      // Hide the <select> list and place our new one in front of it
-      $select.before($ps);
+      // Hide the <$this> list and place our new one in front of it
+      $this.before($ps);
 
       // Update the reference to $ps
       $ps = $('#ps_container_' + id).fadeIn(settings.startSpeed);
@@ -347,26 +346,20 @@ var GOD = (function() {
 
       $ps.find('.ps_options .scrollpane').jScrollPane({ verticalDragMinHeight: 20});
 
-      // Save the selectPopover data onto the <select> element
-      $select.data('selectPopover', data);
+      // Save the $this data onto the <$this> element
+      $this.data('selectPopover', data);
 
       // Do the same for the dropdown, but add a few helpers
       $ps.data('selectPopover', data);
 
       // hide the source of the data
-      $select.hide();
+      $this.hide();
 
-      $ps.find(".select").click(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+      $ps.find(".select").click(function(e){_toggle(e, $this)});
 
-        $(".ps_container.ps_open").removeClass("ps_open");
-
-        if ($ps.hasClass("ps_open")) {
-          _closeDropdown($ps);
-        } else {
-          _openDropdown($ps);
-        }
+      $(window).bind('close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this);
       });
     });
   };
@@ -404,67 +397,65 @@ var GOD = (function() {
   }
 
   // Close a dropdown
-  function _closeDropdown($ps) {
-    $('html').unbind("click");
-    $ps.removeClass('ps_open');
+  function _close($this) {
+    var data = $this.data('selectPopover');
+    GOD.unsubscribe("close."+data.name+"."+data.id);
+
+    data.$ps.removeClass('ps_open');
   }
 
   // Open a dropdown
 
-  function _openDropdown($ps) {
+  function _toggle(e, $this) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    var data = $ps.data('selectPopover');
-    $ps.toggleClass('ps_open');
+    var data = $this.data('selectPopover');
+    var $ps = data.$ps;
 
-    var w = $ps.find("ul.ps_options_inner").width();
+    // setup the close event & signal the other subscribers
+    var event = "close."+data.name+"."+data.id;
+    GOD.subscribe(event);
+    GOD.broadcast(event);
 
-    var h = $ps.find("ul.ps_options_inner").height()
+    if ($ps.hasClass("ps_open")) {
+      $ps.removeClass('ps_open');
+    } else {
+      $ps.addClass('ps_open');
 
-    var widerElement = _.max($ps.find(".ps_options li"), function(f){ return $(f).width() });
-    w = $(widerElement).width();
+      var w = $ps.find("ul.ps_options_inner").width();
+      var h = $ps.find("ul.ps_options_inner").height()
 
-    if (w > data.w) {
-      data.w = w;
+      var widerElement = _.max($ps.find(".ps_options li"), function(f){ return $(f).width() });
+      w = $(widerElement).width();
+
+      if (w > data.w) {
+        data.w = w;
+      }
+
+      $ps.find(".ps_options .background").width(data.w + 15);
+      var api = $ps.find(".ps_options .scrollpane").data('jsp');
+      api.reinitialise();
+
+      // Uncomment the following line to reset the scroll
+      // api.scrollTo(0, 0);
+
+      $ps.find(".jspContainer").width(data.w + 15);
+      $ps.find(".jspPane").width(data.w + 15);
+
+      var $select = $ps.find(".select:visible");
+
+      if ($select.length < 1) {
+        $select = $ps.find(".more");
+      }
+
+      $ps.find('.jspVerticalBar').click(function(event) {
+        event.stopPropagation();
+      });
     }
-
-    $ps.find(".ps_options .background").width(data.w + 15);
-    var api = $ps.find(".ps_options .scrollpane").data('jsp');
-    api.reinitialise();
-
-    // Uncomment the following line to reset the scroll
-    // api.scrollTo(0, 0);
-
-    $ps.find(".jspContainer").width(data.w + 15);
-    $ps.find(".jspPane").width(data.w + 15);
-
-    var $select = $ps.find(".select:visible");
-
-    if ($select.length < 1) {
-      $select = $ps.find(".more");
-    }
-
-    $ps.find('.jspVerticalBar').click(function(event) {
-      event.stopPropagation();
-    });
-
-    $('html').unbind("click");
-    $('html').click(function() {
-      _closeDropdown($ps);
-    });
-
-    var $popover = $ps.find('.ps_options');
-    var el_w = $select.width();
-    var w = $popover.width();
-    var t = $select.position().top;
-    var l = $select.position().left;
-
-    $popover.css("left", l - Math.floor(w/2) + Math.floor(el_w/2) + 4); // 4px == shadow
-    $popover.css("top", t + 20 + "px");
   }
 
   $(function() {
-
-
     // Bind remove action over an element
     $('.ps_selected .remove').live('click', function(e) {
 
@@ -491,7 +482,7 @@ var GOD = (function() {
       var $selected_element = $ps.find("ul.ps_options_inner li a[ps-value=" + selected + "]").parent();
 
       $selected_element.removeClass("hidden");
-      _closeDropdown($ps);
+      _close($ps);
     });
 
     // "Add more" action
@@ -504,13 +495,8 @@ var GOD = (function() {
       $ps = $option.parents('.ps_container').first(),
       data = $ps.data('selectPopover');
 
-      if ($ps.hasClass("ps_open")) {
-        _closeDropdown($ps);
-      } else {
-        _openDropdown($ps);
-      }
+      _toggle(e, $ps);
     });
-
 
     // Bind click action over an original element
     $('.ps_options a').live('click', function(e) {
@@ -531,7 +517,7 @@ var GOD = (function() {
         var countSelected = $ps.find(".ps_selected li").length;
         var countOptions  = $ps.find(".ps_options_inner li").length;
 
-        _closeDropdown($ps);
+        _close($ps);
         if (countSelected + 1 < countOptions) {
           $ps.find("a.more").show();
         } else {
@@ -1023,6 +1009,12 @@ var selectBox = (function() {
   var $popover;
   var transitionSpeed = 200;
 
+  $(function() {
+    $(window).bind('close.selectbox', function() {
+      hide();
+    });
+  });
+
   function toggle(e, event, opt) {
     event.stopPropagation();
 
@@ -1044,7 +1036,6 @@ var selectBox = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
     el.removeClass("selected");
     displayed = false;
   }
@@ -1054,17 +1045,18 @@ var selectBox = (function() {
     el.find('ul').jScrollPane({ verticalDragMinHeight: 20});
     displayed = true;
 
+    // setup the close event & signal the other subscribers
+    var event = "close.selectbox";
+    GOD.subscribe(event);
+    GOD.broadcast(event);
+
     // don't do anything if we click inside of the select…
     el.find('.listing, .jspVerticalBar').click(function(event) {
       event.stopPropagation();
     });
 
-    // … but clicking anywhere else closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
-
     el.find("li").unbind("click");
+
     el.find("li").click(function(event) {
       var text = $(this).text();
 

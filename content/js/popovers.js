@@ -73,7 +73,6 @@
       // The completed ps_container element
       $ps = false;
 
-
       // Dont do anything if we've already setup selectPopover on this element
       if (data.id) {
         return $select;
@@ -105,7 +104,7 @@
       // Do the same for the dropdown, but add a few helpers
       $ps.data('selectPopover', data);
 
-      // Focus events
+      // hide the source of the data
       $select.hide();
 
       $ps.find(".select").click(function(e) {
@@ -597,6 +596,7 @@ var datePopover = (function() {
       var rendered_template = _.template(data.template, { popoverID:data.popoverID, id:data.id, title: data.title, message: data.message });
 
       $("#content").prepend(rendered_template);
+
       var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
 
       var x = el.offset().left;
@@ -607,9 +607,21 @@ var datePopover = (function() {
       $popover.css("left", x - w/2 + 7);
       $popover.css("top", y - h - 10);
     },
+    refresh:function(data, el) {
+
+      var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
+
+      var x = el.offset().left;
+      var y = el.offset().top;
+      var w = $popover.width();
+      var h = $popover.height();
+
+      $popover.css("left", x - w/2 + 7);
+      $popover.css("top", y - h);
+    },
     init: function(options) {
       // build main options before element iteration
-      var opts = $.extend({}, $.fn.pluginName.defaults, options);
+      var opts = $.extend({}, $.fn.helpPopover.defaults, options);
       // iterate over matched elements
       return this.each(function() {
         var $this = $(this);
@@ -617,25 +629,25 @@ var datePopover = (function() {
         // @see http://docs.jquery.com/Plugins/Metadata/metadata
         var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
         // implementations
-        var data = $this.data('pluginName');
-        var pluginName = $('<div />', {
-          id: "plugingName"
-        });
+        var data = $this.data('helpPopover');
+        var helpPopover = $('<div />', { id: "plugingName" });
 
         if (!data) { /* Set up the data. */
 
-          $(this).data('pluginName', {
+          $(this).data('helpPopover', {
             target: $this,
             popoverID:"help_popover",
             id: $(this).attr("id"),
             title:o.title,
             message:o.message,
             template:"<div id='<%= popoverID %>_<%=id %>' class='yellow_popover'><div class='t'></div><div class='c'><h3><%= title %></h3><%= message %></div><div class='b'></div></div>",
-            pluginName: pluginName
+            helpPopover: helpPopover
           });
         }
 
-        var data = $(this).data('pluginName');
+        $(window).bind('resize.helpPopover', function(){ methods.refresh(data, $this)});
+
+        var data = $(this).data('helpPopover');
         methods.addPopover(data, $(this));
 
         $(this).click(function(e) {
@@ -683,7 +695,7 @@ var datePopover = (function() {
 
       if (is_ie) {
         $popover.css("top", y - h);
-        $popover.css("opacity", 1);
+        $popover.show();
       } else {
         $popover.css("top", y - h - 10);
         $popover.animate({top: y-h,opacity:1}, 150);
@@ -703,7 +715,7 @@ var datePopover = (function() {
         if ($popover) {
 
           if (is_ie) {
-            $popover.css("opacity", "0");
+            $popover.hide();
           } else {
             $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
           }
@@ -713,13 +725,13 @@ var datePopover = (function() {
         }
 
         $el.removeClass("open");
-        $el.unbind('.pluginName');
+        $el.unbind('.helpPopover');
       });
     }
   };
 
-  // replace 'pluginName' with the name of your plugin
-  $.fn.pluginName = function(method) {
+  // replace 'helpPopover' with the name of your plugin
+  $.fn.helpPopover = function(method) {
 
     // debug(this);
     // Method calling logic
@@ -728,15 +740,15 @@ var datePopover = (function() {
     } else if (typeof method === 'object' || !method) {
       return methods.init.apply(this, arguments);
     } else {
-      $.error('Method ' + method + ' does not exist on jQuery.pluginName');
+      $.error('Method ' + method + ' does not exist on jQuery.helpPopover');
     }
   };
 
   // plugin defaults
-  $.fn.pluginName.defaults = {};
+  $.fn.helpPopover.defaults = {};
 
   // public functions definition
-  $.fn.pluginName.functionName = function(foo) {
+  $.fn.helpPopover.functionName = function(foo) {
     return this;
   };
 
@@ -748,91 +760,6 @@ var datePopover = (function() {
     }
   }
 })(jQuery, window, document);
-
-
-
-
-var helpPopover = (function() {
-  var el;
-  var displayed = false;
-  var $popover;
-  var transitionSpeed = 150;
-  var title;
-  var message;
-
-  var template="<div class='yellow_popover'><div class='t'></div><div class='c'><h3><%= title %></h3><%= message %></div><div class='b'></div></div>";
-
-  function toggle(e, event, opt) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    if (opt) {
-      title   = opt.title;
-      message = opt.message;
-    }
-
-    el = e;
-    displayed ? hide(): show();
-  }
-
-  function hide() {
-    if (displayed) {
-      $('html').unbind("click");
-
-      if (is_ie) {
-        $popover.hide();
-        $popover.remove();
-        displayed = false;
-      } else {
-        $popover.animate({top:$popover.position().top - 20,opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
-      }
-    }
-  }
-
-  function showPopover() {
-    // get the coordinates and width of the popover
-    var x = el.offset().left;
-    var y = el.offset().top ;
-    var w = $popover.width();
-    var h = $popover.height();
-
-    $popover.css("left", x - w/2 + 7);
-
-    if (is_ie) {
-      $popover.css("top", y - h);
-      $popover.show(transitionSpeed, function() {
-        $popover.show();
-        displayed = true;
-      });
-    } else {
-      $popover.css("top", y - h - 10);
-      $popover.animate({top: y-h,opacity:1}, transitionSpeed, function() { displayed = true; });
-    }
-  }
-
-  function show() {
-    var rendered_template = _.template(template, { title: title, message: message });
-    $("#content").prepend(rendered_template);
-
-    $popover = $(".yellow_popover");
-    // don't do anything if we click inside of the select…
-
-    $popover.click(function(event) {
-      event.stopPropagation();
-    });
-
-    // … but clicking anywhere else closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
-
-    showPopover();
-  }
-
-  return {
-    toggle: toggle
-  };
-})();
 
 /*
 * =============
@@ -1662,18 +1589,11 @@ $.fn.bindLinkPopover = function(opt) {
   });
 };
 
-$.fn.bindHelpPopover = function(opt) {
-  $(this).click(function(event) {
-    helpPopover.toggle($(this), event, opt);
-  });
-};
-
 $.fn.bindDatePopover = function() {
   $(this).click(function(event) {
     datePopover.toggle($(this), event);
   });
 };
-
 
 $.fn.bindSlideshow = function(opt) {
   var $this = $(this);

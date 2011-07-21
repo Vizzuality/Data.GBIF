@@ -81,24 +81,14 @@ $(function(){
     };
   })();
 
-  // Bindings
-  var c = filterPopover();
-  $("a.filter").click(function(event){
-    c.toggle($(this), event);
-  });
-
-  $("a.add_more").live("click", function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    c.toggle($(this), event);
-  });
-
   $("time.selectable").bindDatePopover();
   $("#select-popover, #select-popover2").selectPopover();
 
-  $("a#help-new").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
-  $("a#help-new2").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
-  $("a#help-new3").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a long long long text. Look: lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."});
+  $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
+  $("a#help2").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
+  $("a#help3").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
+
+  //$("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
 
   $("a.download").bindDownloadPopover({explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
@@ -106,11 +96,6 @@ $(function(){
 
   $('.sort').bindSortPopover();
 
-  $(document).keyup(function(e) {
-    if (e.keyCode == 27) { // esc key
-      downloadPopover.hide();
-    }
-  });
 
   $('span.input_text input').focus(function() {
     $(this).parent().addClass("focus");

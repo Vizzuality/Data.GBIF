@@ -1,4 +1,249 @@
 /*
+* GOD sees everything
+*/
+var GOD = (function() {
+  var subscribers = {};
+  var debug = false;
+
+  function unsubscribe(event) {
+    debug && console.log("Unsubscribe ->", event);
+    delete subscribers[event];
+  }
+
+  function subscribe(event) {
+    debug && console.log("Subscribe ->", event);
+
+    subscribers[event] = event
+  }
+
+  function _signal(event) {
+    debug && console.log("Signal to ", event);
+
+    $(window).trigger(event);
+    unsubscribe(event);
+  }
+
+  function _signalAll() {
+    if (!_.isEmpty(subscribers)) {
+      _.each(subscribers, _signal);
+    }
+  }
+
+  // send signal to all the other subscribers
+  function broadcast(protectedEvent) {
+    _.each(subscribers, function(event) {
+      protectedEvent != event && _signal(event);
+    });
+  }
+
+  $(function() {
+    $(document).keyup(function(e) {
+      e.keyCode == 27 && _signalAll();
+    });
+
+    $('html').click(_signalAll);
+  });
+
+  return {
+    subscribe: subscribe,
+    unsubscribe: unsubscribe,
+    broadcast: broadcast
+  };
+})();
+
+/*
+* ================
+* PLUGIN STRUCTURE
+* ================
+*/
+
+(function($, window, document) {
+
+  var ie6 = false;
+
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
+  }
+
+  var
+  // Public methods exposed to $.fn.helpPopover()
+  methods = {},
+
+  // HTML template for the dropdowns
+  templates = {
+    main: ['<div id="<%= name %>_<%= id %>" class="yellow_popover"><div class="t"></div><div class="c"><h3><%= title %></h3><%= message %></div><div class="b"></div></div>'].join('')
+  },
+
+  // Some nice default values
+  defaults = {
+    startSpeed: 1000
+  };
+
+  // Called by using $('foo').helpPopover();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current element
+      $this = $(this),
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data('helpPopover') || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup helpPopover on this element
+      if (data.id) {
+        return $this;
+      } else {
+        data.id = id;
+        data.$this     = $this;
+        data.name      = "helpPopover";
+        data.templates = templates;
+        data.title     = settings.title;
+        data.message   = settings.message;
+        data.settings  = settings;
+      }
+
+      // Hide the <select> list and place our new one in front of it
+      $this.before($ps);
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+
+      // Save the helpPopover data onto the <this> element
+      $this.data('helpPopover', data);
+
+      $(this).click(_toggle);
+
+      $(window).bind('resize.yellow_popover', function() {
+        _refresh($this, data.name, data.id);
+      });
+
+      $(window).bind('close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this, $ps);
+      });
+
+    });
+  };
+
+  // Expose the plugin
+  $.fn.helpPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // Build popover
+  function _build(data) {
+    var $ps = $(_.template(data.templates.main, {name:data.name, id:data.id, title: data.title, message:data.message}));
+
+    $ps.bind('click', function(e) {
+      e.stopPropagation();
+    });
+
+    return $ps;
+  }
+
+  // Close popover
+  function _close($this, $ps) {
+    var data = $this.data('helpPopover');
+    GOD.unsubscribe("close."+data.name+"."+data.id);
+
+    if (is_ie) {
+      $ps.css("opacity", 0);
+      $ps.remove();
+      $this.removeClass("open");
+    } else {
+      $ps.animate({top:$ps.position().top - 10, opacity:0}, 150, function() {
+        $ps.remove();
+        $this.removeClass("open");
+      });
+    }
+  }
+
+  // Refresh popover
+  function _refresh($this, name, id) {
+    var $ps = $("#" + name + "_" + id);
+    if ($this.hasClass("open")) {
+
+      var x = $this.offset().left;
+      var y = $this.offset().top;
+      var w = $ps.width();
+      var h = $ps.height();
+
+      $ps.css("left", x - w/2 + 7);
+      $ps.css("top", y - h);
+    }
+  }
+
+  // Open a popover
+  function _toggle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var $this = $(this);
+    var data = $this.data('helpPopover');
+
+    if ($(this).hasClass("open")) {
+      var $ps = $("#" + data.name + "_" + data.id);
+      _close($this, $ps);
+    } else {
+      data.$ps = _build(data);
+      var $ps = data.$ps;
+
+      // setup the close event & signal the other subscribers
+      var event = "close."+data.name+"."+data.id;
+      GOD.subscribe(event);
+      GOD.broadcast(event);
+
+      $("#content").prepend($ps);
+      _center($this, $ps);
+
+      if (is_ie) {
+        $ps.css("opacity", 1);
+        $this.addClass("open");
+      } else {
+        $ps.animate({top:$ps.position().top + 10, opacity:1}, 150, function() {
+          $this.addClass("open");
+        });
+      }
+    }
+  }
+
+  function _center ($this, $ps) {
+    var x = $this.offset().left;
+    var y = $this.offset().top;
+    var w = $ps.width();
+    var h = $ps.height();
+
+    $ps.css("left", x - w/2 + 7);
+    $ps.css("top", y - h - 10);
+  }
+
+  $(function() {
+
+  });
+
+})(jQuery, window, document);
+
+/*
 * ==============
 * SELECT POPOVER
 * ==============
@@ -23,13 +268,13 @@
   templates = {
     main: [
       '<div class="ps_container" id="ps_container_<%= id %>">',
-      '<a href="#" class="select">Any value</a>',
-      '<div class="ps_options">',
-      '<div class="background">',
-      '<div class="l">',
-      '<div class="scrollpane">',
-      '<ul class="ps_options_inner">',
-      '</ul>',
+        '<a href="#" class="select">Any value</a>',
+        '<div class="ps_options">',
+        '<div class="background">',
+          '<div class="l">',
+        '<div class="scrollpane">',
+        '<ul class="ps_options_inner">',
+        '</ul>',
       '</div>',
       '</div>',
       '</div>',
@@ -56,39 +301,40 @@
     return this.each(function() {
       var
       // The current <select> element
-      $select = $(this),
+      $this = $(this),
 
       // Save all of the <option> elements
-      $options = $select.find('option'),
+      $options = $this.find('option'),
 
       // We store lots of great stuff using jQuery data
-      data = $select.data('selectPopover') || {},
+      data = $this.data('selectPopover') || {},
 
       // This gets applied to the 'ps_container' element
-      id = $select.attr('id') || $select.attr('name'),
+      id = $this.attr('id') || $this.attr('name'),
 
       // This gets updated to be equal to the longest <option> element
-      width = settings.width || $select.outerWidth(),
+      width = settings.width || $this.outerWidth(),
 
       // The completed ps_container element
       $ps = false;
 
       // Dont do anything if we've already setup selectPopover on this element
       if (data.id) {
-        return $select;
+        return $this;
       } else {
         data.settings = settings;
         data.id = id;
+        data.name      = "selectPopover";
         data.w = 0;
-        data.$select = $select;
+        data.$this = $this;
         data.options = $options;
       }
 
       // Build the dropdown HTML
       $ps = _build(templates.main, data);
 
-      // Hide the <select> list and place our new one in front of it
-      $select.before($ps);
+      // Hide the <$this> list and place our new one in front of it
+      $this.before($ps);
 
       // Update the reference to $ps
       $ps = $('#ps_container_' + id).fadeIn(settings.startSpeed);
@@ -98,26 +344,20 @@
 
       $ps.find('.ps_options .scrollpane').jScrollPane({ verticalDragMinHeight: 20});
 
-      // Save the selectPopover data onto the <select> element
-      $select.data('selectPopover', data);
+      // Save the $this data onto the <$this> element
+      $this.data('selectPopover', data);
 
       // Do the same for the dropdown, but add a few helpers
       $ps.data('selectPopover', data);
 
       // hide the source of the data
-      $select.hide();
+      $this.hide();
 
-      $ps.find(".select").click(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+      $ps.find(".select").click(function(e){_toggle(e, $this)});
 
-        $(".ps_container.ps_open").removeClass("ps_open");
-
-        if ($ps.hasClass("ps_open")) {
-          _closeDropdown($ps);
-        } else {
-          _openDropdown($ps);
-        }
+      $(window).bind('close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this);
       });
     });
   };
@@ -155,67 +395,65 @@
   }
 
   // Close a dropdown
-  function _closeDropdown($ps) {
-    $('html').unbind("click");
-    $ps.removeClass('ps_open');
+  function _close($this) {
+    var data = $this.data('selectPopover');
+    GOD.unsubscribe("close."+data.name+"."+data.id);
+
+    data.$ps.removeClass('ps_open');
   }
 
   // Open a dropdown
 
-  function _openDropdown($ps) {
+  function _toggle(e, $this) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    var data = $ps.data('selectPopover');
-    $ps.toggleClass('ps_open');
+    var data = $this.data('selectPopover');
+    var $ps = data.$ps;
 
-    var w = $ps.find("ul.ps_options_inner").width();
+    // setup the close event & signal the other subscribers
+    var event = "close."+data.name+"."+data.id;
+    GOD.subscribe(event);
+    GOD.broadcast(event);
 
-    var h = $ps.find("ul.ps_options_inner").height()
+    if ($ps.hasClass("ps_open")) {
+      $ps.removeClass('ps_open');
+    } else {
+      $ps.addClass('ps_open');
 
-    var widerElement = _.max($ps.find(".ps_options li"), function(f){ return $(f).width() });
-    w = $(widerElement).width();
+      var w = $ps.find("ul.ps_options_inner").width();
+      var h = $ps.find("ul.ps_options_inner").height()
 
-    if (w > data.w) {
-      data.w = w;
+      var widerElement = _.max($ps.find(".ps_options li"), function(f){ return $(f).width() });
+      w = $(widerElement).width();
+
+      if (w > data.w) {
+        data.w = w;
+      }
+
+      $ps.find(".ps_options .background").width(data.w + 15);
+      var api = $ps.find(".ps_options .scrollpane").data('jsp');
+      api.reinitialise();
+
+      // Uncomment the following line to reset the scroll
+      // api.scrollTo(0, 0);
+
+      $ps.find(".jspContainer").width(data.w + 15);
+      $ps.find(".jspPane").width(data.w + 15);
+
+      var $select = $ps.find(".select:visible");
+
+      if ($select.length < 1) {
+        $select = $ps.find(".more");
+      }
+
+      $ps.find('.jspVerticalBar').click(function(event) {
+        event.stopPropagation();
+      });
     }
-
-    $ps.find(".ps_options .background").width(data.w + 15);
-    var api = $ps.find(".ps_options .scrollpane").data('jsp');
-    api.reinitialise();
-
-    // Uncomment the following line to reset the scroll
-    // api.scrollTo(0, 0);
-
-    $ps.find(".jspContainer").width(data.w + 15);
-    $ps.find(".jspPane").width(data.w + 15);
-
-    var $select = $ps.find(".select:visible");
-
-    if ($select.length < 1) {
-      $select = $ps.find(".more");
-    }
-
-    $ps.find('.jspVerticalBar').click(function(event) {
-      event.stopPropagation();
-    });
-
-    $('html').unbind("click");
-    $('html').click(function() {
-      _closeDropdown($ps);
-    });
-
-    var $popover = $ps.find('.ps_options');
-    var el_w = $select.width();
-    var w = $popover.width();
-    var t = $select.position().top;
-    var l = $select.position().left;
-
-    $popover.css("left", l - Math.floor(w/2) + Math.floor(el_w/2) + 4); // 4px == shadow
-    $popover.css("top", t + 20 + "px");
   }
 
   $(function() {
-
-
     // Bind remove action over an element
     $('.ps_selected .remove').live('click', function(e) {
 
@@ -242,7 +480,7 @@
       var $selected_element = $ps.find("ul.ps_options_inner li a[ps-value=" + selected + "]").parent();
 
       $selected_element.removeClass("hidden");
-      _closeDropdown($ps);
+      _close($ps);
     });
 
     // "Add more" action
@@ -255,13 +493,8 @@
       $ps = $option.parents('.ps_container').first(),
       data = $ps.data('selectPopover');
 
-      if ($ps.hasClass("ps_open")) {
-        _closeDropdown($ps);
-      } else {
-        _openDropdown($ps);
-      }
+      _toggle(e, $ps);
     });
-
 
     // Bind click action over an original element
     $('.ps_options a').live('click', function(e) {
@@ -282,7 +515,7 @@
         var countSelected = $ps.find(".ps_selected li").length;
         var countOptions  = $ps.find(".ps_options_inner li").length;
 
-        _closeDropdown($ps);
+        _close($ps);
         if (countSelected + 1 < countOptions) {
           $ps.find("a.more").show();
         } else {
@@ -363,17 +596,11 @@ var datePopover = (function() {
 
 
     });
-
-    // … but clicking anywhere else closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
   }
 
   function hide() {
     if (displayed) {
       $(".day, .month, .year").removeClass("selected");
-      $('html').unbind("click");
 
       if (is_ie) {
         $popover.hide();
@@ -580,187 +807,6 @@ var datePopover = (function() {
   };
 })();
 
-
-
-/*
-* =============
-* HELP POPOVER
-* =============
-*/
-
-(function($, window, document) {
-  // Plugins should not declare more than one namespace in the $.fn object.
-  // So we declare methods in a methods array
-  var methods = {
-    addPopover:function(data, el) {
-      var rendered_template = _.template(data.template, { popoverID:data.popoverID, id:data.id, title: data.title, message: data.message });
-
-      $("#content").prepend(rendered_template);
-
-      var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
-
-      var x = el.offset().left;
-      var y = el.offset().top;
-      var w = $popover.width();
-      var h = $popover.height();
-
-      $popover.css("left", x - w/2 + 7);
-      $popover.css("top", y - h - 10);
-    },
-    refresh:function(data, el) {
-
-      var $popover = $("html").find("#"+data.popoverID + "_" + data.id);
-
-      var x = el.offset().left;
-      var y = el.offset().top;
-      var w = $popover.width();
-      var h = $popover.height();
-
-      $popover.css("left", x - w/2 + 7);
-      $popover.css("top", y - h);
-    },
-    init: function(options) {
-      // build main options before element iteration
-      var opts = $.extend({}, $.fn.helpPopover.defaults, options);
-      // iterate over matched elements
-      return this.each(function() {
-        var $this = $(this);
-        // Build element specific options. Uses the Metadata plugin if available
-        // @see http://docs.jquery.com/Plugins/Metadata/metadata
-        var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
-        // implementations
-        var data = $this.data('helpPopover');
-        var helpPopover = $('<div />', { id: "plugingName" });
-
-        if (!data) { /* Set up the data. */
-
-          $(this).data('helpPopover', {
-            target: $this,
-            popoverID:"help_popover",
-            id: $(this).attr("id"),
-            title:o.title,
-            message:o.message,
-            template:"<div id='<%= popoverID %>_<%=id %>' class='yellow_popover'><div class='t'></div><div class='c'><h3><%= title %></h3><%= message %></div><div class='b'></div></div>",
-            helpPopover: helpPopover
-          });
-        }
-
-        $(window).bind('resize.helpPopover', function(){ methods.refresh(data, $this)});
-
-        var data = $(this).data('helpPopover');
-        methods.addPopover(data, $(this));
-
-        $(this).click(function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-
-          $("html").find(".yellow_popover").not("#"+data.popoverID + "_"+data.id).each(function(index, el) {
-            var $popover = $(el);
-
-            $popover.unbind("click");
-
-            if (is_ie) {
-              $popover.css("opacity", "0");
-            } else {
-              $popover.animate({top:$popover.position().top - 40, opacity:0}, 250);
-            }
-          });
-
-          $("html").find(".open").removeClass("open");
-
-          $(this).addClass("open");
-
-          methods.showPopover(this, data);
-        });
-      });
-    },
-    onClickPopover: function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      if ($(e.target).attr("href")) {
-        window.location.href = $(e.target).attr("href");
-      }
-    },
-    showPopover: function(el, data) {
-
-      var $popover = $("#content").find('#'+data.popoverID+"_"+data.id);
-
-      var x = $(el).offset().left;
-      var y = $(el).offset().top;
-      var w = $popover.width();
-      var h = $popover.height();
-
-      $popover.css("left", x - w/2 + 7);
-
-      if (is_ie) {
-        $popover.css("top", y - h);
-        $popover.show();
-      } else {
-        $popover.css("top", y - h - 10);
-        $popover.animate({top: y-h,opacity:1}, 150);
-      }
-
-      $popover.unbind("click");
-      $popover.click(methods.onClickPopover);
-
-      $("html").click(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var $el = $(e.target).find(".open");
-        //var $popover = $("html").find(".yellow_popover");
-
-        var $popover = $("#"+data.popoverID + "_"+data.id);
-        if ($popover) {
-
-          if (is_ie) {
-            $popover.hide();
-          } else {
-            $popover.animate({top:$popover.position().top - 20,opacity:0}, 150);
-          }
-
-          $popover.unbind("click ");
-          $('html').unbind("click ");
-        }
-
-        $el.removeClass("open");
-        $el.unbind('.helpPopover');
-      });
-    }
-  };
-
-  // replace 'helpPopover' with the name of your plugin
-  $.fn.helpPopover = function(method) {
-
-    // debug(this);
-    // Method calling logic
-    if (methods[method]) {
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || !method) {
-      return methods.init.apply(this, arguments);
-    } else {
-      $.error('Method ' + method + ' does not exist on jQuery.helpPopover');
-    }
-  };
-
-  // plugin defaults
-  $.fn.helpPopover.defaults = {};
-
-  // public functions definition
-  $.fn.helpPopover.functionName = function(foo) {
-    return this;
-  };
-
-  // private function for debugging
-  function debug() {
-    var $this = $(this);
-    if (window.console && window.console.log) {
-      window.console.log('selection count: ' + $this.size());
-    }
-  }
-})(jQuery, window, document);
-
 /*
 * =============
 * SELECT BOX
@@ -773,6 +819,10 @@ var selectBox = (function() {
   var displayed = false;
   var $popover;
   var transitionSpeed = 200;
+
+  $(function() {
+    $(window).bind('close.selectbox', hide);
+  });
 
   function toggle(e, event, opt) {
     event.stopPropagation();
@@ -795,9 +845,10 @@ var selectBox = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
     el.removeClass("selected");
     displayed = false;
+
+    GOD.unsubscribe("close.selectbox");
   }
 
   function show() {
@@ -805,17 +856,18 @@ var selectBox = (function() {
     el.find('ul').jScrollPane({ verticalDragMinHeight: 20});
     displayed = true;
 
+    // setup the close event & signal the other subscribers
+    var event = "close.selectbox";
+    GOD.subscribe(event);
+    GOD.broadcast(event);
+
     // don't do anything if we click inside of the select…
     el.find('.listing, .jspVerticalBar').click(function(event) {
       event.stopPropagation();
     });
 
-    // … but clicking anywhere else closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
-
     el.find("li").unbind("click");
+
     el.find("li").click(function(event) {
       var text = $(this).text();
 
@@ -841,148 +893,6 @@ var selectBox = (function() {
 
 /*
 * =============
-*  FILTER POPOVER
-* =============
-*/
-
-var filterPopover = (function() {
-  var that = this;
-  var el;
-  var displayed = false;
-  var instantiated;
-  var $popover;
-  var count = 0;
-
-  var templates = {
-    add: '<a href="#" class="filter add_more">Add more</a>',
-    remove: '<div class="filter_delete"></div>',
-    list: '<div class="select-filter">\
-      <div class="arrow"></div>\
-        <div class="listing">\
-          <div class="inner">\
-            <ul>\
-              <li><a href="#">Value A</a></li>\
-                <li><a href="#">Value B</a></li>\
-                  <li><a href="#">Value C</a></li>\
-                    <li><a href="#">Value D</a></li>\
-                      <li><a href="#">Value E</a></li>\
-                        <li><a href="#">Value F</a></li>\
-                          <li><a href="#">Value G</a></li>\
-                            </ul>\
-                              </div>\
-                                </div>\
-                                  </div>'};
-
-    function initialize() {
-      $("#content").prepend(templates.list);
-      return true;
-    }
-
-    function toggle(e, event) {
-      event.stopPropagation();
-      event.preventDefault();
-      el = e;
-
-      if (!instantiated){
-        instantiated = initialize();
-      }
-      displayed ? hide(): show();
-    }
-
-    function hide() {
-      $('html').unbind("click");
-      $popover.find("li a").unbind("click");
-      $popover.find("li a").die("click");
-      $popover.slideUp("fast", function() { displayed = false; });
-    }
-
-    function select(selected) {
-      el.html(selected + templates.remove);
-      el.removeClass("add_more");
-      el.addClass("filter_selected");
-
-      el.bind("click", function(event){
-        event.preventDefault();
-        //   $(this).fadeOut("slow", function() { remove();});
-      });
-    }
-
-    function show() {
-      $popover = $(".select-filter");
-
-      // don't do anything if we click inside of the select…
-      $popover.click(function(event) {
-        event.stopPropagation();
-      });
-
-      $popover.find("li a").click(function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        displayed && hide();
-
-        var selected = $(this).html();
-
-        $(this).hide("slow");
-
-        if (count == 0) {
-          el.hide();
-          el.after('<ul class="values"></ul>');
-          var $li =  $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
-          $("ul.values").after(templates.add);
-
-
-        } else {
-          var $li = $("ul.values").append('<li class="filter_remove"><div class="value">'+selected+'<span class="remove"></span></div></li>');
-        }
-
-        $li.find("span.remove").click(function() {
-          alert('remove');
-        });
-
-        count++;
-
-        // el.die("click");
-        // el.unbind("click");
-        // el.removeclass("filter");
-
-        //select(selected);
-
-        // el.after(templates.add);
-
-        //$(".add_more").die("click");
-        //$(".add_more").bindFilterPopover();
-      });
-
-      $popover.find(".arrow").click(function(event) {
-        displayed && hide();
-      });
-
-      // … but clicking anywhere else closes the popover
-      $('html').click(function() {
-        displayed && hide();
-      });
-
-      // get the coordinates and width of the popover
-      var x = el.offset().left;
-      var y = el.offset().top;
-      var w = $popover.width();
-
-      // center the popover
-      $popover.css("left", x + Math.floor(el.width() / 2) - 9 - Math.floor(w/2) + 9);
-      $popover.css("top", y - 2);
-
-      $popover.slideDown("fast", function() { displayed = true; });
-      $popover.find('ul').jScrollPane({ verticalDragMinHeight: 20});
-    }
-
-    return {
-      toggle: toggle
-    };
-});
-
-/*
-* =============
 *  LINK POPOVER
 * =============
 */
@@ -998,6 +908,10 @@ var linkPopover = (function() {
     main:'<div class="white_narrow_popover"><div class="arrow"></div><ul></ul></div>',
     li:'<li><a href="<%=value%>"><span><%=label%></span></a></li>'
   }
+
+  $(function() {
+    $(window).bind('close.linkpopover', hide);
+  });
 
   function toggle(e, event, opt) {
     event.stopPropagation();
@@ -1021,7 +935,7 @@ var linkPopover = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
+    GOD.unsubscribe("close.linkpopover");
 
     if (is_ie) {
       $popover.hide();
@@ -1041,6 +955,12 @@ var linkPopover = (function() {
     // center the popover
     $popover.css("left", x - w/2 + 4);
 
+
+      // setup the close event & signal the other subscribers
+      var event = "close.linkpopover";
+      GOD.subscribe(event);
+      GOD.broadcast(event);
+
     if (is_ie) {
       $popover.css("top", y - 5);
       $popover.show(transitionSpeed, function() {
@@ -1057,13 +977,7 @@ var linkPopover = (function() {
     $popover = $(".white_narrow_popover");
     setupInterface();
 
-    // clicking anywhere closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
-
     showPopover();
-
   }
 
   return {
@@ -1093,6 +1007,10 @@ var sortPopover = (function() {
               </ul>\
                 </div>';
 
+  $(function() {
+    $(window).bind('close.sortPopover', hide);
+  });
+
   function toggle(e, event) {
     event.stopPropagation();
     event.preventDefault();
@@ -1108,7 +1026,8 @@ var sortPopover = (function() {
   }
 
   function hide() {
-    $('html').unbind("click");
+
+    GOD.unsubscribe("close.sortPopover");
 
     if (is_ie) {
       $popover.hide();
@@ -1143,10 +1062,10 @@ var sortPopover = (function() {
     $("#content").prepend(template);
     $popover = $(".white_popover");
 
-    // clicking anywhere closes the popover
-    $('html').click(function() {
-      displayed && hide();
-    });
+    // setup the close event & signal the other subscribers
+    var event = "close.sortPopover";
+    GOD.subscribe(event);
+    GOD.broadcast(event);
 
     $popover.find("a").click(function(event){
       event.preventDefault();
@@ -1331,10 +1250,6 @@ var loginPopover = (function() {
     $popover.click(function(event) {
       event.stopPropagation();
     });
-
-    $('html').click(function() {
-      displayed && hide();
-    });
   }
 
   function show() {
@@ -1353,7 +1268,6 @@ var loginPopover = (function() {
 
   function hide(callback) {
     $popover.find('a.close').unbind("click");
-    $('html').unbind("click");
 
     $popover.fadeOut(transitionSpeed, function() {
       $popover.remove(); displayed = false;
@@ -1463,10 +1377,6 @@ var downloadPopover = (function() {
     $popover.click(function(event) {
       event.stopPropagation();
     });
-
-    $('html').click(function() {
-      displayed && hide();
-    });
   }
 
   function showDownloadHasStarted(url){
@@ -1525,7 +1435,6 @@ var downloadPopover = (function() {
 
   function hide(callback) {
     $popover.find('a.close').unbind("click");
-    $('html').unbind("click");
 
     $popover.fadeOut(transitionSpeed, function() { $popover.remove(); displayed = false; });
 

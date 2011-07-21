@@ -34,7 +34,7 @@
 <body class="stats">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/stats/header" %>
+  <%= render "/stats/header", :selected => "activity", :highlighted => ""  %>
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>

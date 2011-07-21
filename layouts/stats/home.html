@@ -9,7 +9,7 @@
     <%= render 'partials/head' %>
 </head>
 <body class="stats">
-  <%= render "/stats/header" %>
+  <%= render "/stats/header", :selected => "index",  :highlighted => ""  %>
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>

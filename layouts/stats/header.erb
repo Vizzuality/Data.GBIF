@@ -13,13 +13,29 @@
 
 <%= render "/stats/infoband" %>
 
+<%
+index = (selected == "index") ? "selected" : ""
+index += (highlighted == "index") ? " highlighted" : ""
+index_classes = (index.strip == '') ? "" : " class='#{index.strip}'"
+
+history = (selected == "history") ? "selected" : ""
+history += (highlighted == "history") ? " highlighted" : ""
+history_classes = (history.strip == '') ? "" : " class='#{history.strip}'"
+
+activity = (selected == "activity") ? "selected" : ""
+activity += (highlighted == "activity") ? " highlighted" : ""
+activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
+
+
+classes = {:index => index_classes, :history => history_classes, :activity => activity_classes}
+%>
+
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li><a href="index.html"><span>Content</span></a></li>
-    <li><a href="history.html" title="History"><span>History </span></a></li>
-    <li><a href="activity.html"><span>Usage</span></a></li>
-
+    <li<%= classes[:index] %>><a href="index.html"><span>Content</span></a></li>
+    <li<%= classes[:history] %>><a href="history.html" title="History"><span>History </span></a></li>
+    <li<%= classes[:activity] %>><a href="activity.html"><span>Usage</span></a></li>
   </ul>
 </div>
 <!-- /tabs-->

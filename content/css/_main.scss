@@ -1739,14 +1739,16 @@ a {
     border: 0;
     div.row {
       left: -23px;
-      width: 884px;
+      width: 872px;
       position:relative;
       padding: 18px 18px 18px 30px;
       background: $raw_data_odd_color;
       font-size:15px;
       color:$medium_dark;
       border-bottom: 1px solid #e5e5cf;
+
       &.even { background-color: $raw_data_even_color; }
+      &.unique { border-top: 1px solid $border_raw_data_color; border-bottom:0; padding-bottom:0 }
       &.first { border-top: 1px solid $border_raw_data_color; }
       &.last { border:none; padding-bottom: 0; }
 

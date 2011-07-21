@@ -452,11 +452,8 @@ var GOD = (function() {
       var w = $ps.find(".ps_options").width();
       var h = $ps.find(".ps_options").height();
 
-      console.log(x, y, w, h);
-
       $ps.find(".ps_options").css("left", x - w/2 + 40);
       $ps.find(".ps_options").css("top", y + 5);
-
 
       $ps.find('.jspVerticalBar').click(function(event) {
         event.stopPropagation();

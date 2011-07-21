@@ -167,7 +167,7 @@ var GOD = (function() {
     GOD.unsubscribe("_close."+data.name+"."+data.id);
 
     if (is_ie) {
-      $ps.css("opacity", 0);
+      $ps.hide();
       $ps.remove();
       $this.removeClass("open");
     } else {
@@ -217,7 +217,7 @@ var GOD = (function() {
       _center($this, $ps);
 
       if (is_ie) {
-        $ps.css("opacity", 1);
+        $ps.show();
         $this.addClass("open");
       } else {
         $ps.animate({top:$ps.position().top + 10, opacity:1}, 150, function() {

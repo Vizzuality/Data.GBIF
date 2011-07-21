@@ -13,11 +13,31 @@
 
 <%= render "/occurrences/infoband" %>
 
+<%
+detail = (selected == "detail") ? "selected" : ""
+detail += (highlighted == "detail") ? " highlighted" : ""
+detail_classes = (detail.strip == '') ? "" : " class='#{detail.strip}'"
+
+activity = (selected == "activity") ? "selected" : ""
+activity += (highlighted == "activity") ? " highlighted" : ""
+activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
+
+raw = (selected == "raw") ? "selected" : ""
+raw += (highlighted == "raw") ? " highlighted" : ""
+raw_classes = (raw.strip == '') ? "" : " class='#{raw.strip}'"
+
+
+classes = {:detail => detail_classes, :activity => activity_classes, :raw => raw_classes}
+%>
+
+
+
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li class="selected"><a href="/index.html" title="Information"><span>Information</span></a></li>
-    <li><a href="#" title="Activity"><span>Activity <sup>(3)</sup></span></a></li>
+    <li<%= classes[:detail] %>><a href="/occurrences/detail.html" title="Information"><span>Information</span></a></li>
+    <li<%= classes[:activity] %>><a href="#" title="Activity"><span>Activity <sup>(3)</sup></span></a></li>
+    <li<%= classes[:raw] %>><a href="/occurrences/raw.html" title="Details"><span>Details</span></a></li>    
   </ul>
 </div>
 <!-- /tabs-->

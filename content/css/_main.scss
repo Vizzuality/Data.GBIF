@@ -1852,7 +1852,19 @@ a {
 
 #content article .content {
   .ps_container {
-    ul { margin:0; }
+
+    ul.ps_selected {
+        margin:0;
+
+      li { margin: 0 0 5px 0!important;
+
+        a { color:$medium_dark; }
+    .remove {padding:3px; }
+        &:hover .remove {display:inline}
+      }
+    }
+
+    .remove {display:none; }
 
     &.ps_open .ps_options {display:block;}
 
@@ -1905,33 +1917,21 @@ a {
           margin:0; padding:0;
           margin-bottom:5px!important;
 
-            span.label {cursor:pointer;}
+          span.label {cursor:pointer;}
 
-            &.hidden a {cursor:default!important; color:$gray; }
-            &.hidden span {cursor:default!important; }
-          } //li
-        }
+          &.hidden a {cursor:default!important; color:$gray; }
+          &.hidden span {cursor:default!important; }
+        } //li
       }
     }
-
-    ul.ps_selected {
-      li {
-        margin-bottom: 15px;
-
-        a { color:$medium_dark; margin-right:10px; }
-
-        &:hover .remove {display:inline}
-      }
-    }
-    .remove {display:none}
-    .ps_fouc select {
-      position: relative;
-      top: -99999em;
-      visibility: hidden;
-    }
-
-    a.more {display:none}
-
-    span.remove {color:$link_color; cursor:pointer}
-
   }
+
+
+  .ps_fouc select {
+    position: relative;
+    top: -99999em;
+    visibility: hidden;
+  }
+
+  a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
+}

@@ -273,20 +273,18 @@ var GOD = (function() {
         '<div class="arrow"></div>',
         '<div class="background">',
           '<div class="l">',
-        '<div class="scrollpane">',
-        '<ul class="ps_options_inner">',
-        '</ul>',
+            '<div class="scrollpane">',
+              '<ul class="ps_options_inner"></ul>',
+            '</div>',
+          '</div>',
+        '</div>',
       '</div>',
-      '</div>',
-      '</div>',
-      '</div>',
-      '<ul class="ps_selected">',
-      '</ul>',
+      '<ul class="ps_selected"></ul>',
       '<a href="#" class="more">Add more</a>',
       '</div>'
     ].join(''),
 
-    li: '<li><a ps-value="<%=value %>"><span class="label"><%= text %><span></a><span class="remove">x</span></li>'
+    li: '<li><a ps-value="<%=value %>"><span class="label"><%= text %><span></a> <span class="remove"><img src="/img/icons/cross.png" /></span></li>'
   },
 
   // Some nice default values

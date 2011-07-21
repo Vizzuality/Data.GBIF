@@ -296,8 +296,9 @@ a {
 				color:$medium_dark; 
 				
 				&.no_bottom  {margin-bottom: 0;}
-				
-				&.light_note {font-size: 12px; color: $light_gray;}
+				&.semi_bottom  {margin-bottom: 10px;}				
+				&.note {font-size: 13px; color: $dark;}				
+				&.light_note {font-size: 12px; color: $gray;}
 			}
       a:hover { color:$hover_link_color; }
 
@@ -497,7 +498,8 @@ a {
         }//ul
 
 				.col {
-					width: 295px;
+					width: 285px;
+					margin: 0 10px 0 0;
 					display: inline-block;
 					vertical-align: top;
 				}
@@ -664,7 +666,7 @@ a {
 				margin: 0;
 				li {
 					a{display: block; width: 100%;}
-					span.note {color: $dark;font-size: 13px;}
+					span.note {color: $dark; font-size: 13px;}
 				}
 			}
 

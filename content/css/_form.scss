@@ -630,7 +630,7 @@ span.remove {
   width:300px;
 
   h4 {float:left; margin-left:5px; margin-bottom:10px; font-size:11px; color:$medium_dark;text-transform:uppercase;}
-  input{float:right; width:200px; margin-right:10px; outline:none; text-align:right; color:$gray; font-size:11px;text-transform:uppercase; border:none; }
+  input.legend{float:right; width:200px; margin-right:10px; outline:none; text-align:right; color:$gray; font-size:11px;text-transform:uppercase; border:0; }
 
   .slider {
     clear:both;

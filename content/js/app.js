@@ -257,9 +257,8 @@ $(function(){
 });
 
 var level = 0;
-var uls = [];
-var width = 200;
-var transitionSpeed = 250;
+var width = 800;
+var transitionSpeed = 300;
 var zIndex = 0;
 var stop = false;
 
@@ -271,55 +270,37 @@ $("#taxonomy .inner a").click(function(e) {
     $("#taxonomy .bc").append('<li><a href="#" data-level="' + level + '">' + $(this).html() + '</a></li>');
 
     var $ul = $(this).siblings("ul");
-    uls.push($ul);
-    $ul.show();
     $ul.css("z-index", zIndex++);
+    $ul.show();
 
-    $("#taxonomy .inner").scrollTo("+=" + width, transitionSpeed, function() {
+    $("#taxonomy .inner").scrollTo("+=" + width, transitionSpeed, {axis: "x", onAfter: function() {
       stop = false;
-
       level++;
-      $("#level").html("Level: " + level);
-    });
+    }});
   }
 });
 
-$("#taxonomy .bc li a").live("click", function(e) {
+$("#taxonomy .bc a").live("click", function(e) {
     e.preventDefault();
     var gotoLevel = $(this).attr("data-level");
     var $ul = $(this).siblings("ul");
 
-    //console.log("Going to on: ", gotoLevel, "I'm on level: ", level, "I have to move :", level - gotoLevel);
+    console.log(gotoLevel, level - gotoLevel);
 
     if (gotoLevel == 0) {
-      level = 0;
 
       $("#taxonomy .bc").empty();
-
-      $("#taxonomy .inner").scrollTo(0, transitionSpeed, function() {
-        $(".inner ul ul").hide();
-        uls = [];
-      });
+      $("#taxonomy .inner").scrollTo(0, transitionSpeed, {axis: "x", onAfter: function() {
+        $("#taxonomy .inner ul ul").hide();
+      }});
 
     } else {
 
       var steps = level - gotoLevel;
 
-//      var removeUls = uls.slice(1+gotoLevel);
-//      uls = uls.slice(0, gotoLevel);
-//
-//      console.log(uls);
-//      _.each(removeUls, function(e) {
-//        if (e) {
-//          console.log(e);
-//          e.hide();
-//        }
-//      });
-
       $("#taxonomy .bc li").slice(gotoLevel).remove();
-      $("#taxonomy .inner").scrollTo("-=" + steps * width, transitionSpeed);
-      level = gotoLevel;
+      $("#taxonomy .inner").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x"});
     }
-    $("#level").html("Level: " + level);
+    level = gotoLevel;
 });
 

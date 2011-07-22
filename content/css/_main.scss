@@ -1957,9 +1957,9 @@ a {
 
 
 
-article .content .left {
+article .content {
   #taxonomy {
-    width:200px;
+    width:800px;
 
     ul {
       margin:0;
@@ -1969,8 +1969,7 @@ article .content .left {
     }
 
     .inner {
-      height:300px;
-      width:200px;
+      width:800px;
       margin:0;
       clear:both;
       top:0;
@@ -1986,20 +1985,23 @@ article .content .left {
       position:relative;
       height:20px; margin:0; padding:0;
       li { display:inline; margin: 0 5px 0 0; }
-      li a { color:red; text-decoration:underline; }
+      li a { text-decoration:underline; }
     }
 
 
-ul {position:relative; margin:0!important; padding:0; width:200px; background:#f1f1f1;}
+    ul {
+      position:relative; margin:0!important; padding:0; width:800px; background:#f1f1f1;
 
-ul ul {
-    background:#ddd;
-    position:absolute;
-    display:none;
-    left:200px;
-    top:0px;
-}
+      li {display:block;}
 
+      ul {
+        background:#ddd;
+        position:absolute;
+        display:none;
+        left:800px;
+        top:0px;
+      }
+    }
 
 .inner ul li a {display:block; background:#f1f1f1;}
 

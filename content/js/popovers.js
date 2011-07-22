@@ -1179,7 +1179,7 @@ var sortPopover = (function() {
 
     GOD.unsubscribe("_close.sortPopover");
 
-    if (is_ie) {
+    if (oldIE) {
       $popover.hide();
       $popover.remove();
       displayed = false;
@@ -1197,7 +1197,7 @@ var sortPopover = (function() {
     // center the popover
     $popover.css("left", x - w/2 + 4);
 
-    if (is_ie) {
+    if (oldIE) {
       $popover.css("top", y - 5);
       $popover.show(transitionSpeed, function() {
         displayed = true;

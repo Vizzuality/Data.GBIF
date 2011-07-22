@@ -302,8 +302,13 @@ var GOD = (function() {
       var w = $ps.width();
       var h = $ps.height();
 
+      if (oldIE) {
+        $ps.css("top", y - h);
+      } else {
+        $ps.css("top", y - h);
+      }
+
       $ps.css("left", x - w/2 + 7);
-      $ps.css("top", y - h);
     }
   }
 
@@ -330,7 +335,7 @@ var GOD = (function() {
       $("#content").prepend($ps);
       _center($this, $ps);
 
-      if (is_ie) {
+      if (oldIE) {
         $ps.show();
         $this.addClass("open");
       } else {
@@ -348,7 +353,12 @@ var GOD = (function() {
     var h = $ps.height();
 
     $ps.css("left", x - w/2 + 7);
-    $ps.css("top", y - h - 10);
+
+    if (oldIE) {
+      $ps.css("top", y - h - 5);
+    } else {
+      $ps.css("top", y - h - 10);
+    }
   }
 
   $(function() {

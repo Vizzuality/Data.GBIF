@@ -1,5 +1,6 @@
 var is_ie = $.browser.msie;
 var broswer_version = parseInt($.browser.version, 10);
+var oldIE = is_ie && $.browser.version.substr(0, 1) < 9;
 
 String.prototype.toProperCase = function () {
   return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});

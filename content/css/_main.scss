@@ -1956,7 +1956,6 @@ a {
 
 
 
-
 article .content {
   #taxonomy {
     width:800px;
@@ -1976,23 +1975,15 @@ article .content {
       overflow:hidden;
       position:relative;
       background:#333;
-    }
-
-
-    .bc {
-      background:#666;
-      color:#fff;
-      position:relative;
-      height:20px; margin:0; padding:0;
-      li { display:inline; margin: 0 5px 0 0; }
-      li a { text-decoration:underline; }
-    }
-
 
     ul {
       position:relative; margin:0!important; padding:0; width:800px; background:#f1f1f1;
 
-      li {display:block;}
+      li {
+        height:15px;
+        margin-bottom:5px;
+        a {display:block;}
+      }
 
       ul {
         background:#ddd;
@@ -2002,9 +1993,16 @@ article .content {
         top:0px;
       }
     }
+    }
 
-.inner ul li a {display:block; background:#f1f1f1;}
 
-}
-
+    .bc {
+      background:#666;
+      color:#fff;
+      position:relative;
+      height:20px; margin:0; padding:0;
+      li { display:inline; margin: 0 5px 0 0; }
+      li a { color:red; text-decoration:underline; }
+    }
+  }
 }

@@ -276,6 +276,9 @@ $("#taxonomy .inner a").click(function(e) {
     $("#taxonomy .inner").scrollTo("+=" + width, transitionSpeed, {axis: "x", onAfter: function() {
       stop = false;
       level++;
+      var liHeight = $ul.find("> li").length;
+      console.log(liHeight);
+      $("#taxonomy .inner").animate({height:liHeight*20}, transitionSpeed);
     }});
   }
 });
@@ -292,6 +295,10 @@ $("#taxonomy .bc a").live("click", function(e) {
       $("#taxonomy .bc").empty();
       $("#taxonomy .inner").scrollTo(0, transitionSpeed, {axis: "x", onAfter: function() {
         $("#taxonomy .inner ul ul").hide();
+
+        var liHeight = $("#taxonomy .inner ul:visible:first > li").length;
+        $("#taxonomy .inner").animate({height:liHeight*20}, transitionSpeed);
+
       }});
 
     } else {
@@ -299,7 +306,14 @@ $("#taxonomy .bc a").live("click", function(e) {
       var steps = level - gotoLevel;
 
       $("#taxonomy .bc li").slice(gotoLevel).remove();
-      $("#taxonomy .inner").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x"});
+      $("#taxonomy .inner").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x", onAfter:function() {
+
+
+        var liHeight = $("#taxonomy .inner ul:visible:eq("+gotoLevel+") > li").length;
+        console.log(liHeight, $("#taxonomy .inner ul:visible:first > li"));
+        $("#taxonomy .inner").animate({height:liHeight*20}, transitionSpeed);
+
+      }});
     }
     level = gotoLevel;
 });

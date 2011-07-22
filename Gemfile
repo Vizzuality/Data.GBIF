@@ -4,12 +4,15 @@ gem 'rake'
 gem 'rack'
 
 gem "cri", "1.0.1"
-gem 'nanoc3', '3.2.0a3'
-gem 'sass', ' 3.2.0.alpha.7'
+gem 'nanoc3', '3.2.0a4'
+
+
+gem 'fssm', '0.2.7'
 
 gem 'adsf', '1.0.1'
 gem 'nutils', '0.8.2'
-gem 'compass', '0.11.1'
+gem 'compass'
+gem 'sass'
 gem 'html5-boilerplate'
 
 gem 'mime-types'

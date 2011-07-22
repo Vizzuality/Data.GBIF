@@ -1,0 +1,70 @@
+
+  body.mapfull #content {
+
+    padding:0;
+
+    div#map {
+      position:relative;
+      width:100%;
+      height:475px;
+      margin:0;
+      z-index:1;
+    }
+
+    a.zoom_in {
+      position:absolute;
+      top:110px;
+      left:8px;
+      height:28px;
+      width:28px;
+      background:url('/img/icons/zoom.png') no-repeat 0 0;
+      z-index:10;
+      text-indent:-999px;
+      line-height:0;
+      font-size:0;
+      display:none;
+
+      &:hover {
+        background-position:0 -32px;
+      }
+    }
+
+    a.zoom_out {
+      position:absolute;
+      top:143px;
+      left:8px;
+      height:28px;
+      width:28px;
+      background:url('/img/icons/zoom.png') no-repeat -28px 0;
+      z-index:10;
+      text-indent:-999px;
+      line-height:0;
+      font-size:0;
+      display:none;
+
+      &:hover {
+        background-position:-28px -32px;
+      }
+    }
+
+    article.dataset {
+      position:absolute!important;
+      top:183px;
+      left:50%;
+      margin:0 0 0 -356px;
+      z-index:10;
+      display:block;
+
+
+      div.content {
+        padding:50px 0 20px;
+      }
+
+      p.explore {
+        float:left;
+        width:100%;
+        padding:40px 0 0 0;
+        text-align:center;
+      }
+    }
+  }

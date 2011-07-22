@@ -289,15 +289,15 @@ a {
 
 			.subtitle {font-family: $base; font-size: 15px; color: $medium_dark;}
 
-      p  { 
-				margin-bottom:18px; 
-				font-size:15px; 
-				line-height:18px; 
-				color:$medium_dark; 
-				
+      p  {
+				margin-bottom:18px;
+				font-size:15px;
+				line-height:18px;
+				color:$medium_dark;
+
 				&.no_bottom  {margin-bottom: 0;}
-				&.semi_bottom  {margin-bottom: 10px;}				
-				&.note {font-size: 13px; color: $dark;}				
+				&.semi_bottom  {margin-bottom: 10px;}
+				&.note {font-size: 13px; color: $dark;}
 				&.light_note {font-size: 12px; color: $gray;}
 			}
       a:hover { color:$hover_link_color; }
@@ -341,9 +341,11 @@ a {
         .left  {
           border:none;
           padding-top:0;
+          overflow:hidden!Important;
 
           a {text-decoration:none;}
-          h2 { float:left; line-height:20px;}
+          h2 { float:left; margin-bottom:0; padding-bottom: 20px; line-height:20px;} // we use padding instead of margin because of iE7
+
 					hgroup {
             margin: 0 0 23px 0;
       			h2 { float:none; margin-bottom:15px}
@@ -1947,4 +1949,60 @@ a {
   }
 
   a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
+}
+
+
+
+
+
+
+
+article .content .left {
+  #taxonomy {
+    width:200px;
+
+    ul {
+      margin:0;
+      padding:0;
+
+      li {background:none;}
+    }
+
+    .inner {
+      height:300px;
+      width:200px;
+      margin:0;
+      clear:both;
+      top:0;
+      overflow:hidden;
+      position:relative;
+      background:#333;
+    }
+
+
+    .bc {
+      background:#666;
+      color:#fff;
+      position:relative;
+      height:20px; margin:0; padding:0;
+      li { display:inline; margin: 0 5px 0 0; }
+      li a { color:red; text-decoration:underline; }
+    }
+
+
+ul {position:relative; margin:0!important; padding:0; width:200px; background:#f1f1f1;}
+
+ul ul {
+    background:#ddd;
+    position:absolute;
+    display:none;
+    left:200px;
+    top:0px;
+}
+
+
+.inner ul li a {display:block; background:#f1f1f1;}
+
+}
+
 }

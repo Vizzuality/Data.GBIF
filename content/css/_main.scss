@@ -64,6 +64,7 @@ span.more {
   width:6px;
   height:3px;
   background: url('/img/icons/tiny_arrow.png') no-repeat left top;
+  z-index:1000;
 }
 
 a.sort {position:relative; }
@@ -502,9 +503,12 @@ a {
 				.col {
 					width: 285px;
 					margin: 0 10px 0 0;
+          display: -moz-inline-stack; /* FF2*/
 					display: inline-block;
 					vertical-align: top;
-				}
+          zoom: 1; /* IE7 (hasLayout)*/
+          *display: inline; /* IE */
+          }
 
       }//.left
 
@@ -677,10 +681,14 @@ a {
 				padding: 0;
 
 				li {
+          display: -moz-inline-stack; /* FF2*/
+					vertical-align: top;
 					display: inline-block;
 					margin: 0 5px 0 0;
 					padding: 0;
 					background: none;
+          zoom: 1; /* IE7 (hasLayout)*/
+          *display: inline; /* IE */
 
 					img {
 						margin: 0px;
@@ -1957,8 +1965,10 @@ a {
 
 
 article .content {
+
   #taxonomy {
     width:800px;
+    background:red;
 
     ul {
       margin:0;
@@ -1967,14 +1977,12 @@ article .content {
       li {background:none;}
     }
 
-    .inner {
+
+      .sp {
       width:800px;
-      margin:0;
-      clear:both;
-      top:0;
-      overflow:hidden;
       position:relative;
-      background:#333;
+      overflow:hidden;
+      margin:0;
 
     ul {
       position:relative; margin:0!important; padding:0; width:800px; background:#f1f1f1;
@@ -1986,12 +1994,12 @@ article .content {
       }
 
       ul {
-        background:#ddd;
-        position:absolute;
         display:none;
+        position:absolute;
         left:800px;
         top:0px;
       }
+    }
     }
     }
 
@@ -2005,4 +2013,3 @@ article .content {
       li a { color:red; text-decoration:underline; }
     }
   }
-}

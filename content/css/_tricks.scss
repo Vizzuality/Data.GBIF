@@ -109,6 +109,14 @@ input::-webkit-input-placeholder { color:$gray; }
 input:-moz-placeholder { color:$gray; }
 
 
+.ie7 nav ul li a.more {
+  padding-right:15px;
+}
+
+.ie7 nav span.more {
+  right:2px;
+}
+
 // Fixes font rendering in Explorer
 .ie6, .ie7, .ie8 {
   h1,h2,h3,h4,h5,h6, #tabs ul li a, nav ul li a {

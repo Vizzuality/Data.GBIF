@@ -1101,6 +1101,7 @@ var linkPopover = (function() {
     var x = el.find("span").offset().left;
     var y = el.find("span").offset().top;
     var w = $(".white_narrow_popover").width();
+    alert(w);
 
     // center the popover
     $popover.css("left", x - w/2 + 4);

@@ -87,6 +87,7 @@ $(function(){
   $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help2").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help3").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
+  $("a#help4").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
 
   //$("a.help").bindHelpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
 
@@ -262,7 +263,7 @@ var transitionSpeed = 300;
 var zIndex = 0;
 var stop = false;
 
-$("#taxonomy .inner a").click(function(e) {
+$("#taxonomy .sp a").click(function(e) {
   e.preventDefault();
 
   if (!stop) {
@@ -273,12 +274,12 @@ $("#taxonomy .inner a").click(function(e) {
     $ul.css("z-index", zIndex++);
     $ul.show();
 
-    $("#taxonomy .inner").scrollTo("+=" + width, transitionSpeed, {axis: "x", onAfter: function() {
+    $("#taxonomy .sp").scrollTo("+=" + width, transitionSpeed, {axis: "x", onAfter: function() {
       stop = false;
       level++;
       var liHeight = $ul.find("> li").length;
       console.log(liHeight);
-      $("#taxonomy .inner").animate({height:liHeight*20}, transitionSpeed);
+      $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
     }});
   }
 });
@@ -293,11 +294,11 @@ $("#taxonomy .bc a").live("click", function(e) {
     if (gotoLevel == 0) {
 
       $("#taxonomy .bc").empty();
-      $("#taxonomy .inner").scrollTo(0, transitionSpeed, {axis: "x", onAfter: function() {
-        $("#taxonomy .inner ul ul").hide();
+      $("#taxonomy .sp").scrollTo(0, transitionSpeed, {axis: "x", onAfter: function() {
+        $("#taxonomy .sp ul ul").hide();
 
-        var liHeight = $("#taxonomy .inner ul:visible:first > li").length;
-        $("#taxonomy .inner").animate({height:liHeight*20}, transitionSpeed);
+        var liHeight = $("#taxonomy .sp ul:visible:first > li").length;
+        $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
 
       }});
 
@@ -306,12 +307,12 @@ $("#taxonomy .bc a").live("click", function(e) {
       var steps = level - gotoLevel;
 
       $("#taxonomy .bc li").slice(gotoLevel).remove();
-      $("#taxonomy .inner").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x", onAfter:function() {
+      $("#taxonomy .sp").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x", onAfter:function() {
 
 
-        var liHeight = $("#taxonomy .inner ul:visible:eq("+gotoLevel+") > li").length;
-        console.log(liHeight, $("#taxonomy .inner ul:visible:first > li"));
-        $("#taxonomy .inner").animate({height:liHeight*20}, transitionSpeed);
+        var liHeight = $("#taxonomy .sp ul:visible:eq("+gotoLevel+") > li").length;
+        console.log(liHeight, $("#taxonomy .sp ul:visible:first > li"));
+        $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
 
       }});
     }

@@ -216,14 +216,16 @@ span.remove {
       text-align:left;
       display:block;
       background: url('/img/select_right_side.png') repeat-x right -73px;
-      padding:0; margin:0 0 20px 0;
+      margin:0;
+      padding:0 0 20px 0;
       height:150px;
 
       ul {
         height:130px;
         overflow: auto;
         outline:none;
-        padding:5px 0 0 0; margin:0;
+        margin:0;
+        padding:5px 0 0 0;
 
         li { display:block; cursor:pointer; font-size:13px; color:$medium_dark; padding:0; margin:0; line-height:20px; background:none;
           @include color-transition;

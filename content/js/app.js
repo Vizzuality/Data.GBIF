@@ -261,7 +261,6 @@ var transitionSpeed = 300;
 var zIndex = 0;
 var stop = false;
 
-
 $("#taxonomy .sp a").click(function(e) {
   e.preventDefault();
 
@@ -277,7 +276,6 @@ $("#taxonomy .sp a").click(function(e) {
       stop = false;
       level++;
       var liHeight = $ul.find("> li").length;
-      console.log(liHeight);
       $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
     }});
   }
@@ -287,8 +285,6 @@ $("#taxonomy .bc a").live("click", function(e) {
     e.preventDefault();
     var gotoLevel = $(this).attr("data-level");
     var $ul = $(this).siblings("ul");
-
-    console.log(gotoLevel, level - gotoLevel);
 
     if (gotoLevel == 0) {
 
@@ -307,10 +303,7 @@ $("#taxonomy .bc a").live("click", function(e) {
 
       $("#taxonomy .bc li").slice(gotoLevel).remove();
       $("#taxonomy .sp").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x", onAfter:function() {
-
-
         var liHeight = $("#taxonomy .sp ul:visible:eq("+gotoLevel+") > li").length;
-        console.log(liHeight, $("#taxonomy .sp ul:visible:first > li"));
         $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
 
       }});

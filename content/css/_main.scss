@@ -1960,26 +1960,37 @@ a {
   a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
 }
 
+article .content #taxonomy {
 
+  .bc {
+    margin:0 0 10px 0;
+    padding:0!important;
+    position:relative;
+    height:20px;
 
+    li { display:inline; margin: 0 5px 0 0; background:none; }
+    li a { text-decoration:none; }
+  }
 
-
-
-article .content {
-  #taxonomy {
   .sp {
     width:800px;
     overflow:hidden;
 
-    ul {background:green; width:800px;
-      position:relative; width:800px; background:#f1f1f1;
-      margin:0; padding:0;
+    ul {
+      margin:0;
+      padding:0;
+      width:800px;
+      position:relative;
+      width:800px;
+
       li {
         background:none;
-      margin:0; padding:0;
-
+        margin:0!Important;
+        padding:0;
+        height:15px;
       }
-      ul {background:red; position:absolute;top:0;margin-left:800px}
+
+      ul {display:none; margin: 0 0 0 800px!important; position:absolute;top:0;}
     }
   }
 }
@@ -2018,13 +2029,4 @@ article .content {
     }
 
 
-    .bc {
-      background:#666;
-      color:#fff;
-      position:relative;
-      height:20px; margin:0; padding:0;
-      li { display:inline; margin: 0 5px 0 0; }
-      li a { color:red; text-decoration:underline; }
-    }
   */
-  }

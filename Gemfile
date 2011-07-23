@@ -27,5 +27,5 @@ gem 'rb-fsevent', '0.4.0'
 gem 'guard-livereload', '0.1.11'
 
 # you can install growl if you want notification support on OSX
-# gem install growl
+gem install growl
 

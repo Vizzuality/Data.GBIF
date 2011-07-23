@@ -1966,27 +1966,40 @@ a {
 
 
 article .content {
-
   #taxonomy {
+  .sp {
     width:800px;
+    overflow:hidden;
+
+    ul {background:green; width:800px;
+      position:relative; width:800px; background:#f1f1f1;
+      margin:0; padding:0;
+      li {
+        background:none;
+      margin:0; padding:0;
+
+      }
+      ul {background:red; position:absolute;top:0;margin-left:800px}
+    }
+  }
+}
+
+/*  #taxonomy {
     background:red;
 
     ul {
-      margin:0;
-      padding:0;
+      margin:0; padding:0;
 
       li {background:none;}
     }
-
 
       .sp {
       width:800px;
       position:relative;
       overflow:hidden;
-      margin:0;
 
     ul {
-      position:relative; margin:0!important; padding:0; width:800px; background:#f1f1f1;
+      position:relative; width:800px; background:#f1f1f1;
 
       li {
         height:15px;
@@ -1997,7 +2010,7 @@ article .content {
       ul {
         display:none;
         position:absolute;
-        left:800px;
+        margin-left:800px;
         top:0px;
       }
     }
@@ -2013,4 +2026,5 @@ article .content {
       li { display:inline; margin: 0 5px 0 0; }
       li a { color:red; text-decoration:underline; }
     }
+  */
   }

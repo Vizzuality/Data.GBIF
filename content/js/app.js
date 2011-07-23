@@ -261,53 +261,161 @@ var transitionSpeed = 300;
 var zIndex = 0;
 var stop = false;
 
-$("#taxonomy .sp a").click(function(e) {
-  e.preventDefault();
+/*
+* ==================
+* TAXONOMIC EXPLORER
+* ==================
+*/
 
-  if (!stop) {
-    stop = true;
-    $("#taxonomy .bc").append('<li><a href="#" data-level="' + level + '">' + $(this).html() + '</a></li>');
+(function($, window, document) {
 
-    var $ul = $(this).siblings("ul");
-    $ul.css("z-index", zIndex++);
-    $ul.show();
+  var ie6 = false;
+  var debug = false;
 
-    $("#taxonomy .sp").scrollTo("+=" + width, transitionSpeed, {axis: "x", onAfter: function() {
-      stop = false;
-      level++;
-      var liHeight = $ul.find("> li").length;
-      $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
-    }});
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
   }
-});
 
-$("#taxonomy .bc a").live("click", function(e) {
-    e.preventDefault();
-    var gotoLevel = $(this).attr("data-level");
-    var $ul = $(this).siblings("ul");
+  var
+  // Public methods exposed to $.fn.taxonomicExplorer()
+  methods = {},
+  level = 0,
+  zIndex = 0,
+  stop = false,
+
+  // Some nice default values
+  defaults = {
+    width: 800,
+    transitionSpeed:300
+  };
+
+  // Called by using $('foo').taxonomicExplorer();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $this = $(this),
+      $breadcrumb = false,
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data('taxonomicExplorer') || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup taxonomicExplorer on this element
+      if (data.id) {
+        return $this;
+      } else {
+       	data.id = id;
+        data.$this = $this;
+        data.settings = settings;
+      }
+
+      // Update the reference to $ps
+      $ps = $("#"+id);
+      $breadcrumb = $ps.find(".bc");
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+      data.$breadcrumb = $breadcrumb;
+
+      // Save the taxonomicExplorer data onto the <select> element
+      $this.data('taxonomicExplorer', data);
+
+      // Do the same for the dropdown, but add a few helpers
+      $ps.data('taxonomicExplorer', data);
+
+
+      $ps.find(".sp a").click(function(e) {
+        e.preventDefault();
+
+        if (!stop) {
+          stop = true;
+          $breadcrumb.append('<li><a href="#" data-level="' + level + '">' + $(this).html() + '</a></li>');
+
+          var $ul = $(this).siblings("ul");
+          $ul.css("z-index", zIndex++);
+          $ul.show();
+
+          $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+            stop = false;
+            level++;
+            var liHeight = $ul.find("> li").length;
+            $ps.find(".sp").animate({height:liHeight*20}, data.settings.transitionSpeed);
+          }});
+        }
+      });
+
+      $breadcrumb.find("a").live("click", function(e) {
+        e.preventDefault();
+        var gotoLevel = $(this).attr("data-level");
+        var $ul = $(this).siblings("ul");
+
+        _goto($this, gotoLevel);
+        level = gotoLevel;
+      });
+    });
+  };
+
+  // Expose the plugin
+  $.fn.taxonomicExplorer = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // Build popover
+  function _goto($this, gotoLevel) {
+    var data = $this.data('taxonomicExplorer');
+    var $ps = data.$ps;
+    var $breadcrumb = data.$breadcrumb;
 
     if (gotoLevel == 0) {
-
-      $("#taxonomy .bc").empty();
-      $("#taxonomy .sp").scrollTo(0, transitionSpeed, {axis: "x", onAfter: function() {
-        $("#taxonomy .sp ul ul").hide();
-
-        var liHeight = $("#taxonomy .sp ul:visible:first > li").length;
-        $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
-
+      $ps.find(".sp").scrollTo(0, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+        $ps.find(".sp ul ul").hide();
+        $breadcrumb.empty();
+        var liHeight = $ps.find(".sp ul:visible:first > li").length;
+        $ps.find(".sp").animate({height:liHeight*20}, data.settings.transitionSpeed);
       }});
 
     } else {
 
       var steps = level - gotoLevel;
 
-      $("#taxonomy .bc li").slice(gotoLevel).remove();
-      $("#taxonomy .sp").scrollTo("-=" + steps * width, transitionSpeed, {axis: "x", onAfter:function() {
-        var liHeight = $("#taxonomy .sp ul:visible:eq("+gotoLevel+") > li").length;
-        $("#taxonomy .sp").animate({height:liHeight*20}, transitionSpeed);
+      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter:function() {
+        $breadcrumb.find("li").slice(gotoLevel).remove();
+        var liHeight = $ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length;
+        $ps.find(".sp").animate({height:liHeight*20}, data.settings.transitionSpeed);
 
       }});
     }
-    level = gotoLevel;
-});
+  }
+
+  // Close popover
+  function _close() {}
+
+  // Open a popover
+  function _open() {}
+
+  $(function() {});
+
+})(jQuery, window, document);
+
+$("#taxonomy").taxonomicExplorer({transitionSpeed:800});
 

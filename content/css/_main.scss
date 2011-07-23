@@ -1000,6 +1000,8 @@ a {
 				}
 
         .result {
+          clear:both;
+          overflow:hidden;
           margin: 0 0 12px 0;
           border-bottom: 1px solid $light_gray;
 
@@ -1206,7 +1208,6 @@ a {
           width:413px - 45;
           height:37px;
           padding: 0px 20px 0 0;
-          //background: url('/img/input_dataset_bkg.png') no-repeat scroll left top;
         }
 
         input[type="text"] {

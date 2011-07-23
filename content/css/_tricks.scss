@@ -117,6 +117,22 @@ input:-moz-placeholder { color:$gray; }
   right:2px;
 }
 
+.ie7 .white_narrow_popover {
+  width:129px;
+  li {border:none;}
+}
+
+// Fix for the big search field in occurrences
+.ie7 article form span.input_text {
+  height:38px;
+  margin-top:-1px;
+
+  input[type="text"] { line-height:35px; }
+}
+.ie7 header #infoband .content form input {
+  line-height:35px;
+}
+
 // Fixes font rendering in Explorer
 .ie6, .ie7, .ie8 {
   h1,h2,h3,h4,h5,h6, #tabs ul li a, nav ul li a {

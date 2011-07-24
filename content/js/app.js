@@ -327,7 +327,7 @@ var stop = false;
 
       // Update the reference to $ps
       $ps = $("#"+id);
-      $ps.prepend('<div class="breadcrumb"><li><a href="#" data-level="0">All</span></li></div>');
+      $ps.prepend('<div class="breadcrumb" />');
       $breadcrumb = $ps.find(".breadcrumb");
 
       // Save the updated $ps reference into our data object
@@ -338,11 +338,22 @@ var stop = false;
       $this.data(store, data);
       $ps.data(store, data);
 
-      $ps.find("li").each(function() {
-        console.log($(this).attr("data"));
-        var value = parseInt($(this).attr("data")) + 10;
-        $(this).find("span").after("<div class='bar' style='width:"+value+"px' />");
-      });
+
+          alert("a");
+      function bar($ul) {
+
+        $ul.find("> li").each(function() {
+          var value = parseInt($(this).attr("data"));
+          console.log("-", $(this).html(), value);
+          $(this).find("span").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
+        });
+
+        $ul.find("ul").each(function() {
+          bar($(this));
+        });
+      }
+
+      bar($ps.find("ul:first"));
 
       $ps.find(".sp a").click(function(e) {
         e.preventDefault();
@@ -350,11 +361,9 @@ var stop = false;
         if (!stop) {
           stop = true;
 
-          if (level > 0) {
-            var name = level == 0 ? "All" : $(this).find("span").html();
-            var item = '<li><a href="#" data-level="' + level + '">' + name + '</a></li>';
-            $breadcrumb.append(item);
-          }
+          var name = $(this).find("span").html();
+          var item = '<li><a href="#" data-level="' + level + '">' + name + '</a></li>';
+          $breadcrumb.append(item);
 
           var $ul = $(this).siblings("ul");
           $ul.css("z-index", zIndex++);
@@ -402,10 +411,10 @@ var stop = false;
     if (gotoLevel == 0) {
       $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
 
-        $breadcrumb.html('<li><a href="#" data-level="0">All</span></li>');
+        $breadcrumb.empty();
         $ps.find(".sp ul ul").hide();
 
-        _resize($ps,$ps.find(".sp ul:visible:first > li").length);
+        _resize($ps, $ps.find(".sp ul:visible:first > li").length);
       }});
 
     } else {

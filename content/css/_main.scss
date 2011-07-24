@@ -1994,13 +1994,21 @@ article .content #taxonomy {
         clear:both;
         overflow:hidden;
 
-        a {color:$medium_dark;}
+        a {display:block; color:$dark; clear:both; overflow:hidden;}
 
           span {
             display:block;
             width:125px;
             float:left;
           }
+
+          .count {
+            display:none;
+            font-family: $font-regular;
+            font-size:18px;
+            color:$medium_dark;
+          }
+
           .bar {
             float:left;
             margin-top:10px;

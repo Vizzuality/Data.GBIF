@@ -338,7 +338,7 @@ var stop = false;
       $this.data(store, data);
       $ps.data(store, data);
 
-      function setupBars(index, $ul) {
+      function setupBars($ul) {
 
         $ul.find("> li").each(function() {
           var value = parseInt($(this).attr("data"));
@@ -352,10 +352,12 @@ var stop = false;
           });
         });
 
-        $ul.children().each(setupBars);
+        $ul.children().each(function() {
+          setupBars($(this));
+        });
       }
 
-      setupBars(0, $ps.find("ul:first"));
+      setupBars($ps.find("ul:first"));
 
       $ps.find(".sp a").click(function(e) {
         e.preventDefault();
@@ -445,7 +447,7 @@ $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 $("a.sort_a").click(function(e) {
   e.preventDefault();
   $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-    sortAlphabetically(0, $("#taxonomy .sp ul:first"));
+    sortAlphabetically($("#taxonomy .sp ul:first"));
     $("#taxonomy .sp").animate({opacity:1}, 500);
   });
 });
@@ -453,7 +455,7 @@ $("a.sort_a").click(function(e) {
 $("a.sort_b").click(function(e) {
   e.preventDefault();
   $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-    sortByCount(0, $("#taxonomy .sp ul:first"));
+    sortByCount($("#taxonomy .sp ul:first"));
     $("#taxonomy .sp").animate({opacity:1}, 500);
   });
 });

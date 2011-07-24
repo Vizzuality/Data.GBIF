@@ -1962,13 +1962,13 @@ a {
 
 article .content #taxonomy {
 
-  .bc {
+  .breadcrumb {
     margin:0 0 10px 0;
-    padding:0!important;
+    padding:0;
     position:relative;
     height:20px;
 
-    li { display:inline; margin: 0 5px 0 0; background:none; }
+    li { display:inline; margin: 0 5px 0 0; padding:0; background:none; }
     li a { text-decoration:none; }
   }
 
@@ -1985,48 +1985,13 @@ article .content #taxonomy {
 
       li {
         background:none;
-        margin:0!Important;
+        margin:0 0 10px 0;
         padding:0;
         height:15px;
       }
 
-      ul {display:none; margin: 0 0 0 800px!important; position:absolute;top:0;}
+      ul {display:none; margin: 0 0 0 800px!important; position:absolute;top:0;background:#fff;}
     }
   }
 }
 
-/*  #taxonomy {
-    background:red;
-
-    ul {
-      margin:0; padding:0;
-
-      li {background:none;}
-    }
-
-      .sp {
-      width:800px;
-      position:relative;
-      overflow:hidden;
-
-    ul {
-      position:relative; width:800px; background:#f1f1f1;
-
-      li {
-        height:15px;
-        margin-bottom:5px;
-        a {display:block;}
-      }
-
-      ul {
-        display:none;
-        position:absolute;
-        margin-left:800px;
-        top:0px;
-      }
-    }
-    }
-    }
-
-
-  */

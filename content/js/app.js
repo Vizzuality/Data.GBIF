@@ -271,6 +271,7 @@ var stop = false;
 
   var ie6 = false;
   var debug = false;
+  var store = "taxonomicExplorer";
 
   // Help prevent flashes of unstyled content
   if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
@@ -289,7 +290,8 @@ var stop = false;
   // Some nice default values
   defaults = {
     width: 800,
-    transitionSpeed:300
+    transitionSpeed:300,
+    liHeight: 25
   };
 
   // Called by using $('foo').taxonomicExplorer();
@@ -303,7 +305,7 @@ var stop = false;
       $breadcrumb = false,
 
       // We store lots of great stuff using jQuery data
-      data = $this.data('taxonomicExplorer') || {},
+      data = $this.data(store) || {},
 
       // This gets applied to the 'ps_container' element
       id = $this.attr('id') || $this.attr('name'),
@@ -325,17 +327,16 @@ var stop = false;
 
       // Update the reference to $ps
       $ps = $("#"+id);
-      $breadcrumb = $ps.find(".bc");
+      $ps.prepend('<div class="breadcrumb" >');
+      $breadcrumb = $ps.find(".breadcrumb");
 
       // Save the updated $ps reference into our data object
       data.$ps = $ps;
       data.$breadcrumb = $breadcrumb;
 
-      // Save the taxonomicExplorer data onto the <select> element
-      $this.data('taxonomicExplorer', data);
-
-      // Do the same for the dropdown, but add a few helpers
-      $ps.data('taxonomicExplorer', data);
+      // Save the taxonomicExplorer data
+      $this.data(store, data);
+      $ps.data(store, data);
 
 
       $ps.find(".sp a").click(function(e) {
@@ -343,7 +344,9 @@ var stop = false;
 
         if (!stop) {
           stop = true;
-          $breadcrumb.append('<li><a href="#" data-level="' + level + '">' + $(this).html() + '</a></li>');
+          var name = level == 0 ? "All" : $(this).html();
+          var item = '<li><a href="#" data-level="' + level + '">' + name + '</a></li>';
+          $breadcrumb.append(item);
 
           var $ul = $(this).siblings("ul");
           $ul.css("z-index", zIndex++);
@@ -353,7 +356,7 @@ var stop = false;
             stop = false;
             level++;
             var liHeight = $ul.find("> li").length;
-            $ps.find(".sp").animate({height:liHeight*20}, data.settings.transitionSpeed);
+            $ps.find(".sp").animate({height:liHeight*data.settings.liHeight}, data.settings.transitionSpeed);
           }});
         }
       });
@@ -361,7 +364,7 @@ var stop = false;
       $breadcrumb.find("a").live("click", function(e) {
         e.preventDefault();
         var gotoLevel = $(this).attr("data-level");
-        var $ul = $(this).siblings("ul");
+        var $ul = $(this).siblings("ul").hide();
 
         _goto($this, gotoLevel);
         level = gotoLevel;
@@ -381,13 +384,15 @@ var stop = false;
   };
 
   // Build popover
-  function _goto($this, gotoLevel) {
-    var data = $this.data('taxonomicExplorer');
-    var $ps = data.$ps;
+  function _goto($ps, gotoLevel) {
+    var data = $ps.data(store);
     var $breadcrumb = data.$breadcrumb;
 
+    // Calculate the number of pages we have to move
+    var steps = level - gotoLevel;
+
     if (gotoLevel == 0) {
-      $ps.find(".sp").scrollTo(0, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+      $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
 
         $breadcrumb.empty();
         $ps.find(".sp ul ul").hide();
@@ -397,11 +402,8 @@ var stop = false;
 
     } else {
 
-      // Calculate the number of pages we have to move
-      var steps = level - gotoLevel;
-
-      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter:function() {
-        $breadcrumb.find("li").slice(gotoLevel).remove();
+      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
+        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settings.transitionSpeed, function() { $(this).remove(); });
 
         _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length);
       }});
@@ -409,7 +411,8 @@ var stop = false;
   }
 
   function _resize($ps, elementCount) {
-    $ps.find(".sp").animate({height:elementCount*20}, data.settings.transitionSpeed);
+    var data = $ps.data(store);
+    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed);
   }
 
   $(function() {});

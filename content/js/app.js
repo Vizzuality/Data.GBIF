@@ -428,11 +428,16 @@ $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 
 $("a.sort_a").click(function(e) {
   e.preventDefault();
-  sortAlphabetically($("#taxonomy .sp ul:first"));
+  $("#taxonomy").animate({opacity:0}, 500, function() {
+    sortAlphabetically($("#taxonomy .sp ul:first"));
+    $("#taxonomy").animate({opacity:1}, 500);
+  });
 });
 
 $("a.sort_b").click(function(e) {
-  e.preventDefault();
-  sortByCount($("#taxonomy .sp ul:first"));
+  $("#taxonomy").animate({opacity:0}, 500, function() {
+    sortByCount($("#taxonomy .sp ul:first"));
+    $("#taxonomy").animate({opacity:1}, 500);
+  });
 });
 

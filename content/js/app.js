@@ -338,6 +338,11 @@ var stop = false;
       $this.data(store, data);
       $ps.data(store, data);
 
+      $ps.find("li").each(function() {
+        console.log($(this).attr("data"));
+        var value = parseInt($(this).attr("data")) + 10;
+        $(this).find("span").after("<div class='bar' style='width:"+value+"px' />");
+      });
 
       $ps.find(".sp a").click(function(e) {
         e.preventDefault();
@@ -420,4 +425,14 @@ var stop = false;
 })(jQuery, window, document);
 
 $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
+
+$("a.sort_a").click(function(e) {
+  e.preventDefault();
+  sortAlphabetically($("#taxonomy .sp ul:first"));
+});
+
+$("a.sort_b").click(function(e) {
+  e.preventDefault();
+  sortByCount($("#taxonomy .sp ul:first"));
+});
 

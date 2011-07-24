@@ -1988,6 +1988,20 @@ article .content #taxonomy {
         margin:0 0 10px 0;
         padding:0;
         height:15px;
+        clear:both;
+        overflow:hidden;
+
+          span {
+            display:block;
+            width:200px;
+            float:left;
+          }
+          .bar {
+            float:left;
+            margin-top:10px;
+            height:3px;
+            background:green;
+          }
       }
 
       ul {display:none; margin: 0 0 0 800px!important; position:absolute;top:0;background:#fff;}

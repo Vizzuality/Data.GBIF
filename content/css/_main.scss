@@ -2004,6 +2004,8 @@ article .content #taxonomy {
 
           .count {
             display:none;
+            float:left;
+            margin-left:10px;
             font-family: $font-regular;
             font-size:18px;
             color:$medium_dark;
@@ -2021,4 +2023,3 @@ article .content #taxonomy {
     }
   }
 }
-

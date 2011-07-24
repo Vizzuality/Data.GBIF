@@ -35,7 +35,7 @@ function sortByCount($ul) {
     return parseInt($(a).attr("data")) > parseInt($(b).attr("data")) ? 1 : -1;
   });
 
-  $ul.find("ul").each(function() {
+  $ul.children().each(function() {
     sortByCount($(this));
   });
 }
@@ -45,7 +45,7 @@ function sortAlphabetically($ul) {
     return $(a).find("span").text() > $(b).find("span").text()? 1 : -1;
   });
 
-  $ul.find("ul").each(function() {
+  $ul.children().each(function() {
     sortAlphabetically($(this));
   });
 }

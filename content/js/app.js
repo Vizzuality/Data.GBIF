@@ -339,16 +339,22 @@ var stop = false;
       $ps.data(store, data);
 
 
-          alert("a");
       function bar($ul) {
 
         $ul.find("> li").each(function() {
           var value = parseInt($(this).attr("data"));
-          console.log("-", $(this).html(), value);
-          $(this).find("span").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
+
+          $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
+          console.log(value, $(this).find("span:first").html());
+
+          $(this).hover(function() {
+           $(this).find("span:first").siblings(".count").animate({visiblity:"show", opacity:1}, 300);
+          }, function() {
+           $(this).find("span:first").siblings(".count").animate({visiblity:"hide", opacity:0}, 300);
+          });
         });
 
-        $ul.find("ul").each(function() {
+        $ul.children().each(function() {
           bar($(this));
         });
       }

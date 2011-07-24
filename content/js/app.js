@@ -388,34 +388,33 @@ var stop = false;
 
     if (gotoLevel == 0) {
       $ps.find(".sp").scrollTo(0, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-        $ps.find(".sp ul ul").hide();
+
         $breadcrumb.empty();
-        var liHeight = $ps.find(".sp ul:visible:first > li").length;
-        $ps.find(".sp").animate({height:liHeight*20}, data.settings.transitionSpeed);
+        $ps.find(".sp ul ul").hide();
+
+        _resize($ps,$ps.find(".sp ul:visible:first > li").length);
       }});
 
     } else {
 
+      // Calculate the number of pages we have to move
       var steps = level - gotoLevel;
 
       $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter:function() {
         $breadcrumb.find("li").slice(gotoLevel).remove();
-        var liHeight = $ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length;
-        $ps.find(".sp").animate({height:liHeight*20}, data.settings.transitionSpeed);
 
+        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length);
       }});
     }
   }
 
-  // Close popover
-  function _close() {}
-
-  // Open a popover
-  function _open() {}
+  function _resize($ps, elementCount) {
+    $ps.find(".sp").animate({height:elementCount*20}, data.settings.transitionSpeed);
+  }
 
   $(function() {});
 
 })(jQuery, window, document);
 
-$("#taxonomy").taxonomicExplorer({transitionSpeed:800});
+$("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 

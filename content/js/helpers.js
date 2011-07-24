@@ -30,24 +30,20 @@ function generateRandomValues(limit) {
 }
 
 
-function sortByCount($ul) {
+function sortByCount(index, $ul) {
   $ul.find(" > li").sort(function(a, b) {
     return parseInt($(a).attr("data")) > parseInt($(b).attr("data")) ? 1 : -1;
   });
 
-  $ul.children().each(function() {
-    sortByCount($(this));
-  });
+  $ul.children().each(sortByCount);
 }
 
-function sortAlphabetically($ul) {
+function sortAlphabetically(index, $ul) {
   $ul.find(" > li").sort(function(a, b) {
     return $(a).find("span").text() > $(b).find("span").text()? 1 : -1;
   });
 
-  $ul.children().each(function() {
-    sortAlphabetically($(this));
-  });
+  $ul.children().each(sortAlphabetically);
 }
 
 /**

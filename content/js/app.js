@@ -338,14 +338,12 @@ var stop = false;
       $this.data(store, data);
       $ps.data(store, data);
 
-
-      function bar($ul) {
+      function setupBars(index, $ul) {
 
         $ul.find("> li").each(function() {
           var value = parseInt($(this).attr("data"));
 
           $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
-          console.log(value, $(this).find("span:first").html());
 
           $(this).hover(function() {
            $(this).find("span:first").siblings(".count").animate({visiblity:"show", opacity:1}, 300);
@@ -354,12 +352,10 @@ var stop = false;
           });
         });
 
-        $ul.children().each(function() {
-          bar($(this));
-        });
+        $ul.children().each(setupBars);
       }
 
-      bar($ps.find("ul:first"));
+      setupBars(0, $ps.find("ul:first"));
 
       $ps.find(".sp a").click(function(e) {
         e.preventDefault();
@@ -368,8 +364,10 @@ var stop = false;
           stop = true;
 
           var name = $(this).find("span").html();
-          var item = '<li><a href="#" data-level="' + level + '">' + name + '</a></li>';
+          var item = '<li style="display:none; opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
           $breadcrumb.append(item);
+          $breadcrumb.find("li:last").animate({opacity:1, visibility:"show"}, 500);
+
 
           var $ul = $(this).siblings("ul");
           $ul.css("z-index", zIndex++);
@@ -447,7 +445,7 @@ $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 $("a.sort_a").click(function(e) {
   e.preventDefault();
   $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-    sortAlphabetically($("#taxonomy .sp ul:first"));
+    sortAlphabetically(0, $("#taxonomy .sp ul:first"));
     $("#taxonomy .sp").animate({opacity:1}, 500);
   });
 });
@@ -455,7 +453,7 @@ $("a.sort_a").click(function(e) {
 $("a.sort_b").click(function(e) {
   e.preventDefault();
   $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-    sortByCount($("#taxonomy .sp ul:first"));
+    sortByCount(0, $("#taxonomy .sp ul:first"));
     $("#taxonomy .sp").animate({opacity:1}, 500);
   });
 });

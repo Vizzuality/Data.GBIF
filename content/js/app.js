@@ -327,7 +327,7 @@ var stop = false;
 
       // Update the reference to $ps
       $ps = $("#"+id);
-      $ps.prepend('<div class="breadcrumb" >');
+      $ps.prepend('<div class="breadcrumb"><li><a href="#" data-level="0">All</span></li></div>');
       $breadcrumb = $ps.find(".breadcrumb");
 
       // Save the updated $ps reference into our data object
@@ -349,9 +349,12 @@ var stop = false;
 
         if (!stop) {
           stop = true;
-          var name = level == 0 ? "All" : $(this).html();
-          var item = '<li><a href="#" data-level="' + level + '">' + name + '</a></li>';
-          $breadcrumb.append(item);
+
+          if (level > 0) {
+            var name = level == 0 ? "All" : $(this).find("span").html();
+            var item = '<li><a href="#" data-level="' + level + '">' + name + '</a></li>';
+            $breadcrumb.append(item);
+          }
 
           var $ul = $(this).siblings("ul");
           $ul.css("z-index", zIndex++);
@@ -399,7 +402,7 @@ var stop = false;
     if (gotoLevel == 0) {
       $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
 
-        $breadcrumb.empty();
+        $breadcrumb.html('<li><a href="#" data-level="0">All</span></li>');
         $ps.find(".sp ul ul").hide();
 
         _resize($ps,$ps.find(".sp ul:visible:first > li").length);
@@ -428,16 +431,17 @@ $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 
 $("a.sort_a").click(function(e) {
   e.preventDefault();
-  $("#taxonomy").animate({opacity:0}, 500, function() {
+  $("#taxonomy .sp").animate({opacity:0}, 500, function() {
     sortAlphabetically($("#taxonomy .sp ul:first"));
-    $("#taxonomy").animate({opacity:1}, 500);
+    $("#taxonomy .sp").animate({opacity:1}, 500);
   });
 });
 
 $("a.sort_b").click(function(e) {
-  $("#taxonomy").animate({opacity:0}, 500, function() {
+  e.preventDefault();
+  $("#taxonomy .sp").animate({opacity:0}, 500, function() {
     sortByCount($("#taxonomy .sp ul:first"));
-    $("#taxonomy").animate({opacity:1}, 500);
+    $("#taxonomy .sp").animate({opacity:1}, 500);
   });
 });
 

@@ -97,6 +97,7 @@ $(function(){
     options: {
       "Sort alphabetically": function(e) {
         e.preventDefault();
+        alert('a');
         $("#taxonomy .sp").animate({opacity:0}, 500, function() {
           sortAlphabetically($("#taxonomy .sp ul:first"));
           $("#taxonomy .sp").animate({opacity:1}, 500);
@@ -104,6 +105,7 @@ $(function(){
       },
       "Sort by count": function(e) {
         e.preventDefault();
+        alert('b');
         $("#taxonomy .sp").animate({opacity:0}, 500, function() {
           sortByCount($("#taxonomy .sp ul:first"));
           $("#taxonomy .sp").animate({opacity:1}, 500);

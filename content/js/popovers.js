@@ -1946,10 +1946,9 @@ $.fn.bindSlideshow = function(opt) {
           stop = true;
 
           var name = $(this).find("span").html();
-          var item = '<li style="display:none; opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
+          var item = '<li style="opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
           $breadcrumb.append(item);
           $breadcrumb.find("li:last").animate({opacity:1}, 500);
-
 
           var $ul = $(this).siblings("ul");
           $ul.css("z-index", zIndex++);

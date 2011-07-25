@@ -1257,7 +1257,6 @@ var linkPopover = (function() {
 
     var $ps = $(_.template(data.templates.main, {id:data.id, name:data.name}));
 
-    _buildItems($ps, data);
 
     $ps.find("a").click(function(event){
       event.preventDefault();
@@ -1355,6 +1354,7 @@ var linkPopover = (function() {
       GOD.broadcast(event);
 
       $("#content").prepend($ps);
+      _buildItems($ps, data);
       _center($this, $ps);
 
       if (oldIE) {

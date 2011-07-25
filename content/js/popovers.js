@@ -1207,7 +1207,7 @@ var linkPopover = (function() {
       }
 
       // Update the reference to $ps
-      $ps = $('#selectpopover_' + id);
+      $ps = $("#" + data.name + "_" + data.id);
 
       // Save the updated $ps reference into our data object
       data.$ps = $ps;
@@ -1224,8 +1224,7 @@ var linkPopover = (function() {
       });
 
       $(window).bind('_close.'+data.name+'.'+data.id, function() {
-        var $ps = $("#" + data.name + "_" + data.id);
-        _close($this, $ps);
+        _hide($this, data.name, data.id);
       });
 
     });
@@ -1245,9 +1244,11 @@ var linkPopover = (function() {
     _.each(data.settings.options, function(callback, name) {
       var $item = _.template(data.templates.item, {name:name});
       $ps.find("ul").append($item);
-      $ps.find("ul li:last").click(function(e) {
+      $ps.find("ul li:last a").click(function(e) {
         callback(e);
-      _close(data.$this, $ps);
+      _close(data.$this, data.name, data.id);
+      var selectedOptionText = $(this).text();
+      data.$this.html(selectedOptionText + "<span class='more'></span>");
       });
     });
 
@@ -1256,19 +1257,9 @@ var linkPopover = (function() {
   }
 
   // Build popover
-  function _build(data) {
+  function _build(data, selectedOption) {
 
     var $ps = $(_.template(data.templates.main, {id:data.id, name:data.name}));
-
-
-    $ps.find("a").click(function(event){
-      event.preventDefault();
-      _selectOption($ps, $(this).text());
-      data.$this.html(selectedOptionText + "<span class='more'></span>");
-      _close(data.$this, $ps);
-    });
-
-  //select_option(selectedOptionText);
 
     $ps.bind('click', function(e) {
       e.stopPropagation();
@@ -1277,11 +1268,9 @@ var linkPopover = (function() {
     return $ps;
   }
 
- function _selectOption($ps, optionText) {
-    selectedOptionText = optionText;
-    $ps.find("a").removeClass("selected");
-    var selected_option = $ps.find('a *:contains('+selectedOptionText+')');
-    selected_option.parent().addClass("selected");
+  function _selectOption($ps, optionText) {
+    $ps.find("li.selected").removeClass("selected");
+    $ps.find("span:contains('"+optionText+"')").parent().addClass("selected");
   }
 
   // Refresh popover
@@ -1318,12 +1307,15 @@ var linkPopover = (function() {
     }
   }
 
+  function _hide($this, name, id) {
+    _close($this, name, id);
+  }
   // Close popover
-  function _close($this, $ps) {
-    var data = $this.data(store);
-    GOD.unsubscribe("_close."+data.name+"."+data.id);
+  function _close($this, name, id) {
+    var $ps = $("#" + name + "_" + id);
+    GOD.unsubscribe("_close."+name+"."+id);
 
-    if (is_ie) {
+    if (oldIE) {
       $ps.hide();
       $ps.remove();
       $this.removeClass("open");
@@ -1344,8 +1336,7 @@ var linkPopover = (function() {
     var data = $this.data(store);
 
     if ($(this).hasClass("open")) {
-      var $ps = $("#" + data.name + "_" + data.id);
-      _close($this, $ps);
+      _close($this, data.name, data.id);
     } else {
 
       data.$ps = _build(data);
@@ -1359,6 +1350,7 @@ var linkPopover = (function() {
       $("#content").prepend($ps);
       _buildItems($ps, data);
       _center($this, $ps);
+      _selectOption($ps, $(this).text());
 
       if (oldIE) {
         $ps.show();

@@ -1926,9 +1926,9 @@ $.fn.bindSlideshow = function(opt) {
           $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
 
           $(this).hover(function() {
-            $(this).find("span:first").siblings(".count").animate({visiblity:"show", opacity:1}, 300);
+            $(this).find("span:first").siblings(".count").animate({opacity:1}, 300);
           }, function() {
-            $(this).find("span:first").siblings(".count").animate({visiblity:"hide", opacity:0}, 300);
+            $(this).find("span:first").siblings(".count").animate({opacity:0}, 300);
           });
         });
 
@@ -1948,7 +1948,7 @@ $.fn.bindSlideshow = function(opt) {
           var name = $(this).find("span").html();
           var item = '<li style="display:none; opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
           $breadcrumb.append(item);
-          $breadcrumb.find("li:last").animate({opacity:1, visibility:"show"}, 500);
+          $breadcrumb.find("li:last").animate({opacity:1}, 500);
 
 
           var $ul = $(this).siblings("ul");

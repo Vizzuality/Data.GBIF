@@ -129,7 +129,7 @@ input:-moz-placeholder { color:$gray; }
 
   input[type="text"] { line-height:35px; }
 }
-.ie7 header #infoband .content form input {
+.ie7 header #infoband .content form input, .ie8 header #infoband .content form input {
   line-height:35px;
 }
 

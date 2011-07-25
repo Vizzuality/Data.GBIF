@@ -32,55 +32,6 @@ $(function(){
 
   //$("select").uniform();
 
-  var infoWindow = (function() {
-    var displayed = false;
-    var $login;
-    var el;
-
-    function toggle(e, event) {
-      event.stopPropagation();
-      event.preventDefault();
-      el = $("#"+e);
-      displayed ? hide(): show();
-    }
-
-    function show() {
-      el.find(".close").click(function(event) {
-        event.preventDefault();
-        displayed && hide();
-      });
-
-      el.click(function(event) {
-        event.stopPropagation();
-      });
-
-      $('html').click(function() {
-        displayed && hide();
-      });
-
-      el.css("top", ( $(window).height() - el.height()) / 2+$(window).scrollTop() + "px");
-      el.fadeIn("slow", function() { hidden = false; });
-      el.draggable();
-      $("body").append("<div id='lock_screen'></div>");
-      $("#lock_screen").height($(document).height());
-      $("#lock_screen").fadeIn("slow");
-      displayed = true;
-    }
-
-    function hide(id) {
-      el.find('a.close').unbind("click");
-      $('html').unbind("click");
-      el.draggable(false);
-      el.fadeOut("slow");
-      $("#lock_screen").fadeOut("slow", function() { displayed = false; $("#lock_screen").remove(); });
-    }
-
-    return {
-      toggle: toggle,
-      hide: hide
-    };
-  })();
-
   $("time.selectable").bindDatePopover();
   $("#select-popover, #select-popover2").selectPopover();
 

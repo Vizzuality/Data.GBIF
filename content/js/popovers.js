@@ -1381,8 +1381,8 @@ var loginPopover = (function() {
   var errorEmail, errorPassword;
   var transitionSpeed = 200;
 
-  var templates = {login: "<article id='login' class='infowindow'>\
-    <header></header>\
+  var templates = {login: "<div id='login' class='infowindow'>\
+    <div class='lheader'></div>\
       <span class='close'></span>\
         <div class='content'>\
           <h2>SIGN IN TO GBIF</h2>\
@@ -1408,10 +1408,10 @@ var loginPopover = (function() {
                                                   </form>\
                                                     <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
                                                       </div>\
-                                                        <footer></footer>\
-                                                          </article>",
-  password: "<article id='recover_password' class='infowindow'>\
-    <header></header>\
+                                                        <div class='lfooter'></div>\
+                                                          </div>",
+  password: "<div id='recover_password' class='infowindow'>\
+    <div class='lheader'></div>\
       <span class='close'></span>\
         <div class='content'>\
           <h2>RECOVER YOUR PASSWORD</h2>\
@@ -1430,8 +1430,8 @@ var loginPopover = (function() {
                                     </form>\
                                       <div class='footer'>Do yo need to Sign up? <a href='/user/register/step0.html' title='Create your account'>Create your account</a></div>\
                                         </div>\
-                                          <footer></footer>\
-                                            </article>"};
+                                          <div class='lfooter'></div>\
+                                            </div>"};
 
 
 
@@ -1535,16 +1535,18 @@ var loginPopover = (function() {
   }
 
   function show() {
+
     var rendered_template = _.template(templates.login);
     $("#content").prepend(rendered_template);
     $popover = $("#login");
 
-    setupBindings();
-    $popover.css("top", getTopPosition() + "px");
-    $popover.fadeIn("slow", function() { hidden = false; });
     $("body").append("<div id='lock_screen'></div>");
     $("#lock_screen").height($(document).height());
     $("#lock_screen").fadeIn("slow");
+
+    setupBindings();
+    $popover.css("top", getTopPosition() + "px");
+    $popover.fadeIn("slow", function() { hidden = false; });
     displayed = true;
   }
 

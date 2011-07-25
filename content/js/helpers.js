@@ -31,7 +31,7 @@ function generateRandomValues(limit) {
 
 
 function sortByCount($ul) {
-  $ul.find(" > li").sort(function(a, b) {
+  $ul.find(" > li").sortList(function(a, b) {
     return parseInt($(a).attr("data")) > parseInt($(b).attr("data")) ? 1 : -1;
   });
 
@@ -41,7 +41,7 @@ function sortByCount($ul) {
 }
 
 function sortAlphabetically($ul) {
-  $ul.find(" > li").sort(function(a, b) {
+  $ul.find(" > li").sortList(function(a, b) {
     return $(a).find("span").text() > $(b).find("span").text()? 1 : -1;
   });
 
@@ -74,7 +74,7 @@ function sortAlphabetically($ul) {
  *   The <td>'s parent (<tr>) will be sorted instead
  *   of the <td> itself.
  */
-jQuery.fn.sort = (function(){
+jQuery.fn.sortList = (function(){
 
     var sort = [].sort;
 

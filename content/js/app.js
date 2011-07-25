@@ -255,12 +255,6 @@ $(function(){
   };
 });
 
-var level = 0;
-var width = 800;
-var transitionSpeed = 300;
-var zIndex = 0;
-var stop = false;
-
 /*
 * ==================
 * TAXONOMIC EXPLORER
@@ -289,7 +283,7 @@ var stop = false;
 
   // Some nice default values
   defaults = {
-    width: 800,
+    width: 597,
     transitionSpeed:300,
     liHeight: 25
   };

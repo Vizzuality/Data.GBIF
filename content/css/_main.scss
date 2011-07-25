@@ -1960,41 +1960,64 @@ a {
   a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
 }
 
-article .content #taxonomy {
+#content article.taxonomies {
+  .header {
+    .left {
+      h2 {float:left;}
+      ul {
+        float:right;
+        margin:7px 10px 0 0;
+        padding:0;
 
-  .breadcrumb {
-    margin:0 0 10px 0;
-    padding:0;
-    position:relative;
-    clear:both;
-    overflow:hidden;
-    list-style:none;
-    height:20px;
+        li {
+          display:inline;
+          background:none;
+          margin-left:15px;
+          a {position:relative; size:15px;}
+        }
+      }
+    }
 
-    li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
-    li a { text-decoration:none; }
+    border-bottom: 1px solid $border_color;
   }
 
-  .sp {
-    width:800px;
-    overflow:hidden;
+  .content {
+    .left {
+      border:none;
 
-    ul {
-      margin:0;
+    .breadcrumb {
+      margin:0 0 10px 0;
       padding:0;
-      width:800px;
       position:relative;
-      width:800px;
+      clear:both;
+      overflow:hidden;
+      list-style:none;
+      height:20px;
 
-      li {
-        background:none;
-        margin:0 0 5px 0;
+      li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
+      li a { text-decoration:none; }
+    }
+
+    .sp {
+      width:597px;
+      overflow:hidden;
+
+      ul {
+        margin:0;
+        margin-top:0;
         padding:0;
-        height:20px;
-        clear:both;
-        overflow:hidden;
+        width:597px;
+        position:relative;
 
-        a {display:block; color:$dark; clear:both; overflow:hidden;}
+        li {
+          background:none;
+          margin:0 0 5px 0;
+          padding:0;
+          height:20px;
+          clear:both;
+          overflow:hidden;
+
+          a {display:block; color:$dark; clear:both; overflow:hidden;}
 
           span {
             display:block;
@@ -2017,9 +2040,11 @@ article .content #taxonomy {
             height:3px;
             background:#3EC05C;
           }
-      }
+        }
 
-      ul {display:none; margin: 0 0 0 800px!important; position:absolute;top:0;background:#fff;}
+        ul {display:none; margin: 0 0 0 597px!important; position:absolute;top:0;background:#fff;}
+      }
     }
+  }
   }
 }

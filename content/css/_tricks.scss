@@ -123,7 +123,7 @@ input:-moz-placeholder { color:$gray; }
 }
 
 // Fix for the big search field in occurrences
-.ie7 article form span.input_text {
+.ie8 article form span.input_text, .ie7 article form span.input_text {
   height:38px;
   margin-top:-1px;
 

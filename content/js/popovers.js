@@ -1926,9 +1926,9 @@ $.fn.bindSlideshow = function(opt) {
           $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
 
           $(this).hover(function() {
-            $(this).find("span:first").siblings(".count").fadeOut(300);
-          }, function() {
             $(this).find("span:first").siblings(".count").fadeIn(300);
+          }, function() {
+            $(this).find("span:first").siblings(".count").fadeOut(300);
           });
         });
 

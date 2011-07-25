@@ -1134,104 +1134,242 @@ var linkPopover = (function() {
   };
 })();
 
+
 /*
-* =============
+* ============
 * SORT POPOVER
-* =============
+* ============
 */
 
-var sortPopover = (function() {
-  var el;
-  var selectedOptionText = "Sort by relevance";
-  var displayed = false;
-  var $popover;
-  var transitionSpeed = 200;
+(function($, window, document) {
 
-  var template = '<div class="white_popover">\
-    <div class="arrow"></div>\
-      <ul>\
-        <li class="first"><a href="#" class="relevance"><span>Sort by relevance</span></a></li>\
-          <li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>\
-            <li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>\
-              </ul>\
-                </div>';
+  var ie6 = false;
 
-  $(function() {
-    $(window).bind('_close.sortPopover', hide);
-  });
-
-  function toggle(e, event) {
-    event.stopPropagation();
-    event.preventDefault();
-    el = e;
-    displayed ? hide(): show();
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
   }
 
-  function select_option(option_text) {
-    selectedOptionText = option_text;
-    $popover.find("a").removeClass("selected");
-    var selected_option = $('a *:contains('+selectedOptionText+')');
+  var
+  // Public methods exposed to $.fn.sortPopover()
+  methods = {},
+  store = "sortpopover",
+
+  // HTML template for the dropdowns
+  templates = {
+    main: [
+      '<div id="<%= name %>_<%= id %>" class="white_popover">',
+      '<div class="arrow"></div>',
+      '<ul></ul>',
+      '</div>'].join(''),
+    item: '<li><a href="#"><span><%= name %></span></a></li>'
+  },
+
+  // Some nice default values
+  defaults = {
+    options:['<li class="first"><a href="#" class="relevance"><span>Sort by relevance</span></a></li>',
+      '<li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>',
+      '<li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>'].join('')
+  };
+
+  // Called by using $('foo').sortPopover();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $this = $(this),
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data(store) || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup sortPopover on this element
+      if (data.id) {
+        return $this;
+      } else {
+        data.id = id;
+        data.$this = $this;
+        data.name = store;
+        data.settings = settings;
+        data.templates = templates;
+      }
+
+      // Update the reference to $ps
+      $ps = $('#selectpopover_' + id);
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+
+      // Save the sortPopover data onto the <select> element
+      $this.data(store, data);
+
+      // Do the same for the dropdown, but add a few helpers
+      $ps.data(store, data);
+      $this.click(_toggle);
+
+      $(window).bind('resize.' + data.name + "_" + data.id, function() {
+        _refresh($this, data.name, data.id);
+      });
+
+      $(window).bind('_close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this, $ps);
+      });
+
+    });
+  };
+
+  // Expose the plugin
+  $.fn.sortPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+  function _buildItems($ps, data) {
+    _.each(data.settings.options, function(callback, name) {
+      var $item = _.template(data.templates.item, {name:name});
+      $ps.find("ul").append($item);
+      $ps.find("ul li:last").click(callback);
+    });
+
+    $ps.find("ul li:first").addClass("first");
+    $ps.find("ul li:last").addClass("last");
+  }
+
+  // Build popover
+  function _build(data) {
+
+    var $ps = $(_.template(data.templates.main, {id:data.id, name:data.name}));
+
+    _buildItems($ps, data);
+
+    $ps.find("a").click(function(event){
+      event.preventDefault();
+      _selectOption($ps, $(this).text());
+      data.$this.html(selectedOptionText + "<span class='more'></span>");
+      _close(data.$this, $ps);
+    });
+
+  //select_option(selectedOptionText);
+
+    $ps.bind('click', function(e) {
+      e.stopPropagation();
+    });
+
+    return $ps;
+  }
+
+ function _selectOption($ps, optionText) {
+    selectedOptionText = optionText;
+    $ps.find("a").removeClass("selected");
+    var selected_option = $ps.find('a *:contains('+selectedOptionText+')');
     selected_option.parent().addClass("selected");
   }
 
-  function hide() {
+  // Refresh popover
+  function _refresh($this, name, id) {
+    var $ps = $("#" + name + "_" + id);
+    if ($this.hasClass("open")) {
 
-    GOD.unsubscribe("_close.sortPopover");
+      var x = $this.find("span").offset().left;
+      var y = $this.find("span").offset().top;
+      var w = $ps.width();
 
-    if (oldIE) {
-      $popover.hide();
-      $popover.remove();
-      displayed = false;
-    } else {
-      $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
+      if (oldIE) {
+        $ps.css("top", y);
+      } else {
+        $ps.css("top", y);
+      }
+
+      $ps.css("left", x - w/2 + 4);
     }
   }
 
-  function showPopover() {
-    // get the coordinates and width of the popover
-    var x = el.find("span").offset().left;
-    var y = el.find("span").offset().top;
-    var w = $(".white_popover").width();
+  // Center popover
+  function _center ($this, $ps) {
+    var x = $this.find("span").offset().left;
+    var y = $this.find("span").offset().top;
+    var w = $ps.width();
 
-    // center the popover
-    $popover.css("left", x - w/2 + 4);
+    $ps.css("left", x - w/2 + 4);
 
     if (oldIE) {
-      $popover.css("top", y - 5);
-      $popover.show(transitionSpeed, function() {
-        displayed = true;
+      $ps.css("top", y - 5);
+    } else {
+      $ps.css("top", y - 15);
+    }
+  }
+
+  // Close popover
+  function _close($this, $ps) {
+    var data = $this.data(store);
+    GOD.unsubscribe("_close."+data.name+"."+data.id);
+
+    if (is_ie) {
+      $ps.hide();
+      $ps.remove();
+      $this.removeClass("open");
+    } else {
+      $ps.animate({top:$ps.position().top - 20, opacity:0}, 150, function() {
+        $ps.remove();
+        $this.removeClass("open");
       });
-    } else {
-      $popover.css("top", y + 15);
-      $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
     }
   }
 
-  function show() {
-    $("#content").prepend(template);
-    $popover = $(".white_popover");
+  // Open a popover
+  function _toggle(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // setup the close event & signal the other subscribers
-    var event = "_close.sortPopover";
-    GOD.subscribe(event);
-    GOD.broadcast(event);
+    var $this = $(this);
+    var data = $this.data(store);
 
-    $popover.find("a").click(function(event){
-      event.preventDefault();
-      select_option($(this).text());
-      el.html(selectedOptionText + "<span class='more'></span>");
-      hide();
-    });
+    if ($(this).hasClass("open")) {
+      var $ps = $("#" + data.name + "_" + data.id);
+      _close($this, $ps);
+    } else {
 
-    select_option(selectedOptionText);
+      data.$ps = _build(data);
+      var $ps = data.$ps;
 
-    showPopover();
+      // setup the close event & signal the other subscribers
+      var event = "_close."+data.name+"."+data.id;
+      GOD.subscribe(event);
+      GOD.broadcast(event);
+
+      $("#content").prepend($ps);
+      _center($this, $ps);
+
+      if (oldIE) {
+        $ps.show();
+        $this.addClass("open");
+      } else {
+        $ps.animate({top:$ps.position().top + 15, opacity:1}, 150, function() {
+          $this.addClass("open");
+        });
+      }
+    }
   }
 
-  return {
-    toggle: toggle
-  };
-})();
+})(jQuery, window, document);
+
 
 /*
 * =============
@@ -1635,12 +1773,6 @@ $.fn.bindLoginPopover = function(opt) {
   });
 };
 
-$.fn.bindSortPopover = function() {
-  $(this).click(function(event) {
-    sortPopover.toggle($(this), event);
-  });
-};
-
 $.fn.bindLinkPopover = function(opt) {
   $(this).click(function(event) {
     linkPopover.toggle($(this), event, opt);
@@ -1707,3 +1839,185 @@ $.fn.bindSlideshow = function(opt) {
     }
   });
 };
+
+
+/*
+* ==================
+* TAXONOMIC EXPLORER
+* ==================
+*/
+
+(function($, window, document) {
+
+  var ie6 = false;
+  var debug = false;
+  var store = "taxonomicExplorer";
+
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
+  }
+
+  var
+  // Public methods exposed to $.fn.taxonomicExplorer()
+  methods = {},
+  level = 0,
+  zIndex = 0,
+  stop = false,
+
+  // Some nice default values
+  defaults = {
+    width: 597,
+    transitionSpeed:300,
+    liHeight: 25
+  };
+
+  // Called by using $('foo').taxonomicExplorer();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $this = $(this),
+      $breadcrumb = false,
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data(store) || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup taxonomicExplorer on this element
+      if (data.id) {
+        return $this;
+      } else {
+        data.id = id;
+        data.$this = $this;
+        data.settings = settings;
+      }
+
+      // Update the reference to $ps
+      $ps = $("#"+id);
+      $ps.prepend('<div class="breadcrumb" />');
+      $breadcrumb = $ps.find(".breadcrumb");
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+      data.$breadcrumb = $breadcrumb;
+
+      // Save the taxonomicExplorer data
+      $this.data(store, data);
+      $ps.data(store, data);
+
+      function setupBars($ul) {
+
+        $ul.find("> li").each(function() {
+          var value = parseInt($(this).attr("data"));
+
+          $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
+
+          $(this).hover(function() {
+            $(this).find("span:first").siblings(".count").animate({visiblity:"show", opacity:1}, 300);
+          }, function() {
+            $(this).find("span:first").siblings(".count").animate({visiblity:"hide", opacity:0}, 300);
+          });
+        });
+
+        $ul.children().each(function() {
+          setupBars($(this));
+        });
+      }
+
+      setupBars($ps.find("ul:first"));
+
+      $ps.find(".sp a").click(function(e) {
+        e.preventDefault();
+
+        if (!stop) {
+          stop = true;
+
+          var name = $(this).find("span").html();
+          var item = '<li style="display:none; opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
+          $breadcrumb.append(item);
+          $breadcrumb.find("li:last").animate({opacity:1, visibility:"show"}, 500);
+
+
+          var $ul = $(this).siblings("ul");
+          $ul.css("z-index", zIndex++);
+          $ul.show();
+
+          $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+            stop = false;
+            level++;
+            var liHeight = $ul.find("> li").length;
+            $ps.find(".sp").animate({height:liHeight*data.settings.liHeight}, data.settings.transitionSpeed);
+          }});
+        }
+      });
+
+      $breadcrumb.find("a").live("click", function(e) {
+        e.preventDefault();
+        var gotoLevel = $(this).attr("data-level");
+        var $ul = $(this).siblings("ul").hide();
+
+        _goto($this, gotoLevel);
+        level = gotoLevel;
+      });
+    });
+  };
+
+  // Expose the plugin
+  $.fn.taxonomicExplorer = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // Build popover
+  function _goto($ps, gotoLevel) {
+    var data = $ps.data(store);
+    var $breadcrumb = data.$breadcrumb;
+
+    // Calculate the number of pages we have to move
+    var steps = level - gotoLevel;
+
+    if (gotoLevel == 0) {
+      $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+
+        $breadcrumb.empty();
+        $ps.find(".sp ul ul").hide();
+
+        _resize($ps, $ps.find(".sp ul:visible:first > li").length);
+      }});
+
+    } else {
+
+      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
+        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settings.transitionSpeed, function() { $(this).remove(); });
+
+        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length);
+      }});
+    }
+  }
+
+  function _resize($ps, elementCount) {
+    var data = $ps.data(store);
+    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed);
+  }
+
+  $(function() {});
+
+})(jQuery, window, document);

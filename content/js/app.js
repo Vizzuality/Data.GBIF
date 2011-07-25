@@ -93,8 +93,24 @@ $(function(){
   $("a.download_2").bindDownloadPopover({template: "direct_download", explanation:"Occurrences of \"Puma concolor\", collected between Jan 1sr, 2000 and Jan 1st, 2010, from dataset \"Felines of the world\"."});
   $("a.login").bindLoginPopover();
 
-  $('.sort').bindSortPopover();
-
+  $('#tax_sort_ocurrences').sortPopover({
+    options: {
+      "Sort alphabetically": function(e) {
+        e.preventDefault();
+        $("#taxonomy .sp").animate({opacity:0}, 500, function() {
+          sortAlphabetically($("#taxonomy .sp ul:first"));
+          $("#taxonomy .sp").animate({opacity:1}, 500);
+        });
+      },
+      "Sort by count": function(e) {
+        e.preventDefault();
+        $("#taxonomy .sp").animate({opacity:0}, 500, function() {
+          sortByCount($("#taxonomy .sp ul:first"));
+          $("#taxonomy .sp").animate({opacity:1}, 500);
+        });
+      }
+    }
+  });
 
   $('span.input_text input').focus(function() {
     $(this).parent().addClass("focus");
@@ -255,202 +271,5 @@ $(function(){
   };
 });
 
-/*
-* ==================
-* TAXONOMIC EXPLORER
-* ==================
-*/
-
-(function($, window, document) {
-
-  var ie6 = false;
-  var debug = false;
-  var store = "taxonomicExplorer";
-
-  // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    ie6 = true;
-  } else {
-    document.documentElement.className = document.documentElement.className + ' ps_fouc';
-  }
-
-  var
-  // Public methods exposed to $.fn.taxonomicExplorer()
-  methods = {},
-  level = 0,
-  zIndex = 0,
-  stop = false,
-
-  // Some nice default values
-  defaults = {
-    width: 597,
-    transitionSpeed:300,
-    liHeight: 25
-  };
-
-  // Called by using $('foo').taxonomicExplorer();
-  methods.init = function(settings) {
-    settings = $.extend({}, defaults, settings);
-
-    return this.each(function() {
-      var
-      // The current <select> element
-      $this = $(this),
-      $breadcrumb = false,
-
-      // We store lots of great stuff using jQuery data
-      data = $this.data(store) || {},
-
-      // This gets applied to the 'ps_container' element
-      id = $this.attr('id') || $this.attr('name'),
-
-      // This gets updated to be equal to the longest <option> element
-      width = settings.width || $this.outerWidth(),
-
-      // The completed ps_container element
-      $ps = false;
-
-      // Dont do anything if we've already setup taxonomicExplorer on this element
-      if (data.id) {
-        return $this;
-      } else {
-       	data.id = id;
-        data.$this = $this;
-        data.settings = settings;
-      }
-
-      // Update the reference to $ps
-      $ps = $("#"+id);
-      $ps.prepend('<div class="breadcrumb" />');
-      $breadcrumb = $ps.find(".breadcrumb");
-
-      // Save the updated $ps reference into our data object
-      data.$ps = $ps;
-      data.$breadcrumb = $breadcrumb;
-
-      // Save the taxonomicExplorer data
-      $this.data(store, data);
-      $ps.data(store, data);
-
-      function setupBars($ul) {
-
-        $ul.find("> li").each(function() {
-          var value = parseInt($(this).attr("data"));
-
-          $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
-
-          $(this).hover(function() {
-           $(this).find("span:first").siblings(".count").animate({visiblity:"show", opacity:1}, 300);
-          }, function() {
-           $(this).find("span:first").siblings(".count").animate({visiblity:"hide", opacity:0}, 300);
-          });
-        });
-
-        $ul.children().each(function() {
-          setupBars($(this));
-        });
-      }
-
-      setupBars($ps.find("ul:first"));
-
-      $ps.find(".sp a").click(function(e) {
-        e.preventDefault();
-
-        if (!stop) {
-          stop = true;
-
-          var name = $(this).find("span").html();
-          var item = '<li style="display:none; opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
-          $breadcrumb.append(item);
-          $breadcrumb.find("li:last").animate({opacity:1, visibility:"show"}, 500);
-
-
-          var $ul = $(this).siblings("ul");
-          $ul.css("z-index", zIndex++);
-          $ul.show();
-
-          $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-            stop = false;
-            level++;
-            var liHeight = $ul.find("> li").length;
-            $ps.find(".sp").animate({height:liHeight*data.settings.liHeight}, data.settings.transitionSpeed);
-          }});
-        }
-      });
-
-      $breadcrumb.find("a").live("click", function(e) {
-        e.preventDefault();
-        var gotoLevel = $(this).attr("data-level");
-        var $ul = $(this).siblings("ul").hide();
-
-        _goto($this, gotoLevel);
-        level = gotoLevel;
-      });
-    });
-  };
-
-  // Expose the plugin
-  $.fn.taxonomicExplorer = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
-
-  // Build popover
-  function _goto($ps, gotoLevel) {
-    var data = $ps.data(store);
-    var $breadcrumb = data.$breadcrumb;
-
-    // Calculate the number of pages we have to move
-    var steps = level - gotoLevel;
-
-    if (gotoLevel == 0) {
-      $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-
-        $breadcrumb.empty();
-        $ps.find(".sp ul ul").hide();
-
-        _resize($ps, $ps.find(".sp ul:visible:first > li").length);
-      }});
-
-    } else {
-
-      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
-        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settings.transitionSpeed, function() { $(this).remove(); });
-
-        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length);
-      }});
-    }
-  }
-
-  function _resize($ps, elementCount) {
-    var data = $ps.data(store);
-    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed);
-  }
-
-  $(function() {});
-
-})(jQuery, window, document);
-
 $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
-
-$("a.sort_a").click(function(e) {
-  e.preventDefault();
-  $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-    sortAlphabetically($("#taxonomy .sp ul:first"));
-    $("#taxonomy .sp").animate({opacity:1}, 500);
-  });
-});
-
-$("a.sort_b").click(function(e) {
-  e.preventDefault();
-  $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-    sortByCount($("#taxonomy .sp ul:first"));
-    $("#taxonomy .sp").animate({opacity:1}, 500);
-  });
-});
 

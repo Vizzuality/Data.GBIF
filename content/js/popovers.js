@@ -1245,7 +1245,7 @@ var linkPopover = (function() {
     _.each(data.settings.options, function(callback, name) {
       var $item = _.template(data.templates.item, {name:name});
       $ps.find("ul").append($item);
-      $ps.find("ul li:last").live("click", callback);
+      $ps.find("ul li:last").click(callback);
     });
 
     $ps.find("ul li:first").addClass("first");

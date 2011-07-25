@@ -1847,7 +1847,8 @@ a {
 
       .light_box { padding: 18px 0 0 0; }
 
-      &:last-child, &.last { margin-right:0; }
+      &.last { margin-right:0; }
+      &:last-child { margin-right:0; }
 
       a { display:block; margin-top:17px; padding:13px 0 12px 0; text-decoration:none; border-top: 1px solid $brightest; }
       h2 { margin:3px 0; padding:0; display:block; font-size:35px; font-family:$base; font-weight:bold; color:$medium_dark; }
@@ -1949,7 +1950,6 @@ a {
       }
     }
   }
-
 
   .ps_fouc select {
     position: relative;

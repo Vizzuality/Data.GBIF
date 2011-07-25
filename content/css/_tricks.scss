@@ -123,13 +123,17 @@ input:-moz-placeholder { color:$gray; }
 }
 
 // Fix for the big search field in occurrences
-.ie8 article form span.input_text, .ie7 article form span.input_text {
+.ie7 article form span.input_text {
   height:38px;
   margin-top:-1px;
-
   input[type="text"] { line-height:35px; }
 }
-.ie7 header #infoband .content form input, .ie8 header #infoband .content form input {
+.ie8 article form span.input_text {
+  input[type="text"] { line-height:34px; }
+}
+
+.ie7 header #infoband .content form input,
+.ie8 header #infoband .content form input {
   line-height:35px;
 }
 

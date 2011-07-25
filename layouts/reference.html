@@ -42,5 +42,20 @@
     <%= render 'partials/footer' %>
     <%= render 'partials/scripts' %>
     <%= render 'partials/popovers' %>
+    <script type="text/javascript" charset="utf-8">
+
+  $('.sort').sortPopover({
+    options: {
+      "Sort alphabetically": function(e) {
+        e.preventDefault();
+        alert("Sort alphabetically");
+      },
+      "Sort by count": function(e) {
+        e.preventDefault();
+        alert("Sort by count");
+      }
+    }
+  });
+    </script>
 </body>
 </html>

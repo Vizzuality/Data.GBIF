@@ -31,7 +31,7 @@
 
     a.zoom_out {
       position:absolute;
-      top:143px;
+      top:139px;
       left:8px;
       height:28px;
       width:28px;
@@ -55,6 +55,9 @@
       z-index:10;
       display:block;
 
+      &.countries {
+        top:205px;
+      }
 
       div.content {
         padding:50px 0 20px;
@@ -67,4 +70,94 @@
         text-align:center;
       }
     }
+
+
+
+    div#infowindow_ {
+      position:absolute;
+      width:261px;
+
+      a.close {
+        position:absolute;
+        top:14px;
+        right:14px;
+        width:13px;
+        height:12px;
+        background:url('/img/close_infowindow.png') no-repeat 0 0;
+        z-index:10;
+
+        &:hover {
+          background-position:0 -12px;
+        }
+      }
+
+      img {
+        display:none;
+      }
+
+      div.top {
+        display:inline-block;
+        width:209px;
+        height:auto;
+        padding:26px 26px 0px 26px;
+        margin:0;
+        background:url('/img/infowindow_top.png') no-repeat 0 0;
+
+        h2 {
+          height:auto;
+          margin:0;
+          padding:0 0 10px;
+          text-align:left!important;
+
+          a {
+            font:bold 19px $base;
+            color:#0099CC;
+            text-decoration:none;
+            &:hover {
+              text-decoration:underline;
+            }
+          }
+        }
+      }
+
+      div.bottom {
+        display:inline-block;
+        width:209px;
+        height:73px;
+        padding:5px 26px 10px 26px;
+        background:url('/img/infowindow_bottom.png') no-repeat 0 bottom;
+
+        span {
+          float:left;
+          height: 41px;
+          margin:0;
+
+          p {
+            text-align:left;
+            font:normal 21px $font_medium;
+            color:#0099CC;
+          }
+          label {
+            text-align:left;
+            font:normal 13px $base;
+            color:#9f9f9f;
+          }
+        }
+
+        span.datasets {
+          width:55px;
+        }
+
+        span.occurrences {
+          margin:0 0 0 15px;
+          width:76px;
+        }
+
+        span.species {
+          margin:0 0 0 14px;
+          width:47px;
+        }
+      }
+    }
+
   }

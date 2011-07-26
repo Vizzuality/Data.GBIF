@@ -683,7 +683,8 @@ var GOD = (function() {
     var data = $this.data(store);
 
     if ($(this).hasClass("open")) {
-      _close($this, data.name, data.id);
+      var $ps = $("#" + data.name + "_" + data.id);
+      _close($this, $ps);
     } else {
 
       data.$ps = _build(data);
@@ -705,7 +706,7 @@ var GOD = (function() {
         $ps.show();
         $this.addClass("open");
       } else {
-        $ps.animate({top:$ps.position().top , opacity:1}, data.settings.transitionSpeed, function() {
+        $ps.animate({top:$ps.position().top - 15, opacity:1}, data.settings.transitionSpeed, function() {
           $this.addClass("open");
         });
       }
@@ -742,7 +743,7 @@ var GOD = (function() {
     if (oldIE) {
       $ps.css("top", y + 9 );
     } else {
-      $ps.css("top", y + 9 );
+      $ps.css("top", y + 9 + 20);
     }
   }
 

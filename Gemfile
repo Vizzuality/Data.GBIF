@@ -6,7 +6,6 @@ gem 'rack'
 gem "cri", "1.0.1"
 gem 'nanoc3', '3.2.0a4'
 
-
 gem 'fssm', '0.2.7'
 
 gem 'adsf', '1.0.1'

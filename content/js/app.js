@@ -34,7 +34,8 @@ $(function(){
 
   $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 
-  $("time.selectable").bindDatePopover();
+  $("time.selectable").datePopover();
+
   $("#select-popover, #select-popover2").selectPopover();
 
   $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});

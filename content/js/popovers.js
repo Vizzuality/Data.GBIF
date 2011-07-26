@@ -53,119 +53,6 @@ var GOD = (function() {
 
 
 /*
-* ======================
-* BRAND NEW DATE POPOVER
-* ======================
-*/
-
-(function($, window, document) {
-
-  var ie6 = false;
-
-  // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    ie6 = true;
-  } else {
-    document.documentElement.className = document.documentElement.className + ' ps_fouc';
-  }
-
-  var
-  // Public methods exposed to $.fn.datePopoverNew()
-  methods = {},
-
-  // HTML template for the dropdowns
-  templates = {
-    main: [''].join('')
-  },
-
-  // Some nice default values
-  defaults = { };
-
-  // Called by using $('foo').datePopoverNew();
-  methods.init = function(settings) {
-    settings = $.extend({}, defaults, settings);
-
-    return this.each(function() {
-      var
-      // The current <select> element
-      $this = $(this),
-
-      // We store lots of great stuff using jQuery data
-      data = $this.data('datePopoverNew') || {},
-
-      // This gets applied to the 'ps_container' element
-      id = $this.attr('id') || $this.attr('name'),
-
-      // This gets updated to be equal to the longest <option> element
-      width = settings.width || $this.outerWidth(),
-
-      // The completed ps_container element
-      $ps = false;
-
-      // Dont do anything if we've already setup datePopoverNew on this element
-      if (data.id) {
-        return $this;
-      } else {
-       	data.id = id;
-        data.$this = $this;
-        data.name = "datePopoverNew";
-        data.settings = settings;
-      }
-
-      // Build the dropdown HTML
-      $ps = _build(templates.main, data);
-
-      // Hide the <select> list and place our new one in front of it
-      $this.before($ps);
-
-      // Update the reference to $ps
-      $ps = $('#ps_container_' + id);
-
-      // Save the updated $ps reference into our data object
-      data.$ps = $ps;
-
-      // Save the datePopoverNew data onto the <select> element
-      $this.data('datePopoverNew', data);
-
-      // Do the same for the dropdown, but add a few helpers
-      $ps.data('datePopoverNew', data);
-
-      $(window).bind('_close.'+data.name+'.'+data.id, function() {
-        var $ps = $("#" + data.name + "_" + data.id);
-        _close($this, $ps);
-      });
-
-    });
-  };
-
-  // Expose the plugin
-  $.fn.datePopoverNew = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
-
-  // Build popover
-  function _build() {}
-
-  // Open a popover
-  function _open() {}
-
-  // Close popover
-  function _close($ps, $ps) {
-    GOD.unsubscribe("_close."+data.name+"."+data.id);
-  }
-
-  $(function() {});
-
-})(jQuery, window, document);
-
-
-/*
 * ============
 * HELP POPOVER
 * ============
@@ -1310,6 +1197,7 @@ var linkPopover = (function() {
   function _hide($this, name, id) {
     _close($this, name, id);
   }
+
   // Close popover
   function _close($this, name, id) {
     var $ps = $("#" + name + "_" + id);

@@ -77,10 +77,10 @@ var GOD = (function() {
   templates = {
     main: ['<div id="<%= name %>_<%= id %>" class="yellow_popover"><div class="t"></div><div class="c"><h3><%= title %></h3><%= message %></div><div class="b"></div></div>'].join('')
   },
+  store = "helppopover",
 
   // Some nice default values
   defaults = {
-    startSpeed: 1000
   };
 
   // Called by using $('foo').helpPopover();
@@ -93,7 +93,7 @@ var GOD = (function() {
       $this = $(this),
 
       // We store lots of great stuff using jQuery data
-      data = $this.data('helpPopover') || {},
+      data = $this.data(store) || {},
 
       // This gets applied to the 'ps_container' element
       id = $this.attr('id') || $this.attr('name'),
@@ -110,7 +110,7 @@ var GOD = (function() {
       } else {
         data.id = id;
         data.$this     = $this;
-        data.name      = "helpPopover";
+        data.name      = store;
         data.templates = templates;
         data.title     = settings.title;
         data.message   = settings.message;
@@ -124,7 +124,7 @@ var GOD = (function() {
       data.$ps = $ps;
 
       // Save the helpPopover data onto the <this> element
-      $this.data('helpPopover', data);
+      $this.data(store, data);
 
       $(this).click(_toggle);
 
@@ -164,7 +164,7 @@ var GOD = (function() {
 
   // Close popover
   function _close($this, $ps) {
-    var data = $this.data('helpPopover');
+    var data = $this.data(store);
     GOD.unsubscribe("_close."+data.name+"."+data.id);
 
     if (is_ie) {
@@ -205,7 +205,7 @@ var GOD = (function() {
     e.stopPropagation();
 
     var $this = $(this);
-    var data = $this.data('helpPopover');
+    var data = $this.data(store);
 
     if ($(this).hasClass("open")) {
       var $ps = $("#" + data.name + "_" + data.id);
@@ -552,50 +552,210 @@ var GOD = (function() {
   });
 })(jQuery, window, document);
 
+
+
+
 /*
-* =============
+* ============
 * DATE POPOVER
-* =============
+* ============
 */
 
-var datePopover = (function() {
-  var el;
-  var displayed = false;
-  var $popover;
-  var transitionSpeed = 150;
-  var title;
-  var message;
-  var day, month, year;
-  var $day, $month, $year;
-  var id;
+(function($, window, document) {
 
-  var months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG", "SEP","OCT","NOV","DEC"];
+  var ie6 = false;
 
-  var template = '<div id="date-selector" class="date-selector">\
-    <div class="month"><span></span></div>\
-      <div class="day"><span></span></div>\
-        <div class="year"><span></span></div>\
-          </div>';
-
-  function toggle(e, event, opt) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    if (!id) { // TODO: improve this popover
-      id = e.attr("id");
-      $(window).bind('_close.datepopover.' + id, hide);
-    }
-
-    el = e;
-    displayed ? hide(): show();
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
   }
 
-  function setupBindings() {
-    // don't do anything if we click inside of the select…
-    $popover.click(function(event) {
-      event.stopPropagation();
+  var
+  // Public methods exposed to $.fn.datePopover()
+  methods = {},
+
+  store = "datepopover",
+
+  months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG", "SEP","OCT","NOV","DEC"],
+
+  templates = {
+    main: ['<div id="<%=name %>_<%= id %>" class="date-selector">',
+    '<div class="month"><span></span></div>',
+    '<div class="day"><span></span></div>',
+    '<div class="year"><span></span></div>',
+    '</div>'].join(' ')
+  };
+
+  // Some nice default values
+  defaults = {
+    transitionSpeed:150
+  };
+
+  // Called by using $('foo').datePopover();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $this = $(this),
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data(store) || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup datePopover on this element
+      if (data.id) {
+        return $this;
+      } else {
+       	data.id = id;
+        data.$this = $this;
+        data.name = store;
+        data.templates = templates;
+        data.settings = settings;
+      }
+
+      // Update the reference to $ps
+      $ps = $("#" + data.name + "_" + data.id);
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+
+      // Save the datePopover data onto the <select> element
+      $this.data(store, data);
+
+      // Do the same for the dropdown, but add a few helpers
+      $ps.data(store, data);
+
+      $this.click(_toggle);
+
+      $(window).bind('_close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this, $ps);
+      });
+    });
+  };
+
+  // Expose the plugin
+  $.fn.datePopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // Build popover
+  function _build(data) {
+    var $ps = $(_.template(data.templates.main, {name:data.name, id:data.id}));
+
+    $day   = $ps.find(".day");
+    $month = $ps.find(".month");
+    $year  = $ps.find(".year");
+
+    $ps.bind('click', function(e) {
+      e.stopPropagation();
     });
 
+    return $ps;
+  }
+
+  // Open a popover
+  function _toggle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var $this = $(this);
+    var $day, $month, $year;
+    var day, month, year;
+    var data = $this.data(store);
+
+    if ($(this).hasClass("open")) {
+      var $ps = $("#" + data.name + "_" + data.id);
+      _close($this, $ps);
+    } else {
+
+      data.$ps = _build(data);
+      var $ps = data.$ps;
+
+      // setup the close event & signal the other subscribers
+      var event = "_close."+data.name+"."+data.id;
+      GOD.subscribe(event);
+      GOD.broadcast(event);
+
+      $("#content").prepend($ps);
+      _center($this, $ps);
+      _setup($this, $ps);
+      _captureDate($this);
+      _setupLists($this, $ps);
+      _bindLists($this, $ps);
+
+      if (oldIE) {
+        $ps.show();
+        $this.addClass("open");
+      } else {
+        $ps.animate({top:$ps.position().top - 15, opacity:1}, data.settings.transitionSpeed, function() {
+          $this.addClass("open");
+        });
+      }
+    }
+  }
+
+  // Close popover
+  function _close($this, $ps) {
+    var data = $this.data(store);
+    GOD.unsubscribe("_close."+data.name+"."+data.id);
+
+    if (is_ie) {
+      $ps.hide();
+      $ps.remove();
+      $this.removeClass("open");
+    } else {
+      $ps.animate({top:$ps.position().top - 10, opacity:0}, data.settings.transitionSpeed, function() {
+        $ps.remove();
+        $this.removeClass("open");
+      });
+    }
+  }
+
+  function _center ($this, $ps) {
+    var data = $this.data(store);
+
+    var x = $this.offset().left;
+    var y = $this.offset().top;
+    var w = $ps.width();
+    var el_w = $this.width();
+
+    $ps.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
+
+    if (oldIE) {
+      $ps.css("top", y + 9 );
+    } else {
+      $ps.css("top", y + 9 + 20);
+    }
+  }
+
+  function _captureDate($this) {
+    var date = new Date($this.attr("datetime"));
+
+    day = date.getDate();
+    month = date.getMonth();
+    year = date.getFullYear();
+  }
+
+  function _setup($this, $ps) {
     $year.click(function(event) {
       event.stopPropagation();
       $(this).toggleClass("selected");
@@ -621,43 +781,62 @@ var datePopover = (function() {
     });
   }
 
-  function hide() {
-    if (displayed) {
-      GOD.unsubscribe("_close.datepopover." + id);
+  function _bindLists($this, $ps) {
+    var data = $this.data(store);
 
-      $(".day, .month, .year").removeClass("selected");
+    $year.find("li").click(function(event){
+      event.stopPropagation();
+      year = $(this).html();
 
-      if (is_ie) {
-        $popover.hide();
-        $popover.remove();
-        displayed = false;
-      } else {
-        $popover.animate({top:$popover.position().top - 20, opacity:0}, transitionSpeed, function() { $popover.remove(); displayed = false; });
-      }
-    }
+      _adjustCalendar();
+
+      $year.find("li").removeClass("selected");
+      $(this).addClass("selected");
+
+      $year.find("span").animate({opacity:0}, data.settings.transitionSpeed, function() {
+        $(this).html(year);
+        $(this).animate({opacity:1}, data.settings.transitionSpeed);
+      });
+      $year.removeClass("selected");
+      _updateDate($this);
+    });
+
+    $month.find("li").click(function(event){
+      event.stopPropagation();
+      month = _.indexOf(months, $(this).html());
+
+      _adjustCalendar();
+
+      $month.find("li").removeClass("selected");
+      $(this).addClass("selected");
+
+      $month.find("span").animate({opacity:0}, data.settings.transitionSpeed, function() {
+        $(this).html(months[month]);
+        $(this).animate({opacity:1}, data.settings.transitionSpeed);
+      });
+      $month.removeClass("selected");
+      _updateDate($this);
+    });
+
+    $day.find("li").click(function(event){
+      event.stopPropagation();
+      day = $(this).html();
+
+      $day.find("li").removeClass("selected");
+      $(this).addClass("selected");
+
+      $day.find("span").animate({opacity:0}, data.settings.transitionSpeed, function() {
+        $(this).html(day);
+        $(this).animate({opacity:1}, data.settings.transitionSpeed);
+      });
+
+      $day.removeClass("selected");
+      _updateDate($this);
+    });
+
   }
 
-  function createPopover() {
-    $("#content").prepend(template);
-
-    // get id of the popover
-    popover_id = $(template).attr("id");
-    $popover = $("#"+popover_id);
-
-    $day   = $popover.find(".day");
-    $month = $popover.find(".month");
-    $year  = $popover.find(".year");
-  }
-
-  function captureDate() {
-    var date = new Date(el.attr("datetime"));
-
-    day = date.getDate();
-    month = date.getMonth();
-    year = date.getFullYear();
-  }
-
-  function setupLists() {
+  function _setupLists($this, $ps) {
     $month.find("span").html(months[month]);
     $day.find("span").html(day);
     $year.find("span").html(year);
@@ -666,7 +845,7 @@ var datePopover = (function() {
     $day.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
     $year.append('<div class="listing"><div class="inner"><ul></ul></div></div>');
 
-    $popover.find('.listing, .jspVerticalBar').click(function(event) {
+    $ps.find('.listing, .jspVerticalBar').click(function(event) {
       event.stopPropagation();
     });
 
@@ -695,7 +874,7 @@ var datePopover = (function() {
     }
   }
 
-  function zeroPad(num,count)
+  function _zeroPad(num,count)
   {
     var numZeropad = num + '';
     while(numZeropad.length < count) {
@@ -704,7 +883,7 @@ var datePopover = (function() {
     return numZeropad;
   }
 
-  function updateDate() {
+  function _updateDate($this) {
     if (day == 1) {
       n = "st";
     } else if (day == 2){
@@ -713,11 +892,10 @@ var datePopover = (function() {
       n = "th";
     }
 
-    el.html(months[month].toProperCase() + " " + day + n + ", " + year);
-    el.attr("datetime", year+"/"+zeroPad(month+1, 2)+"/"+day);
+    $this.html(months[month].toProperCase() + " " + day + n + ", " + year);
+    $this.attr("datetime", year+"/"+_zeroPad(month+1, 2)+"/"+day);
   }
-
-  function adjustCalendar() {
+  function _adjustCalendar() {
     var month_index = month + 1;
 
     if (month_index == 2) { // February has only 28 days
@@ -749,95 +927,9 @@ var datePopover = (function() {
     }
   }
 
-  function showPopover() {
-    var x = el.offset().left;
-    var y = el.offset().top ;
-    var w = $popover.width();
-    var el_w = el.width();
+})(jQuery, window, document);
 
-    $popover.css("left", x - Math.floor(w/2) + Math.floor(el_w/2) - 4); // 4px == shadow
 
-    if (is_ie) {
-      $popover.css("top", y + 9 );
-      $popover.show(transitionSpeed, function() {
-        displayed = true;
-      });
-    } else {
-      $popover.css("top", y + 9 + 20);
-      $popover.animate({top:$popover.position().top - 20, opacity:1}, transitionSpeed, function() { displayed = true; });
-    }
-  }
-
-  function show() {
-
-    // setup the close event & signal the other subscribers
-
-    var event = "_close.datepopover." + id;
-    GOD.subscribe(event);
-    GOD.broadcast(event);
-
-    createPopover();
-    setupBindings();
-    captureDate();
-    setupLists();
-
-    $year.find("li").click(function(event){
-      event.stopPropagation();
-      year = $(this).html();
-
-      adjustCalendar();
-
-      $year.find("li").removeClass("selected");
-      $(this).addClass("selected");
-
-      $year.find("span").animate({opacity:0}, transitionSpeed, function() {
-        $(this).html(year);
-        $(this).animate({opacity:1}, transitionSpeed);
-      });
-      $year.removeClass("selected");
-      updateDate();
-    });
-
-    $month.find("li").click(function(event){
-      event.stopPropagation();
-      month = _.indexOf(months, $(this).html());
-
-      adjustCalendar();
-
-      $month.find("li").removeClass("selected");
-      $(this).addClass("selected");
-
-      $month.find("span").animate({opacity:0}, transitionSpeed, function() {
-        $(this).html(months[month]);
-        $(this).animate({opacity:1}, transitionSpeed);
-      });
-      $month.removeClass("selected");
-      updateDate();
-    });
-
-    $day.find("li").click(function(event){
-      event.stopPropagation();
-      day = $(this).html();
-
-      $day.find("li").removeClass("selected");
-      $(this).addClass("selected");
-
-      $day.find("span").animate({opacity:0}, transitionSpeed, function() {
-        $(this).html(day);
-        $(this).animate({opacity:1}, transitionSpeed);
-      });
-
-      $day.removeClass("selected");
-      updateDate();
-    });
-
-    showPopover();
-  }
-
-  return {
-    toggle: toggle
-  };
-})();
 
 /*
 * =============
@@ -1197,7 +1289,6 @@ var linkPopover = (function() {
   function _hide($this, name, id) {
     _close($this, name, id);
   }
-
   // Close popover
   function _close($this, name, id) {
     var $ps = $("#" + name + "_" + id);
@@ -1469,50 +1560,52 @@ var downloadPopover = (function() {
   var transitionSpeed = 200;
   var selected_template;
 
-  var templates = { download_selector: "<div class='infowindow download_popover download_selector'>\
-    <div class='lheader'></div>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>DOWNLOAD DATA</h2>\
-            <p><%= explanation %></p>\
-              <div class='light_box'>\
-                <h3>Select a format</h3>\
-                  <ul>\
-                    <li><input type='radio' name='format' value='csv' id='format_csv' /> <label for='format_csv'>CSV</label> <span class='size'>(≈150Kb)</span></li>\
-                      <li><input type='radio' name='format' value='xls' id='format_xls' /> <label for='format_xls'>XLS</label></li>\
-                        <li><input type='radio' name='format' value='xml' id='format_xml' /> <label for='format_xml'>XML</label></li>\
-                          </ul>\
-                            <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
-                              </div>\
-                                <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
-                                  </div>\
-                                    <div class='lfooter'></div>\
-                                      </div>",
-  direct_download: "<div class='infowindow download_popover direct_download'>\
-    <div class='lheader'></div>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>DOWNLOAD DATA</h2>\
-            <div class='light_box package'>\
-              <div class='content'>\
-                <p><%= explanation %></p>\
-                  </div>\
-                    </div>\
-                      <span class='filetype'><strong>CSV file</strong> <span class='size'>(≈150Kb)</span></span> <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
-                        </div>\
-                          <div class='lfooter'></div>\
-                            </div>",
-  download_started: "<div class='infowindow download_has_started'>\
-    <div class='lheader'></div>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>DOWNLOAD STARTED</h2>\
-            <p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>\
-              <p>If you have any doubt about the legal terms, please check our <a href='/static/terms_and_conditions.html' class='about' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
-                <a href='#' class='candy_white_button close'><span>Close</span></a>\
-                  </div>\
-                    <div class='lfooter'></div>\
-                      </div>"};
+  var templates = {
+    download_selector: ['<div class="infowindow download_popover download_selector">',
+      '<div class="lheader"></div>',
+      '<span class="close"></span>',
+      '<div class="content">',
+      '<h2>DOWNLOAD DATA</h2>',
+      '<p><%= explanation %></p>',
+      '<div class="light_box">',
+      '<h3>Select a format</h3>',
+      '<ul>',
+      '<li><input type="radio" name="format" value="csv" id="format_csv" /> <label for="format_csv">CSV</label> <span class="size">(≈150Kb)</span></li>',
+        '<li><input type="radio" name="format" value="xls" id="format_xls" /> <label for="format_xls">XLS</label></li>',
+          '<li><input type="radio" name="format" value="xml" id="format_xml" /> <label for="format_xml">XML</label></li>',
+            '</ul>',
+      '<div class="tl"></div><div class="tr"></div><div class="bl"></div><div class="br"></div>',
+      '</div>',
+      '<a class="candy_blue_button download" target="_blank" href="http://localhost:3000/tmp/download.zip"><span>Download</span></a>',
+        '</div>',
+      '<div class="lfooter"></div>',
+      '</div>'].join(' '),
+      direct_download: ['<div class="infowindow download_popover direct_download">',
+        '<div class="lheader"></div>',
+        '<span class="close"></span>',
+        '<div class="content">',
+        '<h2>DOWNLOAD DATA</h2>',
+        '<div class="light_box package">',
+        '<div class="content">',
+        '<p><%= explanation %></p>',
+        '</div>',
+        '</div>',
+        '<span class="filetype"><strong>CSV file</strong> <span class="size">(≈150Kb)</span></span> <a class="candy_blue_button download" target="_blank" href="http://localhost:3000/tmp/download.zip"><span>Download</span></a>',
+          '</div>',
+        '<div class="lfooter"></div>',
+        '</div>'].join(' '),
+        download_started: ['<div class="infowindow download_has_started">',
+          '<div class="lheader"></div>',
+          '<span class="close"></span>',
+          '<div class="content">',
+          '<h2>DOWNLOAD STARTED</h2>',
+          '<p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>',
+            '<p>If you have any doubt about the legal terms, please check our <a href="/static/terms_and_conditions.html" class="about" title="GBIF Data Terms and Conditions">GBIF Data Terms and Conditions</a>.</p>',
+              '<a href="#" class="candy_white_button close"><span>Close</span></a>',
+          '</div>',
+          '<div class="lfooter"></div>',
+          '</div>'].join(' ')
+  };
 
   function toggle(e, event, opt) {
     event.stopPropagation();
@@ -1754,7 +1847,7 @@ $.fn.bindSlideshow = function(opt) {
 
   // Some nice default values
   defaults = {
-    width: 597,
+    width: 540,
     transitionSpeed:300,
     liHeight: 25
   };
@@ -1803,12 +1896,20 @@ $.fn.bindSlideshow = function(opt) {
       $this.data(store, data);
       $ps.data(store, data);
 
-      function setupBars($ul) {
+      $this.find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+
+      // Calculate the width of the bars and add them to the DOM
+      function addBars($ul) {
 
         $ul.find("> li").each(function() {
           var value = parseInt($(this).attr("data"));
+          var clase = "";
 
-          $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
+          if ($(this).find("ul").length > 0) {
+            clase = ' clickable';
+          }
+
+          $(this).find("span:first").after("<div class='bar"+clase+"' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
 
           $(this).hover(function() {
             $(this).find("span:first").siblings(".count").fadeIn(300);
@@ -1818,19 +1919,19 @@ $.fn.bindSlideshow = function(opt) {
         });
 
         $ul.children().each(function() {
-          setupBars($(this));
+          addBars($(this));
         });
       }
 
-      setupBars($ps.find("ul:first"));
+      addBars($ps.find("ul:first"));
 
-      $ps.find(".sp a").click(function(e) {
+      $ps.find(".sp .bar.clickable").click(function(e) {
         e.preventDefault();
 
-        if (!stop) {
+        if (!stop) { // this prevents prolbems when clicking very fast on the items
           stop = true;
 
-          var name = $(this).find("span").html();
+          var name = $(this).parent().find("a").html();
           var item = '<li style="opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
           $breadcrumb.append(item);
           $breadcrumb.find("li:last").animate({opacity:1}, 500);
@@ -1842,8 +1943,7 @@ $.fn.bindSlideshow = function(opt) {
           $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
             stop = false;
             level++;
-            var liHeight = $ul.find("> li").length;
-            $ps.find(".sp").animate({height:liHeight*data.settings.liHeight}, data.settings.transitionSpeed);
+            _resize($ps, $ul.find("> li").length, data.$this);
           }});
         }
       });
@@ -1855,6 +1955,7 @@ $.fn.bindSlideshow = function(opt) {
 
         _goto($this, gotoLevel);
         level = gotoLevel;
+        $ps.find(".inner").data('jsp').scrollTo(0, 0, true);
       });
     });
   };
@@ -1880,26 +1981,26 @@ $.fn.bindSlideshow = function(opt) {
 
     if (gotoLevel == 0) {
       $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-
         $breadcrumb.empty();
         $ps.find(".sp ul ul").hide();
-
-        _resize($ps, $ps.find(".sp ul:visible:first > li").length);
+        _resize($ps, $ps.find(".sp ul:visible:first > li").length, data.$this);
       }});
 
     } else {
 
       $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
-        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settings.transitionSpeed, function() { $(this).remove(); });
-
-        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length);
+        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settingsetransitionSpeed, function() { $(this).remove(); });
+        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length, data.$this);
       }});
     }
   }
 
-  function _resize($ps, elementCount) {
+  function _resize($ps, elementCount, $this) {
     var data = $ps.data(store);
-    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed);
+
+    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
+      $this.find(".inner").data('jsp').reinitialise();
+    });
   }
 
   $(function() {});

@@ -32,7 +32,10 @@ $(function(){
 
   //$("select").uniform();
 
-  $("time.selectable").bindDatePopover();
+  $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
+
+  $("time.selectable").datePopover();
+
   $("#select-popover, #select-popover2").selectPopover();
 
   $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
@@ -221,6 +224,4 @@ $(function(){
     drawGraph(this, data, opt);
   };
 });
-
-$("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 

@@ -28,7 +28,7 @@ time {
 
 #map { width:608px; height:140px; margin-bottom:23px; }
 #map_canvas {
-  #map {width:597px;}
+  #map {width:580px;}
   position:relative;
   .tl, .tr, .bl, .br { width:4px; height:4px; background:url('/img/circle.png') no-repeat; position:absolute; z-index:100 }
   .tl {top:-1px; left:-1px;background-position: top left;}
@@ -290,7 +290,7 @@ a {
     &.download_selector {
       .content {
 
-          p {line-height:18px; font-size:13px; }
+        p {line-height:18px; font-size:13px; }
 
         .light_box {
           padding-top:22px;
@@ -590,7 +590,7 @@ a {
 
       .left   {
         float:left;
-        width:597px;
+        width:580px;
         margin-right:41px;
         border-top:1px solid $border_color;
         padding-top:20px;
@@ -1094,7 +1094,7 @@ a {
 					margin-bottom: 15px;
           border-bottom: 1px solid $gray;
 
-					#map { width:597px; height:160px; margin-bottom:23px; }
+					#map { width:580px; height:160px; margin-bottom:23px; }
 
 					.geographic_coverage {
 						display: inline-block;
@@ -1724,10 +1724,10 @@ a {
     }//.content
 
     .left {
-      width:597px;
+      width:580px;
 
       textarea {
-        width:597px - 30;
+        width:580px - 30;
         height:102px - 30;
         margin-bottom:12px;
         border:none;
@@ -1987,22 +1987,18 @@ a {
     &:last-child {margin:0;}
     &.last {margin:0;}
   }
-
 }
-
-
-
 
 #content article .content {
   .ps_container {
 
     ul.ps_selected {
-        margin:0;
+      margin:0;
 
       li { margin: 0 0 5px 0!important;
 
         a { color:$medium_dark; }
-    .remove {padding:3px; }
+        .remove {padding:3px; }
         &:hover .remove {display:inline}
       }
     }
@@ -2103,66 +2099,72 @@ a {
     .left {
       border:none;
 
-    .breadcrumb {
-      margin:0 0 10px 0;
-      padding:0;
-      position:relative;
-      clear:both;
-      overflow:hidden;
-      list-style:none;
-      height:20px;
-
-      li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
-      li a { text-decoration:none; }
-    }
-
-    .sp {
-      width:597px;
-      overflow:hidden;
-
-      ul {
-        margin:0;
-        margin-top:0;
+      div.inner {
+        overflow:auto;
+        height:150px;
+        outline:none;
+      }
+      .breadcrumb {
+        margin:0 0 10px 0;
         padding:0;
-        width:597px;
         position:relative;
+        clear:both;
+        overflow:hidden;
+        list-style:none;
+        height:20px;
 
-        li {
-          background:none;
-          margin:0 0 5px 0;
+        li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
+        li a { text-decoration:none; }
+      }
+
+      .sp {
+        width:540px;
+        overflow:hidden;
+
+        ul {
+          margin:0;
+          margin-top:0;
           padding:0;
-          height:20px;
-          clear:both;
-          overflow:hidden;
+          width:540px;
+          position:relative;
 
-          a {display:block; color:$dark; clear:both; overflow:hidden;}
+          li {
+            background:none;
+            margin:0 0 5px 0;
+            padding:0;
+            height:20px;
+            clear:both;
+            overflow:hidden;
 
-          span {
-            display:block;
-            width:125px;
-            float:left;
+            a {display:block; color:$link_color; clear:both; overflow:hidden;}
+
+            span {
+              display:block;
+              width:125px;
+              float:left;
+            }
+
+            .count {
+              display:none;
+              float:left;
+              margin-left:10px;
+              font-family: $font-regular;
+              font-size:18px;
+              color:$medium_dark;
+            }
+
+            .bar {
+              float:left;
+              margin-top:10px;
+              height:3px;
+              background:#3EC05C;
+              &.clickable { background:red; cursor:pointer;}
+            }
           }
 
-          .count {
-            display:none;
-            float:left;
-            margin-left:10px;
-            font-family: $font-regular;
-            font-size:18px;
-            color:$medium_dark;
-          }
-
-          .bar {
-            float:left;
-            margin-top:10px;
-            height:3px;
-            background:#3EC05C;
-          }
+          ul {display:none; margin: 0 0 0 540px!important; position:absolute;top:0;background:#fff;}
         }
-
-        ul {display:none; margin: 0 0 0 597px!important; position:absolute;top:0;background:#fff;}
       }
     }
-  }
   }
 }

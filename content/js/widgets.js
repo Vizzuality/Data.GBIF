@@ -705,7 +705,7 @@ var GOD = (function() {
         $ps.show();
         $this.addClass("open");
       } else {
-        $ps.animate({top:$ps.position().top + 10, opacity:1}, data.settings.transitionSpeed, function() {
+        $ps.animate({top:$ps.position().top , opacity:1}, data.settings.transitionSpeed, function() {
           $this.addClass("open");
         });
       }

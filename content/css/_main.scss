@@ -2146,26 +2146,25 @@ a {
               float:left;
             }
 
-            .count {
-              display:none;
-              float:right;
-              right:-30px;
-              margin-left:10px;
-              font-family: $font-regular;
-              font-size:18px;
-              color:$medium_dark;
-              position:absolute;
-              top:-10px;
-            }
-
             .bar {
               position:relative;
               float:left;
-              margin-top:10px;
-              height:13px;
-              background:url('/img/green_bar.png') repeat-x top;
+              height:20px;
+              background: url('/img/green_bar.png') repeat-x center;
               &.clickable { cursor:pointer;}
-              &.clickable .count { padding-right: 10px; background:url('/img/icons/gray_arrow.png') no-repeat right 6px;}
+              &.clickable .count { padding-right: 10px; background:url('/img/icons/gray_arrow.png') no-repeat right;}
+
+              .count {
+                display:none;
+                float:right;
+                right:-30px;
+                margin-left:10px;
+                font-family: $font-regular;
+                font-size:18px;
+                color:$medium_dark;
+                position:absolute;
+                bottom:5px;
+              }
             }
           }
 

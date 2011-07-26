@@ -590,7 +590,7 @@ a {
 
       .left   {
         float:left;
-        width:580px;
+        width:597px;
         margin-right:41px;
         border-top:1px solid $border_color;
         padding-top:20px;
@@ -2205,12 +2205,7 @@ a {
             overflow:hidden;
 
             a {display:block; color:$link_color; clear:both; overflow:hidden;}
-
-            span {
-              display:block;
-              width:125px;
-              float:left;
-            }
+            span { display:block; width:125px; float:left; }
 
             .bar {
               position:relative;
@@ -2218,19 +2213,9 @@ a {
               height:20px;
               background: url('/img/green_bar.png') repeat-x center;
               &.clickable { cursor:pointer;}
-              &.clickable .count { padding-right: 10px; background:url('/img/icons/gray_arrow.png') no-repeat right;}
+              &.clickable .count { background:url('/img/icons/gray_arrow.png') no-repeat right 5px;}
 
-              .count {
-                display:none;
-                float:right;
-                right:-30px;
-                margin-left:10px;
-                font-family: $font-regular;
-                font-size:18px;
-                color:$medium_dark;
-                position:absolute;
-                bottom:5px;
-              }
+              .count { display:none; float:right; right:-40px; padding-right:10px; font-family: $font-regular; font-size:18px; color:$medium_dark; position:absolute; bottom:5px; }
             }
           }
 

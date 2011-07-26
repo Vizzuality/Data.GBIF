@@ -2075,6 +2075,7 @@ a {
 }
 
 #content article.taxonomies {
+
   .header {
     .left {
       h2 {float:left;}
@@ -2104,6 +2105,7 @@ a {
         height:150px;
         outline:none;
       }
+
       .breadcrumb {
         margin:0 0 10px 0;
         padding:0;
@@ -2146,19 +2148,24 @@ a {
 
             .count {
               display:none;
-              float:left;
+              float:right;
+              right:-30px;
               margin-left:10px;
               font-family: $font-regular;
               font-size:18px;
               color:$medium_dark;
+              position:absolute;
+              top:-10px;
             }
 
             .bar {
+              position:relative;
               float:left;
               margin-top:10px;
-              height:3px;
-              background:#3EC05C;
-              &.clickable { background:red; cursor:pointer;}
+              height:13px;
+              background:url('/img/green_bar.png') repeat-x top;
+              &.clickable { cursor:pointer;}
+              &.clickable .count { padding-right: 10px; background:url('/img/icons/gray_arrow.png') no-repeat right 6px;}
             }
           }
 

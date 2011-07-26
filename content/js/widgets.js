@@ -1847,7 +1847,7 @@ $.fn.bindSlideshow = function(opt) {
 
   // Some nice default values
   defaults = {
-    width: 597,
+    width: 540,
     transitionSpeed:300,
     liHeight: 25
   };
@@ -1896,6 +1896,8 @@ $.fn.bindSlideshow = function(opt) {
       $this.data(store, data);
       $ps.data(store, data);
 
+      $this.find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+
       function setupBars($ul) {
 
         $ul.find("> li").each(function() {
@@ -1920,7 +1922,7 @@ $.fn.bindSlideshow = function(opt) {
       $ps.find(".sp a").click(function(e) {
         e.preventDefault();
 
-        if (!stop) {
+        if (!stop) { // this prevents prolbems when clicking very fast on the items
           stop = true;
 
           var name = $(this).find("span").html();
@@ -1935,8 +1937,7 @@ $.fn.bindSlideshow = function(opt) {
           $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
             stop = false;
             level++;
-            var liHeight = $ul.find("> li").length;
-            $ps.find(".sp").animate({height:liHeight*data.settings.liHeight}, data.settings.transitionSpeed);
+            _resize($ps, $ul.find("> li").length, data.$this);
           }});
         }
       });
@@ -1973,26 +1974,26 @@ $.fn.bindSlideshow = function(opt) {
 
     if (gotoLevel == 0) {
       $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-
         $breadcrumb.empty();
         $ps.find(".sp ul ul").hide();
-
-        _resize($ps, $ps.find(".sp ul:visible:first > li").length);
+        _resize($ps, $ps.find(".sp ul:visible:first > li").length, data.$this);
       }});
 
     } else {
 
       $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
-        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settings.transitionSpeed, function() { $(this).remove(); });
-
-        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length);
+        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settingsetransitionSpeed, function() { $(this).remove(); });
+        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length, data.$this);
       }});
     }
   }
 
-  function _resize($ps, elementCount) {
+  function _resize($ps, elementCount, $this) {
     var data = $ps.data(store);
-    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed);
+    console.log("height", elementCount*data.settings.liHeight);
+    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
+      $this.find(".inner").data('jsp').reinitialise();
+    });
   }
 
   $(function() {});

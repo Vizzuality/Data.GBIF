@@ -59,6 +59,15 @@
         $("#pie1").bindPie(36.5, Math.floor(Math.random() * 100));
         $("#pie2").bindPie(36.5, Math.floor(Math.random() * 100));
         $("#pie3").bindPie(36.5, 100);
+
+        $("#pie4").bindMultiPie(36.5, [12,50]);
+        $("#pie5").bindMultiPie(36.5, [32,45,77]);
+        $("#pie6").bindMultiPie(36.5, [12,18,45,62]);
+
+        $("#pie4legend").addMultiLegend(3);
+        $("#pie5legend").addMultiLegend(4);
+        $("#pie6legend").addMultiLegend(5);
+        
     });
 </script>
 </body>

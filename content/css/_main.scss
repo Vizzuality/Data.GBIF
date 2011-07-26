@@ -590,7 +590,7 @@ a {
 
       .left   {
         float:left;
-        width:580px;
+        width:597px;
         margin-right:41px;
         border-top:1px solid $border_color;
         padding-top:20px;
@@ -846,6 +846,38 @@ a {
 				background: url("/img/logos/logo_frame.png") no-repeat left top;
 				padding: 10px;
 				margin: 0 0 10px -2px;
+			}
+			
+			.multipie {
+				display: inline-block;
+				width: 75px;
+			}
+			
+			.pieMultiLegend {				
+				display: inline-block;
+				width: 100px;
+				vertical-align: top;
+				margin: 0;
+				padding: 0;
+
+				ul {
+					margin: 0 0 0 15px;
+					padding: 0;
+					li {
+						margin: 0;
+						padding: 0;
+						line-height: 110%;
+						a {font-size: 13px;}
+						div.pieLegendBullet {
+							display: inline-block;
+							width: 8px;
+							height: 8px;
+							margin: 0 5px 0 0;
+							background-color: #000000;
+							@include border_radius(4px, 4px, 4px, 4px);
+						}
+					}
+				}
 			}
 
     } // .content
@@ -2075,6 +2107,7 @@ a {
 }
 
 #content article.taxonomies {
+
   .header {
     .left {
       h2 {float:left;}
@@ -2104,6 +2137,7 @@ a {
         height:150px;
         outline:none;
       }
+
       .breadcrumb {
         margin:0 0 10px 0;
         padding:0;
@@ -2113,7 +2147,7 @@ a {
         list-style:none;
         height:20px;
 
-        li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
+        li {float:left; margin: 0 5px 0 0; padding:0; background:url('/img/icons/tiny_gray_arrow.png') no-repeat right 3px; padding-right:10px; }
         li a { text-decoration:none; }
       }
 
@@ -2137,28 +2171,17 @@ a {
             overflow:hidden;
 
             a {display:block; color:$link_color; clear:both; overflow:hidden;}
-
-            span {
-              display:block;
-              width:125px;
-              float:left;
-            }
-
-            .count {
-              display:none;
-              float:left;
-              margin-left:10px;
-              font-family: $font-regular;
-              font-size:18px;
-              color:$medium_dark;
-            }
+            span { display:block; width:125px; float:left; }
 
             .bar {
+              position:relative;
               float:left;
-              margin-top:10px;
-              height:3px;
-              background:#3EC05C;
-              &.clickable { background:red; cursor:pointer;}
+              height:20px;
+              background: url('/img/green_bar.png') repeat-x center;
+              &.clickable { cursor:pointer;}
+              &.clickable .count { background:url('/img/icons/gray_arrow.png') no-repeat right 5px;}
+
+              .count { display:none; float:right; right:-40px; padding-right:10px; font-family: $font-regular; font-size:18px; color:$medium_dark; position:absolute; bottom:5px; }
             }
           }
 

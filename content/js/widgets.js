@@ -1990,9 +1990,9 @@ $.fn.bindSlideshow = function(opt) {
 
   function _resize($ps, elementCount, $this) {
     var data = $ps.data(store);
-    console.log("height", elementCount*data.settings.liHeight);
     $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
-      $this.find(".inner").data('jsp').reinitialise();
+        $this.find(".inner").data('jsp').scrollTo(0, 0, true);
+        $this.find(".inner").data('jsp').reinitialise();
     });
   }
 

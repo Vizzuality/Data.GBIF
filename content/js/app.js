@@ -32,6 +32,8 @@ $(function(){
 
   //$("select").uniform();
 
+  $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
+
   $("time.selectable").bindDatePopover();
   $("#select-popover, #select-popover2").selectPopover();
 
@@ -221,6 +223,4 @@ $(function(){
     drawGraph(this, data, opt);
   };
 });
-
-$("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 

@@ -1581,50 +1581,52 @@ var downloadPopover = (function() {
   var transitionSpeed = 200;
   var selected_template;
 
-  var templates = { download_selector: "<article class='infowindow download_popover download_selector'>\
-    <header></header>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>DOWNLOAD DATA</h2>\
-            <p><%= explanation %></p>\
-              <div class='light_box'>\
-                <h3>Select a format</h3>\
-                  <ul>\
-                    <li><input type='radio' name='format' value='csv' id='format_csv' /> <label for='format_csv'>CSV</label> <span class='size'>(≈150Kb)</span></li>\
-                      <li><input type='radio' name='format' value='xls' id='format_xls' /> <label for='format_xls'>XLS</label></li>\
-                        <li><input type='radio' name='format' value='xml' id='format_xml' /> <label for='format_xml'>XML</label></li>\
-                          </ul>\
-                            <div class='tl'></div><div class='tr'></div><div class='bl'></div><div class='br'></div>\
-                              </div>\
-                                <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
-                                  </div>\
-                                    <footer></footer>\
-                                      </article>",
-  direct_download: "<article class='infowindow download_popover direct_download'>\
-    <header></header>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>DOWNLOAD DATA</h2>\
-            <div class='light_box package'>\
-              <div class='content'>\
-                <p><%= explanation %></p>\
-                  </div>\
-                    </div>\
-                      <span class='filetype'><strong>CSV file</strong> <span class='size'>(≈150Kb)</span></span> <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
-                        </div>\
-                          <footer></footer>\
-                            </article>",
-  download_started: "<article class='infowindow download_has_started'>\
-    <header></header>\
-      <span class='close'></span>\
-        <div class='content'>\
-          <h2>DOWNLOAD STARTED</h2>\
-            <p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>\
-              <p>If you have any doubt about the legal terms, please check our <a href='/static/terms_and_conditions.html' class='about' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
-                <a href='#' class='candy_white_button close'><span>Close</span></a>\
-                  </div>\
-                    <footer></footer>\
-                      </article>"};
+  var templates = {
+    download_selector: ['<div class="infowindow download_popover download_selector">',
+      '<div class="lheader"></div>',
+      '<span class="close"></span>',
+      '<div class="content">',
+      '<h2>DOWNLOAD DATA</h2>',
+      '<p><%= explanation %></p>',
+      '<div class="light_box">',
+      '<h3>Select a format</h3>',
+      '<ul>',
+      '<li><input type="radio" name="format" value="csv" id="format_csv" /> <label for="format_csv">CSV</label> <span class="size">(≈150Kb)</span></li>',
+        '<li><input type="radio" name="format" value="xls" id="format_xls" /> <label for="format_xls">XLS</label></li>',
+          '<li><input type="radio" name="format" value="xml" id="format_xml" /> <label for="format_xml">XML</label></li>',
+            '</ul>',
+      '<div class="tl"></div><div class="tr"></div><div class="bl"></div><div class="br"></div>',
+      '</div>',
+      '<a class="candy_blue_button download" target="_blank" href="http://localhost:3000/tmp/download.zip"><span>Download</span></a>',
+        '</div>',
+      '<div class="lfooter"></div>',
+      '</div>'].join(' '),
+      direct_download: ['<div class="infowindow download_popover direct_download">',
+        '<div class="lheader"></div>',
+        '<span class="close"></span>',
+        '<div class="content">',
+        '<h2>DOWNLOAD DATA</h2>',
+        '<div class="light_box package">',
+        '<div class="content">',
+        '<p><%= explanation %></p>',
+        '</div>',
+        '</div>',
+        '<span class="filetype"><strong>CSV file</strong> <span class="size">(≈150Kb)</span></span> <a class="candy_blue_button download" target="_blank" href="http://localhost:3000/tmp/download.zip"><span>Download</span></a>',
+          '</div>',
+        '<div class="lfooter"></div>',
+        '</div>'].join(' '),
+        download_started: ['<div class="infowindow download_has_started">',
+          '<div class="lheader"></div>',
+          '<span class="close"></span>',
+          '<div class="content">',
+          '<h2>DOWNLOAD STARTED</h2>',
+          '<p>Remember that the downloaded data has to be correctly cited if it is used in publications. You will receive a citation text vbundled in the file with your download.</p>',
+            '<p>If you have any doubt about the legal terms, please check our <a href="/static/terms_and_conditions.html" class="about" title="GBIF Data Terms and Conditions">GBIF Data Terms and Conditions</a>.</p>',
+              '<a href="#" class="candy_white_button close"><span>Close</span></a>',
+          '</div>',
+          '<div class="lfooter"></div>',
+          '</div>'].join(' ')
+  };
 
   function toggle(e, event, opt) {
     event.stopPropagation();

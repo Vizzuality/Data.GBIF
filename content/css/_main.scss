@@ -290,7 +290,7 @@ a {
     &.download_selector {
       .content {
 
-          p {line-height:18px; font-size:13px; }
+        p {line-height:18px; font-size:13px; }
 
         .light_box {
           padding-top:22px;
@@ -1987,22 +1987,18 @@ a {
     &:last-child {margin:0;}
     &.last {margin:0;}
   }
-
 }
-
-
-
 
 #content article .content {
   .ps_container {
 
     ul.ps_selected {
-        margin:0;
+      margin:0;
 
       li { margin: 0 0 5px 0!important;
 
         a { color:$medium_dark; }
-    .remove {padding:3px; }
+        .remove {padding:3px; }
         &:hover .remove {display:inline}
       }
     }
@@ -2103,66 +2099,66 @@ a {
     .left {
       border:none;
 
-    .breadcrumb {
-      margin:0 0 10px 0;
-      padding:0;
-      position:relative;
-      clear:both;
-      overflow:hidden;
-      list-style:none;
-      height:20px;
-
-      li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
-      li a { text-decoration:none; }
-    }
-
-    .sp {
-      width:597px;
-      overflow:hidden;
-
-      ul {
-        margin:0;
-        margin-top:0;
+      .breadcrumb {
+        margin:0 0 10px 0;
         padding:0;
-        width:597px;
         position:relative;
+        clear:both;
+        overflow:hidden;
+        list-style:none;
+        height:20px;
 
-        li {
-          background:none;
-          margin:0 0 5px 0;
+        li {float:left; margin: 0 5px 0 0; padding:0; background:none; }
+        li a { text-decoration:none; }
+      }
+
+      .sp {
+        width:597px;
+        overflow:hidden;
+
+        ul {
+          margin:0;
+          margin-top:0;
           padding:0;
-          height:20px;
-          clear:both;
-          overflow:hidden;
+          width:597px;
+          position:relative;
 
-          a {display:block; color:$dark; clear:both; overflow:hidden;}
+          li {
+            background:none;
+            margin:0 0 5px 0;
+            padding:0;
+            height:20px;
+            clear:both;
+            overflow:hidden;
 
-          span {
-            display:block;
-            width:125px;
-            float:left;
+            a {display:block; color:$dark; clear:both; overflow:hidden;}
+
+            span {
+              display:block;
+              width:125px;
+              float:left;
+            }
+
+            .count {
+              display:none;
+              float:left;
+              margin-left:10px;
+              font-family: $font-regular;
+              font-size:18px;
+              color:$medium_dark;
+            }
+
+            .bar {
+              float:left;
+              margin-top:10px;
+              height:3px;
+              background:#3EC05C;
+            }
           }
 
-          .count {
-            display:none;
-            float:left;
-            margin-left:10px;
-            font-family: $font-regular;
-            font-size:18px;
-            color:$medium_dark;
-          }
-
-          .bar {
-            float:left;
-            margin-top:10px;
-            height:3px;
-            background:#3EC05C;
-          }
+          ul {display:none; margin: 0 0 0 597px!important; position:absolute;top:0;background:#fff;}
         }
-
-        ul {display:none; margin: 0 0 0 597px!important; position:absolute;top:0;background:#fff;}
       }
     }
-  }
   }
 }

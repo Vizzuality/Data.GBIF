@@ -180,8 +180,6 @@ a {
     div.lheader { position:absolute; top:-20px;    width:404px; height:20px; padding:0; background:url('/img/boxes/box_min_top.png') no-repeat left top; }
     div.lfooter { position:absolute; bottom:-54px; width:404px; height:54px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left bottom; }
 
-
-
       .light_box {
         background:#e5f5fa;
         position:relative;
@@ -290,28 +288,36 @@ a {
       }//.light_box
 
     &.download_selector {
-      form .light_box {
-        padding-top:22px;
-        padding-bottom:10px;
-        h3 {margin: 0 0 13px 0;}
+      .content {
+
+          p {line-height:18px; font-size:13px; }
+
+        .light_box {
+          padding-top:22px;
+          padding-bottom:10px;
+          h3 {margin: 0 0 13px 0;}
+        }
       }
 
-      .content form {padding-bottom: 0; margin-bottom:0!important;}
       div.lfooter { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 
     &.direct_download {
       .content {
+          p {line-height:18px; font-size:13px; }
         font-size:13px; margin:0; padding:0 34px;
         .light_box { clear:both; overflow:hidden; margin-bottom:20px; padding:7px 0 13px 15px;
-          p {line-height:15px; font-size:13px; }
+          p {line-height:18px; font-size:13px; }
         }
       }
       div.lfooter { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 
     &.download_has_started {
-      .content {font-size:13px; margin:0; padding:0 34px;}
+      .content {font-size:13px; margin:0; padding:0 34px;
+
+          p {line-height:18px; font-size:13px; }
+      }
       div.lfooter { position:absolute; bottom:-32px; width:404px; height:32px; padding:0; background:url('/img/boxes/box_min_bottom.png') no-repeat left top; }
     }
 

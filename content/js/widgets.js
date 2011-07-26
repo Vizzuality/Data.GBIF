@@ -1898,6 +1898,7 @@ $.fn.bindSlideshow = function(opt) {
 
       $this.find('.inner').jScrollPane({ verticalDragMinHeight: 20});
 
+
       function setupBars($ul) {
 
         $ul.find("> li").each(function() {
@@ -1990,9 +1991,10 @@ $.fn.bindSlideshow = function(opt) {
 
   function _resize($ps, elementCount, $this) {
     var data = $ps.data(store);
+
     $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
-        $this.find(".inner").data('jsp').scrollTo(0, 0, true);
-        $this.find(".inner").data('jsp').reinitialise();
+      $this.find(".inner").data('jsp').scrollTo(0, 0);
+      $this.find(".inner").data('jsp').reinitialise();
     });
   }
 

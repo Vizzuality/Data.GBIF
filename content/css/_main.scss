@@ -847,6 +847,38 @@ a {
 				padding: 10px;
 				margin: 0 0 10px -2px;
 			}
+			
+			.multipie {
+				display: inline-block;
+				width: 75px;
+			}
+			
+			.pieMultiLegend {				
+				display: inline-block;
+				width: 100px;
+				vertical-align: top;
+				margin: 0;
+				padding: 0;
+
+				ul {
+					margin: 0 0 0 15px;
+					padding: 0;
+					li {
+						margin: 0;
+						padding: 0;
+						line-height: 110%;
+						a {font-size: 13px;}
+						div.pieLegendBullet {
+							display: inline-block;
+							width: 8px;
+							height: 8px;
+							margin: 0 5px 0 0;
+							background-color: #000000;
+							@include border_radius(4px, 4px, 4px, 4px);
+						}
+					}
+				}
+			}
 
     } // .content
   } // article

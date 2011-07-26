@@ -1,14 +1,13 @@
 $(function(){
   var values = generateRandomValues(365);
-  var processes = { dates:[ {start:"2011-1-1", end: "2011-2-11"},
-    {start:"2011-3-1"},
-    {start:"2011-4-1"},
-    {start:"2011-5-1"},
-    {start:"2011-6-1"},
-    {start:"2011-7-1"},
-    {start:"2011-8-1"},
-
-  ]};
+  var processes = { dates:[
+    {start:"2011-1-1", end: "2011-2-11", url:"http://www.google.com"},
+    {start:"2011-3-1", url:"http://www.google.com"},
+    {start:"2011-4-1", end:"2011-4-25", url:"http://www.google.com"},
+    {start:"2011-5-1", url:"http://www.google.com" },
+    {start:"2011-6-1", url:"http://www.google.com"},
+    {start:"2011-7-1", url:"http://www.google.com"},
+    {start:"2011-8-1", url:"http://www.google.com"}]};
 
   if ($("#holder").length ) {
     dataHistory.initialize(values, {height: 180, processes: processes});

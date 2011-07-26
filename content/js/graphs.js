@@ -108,15 +108,39 @@ var dataHistory = (function() {
     return Math.round(Math.abs((firstDate.getTime() - date.getTime())/(24*60*60*1000)));
   }
 
-  function drawPoint(x, y) {
+  function drawPoint(x, y, url) {
     var rect = canvas.rect(x, y, 6, 6, 3);
+
+    rect.attr("cursor", "pointer");
+
+    rect.hover(function (event) {
+      rect.attr("fill", "#01759c");
+    },function() {
+      rect.attr("fill", "#0099CC");
+    });
+
+    rect.click(function (event) {
+      window.location = url;
+    });
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
   }
 
-  function drawLine(x, y, width) {
+  function drawLine(x, y, width, url) {
     var rect = canvas.rect(x, y, width, 6, 3);
+
+    rect.attr("cursor", "pointer");
+
+    rect.hover(function (event) {
+      rect.attr("fill", "#01759c");
+    },function() {
+      rect.attr("fill", "#0099CC");
+    });
+
+    rect.click(function (event) {
+      window.location = url;
+    });
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
@@ -124,7 +148,7 @@ var dataHistory = (function() {
 
   function drawProcesses() {
     _.each(processes, function(date) {
-      //console.log(date);
+
       var startDate = new Date(date.start);
       var endDate   = new Date(date.end);
 
@@ -135,9 +159,9 @@ var dataHistory = (function() {
 
       if (days) {
         //console.log(startDate, endDate, x, y, y - x, p*stepWidth);
-        drawLine(x*stepWidth + 1, 210, (y-x)*stepWidth + stepWidth*2);
+        drawLine(x*stepWidth, 210, (y-x)*stepWidth + stepWidth*2, date.url);
       } else {
-        drawPoint(x*stepWidth + 1, 210);
+        drawPoint(x*stepWidth, 210, date.url);
       }
     });
   }

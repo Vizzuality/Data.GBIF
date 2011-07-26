@@ -1581,8 +1581,8 @@ var downloadPopover = (function() {
   var transitionSpeed = 200;
   var selected_template;
 
-  var templates = { download_selector: "<article class='infowindow download_popover download_selector'>\
-    <header></header>\
+  var templates = { download_selector: "<div class='infowindow download_popover download_selector'>\
+    <div class='lheader'></div>\
       <span class='close'></span>\
         <div class='content'>\
           <h2>DOWNLOAD DATA</h2>\
@@ -1598,10 +1598,10 @@ var downloadPopover = (function() {
                               </div>\
                                 <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
                                   </div>\
-                                    <footer></footer>\
-                                      </article>",
-  direct_download: "<article class='infowindow download_popover direct_download'>\
-    <header></header>\
+                                    <div class='lfooter'></div>\
+                                      </div>",
+  direct_download: "<div class='infowindow download_popover direct_download'>\
+    <div class='lheader'></div>\
       <span class='close'></span>\
         <div class='content'>\
           <h2>DOWNLOAD DATA</h2>\
@@ -1612,10 +1612,10 @@ var downloadPopover = (function() {
                     </div>\
                       <span class='filetype'><strong>CSV file</strong> <span class='size'>(≈150Kb)</span></span> <a class='candy_blue_button download' target='_blank' href='http://localhost:3000/tmp/download.zip'><span>Download</span></a>\
                         </div>\
-                          <footer></footer>\
-                            </article>",
-  download_started: "<article class='infowindow download_has_started'>\
-    <header></header>\
+                          <div class='lfooter'></div>\
+                            </div>",
+  download_started: "<div class='infowindow download_has_started'>\
+    <div class='lheader'></div>\
       <span class='close'></span>\
         <div class='content'>\
           <h2>DOWNLOAD STARTED</h2>\
@@ -1623,8 +1623,8 @@ var downloadPopover = (function() {
               <p>If you have any doubt about the legal terms, please check our <a href='/static/terms_and_conditions.html' class='about' title='GBIF Data Terms and Conditions'>GBIF Data Terms and Conditions</a>.</p>\
                 <a href='#' class='candy_white_button close'><span>Close</span></a>\
                   </div>\
-                    <footer></footer>\
-                      </article>"};
+                    <div class='lfooter'></div>\
+                      </div>"};
 
   function toggle(e, event, opt) {
     event.stopPropagation();

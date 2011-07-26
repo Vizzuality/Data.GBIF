@@ -1912,9 +1912,9 @@ $.fn.bindSlideshow = function(opt) {
           $(this).find("span:first").after("<div class='bar"+clase+"' style='width:"+(value+10)+"px'><div class='count'>"+value+"</div></div>");
 
           $(this).find("a").hover(function() {
-            $(this).parent().parent().find(".count:first").fadeIn(150);
+            $(this).parent().parent().stop(true).find(".count:first").fadeIn(150);
           }, function() {
-            $(this).parent().parent().find(".count:first").fadeOut(150);
+            $(this).parent().parent().stop(true).find(".count:first").fadeOut(150);
           });
 
           $(this).find(".bar").hover(function() {

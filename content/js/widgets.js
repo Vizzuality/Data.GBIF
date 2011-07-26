@@ -1898,35 +1898,46 @@ $.fn.bindSlideshow = function(opt) {
 
       $this.find('.inner').jScrollPane({ verticalDragMinHeight: 20});
 
-
-      function setupBars($ul) {
+      // Calculate the width of the bars and add them to the DOM
+      function addBars($ul) {
 
         $ul.find("> li").each(function() {
           var value = parseInt($(this).attr("data"));
+          var clase = "";
 
-          $(this).find("span:first").after("<div class='bar' style='width:"+(value+10)+"px'></div><div class='count'>"+value+"</div>");
+          if ($(this).find("ul").length > 0) {
+            clase = ' clickable';
+          }
 
-          $(this).hover(function() {
-            $(this).find("span:first").siblings(".count").fadeIn(300);
+          $(this).find("span:first").after("<div class='bar"+clase+"' style='width:"+(value+10)+"px'><div class='count'>"+value+"</div></div>");
+
+          $(this).find("a").hover(function() {
+            $(this).parent().parent().find(".count:first").fadeIn(150);
           }, function() {
-            $(this).find("span:first").siblings(".count").fadeOut(300);
+            $(this).parent().parent().find(".count:first").fadeOut(150);
+          });
+
+          $(this).find(".bar").hover(function() {
+            $(this).find(".count").fadeIn(150);
+          }, function() {
+            $(this).find(".count").fadeOut(150);
           });
         });
 
         $ul.children().each(function() {
-          setupBars($(this));
+          addBars($(this));
         });
       }
 
-      setupBars($ps.find("ul:first"));
+      addBars($ps.find("ul:first"));
 
-      $ps.find(".sp a").click(function(e) {
+      $ps.find(".sp .bar.clickable").click(function(e) {
         e.preventDefault();
 
         if (!stop) { // this prevents prolbems when clicking very fast on the items
           stop = true;
 
-          var name = $(this).find("span").html();
+          var name = $(this).parent().find("a").html();
           var item = '<li style="opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
           $breadcrumb.append(item);
           $breadcrumb.find("li:last").animate({opacity:1}, 500);
@@ -1950,6 +1961,7 @@ $.fn.bindSlideshow = function(opt) {
 
         _goto($this, gotoLevel);
         level = gotoLevel;
+        $ps.find(".inner").data('jsp').scrollTo(0, 0, true);
       });
     });
   };
@@ -1993,7 +2005,6 @@ $.fn.bindSlideshow = function(opt) {
     var data = $ps.data(store);
 
     $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
-      $this.find(".inner").data('jsp').scrollTo(0, 0);
       $this.find(".inner").data('jsp').reinitialise();
     });
   }

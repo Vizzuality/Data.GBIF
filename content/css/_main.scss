@@ -590,7 +590,7 @@ a {
 
       .left   {
         float:left;
-        width:580px;
+        width:597px;
         margin-right:41px;
         border-top:1px solid $border_color;
         padding-top:20px;
@@ -1053,7 +1053,7 @@ a {
 
       padding-right:15px;
 
-      .left { margin:0 70px 0 0; }
+      .left { margin:0 51px 0 0; }
       .right { width:220px; }
 
       form {margin: 0 0 28px 0; }
@@ -2152,13 +2152,13 @@ a {
               height:20px;
               background: url('/img/green_bar.png') repeat-x center;
               &.clickable { cursor:pointer;}
-              &.clickable .count { padding-right: 10px; background:url('/img/icons/gray_arrow.png') no-repeat right;}
+              &.clickable .count { background:url('/img/icons/gray_arrow.png') no-repeat right 5px;}
 
               .count {
                 display:none;
                 float:right;
-                right:-30px;
-                margin-left:10px;
+                right:-40px;
+                padding-right:10px;
                 font-family: $font-regular;
                 font-size:18px;
                 color:$medium_dark;

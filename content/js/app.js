@@ -1,9 +1,6 @@
 $(function(){
   var values = generateRandomValues(365);
-  var processes = { dates:[
-    {start:"2011-1-1", end: "2011-2-11"},
-    {start:"2011-3-1"}
-  ]};
+  var processes = { dates:[ {start:"2011-1-1", end: "2011-2-11"}, {start:"2011-3-1"} ]};
 
   if ($("#holder").length ) {
     dataHistory.initialize(values, {height: 180, processes: processes});

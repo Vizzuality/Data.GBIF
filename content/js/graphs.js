@@ -148,7 +148,6 @@ var dataHistory = (function() {
 
   function drawGraph() {
     drawLines();
-    //drawMonthLines();
     drawRects();
     drawProcesses();
   }

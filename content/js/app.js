@@ -167,6 +167,23 @@ $(function(){
 		}
   }
 
+	function drawGreyBars(ob, w) {
+		var scale = w/100;
+		jQuery("ul li", ob).each(function() {
+			var bar = $(this).find("div.grey_bar");
+			var value = bar.html();
+			$(this).append("<div class='value_label'>"+value+"</div>");
+			$("div.value_label").css({display: "none"});
+			bar.empty();
+			bar.css({width: value*scale});
+			bar.show();
+			$(this).mouseover(function() {
+				$("div.value_label").css({display: "none"});
+				$(this).find("div.value_label").css({display: "inline-block"});
+			});
+		});
+	}
+
   $.fn.bindPie = function(r, percentage) {
     drawPie($(this), r, percentage);
   };
@@ -175,6 +192,10 @@ $(function(){
     drawMultiPie($(this), r, values);
   };
 
+	$.fn.bindGreyBars = function(w) {
+		drawGreyBars($(this), w);
+	}
+	
   $.fn.addMultiLegend = function(number) {
 		var baseOpacity = 0.6 / number;
 		jQuery("ul li", this).each( function() {

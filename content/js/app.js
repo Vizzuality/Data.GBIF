@@ -81,14 +81,35 @@ $(".autocomplete input").autocomplete(emails, {
   matchContains: "word",
   autoFill: false,
   max:3,
+  result: function(e) {
+    alert('a');
+  },
   formatItem: function(row, i, max) {
-    //return i + "/" + max + ": \"" + row.name + "\" [" + row.to + "]";
-    return  '<div class="row"><span class="name">' + row.name + '</span> ' + row.to + '</div>';
+    var clase = "";
+
+    if (max == 1) {
+      clase = ' unique';
+    } else if (i == 1) {
+      clase = ' first';
+    } else if (i == max ) {
+      clase = ' last';
+    }
+    console.log(clase, i, max);
+
+    return  '<div class="row' + clase + '"><span class="name">' + row.name + '</span> ' + row.to + '</div>';
   },
   formatResult: function(row) {
     return row.name;
   }
 });
+
+$(".autocomplete input").result(onResult);
+
+function onResult(event, data, formatted) {
+  console.log(event,data, formatted);
+}
+
+
 
 
   $("a#puma_help_1").helpPopover({title:"Help in images", message:"Remember to give <strong>display:block</strong> or <strong>display:inline-block</strong> to the link that opens this message so it can set the alignment right."});

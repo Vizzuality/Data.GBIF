@@ -723,42 +723,68 @@ span.remove {
   text-transform:uppercase;
   font-family:$font_medium;
 
+  ul {
+    margin-top:-5px;
+    margin-left:-5px;
+
   li {
+    .row {
+      padding: 7px 11px;
+      width: 225px - 22;
+      height:45px - 14;
+      background:url('/img/autocomplete_bkg.png') no-repeat -226px -12px;
 
-    &:hover {
-      &:first-child {
-      background-position:left -58px;
+      &:hover {
+        height:45px - 14;
+        background-position:-226px -92px;
       }
-    }
-      height:58px;
-      background:url('/img/autocomplete_bkg.png') no-repeat -227px top;
 
-    &:first-child {
-      height:58px - 11;
-      padding-top:11px;
-      background:url('/img/autocomplete_bkg.png') no-repeat left top;
-    }
+      &.unique {
+        padding: 20px 11px 7px 11px;
+        height:64px - 20 - 7;
+        background:url('/img/autocomplete_bkg.png') no-repeat -678px top;
 
-    &:last-child {
-      height:59px;
-      background:url('/img/autocomplete_bkg.png') no-repeat right top;
-    }
+        &:hover {
+          background:url('/img/autocomplete_bkg.png') no-repeat -678px -80px;
+        }
+      }
 
-  div.row {
-    padding: 11px;
-    //border-bottom: 1px solid $gray;
+      &.first {
+        padding-top: 20px;
+        height:57px - 20 - 7;
+        background:url('/img/autocomplete_bkg.png') no-repeat left top;
 
-   // &:hover {
-   //   background:#ccc;
-   // }
+        &:hover {
+          padding-top: 20px;
+          height:57px - 20 - 7;
+          background:url('/img/autocomplete_bkg.png') no-repeat left -80px;
+        }
+      }
+
+      &.last  {
+        height:58px;
+        background:url('/img/autocomplete_bkg.png') no-repeat -452px -8px;
+
+        &:hover {
+          height:58px;
+          background:url('/img/autocomplete_bkg.png') no-repeat -452px -88px;
+        }
+
+      }
+
+   // border-bottom: none;
+   // padding: 7px 11px;
+    cursor:pointer;
 
     span.name {
       display:block;
+      margin-bottom:3px;
       text-transform:none;
       font-size:15px;
       font-family:$base;
       color:$link_color;
     }
+  }
   }
   }
 }

@@ -786,6 +786,15 @@ a {
 					}
       }
 
+			ul.no_bullets {
+				display: inline-block;
+				margin: 6px 0 25px 0;
+				li {
+					padding-left: 0;
+					background: none;
+					}
+      }
+
 			ul.notes {
 				margin: 0;
 				li {
@@ -879,7 +888,33 @@ a {
 					}
 				}
 			}
+			
+			.horizontal_graph {
 
+				ul li a {
+					display: inline-block;
+					width: 150px;
+					}
+
+				.grey_bar {
+					display: inline-block;
+					height: 3px;
+					margin: 0 0 3px 0;
+					background-color: $gray;
+					@include border_radius(1px, 1px, 1px, 1px);
+				}
+				
+				.value_label {
+					font-family: $font-medium;
+					font-size: 13px;
+					color: $gray;
+					display: inline-block;
+					margin: 0 0 0 10px;
+					padding: 0;
+				}
+				
+			}
+			
     } // .content
   } // article
 

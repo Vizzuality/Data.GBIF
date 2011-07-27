@@ -159,5 +159,68 @@
         }
       }
     }
+  }
+
+
+
+  body.typesmap {
+    div#map {
+      position: absolute;
+      top: -19px;
+      height: 423px;
+      left: 2px;
+      width: 603px;
+      z-index: 10!important;
+    }
+
+    a.zoom_in {
+      position:absolute;
+      top:-13px;
+      left:8px;
+      height:28px;
+      width:28px;
+      background:url('/img/icons/zoom.png') no-repeat 0 0;
+      z-index:10;
+      text-indent:-999px;
+      line-height:0;
+      font-size:0;
+
+      &:hover {
+        background-position:0 -32px;
+      }
+    }
+
+    a.zoom_out {
+      position:absolute;
+      top:15px;
+      left:8px;
+      height:28px;
+      width:28px;
+      background:url('/img/icons/zoom.png') no-repeat -28px 0;
+      z-index:10;
+      text-indent:-999px;
+      line-height:0;
+      font-size:0;
+
+      &:hover {
+        background-position:-28px -32px;
+      }
+    }
+
+    p.maptype {
+      a {
+
+        &.selected {
+          color:#666666;
+          text-decoration:none;
+
+          &:hover {
+            color:#666666!important;
+            text-decoration:none;
+            cursor:default;
+          }
+        }
+      }
+    }
 
   }

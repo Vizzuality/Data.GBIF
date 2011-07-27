@@ -236,8 +236,13 @@ var GOD = (function() {
   function _center ($this, $ps) {
     var x = $this.offset().left;
     var y = $this.offset().top;
+
+    var tw = $this.width();
+    var th = $this.height();
+
     var w = $ps.width();
     var h = $ps.height();
+    console.log(tw, th);
 
     $ps.css("left", x - w/2 + 7);
 

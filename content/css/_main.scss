@@ -1144,14 +1144,16 @@ a {
           width:auto;
           height:auto;
           background:none;
-
 					padding: 0;
 
           .pagination { float:right; margin-right:10px; color:$gray; line-height:40px; }
 
-					a {font-size: 15px; margin: 0 0 10px 0;}
-					
         }//.footer
+
+        .module_footer {
+					margin: 25px 0 10px 0;
+					a {font-size: 15px; }
+				}
 
 				.result_summary {
 

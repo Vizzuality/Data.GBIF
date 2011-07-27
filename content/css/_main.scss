@@ -817,6 +817,10 @@ a {
           zoom: 1; /* IE7 (hasLayout)*/
           *display: inline; /* IE */
 
+          // we need to set this to block if we're going to use a helpPopover on the link
+          // and want proper alignment
+          a {display:block; }
+
 					img {
 						margin: 0px;
 						padding: 3px;
@@ -856,13 +860,13 @@ a {
 				padding: 10px;
 				margin: 0 0 10px -2px;
 			}
-			
+
 			.multipie {
 				display: inline-block;
 				width: 75px;
 			}
-			
-			.pieMultiLegend {				
+
+			.pieMultiLegend {
 				display: inline-block;
 				width: 100px;
 				vertical-align: top;
@@ -888,7 +892,7 @@ a {
 					}
 				}
 			}
-			
+
 			.horizontal_graph {
 
 				ul li a {
@@ -903,7 +907,7 @@ a {
 					background-color: $gray;
 					@include border_radius(1px, 1px, 1px, 1px);
 				}
-				
+
 				.value_label {
 					font-family: $font-medium;
 					font-size: 13px;
@@ -912,9 +916,9 @@ a {
 					margin: 0 0 0 10px;
 					padding: 0;
 				}
-				
+
 			}
-			
+
     } // .content
   } // article
 
@@ -1254,7 +1258,7 @@ a {
             			li:last-child { background:none; }
 								}
 							}
-						
+
 							} // ul
 
 						a {font-size: 13px}
@@ -1436,20 +1440,20 @@ a {
 
 
   article.static {
-		
+
     .content {
       .left {
-	
+
 				margin: 0 50px 0 0;
 				padding: 0;
 				border: none;
-				
-				.header {					
+
+				.header {
 					width: 600px;
 					border-bottom: 1px solid $gray;
 					margin: 0 0 25px 0;
 				}
-	
+
         h3 { margin-bottom:18px;}
         h4 { margin-bottom:18px; font-family:$base; font-weight:bold; font-size:15px; text-transform:none; color:$medium_dark; @include white-shadow; }
         ul, ol {margin: 0 1px 26px 20px; }
@@ -1488,11 +1492,11 @@ a {
           a  { text-decoration:none; }
 					&:first-child, &.first {
 						border-top: none;
-						
+
 						li {
-						border-top: none;							
+						border-top: none;
 						}
-						
+
 					}
           &:last-child, &.last { border:none; }
 
@@ -2070,7 +2074,7 @@ a {
 #content article.search .content {
   ul.summary {
 		margin: 0;
-		
+
 		li {
     	width: 120px;
     	margin-right: 20px;

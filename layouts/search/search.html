@@ -7,7 +7,7 @@
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -33,11 +33,11 @@
   <script src="/js/vendor/modernizr-1.7.min.js"></script>
 
 </head>
-<body>
-  <%= render 'members/detail_header', :selected => "activity", :highlighted => "activity" %>
+<body class="search">
+      <%= render 'partials/search/header', :section => "GBIF Data" %>
     <div id="content">
       <%= yield %>
-      <%= render "partials/login" %>
+      <%= render "/partials/login" %>
       <%= render "/partials/download" %>
     </div>
     <%= render 'partials/footer' %>

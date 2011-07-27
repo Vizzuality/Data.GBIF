@@ -34,7 +34,7 @@
 <body>
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render 'members/detail_header', :selected => "information" %>
+  <%= render 'members/detail_header', :selected => "information", :highlighted => "" %>
   <div id="content">
     <%= yield %>
     <%= render "/partials/login" %>

@@ -13,13 +13,34 @@
 
 <%= render "/members/infoband" %>
 
+<%
+information = (selected == "information") ? "selected" : ""
+information += (highlighted == "information") ? " highlighted" : ""
+information_classes = (information.strip == '') ? "" : " class='#{information.strip}'"
+
+dataset = (selected == "dataset") ? "selected" : ""
+dataset += (highlighted == "dataset") ? " highlighted" : ""
+dataset_classes = (dataset.strip == '') ? "" : " class='#{dataset.strip}'"
+
+occurrences = (selected == "occurrences") ? "selected" : ""
+occurrences += (highlighted == "occurrences") ? " highlighted" : ""
+occurrences_classes = (occurrences.strip == '') ? "" : " class='#{occurrences.strip}'"
+
+activity = (selected == "activity") ? "selected" : ""
+activity += (highlighted == "activity") ? " highlighted" : ""
+activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
+
+classes = {:information => information_classes, :dataset => dataset_classes, :occurrences => occurrences_classes, :activity => activity_classes }
+
+%>
+
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li<%= ' class="selected"' if selected == "information" %>><a href="/index.html" title="Information"><span>Information</span></a></li>
-    <li><a href="#" title="Datasets"><span>Datasets</span></a></li>
-    <li><a href="#" title="Occurrences"><span>Occurrences</span></a></li>
-    <li<%= ' class="selected highlighted"' if selected == "activity" %>><a href="process_detail.html" title="Activity"><span>Activity <sup>(2)</sup></span></a></li>
+    <li <%= classes[:information] %>><a href="/members/detail.html" title="Information"><span>Information</span></a></li>
+    <li <%= classes[:dataset] %>><a href="/members/datasets.html" title="Datasets"><span>Datasets</span></a></li>
+    <li <%= classes[:occurrences] %>><a href="/members/occurrences.html" title="Occurrences"><span>Occurrences</span></a></li>
+    <li <%= classes[:activity] %>><a href="/members/activity.html" title="Activity"><span>Activity </span></a></li>
   </ul>
 </div>
 <!-- /tabs-->

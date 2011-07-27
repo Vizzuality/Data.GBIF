@@ -165,14 +165,14 @@ span.remove {
 
 #content .field.select {height:70px;}
 #content .field .select-box {
-  position:absolute;
+  position:relative;
   z-index:100;
 
   // Disable selection of text
   -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;
 
   &.countries div.selected_option {width:320px;}
-  &.selected {
+  &.open {
     .listing { display:block; }
 
     div.selected_option {
@@ -208,7 +208,12 @@ span.remove {
   } //.selected_option
 
   .listing {
+
+    &.open { display:block; }
+
     display:none;
+    position:absolute;
+    z-index:1000;
     padding:0 0 0 17px;
     margin-left:-5px;
     background:url('/img/select_left_side.png') no-repeat left -73px;

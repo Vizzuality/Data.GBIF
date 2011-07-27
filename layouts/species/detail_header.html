@@ -18,6 +18,10 @@ information = (selected == "information") ? "selected" : ""
 information += (highlighted == "information") ? " highlighted" : ""
 information_classes = (information.strip == '') ? "" : " class='#{information.strip}'"
 
+occurrences = (selected == "occurrences") ? "selected" : ""
+occurrences += (highlighted == "occurrences") ? " highlighted" : ""
+occurrences_classes = (occurrences.strip == '') ? "" : " class='#{occurrences.strip}'"
+
 activity = (selected == "activity") ? "selected" : ""
 activity += (highlighted == "activity") ? " highlighted" : ""
 activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
@@ -27,7 +31,7 @@ stats += (highlighted == "stats") ? " highlighted" : ""
 stats_classes = (stats.strip == '') ? "" : " class='#{stats.strip}'"
 
 
-classes = {:information => information_classes, :activity => activity_classes, :stats => stats_classes }
+classes = {:information => information_classes, :occurrences => occurrences_classes, :activity => activity_classes, :stats => stats_classes }
 
 %>
 
@@ -35,6 +39,7 @@ classes = {:information => information_classes, :activity => activity_classes, :
 <div id="tabs">
   <ul>
     <li<%= classes[:information] %>><a href="/species/detail.html"><span>Information</span></a></li>
+    <li<%= classes[:occurrences] %>><a href="#" title="Occurrences" id="occurrences_tab"><span>Occurrences </span></a></li>
     <li<%= classes[:activity] %>><a href="#" title="Activity" id="activity_tab"><span>Activity <sup>(2)</sup></span></a></li>
     <li<%= classes[:stats] %>><a href="/species/stats.html" title="Stats"><span>Stats <sup>(2)</sup></span></a></li>
   </ul>

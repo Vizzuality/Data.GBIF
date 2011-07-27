@@ -42,6 +42,8 @@ $(function(){
 
   $("#select-popover, #select-popover2").selectPopover();
 
+  $("a#puma_help_1").helpPopover({title:"Help in images", message:"Remember to give <strong>display:block</strong> or <strong>display:inline-block</strong> to the link that opens this message so it can set the alignment right."});
+
   $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help2").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help3").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
@@ -79,7 +81,7 @@ $(function(){
         e.preventDefault();
       }
     }
-		
+
   })	;
 
 

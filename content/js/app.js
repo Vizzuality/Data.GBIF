@@ -78,9 +78,8 @@ $(function(){
     $(this).parent().removeClass("focus");
   });
 
-  $('.select-box div.selected_option').click(function(e) {
-    selectBox.toggle($(this).parent(), e);
-  });
+
+  //$("#selectbox").selectBox();
 
   $(".range").bindSlider(0, 500, [0, 500]);
 

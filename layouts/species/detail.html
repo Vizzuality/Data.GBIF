@@ -31,7 +31,7 @@
 
   <script src="/js/vendor/modernizr-1.7.min.js"></script>
 </head>
-<body class="species">
+<body class="species typesmap">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
   <%= render "/species/detail_header", :selected => "information", :highlighted => "" %>

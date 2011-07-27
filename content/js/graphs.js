@@ -1,7 +1,7 @@
 var dataHistory = (function() {
   var width, height, canvas, fillColor, fillOpacity, strokeColor, strokeOpacity, strokeWidth;
   var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DEC"];
-  var template =  _.template("L<%= xpos %>.5 <%= old_ypos %>.5, L<%= xpos %>.5 <%= ypos %>.5,");
+  var template =  _.template("L<%= xpos %> <%= old_ypos %>, L<%= xpos2 %> <%= ypos %>,");
   var processes = {};
   var max, stepWidth, leftover;
   var normalized_values = [];
@@ -27,11 +27,7 @@ var dataHistory = (function() {
     max = _.max(values);
     normalized_values = _.map(values, function(v) { return height - Math.round(v  * height/max); });
 
-    stepWidth    = Math.floor(width / values.length);
-    bigStepWidth = Math.ceil(width / values.length);
-
-    leftover     = Math.abs(stepWidth*values.length - width);
-    //console.log("Step: " + stepWidth, "bigStep: " + bigStepWidth, bigStepWidth*leftover, "Leftover: " + leftover + " px");
+    stepWidth    = width / values.length;
   }
 
   function drawLines() {
@@ -39,11 +35,11 @@ var dataHistory = (function() {
     var previous_value = height;
 
     _.each(normalized_values, function(value, index) {
-      path += template({xpos:stepWidth*index, ypos:value, old_ypos:previous_value});
+      path += template({xpos:(stepWidth*index)+.5, xpos2: (stepWidth*index)+.5, ypos:value + .5, old_ypos:previous_value +.5});
       previous_value = value;
     });
 
-    path += template({xpos:stepWidth*values.length, ypos:height, old_ypos:previous_value});
+    path += template({xpos:(stepWidth*values.length)+.5, xpos2:(stepWidth*values.length)+.5, ypos:height + .5, old_ypos:previous_value+.5});
 
     var shape = canvas.path(path);
     shape.attr("stroke", strokeColor);
@@ -53,7 +49,7 @@ var dataHistory = (function() {
   function drawMonthLine(x, monthName) {
     var monthWidth = Math.round(stepWidth*values.length / 12);
 
-    var line = canvas.path("M"+x+".5 450.5 L"+x+".5 0");
+    var line = canvas.path("M"+x+" 450.5 L"+x+" 0");
     line.attr("stroke", "#D9D9D9");
 
     if (monthName) {
@@ -78,7 +74,7 @@ var dataHistory = (function() {
 
   function drawRects() {
     _.each(normalized_values, function(value, index) {
-      var rect = canvas.rect(stepWidth*index + ".5", value + ".5", stepWidth, height - value + 20);
+      var rect = canvas.rect(stepWidth*index , value , stepWidth, height - value + 20);
 
       rect.attr("fill-opacity", fillOpacity);
       rect.attr("fill", fillColor);
@@ -112,15 +108,39 @@ var dataHistory = (function() {
     return Math.round(Math.abs((firstDate.getTime() - date.getTime())/(24*60*60*1000)));
   }
 
-  function drawPoint(x, y) {
+  function drawPoint(x, y, url) {
     var rect = canvas.rect(x, y, 6, 6, 3);
+
+    rect.attr("cursor", "pointer");
+
+    rect.hover(function (event) {
+      rect.attr("fill", "#01759c");
+    },function() {
+      rect.attr("fill", "#0099CC");
+    });
+
+    rect.click(function (event) {
+      window.location = url;
+    });
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
   }
 
-  function drawLine(x, y, width) {
+  function drawLine(x, y, width, url) {
     var rect = canvas.rect(x, y, width, 6, 3);
+
+    rect.attr("cursor", "pointer");
+
+    rect.hover(function (event) {
+      rect.attr("fill", "#01759c");
+    },function() {
+      rect.attr("fill", "#0099CC");
+    });
+
+    rect.click(function (event) {
+      window.location = url;
+    });
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
@@ -128,7 +148,7 @@ var dataHistory = (function() {
 
   function drawProcesses() {
     _.each(processes, function(date) {
-      //console.log(date);
+
       var startDate = new Date(date.start);
       var endDate   = new Date(date.end);
 
@@ -139,9 +159,9 @@ var dataHistory = (function() {
 
       if (days) {
         //console.log(startDate, endDate, x, y, y - x, p*stepWidth);
-        drawLine(x*stepWidth + 1, 210, (y-x)*stepWidth + stepWidth*2);
+        drawLine(x*stepWidth, 210, (y-x)*stepWidth + stepWidth*2, date.url);
       } else {
-        drawPoint(x*stepWidth + 1, 210);
+        drawPoint(x*stepWidth, 210, date.url);
       }
     });
   }

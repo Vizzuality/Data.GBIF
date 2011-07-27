@@ -1,6 +1,13 @@
 $(function(){
   var values = generateRandomValues(365);
-  var processes = { dates:[ {start:"2011-1-1", end: "2011-2-11"}, {start:"2011-3-1"} ]};
+  var processes = { dates:[
+    {start:"2011-1-1", end: "2011-2-11", url:"http://www.google.com"},
+    {start:"2011-3-1", url:"http://www.google.com"},
+    {start:"2011-4-1", end:"2011-4-25", url:"http://www.google.com"},
+    {start:"2011-5-1", url:"http://www.google.com" },
+    {start:"2011-6-1", url:"http://www.google.com"},
+    {start:"2011-7-1", url:"http://www.google.com"},
+    {start:"2011-8-1", url:"http://www.google.com"}]};
 
   if ($("#holder").length ) {
     dataHistory.initialize(values, {height: 180, processes: processes});
@@ -63,6 +70,19 @@ $(function(){
     }
   });
 
+  $('#language_selector').sortPopover({
+    options: {
+      "English": function(e) {
+        e.preventDefault();
+      },
+      "Castellano": function(e) {
+        e.preventDefault();
+      }
+    }
+		
+  })	;
+
+
   $('span.input_text input').focus(function() {
     $(this).parent().addClass("focus");
   });
@@ -71,9 +91,8 @@ $(function(){
     $(this).parent().removeClass("focus");
   });
 
-  $('.select-box div.selected_option').click(function(e) {
-    selectBox.toggle($(this).parent(), e);
-  });
+
+  //$("#selectbox").selectBox();
 
   $(".range").bindSlider(0, 500, [0, 500]);
 
@@ -141,9 +160,9 @@ $(function(){
     rad = Math.PI / 180,
     startAngle = 180 - endAngle,
     raphael = Raphael(container_id, ob.width(), r * 2);
-		
+
 		var sectorOpacity = 0.8 / values.length;
-		
+
     c = raphael.circle(r, r, r).attr({ stroke: "#E5E5E5", fill: "#E5E5E5" });
 
     function sector(cx, cy, r, startAngle, endAngle, params) {
@@ -153,12 +172,29 @@ $(function(){
       y2 = cy + r * Math.sin(-endAngle * rad);
       return raphael.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(params);
     }
-		
+
 		for (var i= 0; i<values.length; i++) {
     	var endAngle = Math.floor(values[i] / 100 * 360);
     	p = sector(r, r, r, 0, endAngle, { stroke: "none", fill: "#222", opacity: sectorOpacity});
 		}
   }
+
+	function drawGreyBars(ob, w) {
+		var scale = w/100;
+		jQuery("ul li", ob).each(function() {
+			var bar = $(this).find("div.grey_bar");
+			var value = bar.html();
+			$(this).append("<div class='value_label'>"+value+"</div>");
+			$("div.value_label").css({display: "none"});
+			bar.empty();
+			bar.css({width: value*scale});
+			bar.show();
+			$(this).mouseover(function() {
+				$("div.value_label").css({display: "none"});
+				$(this).find("div.value_label").css({display: "inline-block"});
+			});
+		});
+	}
 
   $.fn.bindPie = function(r, percentage) {
     drawPie($(this), r, percentage);
@@ -168,6 +204,10 @@ $(function(){
     drawMultiPie($(this), r, values);
   };
 
+	$.fn.bindGreyBars = function(w) {
+		drawGreyBars($(this), w);
+	}
+	
   $.fn.addMultiLegend = function(number) {
 		var baseOpacity = 0.6 / number;
 		jQuery("ul li", this).each( function() {

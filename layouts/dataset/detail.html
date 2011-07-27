@@ -34,7 +34,7 @@
 <body class="species typesmap">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/dataset/detail_header" %>
+  <%= render "/dataset/detail_header" , :selected => "information", :highlighted => "" %>
 
   <div id="content">
     <%= yield %>

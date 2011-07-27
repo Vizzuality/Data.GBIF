@@ -33,8 +33,8 @@
   <script src="/js/vendor/modernizr-1.7.min.js"></script>
 
 </head>
-<body>
-    <%= render 'partials/discussion/header' %>
+<body class="search">
+      <%= render 'partials/search/header', :section => "GBIF Data" %>
     <div id="content">
       <%= yield %>
       <%= render "/partials/login" %>

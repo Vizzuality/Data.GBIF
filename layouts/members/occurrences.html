@@ -23,6 +23,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/css/style.css?v=2">
 
@@ -30,28 +31,19 @@
   <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
 
   <script src="/js/vendor/modernizr-1.7.min.js"></script>
+
 </head>
 <body>
-  <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
-
-  <%= render 'members/detail_header', :selected => "information", :highlighted => "" %>
-  <div id="content">
-    <%= yield %>
-    <%= render "/partials/login" %>
-    <%= render "/partials/download" %>
-  </div>
-  <%= render "/partials/footer" %>
-  <%= render "/partials/scripts" %>
-  <%= render '/partials/popovers' %>
-
-    <script type="text/javascript" charset="utf-8">
-      $(function() {
-          $("#dataset-graph1").addGraph(generateRandomValues(50));
-          $("#dataset-graph2").addGraph(generateRandomValues(50));
-          $("#dataset-graph3").addGraph(generateRandomValues(50));
-          $("#dataset-graph4").addGraph(generateRandomValues(50));
-          });
-    </script>
-
+  <%= render 'members/detail_header', :selected => "occurrences", :highlighted => "" %>
+    <div id="content">
+      <%= yield %>
+      <%= render "partials/login" %>
+      <%= render "/partials/download" %>
+    </div>
+    <%= render 'partials/footer' %>
+    <%= render 'partials/scripts' %>
+    <%= render 'partials/popovers' %>
+    <%= render 'partials/map' %>    
+    
 </body>
 </html>

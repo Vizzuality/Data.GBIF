@@ -601,7 +601,9 @@ a {
         p a {text-decoration:none; }
 
         ul.taxonomy {
+					display: inline-block;
           clear:both;
+					float: left; 
           overflow:hidden;
           margin:0 0 15px 0; padding:0;
 
@@ -617,6 +619,13 @@ a {
             li:last-child { background:none; }
           }//li
         }//ul
+
+				.extended {
+					display: inline-block;
+					float: left;
+					font-size: 13px;
+					line-height: 18px;
+				}
 
 				.col {
 					width: 285px;
@@ -2255,7 +2264,6 @@ a {
 
   .content {
     .left {
-      border:none;
 
       div.inner {
         overflow:auto;

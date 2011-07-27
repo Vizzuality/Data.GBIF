@@ -124,17 +124,17 @@
 <article class="map">
 <header></header>
 <div id="map"></div>
+<a href="#zoom_in" class="zoom_in"></a>
+<a href="#zoom_out" class="zoom_out"></a>
 <div class="content">
 
   <div class="header">
-    <div class="right"><h2>1,452 georeferenced occurrences</h2></div>
+    <div class="right"><h2>1,453 georeferenced occurrences</h2></div>
   </div>
 
   <div class="right">
     <h3>Visualize</h3>
-    <p>Occurrences | <a href="#">Checklists</a></p>
-    <h3>Share this map</h3>
-    <p><a href="#" title="Embed it in your website">Embed it in your website</a></p>
+    <p class="maptype"><a class="selected" href="#" title="points">points</a> | <a href="#" title="grid">grid</a> | <a href="#" title="polygons">polygons</a></p>
     <h3>Download</h3>
     <ul>
       <li class="download"><a href="#" title="One Degree cell density">One Degree cell density <abbr title="Keyhole Markup Language">(KML)</abbr></a></li>
@@ -145,17 +145,115 @@
 <footer></footer>
 </article>
 
-<article>
+<article class="taxonomies">
 <header></header>
 <div class="content">
-  <h2>Taxonomic distribution</h2>
-
+  <div class="header">
+    <div class="left">
+      <h2>Taxonomic distribution</h2>
+      <ul>
+        <li><a href="#" id="ocurrences" class="sort">Showing ocurrences<span class="more"></span></a></li>
+        <li><a href="#" id="tax_sort_ocurrences" class="sort">Sort alphabetically<span class="more"></span></a></li>
+      </ul>
+    </div>
+  </div>
   <div class="left">
+    <div id="taxonomy">
+      <div class="inner">
+        <div class="sp">
+          <ul>
+            <li data="40"><span><a href="/species/detail.html">Animalia</a></span>
+            <ul>
+              <li data="10"><span><a href="/species/detail.html">Acantocephala</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Annelida</a></span></li>
+              <li data="180"><span><a href="/species/detail.html">Arthropoda</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Brachipoda</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Cephalorhyncha</a></span></li>
+              <li data="20"><span><a href="/species/detail.html">Chaetognatha</a></span></li>
+              <li data="50"><span><a href="/species/detail.html">Chordata</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Cnidaria</a></span></li>
+              <li data="60"><span><a href="/species/detail.html">Ctenophora</a></span></li>
+            </ul>
+            </li>
+            <li data="20"><span><a href="/species/detail.html">Archaea</a></span></li>
+            <li data="10"><span><a href="/species/detail.html">Bacteria</a></span>
+            <ul>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+              <li data="10"><span><a href="/species/detail.html">Acidobacteria</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Actinobacteria</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Aquificae</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Bacteroidetes</a></span></li>
+            </ul>
+            </li>
+            <li data="90"><span><a href="/species/detail.html">Chromista</a></span></li>
+            <li data="30"><span><a href="/species/detail.html">Fungi</a></span></li>
+            <li data="50"><span><a href="/species/detail.html">Plantae</a></span>
+            <ul>
+              <li data="10"><span><a href="/species/detail.html">Anthocerotophyta</a></span>
+              <ul>
+                <li data="80"><span><a href="/species/detail.html">Anthocerotopsida</a></span>
+                <ul>
+                  <li data="10"><span><a href="/species/detail.html">Anthocerotales</a></span>
+                  <ul>
+                    <li data="10"><span><a href="/species/detail.html">Anthocerotaceae</a></span>
+                    <ul>
+                      <li data="10"><span><a href="/species/detail.html">Anthoceros</a></span></li>
+                      <li data="90"><span><a href="/species/detail.html">Phaeoceros</a></span></li>
+                    </ul>
+                    </li>
+                  </ul>
+                  </li>
+                  <li data="20"><span><a href="/species/detail.html">Codoniaceae</a></span></li>
+                  <li data="30"><span><a href="/species/detail.html">Dendrocerotaceae</a></span></li>
+                  <li data="60"><span><a href="/species/detail.html">Notothyladaceae</a></span></li>
+                </ul>
+                </li>
+              </ul>
+              </li>
+              <li data="80"><span><a href="/species/detail.html">Bacillariophyta</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Bryophyta</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Chlorophyta</a></span></li>
+              <li data="20"><span><a href="/species/detail.html">Cyanidiophyta</a></span></li>
+              <li data="30"><span><a href="/species/detail.html">Cycadophyta</a></span></li>
+              <li data="80"><span><a href="/species/detail.html">Bacillariophyta</a></span></li>
+              <li data="90"><span><a href="/species/detail.html">Bryophyta</a></span></li>
+              <li data="40"><span><a href="/species/detail.html">Chlorophyta</a></span></li>
+              <li data="20"><span><a href="/species/detail.html">Cyanidiophyta</a></span></li>
+              <li data="30"><span><a href="/species/detail.html">Cycadophyta</a></span></li>
+            </ul>
+            </li>
+            <li data="100"><span><a href="/species/detail.html">Protozoa</a></span></li>
+            <li data="60"><span><a href="/species/detail.html">Viruses</a></span></li>
+            
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="right">
-  </div>
-
 </div>
 <footer></footer>
 </article>

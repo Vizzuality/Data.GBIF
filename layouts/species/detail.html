@@ -31,7 +31,7 @@
 
   <script src="/js/vendor/modernizr-1.7.min.js"></script>
 </head>
-<body class="species">
+<body class="species typesmap">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
   <%= render "/species/detail_header", :selected => "information", :highlighted => "" %>
@@ -47,6 +47,10 @@
 
   <script type="text/javascript" charset="utf-8">
     $("a.images").helpPopover({title:"CREDITS", message:"John Maus.<br/><a href=''>Personal website</a>"});
+  </script>
+
+  <script type="text/javascript" charset="utf-8">
+    $("a#activity_tab").helpPopover({title:"REFERENCE", message:"See at <a href='/members/activity.html'>member activity page</a>"});
   </script>
 
 </body>

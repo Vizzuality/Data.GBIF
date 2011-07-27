@@ -42,7 +42,12 @@
   </div>
   <%= render "/partials/footer" %>
   <%= render "/partials/scripts" %>
- <%= render 'partials/popovers' %>
+  <%= render 'partials/popovers' %>
+ 
+  <script type="text/javascript" charset="utf-8">
+    $("a#activity_tab").helpPopover({title:"REFERENCE", message:"See at <a href='/members/activity.html'>member activity page</a>"});
+  </script>
+ 
 
 </body>
 </html>

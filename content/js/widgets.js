@@ -274,7 +274,7 @@ var GOD = (function() {
   var
   // Public methods exposed to $.fn.selectPopover()
   methods = {},
-
+  store = "selectpopover",
   // HTML template for the dropdowns
   templates = {
     main: [
@@ -317,7 +317,7 @@ var GOD = (function() {
       $options = $this.find('option'),
 
       // We store lots of great stuff using jQuery data
-      data = $this.data('selectPopover') || {},
+      data = $this.data(store) || {},
 
       // This gets applied to the 'ps_container' element
       id = $this.attr('id') || $this.attr('name'),
@@ -334,7 +334,7 @@ var GOD = (function() {
       } else {
         data.settings = settings;
         data.id = id;
-        data.name      = "selectPopover";
+        data.name = store;
         data.w = 0;
         data.$this = $this;
         data.options = $options;
@@ -355,10 +355,10 @@ var GOD = (function() {
       $ps.find('.ps_options .scrollpane').jScrollPane({ verticalDragMinHeight: 20});
 
       // Save the $this data onto the <$this> element
-      $this.data('selectPopover', data);
+      $this.data(store, data);
 
       // Do the same for the dropdown, but add a few helpers
-      $ps.data('selectPopover', data);
+      $ps.data(store, data);
 
       // hide the source of the data
       $this.hide();
@@ -406,7 +406,7 @@ var GOD = (function() {
 
   // Close a dropdown
   function _close($this) {
-    var data = $this.data('selectPopover');
+    var data = $this.data(store);
     GOD.unsubscribe("_close."+data.name+"."+data.id);
 
     data.$ps.removeClass('ps_open');
@@ -418,7 +418,7 @@ var GOD = (function() {
     e.preventDefault();
     e.stopPropagation();
 
-    var data = $this.data('selectPopover');
+    var data = $this.data(store);
     var $ps = data.$ps;
 
     // setup the close event & signal the other subscribers
@@ -466,8 +466,8 @@ var GOD = (function() {
       $ps.find(".ps_options").css("left", x - w/2 + 40);
       $ps.find(".ps_options").css("top", y + 5);
 
-      $ps.find('.jspVerticalBar').click(function(event) {
-        event.stopPropagation();
+      $ps.find('.jspVerticalBar').click(function(e) {
+        e.stopPropagation();
       });
     }
   }
@@ -510,7 +510,7 @@ var GOD = (function() {
       var
       $option = $(this),
       $ps = $option.parents('.ps_container').first(),
-      data = $ps.data('selectPopover');
+      data = $ps.data(store);
 
       _toggle(e, $ps);
     });
@@ -523,7 +523,7 @@ var GOD = (function() {
 
       var $option = $(this);
       var $ps = $option.parents('.ps_container').first();
-      var data = $ps.data('selectPopover');
+      var data = $ps.data(store);
 
       var $selected_element = $ps.find(".ps_selected li a[ps-value=" + $option.attr("ps-value") + "]").parent();
 
@@ -535,6 +535,7 @@ var GOD = (function() {
         var countOptions  = $ps.find(".ps_options_inner li").length;
 
         _close($ps);
+
         if (countSelected + 1 < countOptions) {
           $ps.find("a.more").show();
         } else {
@@ -544,7 +545,8 @@ var GOD = (function() {
         $selected = $option.parent();
         $selected.addClass('hidden');
 
-        var $c = _.template(templates.li, { value: $option.attr("ps-value"), text: $option.html()});
+        var text = $option.html();
+        var $c = _.template(templates.li, { value: $option.attr("ps-value"), text: text});
 
         $ps.find(".ps_selected").append($c);
       }
@@ -1951,7 +1953,7 @@ $.fn.bindSlideshow = function(opt) {
     main: ['<div id="<%= name %>_<%= id %>" class="select-box">',
       '<div class="selected_option"><span><%= label %></span></div>',
       '</div>'].join(''),
-      list:['<div id="list_<%= name %>_<%= id %>" class="listing">',
+      list:['<div id="list_<%= name %>_<%= id %>" class="select_listing">',
         '<div class="inner">',
         '<ul><%= options %></ul>',
         '</div>',

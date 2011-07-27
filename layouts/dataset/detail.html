@@ -31,10 +31,10 @@
 
   <script src="/js/vendor/modernizr-1.7.min.js"></script>
 </head>
-<body class="species">
+<body class="species typesmap">
   <% partial = @item[:content_filename].gsub("content/", "").gsub(/\..*?$/, "") %>
 
-  <%= render "/dataset/detail_header" %>
+  <%= render "/dataset/detail_header" , :selected => "information", :highlighted => "" %>
 
   <div id="content">
     <%= yield %>
@@ -44,7 +44,6 @@
   <%= render "/partials/footer" %>
   <%= render "/partials/scripts" %>
   <%= render '/partials/popovers' %>
-  <%= render '/partials/map' %>
 
 </body>
 </html>

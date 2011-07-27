@@ -70,6 +70,19 @@ $(function(){
     }
   });
 
+  $('#language_selector').sortPopover({
+    options: {
+      "English": function(e) {
+        e.preventDefault();
+      },
+      "Castellano": function(e) {
+        e.preventDefault();
+      }
+    }
+		
+  })	;
+
+
   $('span.input_text input').focus(function() {
     $(this).parent().addClass("focus");
   });

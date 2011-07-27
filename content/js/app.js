@@ -72,15 +72,15 @@ $(function(){
 
   $('#language_selector').sortPopover({
     options: {
-      ["English, EN"]: function(e) {
+      "English": function(e) {
         e.preventDefault();
       },
-      ["Castellano, ES"]: function(e) {
+      "Castellano": function(e) {
         e.preventDefault();
       }
-    };
+    }
 		
-  });
+  })	;
 
 
   $('span.input_text input').focus(function() {

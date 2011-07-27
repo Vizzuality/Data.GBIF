@@ -234,17 +234,19 @@ var GOD = (function() {
   }
 
   function _center ($this, $ps) {
+    // link coordinates
     var x = $this.offset().left;
     var y = $this.offset().top;
 
-    var tw = $this.width();
-    var th = $this.height();
+    // link dimensions
+    var lw = $this.width();
+    var lh = $this.height();
 
+    // popover dimensions
     var w = $ps.width();
     var h = $ps.height();
-    console.log(tw, th);
 
-    $ps.css("left", x - w/2 + 7);
+    $ps.css("left", x - w/2 + lw/2);
 
     if (oldIE) {
       $ps.css("top", y - h - 5);
@@ -252,10 +254,6 @@ var GOD = (function() {
       $ps.css("top", y - h - 10);
     }
   }
-
-  $(function() {
-
-  });
 
 })(jQuery, window, document);
 

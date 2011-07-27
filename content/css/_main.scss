@@ -2033,6 +2033,15 @@ a {
   }
 }
 
+#content article.process_detail .content {
+  ul.summary li {
+    width: 103px;
+    margin-right: 20px;
+    .light_box { padding: 25px 0; }
+  }
+}
+
+
 #content article.search .content {
   ul.summary {
 		margin: 0;

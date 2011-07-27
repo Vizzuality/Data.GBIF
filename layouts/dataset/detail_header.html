@@ -13,12 +13,30 @@
 
 <%= render "/dataset/infoband" %>
 
+<%
+information = (selected == "information") ? "selected" : ""
+information += (highlighted == "information") ? " highlighted" : ""
+information_classes = (information.strip == '') ? "" : " class='#{information.strip}'"
+
+activity = (selected == "activity") ? "selected" : ""
+activity += (highlighted == "activity") ? " highlighted" : ""
+activity_classes = (activity.strip == '') ? "" : " class='#{activity.strip}'"
+
+discussion = (selected == "discussion") ? "selected" : ""
+discussion += (highlighted == "discussion") ? " highlighted" : ""
+discussion_classes = (discussion.strip == '') ? "" : " class='#{discussion.strip}'"
+
+
+classes = {:information => information_classes, :activity => activity_classes, :discussion => discussion_classes  }
+
+%>
+
 <!-- tabs -->
 <div id="tabs">
   <ul>
-    <li class="selected"><a href="/dataset/detail.html"><span>Information</span></a></li>
-    <li><a href="/dataset/activity.html"><span>Activity <sup>(2)</sup></span></a></li>
-    <li><a href="/dataset/discussion.html"><span>Discussion <sup>(5)</sup></span></a></li>    
+    <li <%= classes[:information] %>><a href="/dataset/detail.html"><span>Information</span></a></li>
+    <li <%= classes[:activity] %>><a href="/dataset/activity.html"><span>Activity <sup>(2)</sup></span></a></li>
+    <li <%= classes[:discussion] %>><a href="/dataset/discussion.html"><span>Discussion <sup>(5)</sup></span></a></li>    
   </ul>
 </div>
 <!-- /tabs-->

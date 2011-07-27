@@ -34,7 +34,8 @@
 
 </head>
 <body>
-    <%= render 'partials/discussion/header' %>
+    <%= render "/dataset/detail_header" , :selected => "discussion", :highlighted => "" %>
+
     <div id="content">
       <%= yield %>
       <%= render "/partials/login" %>

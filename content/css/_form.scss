@@ -714,6 +714,55 @@ span.remove {
   }
 }
 
+.ac_results {
+  z-index:1000;
+  text-align:left;
+
+  color:$gray;
+  font-size:11px;
+  text-transform:uppercase;
+  font-family:$font_medium;
+
+  li {
+
+    &:hover {
+      &:first-child {
+      background-position:left -58px;
+      }
+    }
+      height:58px;
+      background:url('/img/autocomplete_bkg.png') no-repeat -227px top;
+
+    &:first-child {
+      height:58px - 11;
+      padding-top:11px;
+      background:url('/img/autocomplete_bkg.png') no-repeat left top;
+    }
+
+    &:last-child {
+      height:59px;
+      background:url('/img/autocomplete_bkg.png') no-repeat right top;
+    }
+
+  div.row {
+    padding: 11px;
+    //border-bottom: 1px solid $gray;
+
+   // &:hover {
+   //   background:#ccc;
+   // }
+
+    span.name {
+      display:block;
+      text-transform:none;
+      font-size:15px;
+      font-family:$base;
+      color:$link_color;
+    }
+  }
+  }
+}
+
 #content span.autocomplete {
   float:left;
   height:22px;
@@ -723,7 +772,7 @@ span.remove {
   input[type="text"] {
     @include color-transition(.1s);
     float:left;
-    width:288px - 18;
+    width:221px - 13;
     height:22px;
     margin:0;
     padding: 2px 10px 0 3px;
@@ -742,23 +791,20 @@ span.remove {
 ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
   text-align:left;
   padding:0; margin:0;
-  height:140px;
+  background:red;
   border:0;
-  overflow: auto;
 
-  .inner {
-    clear:both;
-    overflow:hidden;
-    position:absolute;
-    background:url("/img/autocomplete_bkg.png") no-repeat left top;
-    width:227px;
-    height:560px;
-  }
   li.ui-menu-item {
-    margin:0 0 0 10px;
-    padding: 11px 0;
+    &:first-child {
+      background:blue!important;
+    }
+    &:last-child {
+      background:green!important;
+    }
+    width:221px - 11;
+    margin:0;
+    padding: 11px;
     border:0;
-    width:225px;
 
     color:$gray;
     font-size:11px;
@@ -770,8 +816,17 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
       margin-top:10px;
     }
 
+    &:hover
+    {
+      color:White;
+      background:#96B202;
+      outline:none;
+    }
+
+
     a {
       padding:0;
+      display:block;
       margin:0;
 
       text-transform:none;
@@ -782,6 +837,7 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
       border-radius: 0px;
       border:none;
       color:$link_color;
+
       &.ui-state-hover {
         border:none;
         padding:0; margin:0;

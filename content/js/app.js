@@ -42,6 +42,55 @@ $(function(){
 
   $("#select-popover, #select-popover2").selectPopover();
 
+var emails = [{
+    name: "Peter Pan",
+    to: "Especies"
+}, {
+    name: "Puma Concolor",
+    to: "Family"
+}, {
+    name: "Puma",
+    to: "Order"
+}, {
+    name: "Tiger",
+    to: "Family"
+}, {
+    name: "Tiger Lilly",
+    to: "Subespecies"
+}, {
+    name: "Tiger II",
+    to: "Subespecies"
+}, {
+    name: "Mc Chick",
+    to: "Family"
+}, {
+    name: "Donnie Darko",
+    to: "Family"
+}, {
+    name: "Quake The Net",
+    to: "Subespecies"
+}, {
+    name: "Dr. Write",
+    to: "Species"
+}];
+
+$(".autocomplete input").autocomplete(emails, {
+  minChars: 0,
+  scroll:false,
+  width: 225,
+  matchContains: "word",
+  autoFill: false,
+  max:3,
+  formatItem: function(row, i, max) {
+    //return i + "/" + max + ": \"" + row.name + "\" [" + row.to + "]";
+    return  '<div class="row"><span class="name">' + row.name + '</span> ' + row.to + '</div>';
+  },
+  formatResult: function(row) {
+    return row.name;
+  }
+});
+
+
   $("a#puma_help_1").helpPopover({title:"Help in images", message:"Remember to give <strong>display:block</strong> or <strong>display:inline-block</strong> to the link that opens this message so it can set the alignment right."});
 
   $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});

@@ -34,7 +34,7 @@ $(function(){
     e.preventDefault();
   });
 
-  //$("select").uniform();
+  $(".select").selectBox();
 
   $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 
@@ -78,8 +78,6 @@ $(function(){
     $(this).parent().removeClass("focus");
   });
 
-
-  //$("#selectbox").selectBox();
 
   $(".range").bindSlider(0, 500, [0, 500]);
 
@@ -194,7 +192,7 @@ $(function(){
 	$.fn.bindGreyBars = function(w) {
 		drawGreyBars($(this), w);
 	}
-	
+
   $.fn.addMultiLegend = function(number) {
 		var baseOpacity = 0.6 / number;
 		jQuery("ul li", this).each( function() {

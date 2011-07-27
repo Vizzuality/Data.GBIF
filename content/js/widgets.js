@@ -1922,3 +1922,223 @@ $.fn.bindSlideshow = function(opt) {
   $(function() {});
 
 })(jQuery, window, document);
+
+
+/*
+* ==========
+* SELECT BOX
+* ==========
+*/
+
+(function($, window, document) {
+
+  var ie6 = false;
+
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
+  }
+
+  var
+  // Public methods exposed to $.fn.selectBox()
+  methods = {},
+  store = "selectbox",
+
+  // HTML template for the dropdowns
+  templates = {
+    main: ['<div id="<%= name %>_<%= id %>" class="select-box">',
+      '<div class="selected_option"><span><%= label %></span></div>',
+      '</div>'].join(''),
+      list:['<div id="list_<%= name %>_<%= id %>" class="listing">',
+        '<div class="inner">',
+        '<ul><%= options %></ul>',
+        '</div>',
+        '</div>'].join(' ')
+  },
+
+  // Some nice default values
+  defaults = {
+    transitionSpeed: 150
+  };
+  // Called by using $('foo').selectBox();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $this = $(this),
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data(store) || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // Save all of the <option> elements
+      $options = $this.find('option'),
+      $original = $this.find(':selected').first();
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup selectBox on this element
+      if (data.id) {
+        return $this;
+      } else {
+        data.id = id;
+        data.$this = $this;
+        data.settings = settings;
+        data.templates = templates;
+        data.$original = $original;
+        data.name = store;
+        data.options = $options;
+        data.label   = $original.html();
+        data.value   = _notBlank($this.val()) || _notBlank($original.attr('value'));
+      }
+
+      // Build the dropdown HTML
+      $ps = _build(templates.main, data);
+      $l = _buildItems(templates.list, data);
+
+      $this.hide();
+
+      data.$l = $l;
+
+      // Hide the <select> list and place our new one in front of it
+      $this.before($ps);
+
+      // Update the reference to $ps
+      $ps = $('#' + data.name + "_" + data.id);
+
+      $ps.css("width", width + 35);
+      $l.css("width", width + 23);
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+
+      // Save the selectBox data onto the <select> element
+      $this.data(store, data);
+
+      // Do the same for the dropdown, but add a few helpers
+      $ps.data(store, data);
+
+      $("#content").append($l);
+
+      $ps.click(_toggle);
+
+      $(window).bind("_close."+data.name+"."+data.id, function(e) {
+        _close($this);
+      });
+    });
+  };
+
+  // Expose the plugin
+  $.fn.selectBox = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
+  // Build popover
+  function _build(template, data) {
+    var $ps = _.template(template, {label:data.label, name:data.name, id:data.id});
+
+    return $ps;
+  }
+
+  function _buildItems(template, data) {
+    var options = "";
+    var c = "";
+
+    for (var i = 0; i < data.options.length; i++) {
+
+      var value = $(data.options[i]).val();
+      var name  = $(data.options[i]).html();
+      if (value) {
+        c = (value == data.value) ? ' class="selected"' : '';
+        options += '<li'+c+' data-dropdown-value="' + value + '">' + name + '</li>';
+      }
+    };
+
+    return $(_.template(template, {name:data.name, id:data.id, options:options}));
+  }
+
+  // Close popover
+  function _close($this) {
+    var data = $this.data(store);
+    GOD.unsubscribe("_close."+data.name+"."+data.id);
+    data.$ps.removeClass("open");
+    data.$l.removeClass("open");
+  }
+
+  function _notBlank(text) {
+    return ($.trim(text).length > 0) ? text : false;
+  }
+
+  // Open a popover
+  function _toggle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var $this = $(this);
+    var data = $this.data(store);
+    var $ps = $('#' + data.name + "_" + data.id);
+    var $l = $('#list_' + data.name + "_" + data.id);
+
+    if ($ps.hasClass("open")) {
+      _close($this);
+    } else {
+
+      $l.addClass("open");
+      $ps.addClass("open");
+
+      // don't do anything if we click inside of the select…
+      $l.find('.listing, .jspVerticalBar').click(function(e) {
+        e.stopPropagation();
+      });
+
+      $l.find('ul').jScrollPane({ verticalDragMinHeight: 20});
+
+      $l.css("top", $ps.offset().top + 34);
+      $l.css("left", $ps.offset().left);
+
+      $l.find("li").unbind("click");
+      $l.find("li").click(function(event) {
+        var text = $(this).text();
+
+        $l.find("li").removeClass("selected");
+        $(this).addClass("selected");
+
+        // select the option in the original select
+        var value = $(this).attr('data-dropdown-value');
+        data.$this.val(value);
+
+        $ps.find("div.selected_option span").animate({ color: "#FFFFFF" }, data.settings.transitionSpeed, function(){
+          $ps.find("div.selected_option span").text(text);
+          $ps.find("div.selected_option span").animate({ color: "#333" }, data.settings.transitionSpeed);
+        });
+
+        _close($ps);
+      });
+
+      // setup the close event & signal the other subscribers
+      var event = "_close."+data.name+"."+data.id;
+      GOD.subscribe(event);
+      GOD.broadcast(event);
+    }
+  }
+
+  $(function() {});
+
+})(jQuery, window, document);
+

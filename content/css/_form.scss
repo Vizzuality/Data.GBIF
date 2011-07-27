@@ -182,9 +182,8 @@ span.remove {
       }
     }
   }
-
+}
   div.selected_option {
-    min-width:120px;
     height:41px;
     margin:0 0 0 -5px;
     padding:0 0 0 17px;
@@ -199,7 +198,7 @@ span.remove {
     span {
       display:block;
       height:41px;
-      padding-right:19px;
+      padding-right:45px;
       line-height:37px;
       background:url('/img/select_right_side.png') repeat-x right top;
       font-family:$font_regular;
@@ -231,7 +230,7 @@ span.remove {
         overflow: auto;
         outline:none;
         margin:0;
-        padding:5px 0 0 0;
+        padding:5px 0px 0 0;
 
         li { display:block; cursor:pointer; font-size:13px; color:$medium_dark; padding:0; margin:0; line-height:20px; background:none;
           @include color-transition;
@@ -240,7 +239,6 @@ span.remove {
         }
       }
     }
-  }
 }
 
 

@@ -5,7 +5,7 @@
 			grid_layer,
 			features,
 			mainLayer,
-			state = 'points';
+			state;
 			
 			// Necessary things to run these kind of map
 			// - class typesmap to body
@@ -40,7 +40,8 @@
 				$(this).addClass('selected');
 				chooseLayer(type_);
 			});
-
+			
+			
 
 			// Initialize map
 			map = new OpenLayers.Map('map', {controls: [],numZoomLevels: 20});
@@ -75,57 +76,67 @@
 		//"http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/ESRI_LandBase_WebMercator/MapServer/tile/${z}/${y}/${x}"
 
 
+
 		// Generate randomly several points for the polygon
 		var dx = 9;
-		  var dy = 9;
-		  var px, py;
-		  features = [];
-		  for(var x=-45; x<=45; x+=dx) {
-		    for(var y=-22.5; y<=22.5; y+=dy) {
-		      px = x + (2 * dx * (Math.random() - 0.5));
-		      py = y + (2 * dy * (Math.random() - 0.5));
-				features.push(new OpenLayers.Geometry.Point(px, py));
-		    }
-		  }
+	  var dy = 9;
+	  var px, py;
+	  features = [];
+	  for(var x=-45; x<=45; x+=dx) {
+	    for(var y=-22.5; y<=22.5; y+=dy) {
+	      px = x + (2 * dx * (Math.random() - 0.5));
+	      py = y + (2 * dy * (Math.random() - 0.5));
+			features.push(new OpenLayers.Geometry.Point(px, py));
+	    }
+	  }
 	
 		// Generate polygons and create polygon layer
-		var polygon = new OpenLayers.Geometry.LinearRing(features);
-		var polygonFeature = new OpenLayers.Feature.Vector(polygon, null, polygon_style);
+		var polygon1 = new OpenLayers.Geometry.LinearRing([features[0],features[3],features[6],features[9],features[12]]);
+		var polygonFeature1 = new OpenLayers.Feature.Vector(polygon1, null, polygon_style);
+		
+		var polygon2 = new OpenLayers.Geometry.LinearRing([features[10],features[14],features[17],features[19],features[18]]);
+		var polygonFeature2 = new OpenLayers.Feature.Vector(polygon2, null, polygon_style);
+		
+		var polygon3 = new OpenLayers.Geometry.LinearRing([features[20],features[21],features[22],features[23],features[24]]);
+		var polygonFeature3 = new OpenLayers.Feature.Vector(polygon3, null, polygon_style);
+		
+		
 		polygons_layer = new OpenLayers.Layer.Vector("Polygons Layer");
-		polygons_layer.addFeatures([polygonFeature]);
-	
-	
+		polygons_layer.addFeatures([polygonFeature1,polygonFeature2,polygonFeature3]);
 
 
-		// Generate randomly several points for the polygon
+
+		// Generate randomly several points for the markers
 		var dx = 9;
-		  var dy = 9;
-		  var px, py;
-		  features = [];
-		  for(var x=-45; x<=45; x+=dx) {
-		    for(var y=-22.5; y<=22.5; y+=dy) {
-		      px = x + (2 * dx * (Math.random() - 0.5));
-		      py = y + (2 * dy * (Math.random() - 0.5));
-				features.push(new OpenLayers.Feature.Vector(
-		      	new OpenLayers.Geometry.Point(px, py), {x: px, y: py, title: "Example - "+px.toFixed(2)+','+py.toFixed(2), url: "/", datasets:y, species:x, occurrences:dx}
-		      ));
-		    }
-		  }
+	  var dy = 9;
+	  var px, py;
+	  features = [];
+	  for(var x=-45; x<=45; x+=dx) {
+	    for(var y=-22.5; y<=22.5; y+=dy) {
+	      px = x + (2 * dx * (Math.random() - 0.5));
+	      py = y + (2 * dy * (Math.random() - 0.5));
+				features.push(new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(px, py)));
+	    }
+	  }
 	
 		// Create points layer
 		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-		  renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-	
-		 	points_layer = new OpenLayers.Layer.Vector("Points", {
-		  	styleMap: new OpenLayers.StyleMap({
-		    	"default": points_style
-		    }),
-			renderers: renderer
-		  });
-	
-		  map.addLayer(points_layer);
-		  points_layer.addFeatures(features);
+	  renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
 
+	 	points_layer = new OpenLayers.Layer.Vector("Points", {
+	  	styleMap: new OpenLayers.StyleMap({
+	    	"default": points_style
+	    }),
+		renderers: renderer
+	  });
+
+	  points_layer.addFeatures(features);
+		
+		
+		
+		// Select the correct map type with .selected class
+		var type_ = $('p.maptype').find('a.selected').attr('title');
+		chooseLayer(type_);
 	}
 
 

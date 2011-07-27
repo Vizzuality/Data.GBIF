@@ -20,6 +20,12 @@
 
 
 			// Create markers (TODO REQUEST MARKERS or TAKE FROM A JS VAR)
+			// Each feature needs:
+			// - title
+			// - datasets
+			// - species
+			// - occurrences
+			
 			var dx = 9;
 	    var dy = 9;
 	    var px, py;

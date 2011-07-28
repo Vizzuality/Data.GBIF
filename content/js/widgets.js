@@ -1174,7 +1174,6 @@ var linkPopover = (function() {
   }
 
   function _selectOption($ps, optionText) {
-    console.log($ps, optionText);
     $ps.find("li.selected").removeClass("selected");
     $ps.find('li[data-select="'+optionText+'"]').addClass("selected");
   }

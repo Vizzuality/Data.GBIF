@@ -904,10 +904,13 @@ a {
 
 			.horizontal_graph {
 
-				ul li a {
-					display: inline-block;
-					width: 150px;
+				ul {
+					margin: 0;
+					li a {
+						display: inline-block;
+						width: 150px;
 					}
+				}
 
 				.grey_bar {
 					display: inline-block;
@@ -925,7 +928,6 @@ a {
 					margin: 0 0 0 10px;
 					padding: 0;
 				}
-
 			}
 
     } // .content
@@ -1955,7 +1957,7 @@ a {
 
 #content article .content .minigraphs {
   clear:both; overflow:hidden;
-  margin-bottom:45px;
+  margin-bottom:10px;
 
   .minigraph {
     position:relative;
@@ -2258,8 +2260,6 @@ a {
         }
       }
     }
-
-    border-bottom: 1px solid $border_color;
   }
 
   .content {

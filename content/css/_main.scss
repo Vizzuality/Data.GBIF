@@ -615,7 +615,7 @@ a {
         ul.taxonomy {
 					display: inline-block;
           clear:both;
-					float: left; 
+					float: left;
           overflow:hidden;
           margin:0 0 15px 0; padding:0;
 
@@ -2308,7 +2308,17 @@ a {
         list-style:none;
         height:20px;
 
-        li {float:left; margin: 0 5px 0 0; padding:0; background:url('/img/icons/tiny_gray_arrow.png') no-repeat right 3px; padding-right:10px; }
+        li {
+          float:left;
+          margin: 0 5px 0 0;
+          padding:0;
+          background:url('/img/icons/tiny_gray_arrow.png') no-repeat right 3px;
+          padding-right:10px;
+          color:$gray;
+
+          &.last-child {background:none;}
+          &.last {background:none;}
+        }
         li a { text-decoration:none; }
       }
 

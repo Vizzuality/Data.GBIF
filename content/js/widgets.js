@@ -1755,200 +1755,6 @@ $.fn.bindSlideshow = function(opt) {
 };
 
 
-/*
-* ==================
-* TAXONOMIC EXPLORER
-* ==================
-*/
-
-(function($, window, document) {
-
-  var ie6 = false;
-  var debug = false;
-  var store = "taxonomicExplorer";
-
-  // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    ie6 = true;
-  } else {
-    document.documentElement.className = document.documentElement.className + ' ps_fouc';
-  }
-
-  var
-  // Public methods exposed to $.fn.taxonomicExplorer()
-  methods = {},
-  level = 0,
-  zIndex = 0,
-  stop = false,
-
-  // Some nice default values
-  defaults = {
-    width: 540,
-    transitionSpeed:300,
-    liHeight: 25
-  };
-
-  // Called by using $('foo').taxonomicExplorer();
-  methods.init = function(settings) {
-    settings = $.extend({}, defaults, settings);
-
-    return this.each(function() {
-      var
-      // The current <select> element
-      $this = $(this),
-      $breadcrumb = false,
-
-      // We store lots of great stuff using jQuery data
-      data = $this.data(store) || {},
-
-      // This gets applied to the 'ps_container' element
-      id = $this.attr('id') || $this.attr('name'),
-
-      // This gets updated to be equal to the longest <option> element
-      width = settings.width || $this.outerWidth(),
-
-      // The completed ps_container element
-      $ps = false;
-
-      // Dont do anything if we've already setup taxonomicExplorer on this element
-      if (data.id) {
-        return $this;
-      } else {
-        data.id = id;
-        data.$this = $this;
-        data.settings = settings;
-      }
-
-      // Update the reference to $ps
-      $ps = $("#"+id);
-      $ps.prepend('<div class="breadcrumb" />');
-      $breadcrumb = $ps.find(".breadcrumb");
-
-      // Save the updated $ps reference into our data object
-      data.$ps = $ps;
-      data.$breadcrumb = $breadcrumb;
-
-      // Save the taxonomicExplorer data
-      $this.data(store, data);
-      $ps.data(store, data);
-
-      $this.find('.inner').jScrollPane({ verticalDragMinHeight: 20});
-
-      // Calculate the width of the bars and add them to the DOM
-      function addBars($ul) {
-
-        $ul.find("> li").each(function() {
-          var value = parseInt($(this).attr("data"));
-          var clase = "";
-
-          if ($(this).find("ul").length > 0) {
-            clase = ' clickable';
-          }
-
-          $(this).find("span:first").after("<div class='bar"+clase+"' style='width:"+(value+10)+"px'><div class='count'>"+value+"</div></div>");
-
-          $(this).find("a").hover(function() {
-            $(this).parent().parent().stop(true).find(".count:first").fadeIn(150);
-          }, function() {
-            $(this).parent().parent().stop(true).find(".count:first").fadeOut(150);
-          });
-
-          $(this).find(".bar").hover(function() {
-            $(this).find(".count").fadeIn(150);
-          }, function() {
-            $(this).find(".count").fadeOut(150);
-          });
-        });
-
-        $ul.children().each(function() {
-          addBars($(this));
-        });
-      }
-
-      addBars($ps.find("ul:first"));
-
-      $ps.find(".sp .bar.clickable").click(function(e) {
-        e.preventDefault();
-
-        if (!stop) { // this prevents prolbems when clicking very fast on the items
-          stop = true;
-
-          var name = $(this).parent().find("a").html();
-          var item = '<li style="opacity:0;"><a href="#" data-level="' + level + '">' + name + '</a></li>';
-          $breadcrumb.append(item);
-          $breadcrumb.find("li:last").animate({opacity:1}, 500);
-
-          var $ul = $(this).siblings("ul");
-          $ul.css("z-index", zIndex++);
-          $ul.show();
-
-          $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-            stop = false;
-            level++;
-            _resize($ps, $ul.find("> li").length, data.$this);
-          }});
-        }
-      });
-
-      $breadcrumb.find("a").live("click", function(e) {
-        e.preventDefault();
-        var gotoLevel = $(this).attr("data-level");
-        var $ul = $(this).siblings("ul").hide();
-
-        _goto($this, gotoLevel);
-        level = gotoLevel;
-        $ps.find(".inner").data('jsp').scrollTo(0, 0, true);
-      });
-    });
-  };
-
-  // Expose the plugin
-  $.fn.taxonomicExplorer = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
-
-  // Build popover
-  function _goto($ps, gotoLevel) {
-    var data = $ps.data(store);
-    var $breadcrumb = data.$breadcrumb;
-
-    // Calculate the number of pages we have to move
-    var steps = level - gotoLevel;
-
-    if (gotoLevel == 0) {
-      $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
-        $breadcrumb.empty();
-        $ps.find(".sp ul ul").hide();
-        _resize($ps, $ps.find(".sp ul:visible:first > li").length, data.$this);
-      }});
-
-    } else {
-
-      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
-        $breadcrumb.find("li").slice(gotoLevel).animate({opacity:0}, data.settingsetransitionSpeed, function() { $(this).remove(); });
-        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length, data.$this);
-      }});
-    }
-  }
-
-  function _resize($ps, elementCount, $this) {
-    var data = $ps.data(store);
-
-    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
-      $this.find(".inner").data('jsp').reinitialise();
-    });
-  }
-
-  $(function() {});
-
-})(jQuery, window, document);
-
 
 /*
 * ==========
@@ -2165,6 +1971,234 @@ $.fn.bindSlideshow = function(opt) {
   }
 
   $(function() {});
+
+})(jQuery, window, document);
+
+
+/*
+* ==================
+* TAXONOMIC EXPLORER
+* ==================
+*/
+
+(function($, window, document) {
+
+  var ie6 = false;
+  var debug = false;
+  var store = "taxonomicExplorer";
+
+  // Help prevent flashes of unstyled content
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    ie6 = true;
+  } else {
+    document.documentElement.className = document.documentElement.className + ' ps_fouc';
+  }
+
+  var
+  // Public methods exposed to $.fn.taxonomicExplorer()
+  methods = {},
+  level = 0,
+  zIndex = 0,
+  stop = false,
+
+  // Some nice default values
+  defaults = {
+    width: 540,
+    transitionSpeed:300,
+    liHeight: 25
+  };
+
+  // Called by using $('foo').taxonomicExplorer();
+  methods.init = function(settings) {
+    settings = $.extend({}, defaults, settings);
+
+    return this.each(function() {
+      var
+      // The current <select> element
+      $this = $(this),
+      $breadcrumb = false,
+
+      // We store lots of great stuff using jQuery data
+      data = $this.data(store) || {},
+
+      // This gets applied to the 'ps_container' element
+      id = $this.attr('id') || $this.attr('name'),
+
+      // This gets updated to be equal to the longest <option> element
+      width = settings.width || $this.outerWidth(),
+
+      // The completed ps_container element
+      $ps = false;
+
+      // Dont do anything if we've already setup taxonomicExplorer on this element
+      if (data.id) {
+        return $this;
+      } else {
+        data.id = id;
+        data.$this = $this;
+        data.settings = settings;
+      }
+
+      // Update the reference to $ps
+      $ps = $("#"+id);
+      $ps.prepend('<div class="breadcrumb"><li class="last">All</li></div>');
+      $breadcrumb = $ps.find(".breadcrumb");
+
+      // Save the updated $ps reference into our data object
+      data.$ps = $ps;
+      data.$breadcrumb = $breadcrumb;
+
+      // Save the taxonomicExplorer data
+      $this.data(store, data);
+      $ps.data(store, data);
+
+      $this.find('.inner').jScrollPane({ verticalDragMinHeight: 20});
+
+      // Calculate the width of the bars and add them to the DOM
+      function addBars($ul) {
+
+        $ul.find("> li").each(function() {
+          var value = parseInt($(this).attr("data"));
+          var clase = "";
+
+          if ($(this).find("ul").length > 0) {
+            clase = ' clickable';
+          }
+
+          $(this).find("span:first").after("<div class='bar"+clase+"' style='width:"+(value+10)+"px'><div class='count'>"+value+"</div></div>");
+
+          $(this).find("a").hover(function() {
+            $(this).parent().parent().stop(true).find(".count:first").fadeIn(150);
+          }, function() {
+            $(this).parent().parent().stop(true).find(".count:first").fadeOut(150);
+          });
+
+          $(this).find(".bar").hover(function() {
+            $(this).find(".count").fadeIn(150);
+          }, function() {
+            $(this).find(".count").fadeOut(150);
+          });
+        });
+
+        $ul.children().each(function() {
+          addBars($(this));
+        });
+      }
+
+      addBars($ps.find("ul:first"));
+
+      // If the user clicks on a bar with more level insides…
+      $ps.find(".sp .bar.clickable").click(function(e) {
+        e.preventDefault();
+
+        if (!stop) { // this prevents prolbems when clicking very fast on the items
+          stop = true;
+
+          // transform the last element of the breadcrumb in a link
+          var $last_li = $breadcrumb.find("li:last");
+          $last_li.removeClass("last");
+          $last_li.wrapInner('<a href="#" data-level="'+ level +'"></a>');
+
+
+          // get the name of the taxonomy and add it to the breadcrumb
+          var name = $(this).parent().find("a").html();
+          var item = '<li class="last" style="opacity:0;">' + name + '</li>';
+          $breadcrumb.append(item);
+          $breadcrumb.find("li:last").animate({opacity:1}, 500);
+
+          // fix the z-index of the list we're about to show
+          var $ul = $(this).siblings("ul");
+          $ul.css("z-index", zIndex++);
+          $ul.show();
+
+          // move to the list and resize it
+          $ps.find(".sp").scrollTo("+=" + data.settings.width, data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+            stop = false;
+            level++;
+            _resize($ps, $ul.find("> li").length, data.$this);
+          }});
+        }
+      });
+
+      // The user clicks on the breadcrumb…
+      $breadcrumb.find("a").live("click", function(e) {
+        e.preventDefault();
+
+        var gotoLevel = $(this).attr("data-level"); // get the level of destination
+        var $ul = $(this).siblings("ul").hide();
+
+        _goto($this, gotoLevel);
+        level = gotoLevel;
+
+        // scroll to the top of the list
+        $ps.find(".inner").data('jsp').scrollTo(0, 0, true);
+      });
+    });
+  };
+
+  // Build popover
+  function _goto($ps, gotoLevel) {
+    var data = $ps.data(store);
+    var $breadcrumb = data.$breadcrumb;
+
+    // Calculate the number of pages we have to move
+    var steps = level - gotoLevel;
+
+    if (gotoLevel == 0) { // if we're going to the first page
+      $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
+
+        $breadcrumb.find("li").slice(1).animate({opacity:0}, data.settingsetransitionSpeed, function() {
+          $(this).remove();
+
+          var $last_li = $breadcrumb.find("li:last");
+          $last_li.fadeOut("fast", function() {
+            $last_li.addClass("last");
+            $last_li.html('All');
+            $last_li.fadeIn("fast");
+          });
+        });
+
+        $ps.find(".sp ul ul").hide();
+        _resize($ps, $ps.find(".sp ul:visible:first > li").length, data.$this);
+      }});
+    } else {
+      $ps.find(".sp").scrollTo("-=" + steps * data.settings.width, steps*data.settings.transitionSpeed, {axis: "x", onAfter:function() {
+
+        $breadcrumb.find("li").slice(parseInt(gotoLevel) + 1).animate({opacity:0}, data.settingsetransitionSpeed, function() {
+          $(this).remove();
+
+          var $last_li = $breadcrumb.find("li:last");
+          $last_li.fadeOut("fast", function() {
+            $last_li.addClass("last");
+            $last_li.html($last_li.text());
+            $last_li.fadeIn("fast");
+          });
+
+        });
+        _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length, data.$this);
+      }});
+    }
+  }
+
+  function _resize($ps, elementCount, $this) {
+    var data = $ps.data(store);
+
+    $ps.find(".sp").animate({height:elementCount*data.settings.liHeight}, data.settings.transitionSpeed, function() {
+      $this.find(".inner").data('jsp').reinitialise();
+    });
+  }
+
+  // Expose the plugin
+  $.fn.taxonomicExplorer = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
 
 })(jQuery, window, document);
 

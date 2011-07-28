@@ -162,16 +162,14 @@ span.remove {
   }
 }
 
-
-#content .field.select {height:70px;}
-#content .field .select-box {
+// Styles for the selectBox
+#content .select_box {
   position:relative;
   z-index:100;
 
   // Disable selection of text
   -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;
 
-  &.countries div.selected_option {width:320px;}
   &.open {
     .listing { display:block; }
 
@@ -182,7 +180,8 @@ span.remove {
       }
     }
   }
-}
+
+
 div.selected_option {
   height:41px;
   margin:0 0 0 -5px;
@@ -195,18 +194,11 @@ div.selected_option {
   font-size:13px;
   color:$medium_dark;
 
-  span {
-    display:block;
-    height:41px;
-    padding-right:45px;
-    line-height:37px;
-    background:url('/img/select_right_side.png') repeat-x right top;
-    font-family:$font_regular;
-    font-size:13px;
-  }
-} //.selected_option
+  span { display:block; height:41px; padding-right:45px; line-height:37px; background:url('/img/select_right_side.png') repeat-x right top; font-family:$font_regular; font-size:13px; }
+}  //.selected_option
+}
 
-.select_listing {
+#content .select_listing {
 
   &.open { display:block; }
 
@@ -217,7 +209,7 @@ div.selected_option {
   margin-left:-5px;
   background:url('/img/select_left_side.png') no-repeat left -73px;
 
-  .inner {
+  .select_inner {
     text-align:left;
     display:block;
     background: url('/img/select_right_side.png') repeat-x right -73px;
@@ -242,6 +234,7 @@ div.selected_option {
 }
 
 
+// Style for the White Popover
 #content .white_narrow_popover {
   opacity:0;
   position:absolute;

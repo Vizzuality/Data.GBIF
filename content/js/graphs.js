@@ -30,8 +30,8 @@ var dataHistory = (function() {
 
     canvas = Raphael("holder", width, height + 57);
 
-    Raphael.el.helpPopover2 = function () {
-      this.helpPopover2;
+    Raphael.el.processPopover = function () {
+      this.processPopover;
     };
 
 
@@ -126,7 +126,7 @@ var dataHistory = (function() {
     });
 
     $(rect.node).attr("id", "process_"+processID);
-    $(rect.node).helpPopover2({title:title, message:message});
+    $(rect.node).processPopover({title:title, message:message});
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
@@ -144,7 +144,7 @@ var dataHistory = (function() {
     });
 
     $(rect.node).attr("id", "process_"+processID);
-    $(rect.node).helpPopover2({title:title, message:message});
+    $(rect.node).processPopover({title:title, message:message});
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");

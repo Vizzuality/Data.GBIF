@@ -48,7 +48,7 @@ $('div.graph ul li a').click(function(e){
   e.preventDefault();
 });
 
-  $(".select").selectBox();
+  $(".selectbox").selectBox();
   $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 
   // Some help messages

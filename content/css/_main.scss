@@ -2291,7 +2291,7 @@ a {
           &.last-child {background:none;}
           &.last {background:none;}
         }
-        li a { text-decoration:none; }
+        li a { color:$dark; text-decoration:underline; }
       }
 
       .sp {

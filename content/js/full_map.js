@@ -229,6 +229,11 @@
 			map.zoomToExtent(bounds);
 		} else {
 			// Show tooltip
-			infowindow.changePosition(new OpenLayers.LonLat(event.geometry.x,event.geometry.y),event.data);
+			var info = event.data;
+			if (info.count!=undefined) {
+				info = event.cluster[0].data;
+			}
+			
+			infowindow.changePosition(new OpenLayers.LonLat(event.geometry.x,event.geometry.y),info);
 		}
 	}

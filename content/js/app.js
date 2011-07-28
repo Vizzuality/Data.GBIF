@@ -1,4 +1,5 @@
 $(function(){
+
   var values = generateRandomValues(365);
   var processes = { dates:[
     {start:"2011-1-1", end: "2011-2-11", url:"http://www.google.com"},
@@ -25,11 +26,6 @@ $(function(){
     });
   });
 
-  $('.dropdown').click(function(e){
-    e.preventDefault();
-    $(this).toggleClass("selected");
-  });
-
   $('div.graph ul li a').click(function(e){
     e.preventDefault();
   });
@@ -42,63 +38,11 @@ $(function(){
 
   $("#select-popover, #select-popover2").selectPopover();
 
-var species = [{ name: "Acantocephala", desc: "Family"},
-{ name: "Actinobacteria", desc: "Especies"},
-{ name: "Annelida", desc: "Order"},
-{ name: "Aquificae", desc: "Suborders"},
-{ name: "Arthropoda", desc: "Especies"},
-{ name: "Bacteroidetes", desc: "Order"},
-{ name: "Brachipoda", desc: "Suborders"},
-{ name: "Cephalorhyncha", desc: "Especies"},
-{ name: "Chaetognatha", desc: "Especies"},
-{ name: "Chordata", desc: "Especies"},
-{ name: "Chromista", desc: "Order"},
-{ name: "Cnidaria", desc: "Especies"},
-{ name: "Ctenophora", desc: "Suborders"},
-{ name: "Fungi", desc: "Order"},
-{ name: "Plantae", desc: "Especies"},
-{ name: "Puma Concolor", desc: "Family"},
-{ name: "Puma", desc: "Order"}];
 
-$(".autocomplete input").autocomplete(species, {
-  minChars: 0,
-  scroll:false,
-  width: 225,
-  matchContains: "word",
-  autoFill: false,
-  max:5,
-  formatItem: function(row, i, max) {
-    var clase = "";
-
-    if (max == 1) {
-      clase = ' unique';
-    } else if (max == 2 && i == 2) {
-      clase = ' last_double';
-    } else if (i == 1) {
-      clase = ' first';
-    } else if (i == max ) {
-      clase = ' last';
-    }
-    console.log(clase, i, max);
-
-    return  '<div class="row' + clase + '"><span class="name">' + row.name + '</span> ' + row.desc + '</div>';
-  },
-  formatResult: function(row) {
-    return row.name;
-  }
-});
-
-$(".autocomplete input").result(onResult);
-
-function onResult(event, data, formatted) {
-  console.log(event,data, formatted);
-}
-
-
+  $(".autocomplete input").result(onResult);
 
 
   $("a#puma_help_1").helpPopover({title:"Help in images", message:"Remember to give <strong>display:block</strong> or <strong>display:inline-block</strong> to the link that opens this message so it can set the alignment right."});
-
   $("a#help").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help2").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
   $("a#help3").helpPopover({title:"Hi, I'm a yellow popover", message:"This is a <strong>message</strong> with a <a href='http://www.gbif.org/'>link</a>."});
@@ -110,34 +54,48 @@ function onResult(event, data, formatted) {
 
   $('#tax_sort_ocurrences').sortPopover({
     options: {
-      "Sort alphabetically": function(e) {
-        e.preventDefault();
-        $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-          sortAlphabetically($("#taxonomy .sp ul:first"));
-          $("#taxonomy .sp").animate({opacity:1}, 500);
-        });
+      links: [
+        { name: "Sort alphabetically",
+          callback: function(e) {
+            e.preventDefault();
+            $("#taxonomy .sp").animate({opacity:0}, 500, function() {
+              sortAlphabetically($("#taxonomy .sp ul:first"));
+              $("#taxonomy .sp").animate({opacity:1}, 500);
+            });
+          },
+          replaceWith:'Sort alphabetically<span class="more"></span>'
       },
-      "Sort by count": function(e) {
-        e.preventDefault();
-        $("#taxonomy .sp").animate({opacity:0}, 500, function() {
-          sortByCount($("#taxonomy .sp ul:first"));
-          $("#taxonomy .sp").animate({opacity:1}, 500);
-        });
+      { name: "Sort by count",
+        callback: function(e) {
+          e.preventDefault();
+          $("#taxonomy .sp").animate({opacity:0}, 500, function() {
+            sortByCount($("#taxonomy .sp ul:first"));
+            $("#taxonomy .sp").animate({opacity:1}, 500);
+          });
+        },
+        replaceWith:'Sort by count<span class="more"></span>'
       }
+      ]
     }
   });
 
-  $('#language_selector').sortPopover({
-    options: {
-      "English": function(e) {
-        e.preventDefault();
-      },
-      "Castellano": function(e) {
-        e.preventDefault();
-      }
-    }
 
-  })	;
+ $('#language_selector').sortPopover({
+   options: {
+     links: [
+       { name: "English",
+       callback: function(e) { e.preventDefault();},
+       replaceWith: "<span>EN</span>",
+       select: "EN"
+     },
+     { name: "Spanish",
+       callback: function(e) { e.preventDefault();},
+       replaceWith: "<span>ES</span>",
+       select: "ES"
+     }
+     ]
+   }
+ });
 
 
   $('span.input_text input').focus(function() {

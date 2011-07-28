@@ -1058,14 +1058,11 @@ var linkPopover = (function() {
       '<div class="arrow"></div>',
       '<ul></ul>',
       '</div>'].join(''),
-    item: '<li><a href="#"><span><%= name %></span></a></li>'
+    item: '<li data-select="<%= select %>"><a href="#"><span><%= name %></span></a></li>'
   },
 
   // Some nice default values
   defaults = {
-    options:['<li class="first"><a href="#" class="relevance"><span>Sort by relevance</span></a></li>',
-      '<li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>',
-      '<li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>'].join('')
   };
 
   // Called by using $('foo').sortPopover();
@@ -1135,19 +1132,33 @@ var linkPopover = (function() {
     }
   };
   function _buildItems($ps, data) {
-    _.each(data.settings.options, function(callback, name) {
-      var $item = _.template(data.templates.item, {name:name});
-      $ps.find("ul").append($item);
-      $ps.find("ul li:last a").click(function(e) {
-        callback(e);
-      _close(data.$this, data.name, data.id);
-      var selectedOptionText = $(this).text();
-      data.$this.html(selectedOptionText + "<span class='more'></span>");
-      });
-    });
+    if (data.settings.options &&  data.settings.options.links) {
+      _.each(data.settings.options.links, function(option, i) {
 
-    $ps.find("ul li:first").addClass("first");
-    $ps.find("ul li:last").addClass("last");
+        var select = ("select" in option) ? option.select : option.name;
+
+        var $item = _.template(data.templates.item, {name:option.name, select:select});
+
+        $ps.find("ul").append($item);
+
+        $ps.find("ul li:last a").click(function(e) {
+          option.callback(e);
+          _close(data.$this, data.name, data.id);
+
+          var replacementText;
+
+          if ("replaceWith" in option) {
+            replacementText = option.replaceWith;
+          } else {
+            replacementText = $(this).html();
+          }
+          data.$this.html(replacementText);
+        });
+      });
+
+      $ps.find("ul li:first").addClass("first");
+      $ps.find("ul li:last").addClass("last");
+    }
   }
 
   // Build popover
@@ -1163,8 +1174,9 @@ var linkPopover = (function() {
   }
 
   function _selectOption($ps, optionText) {
+    console.log($ps, optionText);
     $ps.find("li.selected").removeClass("selected");
-    $ps.find("span:contains('"+optionText+"')").parent().addClass("selected");
+    $ps.find('li[data-select="'+optionText+'"]').addClass("selected");
   }
 
   // Refresh popover

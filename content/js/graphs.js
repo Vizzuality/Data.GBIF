@@ -1,3 +1,8 @@
+/*
+* ============
+* DATA HISTORY
+* ============
+*/
 
 var dataHistory = (function() {
   var width, height, canvas, fillColor, fillOpacity, strokeColor, strokeOpacity, strokeWidth;
@@ -24,6 +29,11 @@ var dataHistory = (function() {
     }
 
     canvas = Raphael("holder", width, height + 57);
+
+    Raphael.el.helpPopover2 = function () {
+      this.helpPopover2;
+    };
+
 
     max = _.max(values);
     normalized_values = _.map(values, function(v) { return height - Math.round(v  * height/max); });
@@ -83,11 +93,6 @@ var dataHistory = (function() {
 
       rect.hover(function (event) { this.attr({fill: "#D9D9D9"}); }, function (event) { this.attr({fill: "#000"}); });
 
-      rect.click(function (event) {
-        var d = new Date(2011, 0, index);
-        alert(index + ": " + d);
-      });
-
       var date = new Date(2011, 0, index);
 
       if (index == 1)  {
@@ -109,7 +114,7 @@ var dataHistory = (function() {
     return Math.round(Math.abs((firstDate.getTime() - date.getTime())/(24*60*60*1000)));
   }
 
-  function drawPoint(x, y, url) {
+  function drawPoint(x, y, title, message, processID) {
     var rect = canvas.rect(x, y, 6, 6, 3);
 
     rect.attr("cursor", "pointer");
@@ -120,15 +125,14 @@ var dataHistory = (function() {
       rect.attr("fill", "#0099CC");
     });
 
-    rect.click(function (event) {
-      window.location = url;
-    });
+    $(rect.node).attr("id", "process_"+processID);
+    $(rect.node).helpPopover2({title:title, message:message});
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
   }
 
-  function drawLine(x, y, width, url) {
+  function drawLine(x, y, width, title, message, processID) {
     var rect = canvas.rect(x, y, width, 6, 3);
 
     rect.attr("cursor", "pointer");
@@ -139,16 +143,15 @@ var dataHistory = (function() {
       rect.attr("fill", "#0099CC");
     });
 
-    rect.click(function (event) {
-      window.location = url;
-    });
+    $(rect.node).attr("id", "process_"+processID);
+    $(rect.node).helpPopover2({title:title, message:message});
 
     rect.attr("fill", "#0099CC");
     rect.attr("stroke-width", "0");
   }
 
   function drawProcesses() {
-    _.each(processes, function(date) {
+    _.each(processes, function(date, index) {
 
       var startDate = new Date(date.start);
       var endDate   = new Date(date.end);
@@ -159,10 +162,9 @@ var dataHistory = (function() {
       var days = daysBetween(startDate, endDate);
 
       if (days) {
-        //console.log(startDate, endDate, x, y, y - x, p*stepWidth);
-        drawLine(x*stepWidth, 210, (y-x)*stepWidth + stepWidth*2, date.url);
+        drawLine(x*stepWidth, 210, (y-x)*stepWidth + stepWidth*2, date.title, date.message, index + 1);
       } else {
-        drawPoint(x*stepWidth, 210, date.url);
+        drawPoint(x*stepWidth, 210, date.title, date.message, index + 1);
       }
     });
   }

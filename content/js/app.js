@@ -66,12 +66,14 @@ $(".autocomplete input").autocomplete(species, {
   width: 225,
   matchContains: "word",
   autoFill: false,
-  max:3,
+  max:5,
   formatItem: function(row, i, max) {
     var clase = "";
 
     if (max == 1) {
       clase = ' unique';
+    } else if (max == 2 && i == 2) {
+      clase = ' last_double';
     } else if (i == 1) {
       clase = ' first';
     } else if (i == max ) {

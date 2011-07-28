@@ -69,9 +69,9 @@
 		var markers = new OpenLayers.Layer.Markers( "Markers" );
 		map.addLayer(markers);
 	
-		var size = new OpenLayers.Size(28,42);
+		var size = new OpenLayers.Size(36,45);
 	  var offset = new OpenLayers.Pixel(-(size.w/2), -37);
-	  var icon = new OpenLayers.Icon('/img/marker.png',size,offset);
+	  var icon = new OpenLayers.Icon('/img/marker_big.png',size,offset);
 	  markers.addMarker(new OpenLayers.Marker(lonlat,icon));
 
 		map.setCenter(lonlat, 5);

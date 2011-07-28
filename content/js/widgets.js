@@ -2000,6 +2000,7 @@ $.fn.bindSlideshow = function(opt) {
   level = 0,
   zIndex = 0,
   stop = false,
+  stopBack = false,
 
   // Some nice default values
   defaults = {
@@ -2061,23 +2062,21 @@ $.fn.bindSlideshow = function(opt) {
           var value = parseInt($(this).attr("data"));
           var clase = "";
 
-          if ($(this).find("ul").length > 0) {
-            clase = ' clickable';
+          if ($(this).find("> ul").length > 0) {
+            $(this).find("span:first").addClass('clickable');
+            clase = " clickable";
           }
 
-          $(this).find("span:first").after("<div class='bar"+clase+"' style='width:"+(value+10)+"px'><div class='count'>"+value+"</div></div>");
+          $(this).find("span:first").after('<div class="bar'+clase+'" style="width:'+(value+10)+'px"><div class="count">'+value+'</div></div>');
 
-          $(this).find("a").hover(function() {
-            $(this).parent().parent().stop(true).find(".count:first").fadeIn(150);
+          $(this).find("span:first").parent().hover(function() {
+            $(this).find(".count:first").show();
+            $(this).find("a:first").show();
           }, function() {
-            $(this).parent().parent().stop(true).find(".count:first").fadeOut(150);
+            $(this).find(".count:first").hide();
+            $(this).find("a:first").hide();
           });
 
-          $(this).find(".bar").hover(function() {
-            $(this).find(".count").fadeIn(150);
-          }, function() {
-            $(this).find(".count").fadeOut(150);
-          });
         });
 
         $ul.children().each(function() {
@@ -2088,10 +2087,10 @@ $.fn.bindSlideshow = function(opt) {
       addBars($ps.find("ul:first"));
 
       // If the user clicks on a bar with more level insides…
-      $ps.find(".sp .bar.clickable").click(function(e) {
+      $ps.find(".sp .clickable").click(function(e) {
         e.preventDefault();
 
-        if (!stop) { // this prevents prolbems when clicking very fast on the items
+        if (!stop && !stopBack) { // this prevents prolbems when clicking very fast on the items
           stop = true;
 
           // transform the last element of the breadcrumb in a link
@@ -2099,12 +2098,11 @@ $.fn.bindSlideshow = function(opt) {
           $last_li.removeClass("last");
           $last_li.wrapInner('<a href="#" data-level="'+ level +'"></a>');
 
-
           // get the name of the taxonomy and add it to the breadcrumb
-          var name = $(this).parent().find("a").html();
+          var name = $(this).parent().find("span:first").html();
           var item = '<li class="last" style="opacity:0;">' + name + '</li>';
           $breadcrumb.append(item);
-          $breadcrumb.find("li:last").animate({opacity:1}, 500);
+          $breadcrumb.find("li:last").animate({opacity:1}, data.settings.transitionSpeed);
 
           // fix the z-index of the list we're about to show
           var $ul = $(this).siblings("ul");
@@ -2124,14 +2122,19 @@ $.fn.bindSlideshow = function(opt) {
       $breadcrumb.find("a").live("click", function(e) {
         e.preventDefault();
 
-        var gotoLevel = $(this).attr("data-level"); // get the level of destination
-        var $ul = $(this).siblings("ul").hide();
+        if (!stopBack && !stop) {
 
-        _goto($this, gotoLevel);
-        level = gotoLevel;
+          stopBack = true;
 
-        // scroll to the top of the list
-        $ps.find(".inner").data('jsp').scrollTo(0, 0, true);
+          var gotoLevel = $(this).attr("data-level"); // get the level of destination
+          var $ul = $(this).siblings("ul").hide();
+
+          _goto($this, gotoLevel);
+          level = gotoLevel;
+
+          // scroll to the top of the list
+          $ps.find(".inner").data('jsp').scrollTo(0, 0, true);
+        }
       });
     });
   };
@@ -2147,15 +2150,11 @@ $.fn.bindSlideshow = function(opt) {
     if (gotoLevel == 0) { // if we're going to the first page
       $ps.find(".sp").scrollTo(0, steps*data.settings.transitionSpeed, {axis: "x", onAfter: function() {
 
-        $breadcrumb.find("li").slice(1).animate({opacity:0}, data.settingsetransitionSpeed, function() {
+        $breadcrumb.find("li").slice(1).animate({opacity:0}, 150, function() {
           $(this).remove();
 
-          var $last_li = $breadcrumb.find("li:last");
-          $last_li.fadeOut("fast", function() {
-            $last_li.addClass("last");
-            $last_li.html('All');
-            $last_li.fadeIn("fast");
-          });
+          $breadcrumb.html('<li class="last">All</a>');
+          stopBack = false;
         });
 
         $ps.find(".sp ul ul").hide();
@@ -2168,12 +2167,13 @@ $.fn.bindSlideshow = function(opt) {
           $(this).remove();
 
           var $last_li = $breadcrumb.find("li:last");
-          $last_li.fadeOut("fast", function() {
+          $last_li.fadeOut(50, function() {
             $last_li.addClass("last");
             $last_li.html($last_li.text());
-            $last_li.fadeIn("fast");
+            $last_li.show(50, function() {
+              stopBack = false;
+            });
           });
-
         });
         _resize($ps,$ps.find(".sp ul:visible:eq("+gotoLevel+") > li").length, data.$this);
       }});

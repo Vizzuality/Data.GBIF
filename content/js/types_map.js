@@ -78,6 +78,9 @@
 
 
 		// Generate randomly several points for the polygon
+		
+		/*
+		
 		var dx = 9;
 	  var dy = 9;
 	  var px, py;
@@ -104,6 +107,21 @@
 		polygons_layer = new OpenLayers.Layer.Vector("Polygons Layer");
 		polygons_layer.addFeatures([polygonFeature1,polygonFeature2,polygonFeature3]);
 
+*/
+
+
+
+		var polygon1 = new OpenLayers.Geometry.LinearRing([new OpenLayers.Geometry.Point(10,20), new OpenLayers.Geometry.Point(40,20), new OpenLayers.Geometry.Point(40,40), new OpenLayers.Geometry.Point(10,40)]);
+		var polygon2 = new OpenLayers.Geometry.LinearRing([new OpenLayers.Geometry.Point(-20,0), new OpenLayers.Geometry.Point(-20,5), new OpenLayers.Geometry.Point(0,5), new OpenLayers.Geometry.Point(0,0)]);
+		var polygon3 = new OpenLayers.Geometry.LinearRing([new OpenLayers.Geometry.Point(20,0), new OpenLayers.Geometry.Point(20,5), new OpenLayers.Geometry.Point(25,5), new OpenLayers.Geometry.Point(25,0)]);
+
+		var polygonFeature1 = new OpenLayers.Feature.Vector(polygon1, null, polygon_style);
+		var polygonFeature2 = new OpenLayers.Feature.Vector(polygon2, null, polygon_style);
+		var polygonFeature3 = new OpenLayers.Feature.Vector(polygon3, null, polygon_style);
+
+		polygons_layer = new OpenLayers.Layer.Vector("Polygons Layer");
+//		polygons_layer.addFeatures([polygonFeature1,polygonFeature2,polygonFeature3]);
+		polygons_layer.addFeatures([polygonFeature1, polygonFeature2, polygonFeature3]);
 
 
 		// Generate randomly several points for the markers

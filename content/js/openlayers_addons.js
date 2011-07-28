@@ -64,7 +64,7 @@ var hover_style = new OpenLayers.Style({
 
 var polygon_style = {
     strokeColor: "#FF6600",
-    strokeOpacity: 1,
+    strokeOpacity: 0.8,
     strokeWidth: 1,
     fillColor: "#ffffff",
     fillOpacity: 0.5
@@ -73,8 +73,8 @@ var polygon_style = {
 
 var points_style = 
 	new OpenLayers.Style({
-      pointRadius: 5,
-      fillColor: "#FF6600",
+      pointRadius: 2,
+      fillColor: "#FF7700",
       fillOpacity: 1,
       strokeColor: "#ffffff",
       strokeWidth: 1,

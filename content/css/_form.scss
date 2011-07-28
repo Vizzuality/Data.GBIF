@@ -259,6 +259,8 @@ div.selected_option {
       margin:0;
       padding:0;
 
+      &.selected a { color:$medium_dark; }
+
       &.first {
         a {
           height:38px ;
@@ -303,7 +305,6 @@ div.selected_option {
         text-decoration:none;
         @include transparency_fix;
 
-        &.selected { color:$medium_dark; }
 
         span {
           display:block;
@@ -366,6 +367,8 @@ div.selected_option {
       background:none;
       margin:0; padding:0;
 
+      &.selected a { color:$medium_dark; }
+
       &:first-child {
         a {
           height:38px ;
@@ -402,9 +405,6 @@ div.selected_option {
         text-decoration:none;
         @include transparency_fix;
 
-        &.selected {
-          color:$medium_dark;
-        }
 
         span {
           display:block;

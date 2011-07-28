@@ -44,18 +44,24 @@
     <%= render 'partials/popovers' %>
     <script type="text/javascript" charset="utf-8">
 
-  $('.sort').sortPopover({
-    options: {
-      "Sort alphabetically": function(e) {
-        e.preventDefault();
-        alert("Sort alphabetically");
-      },
-      "Sort by count": function(e) {
-        e.preventDefault();
-        alert("Sort by count");
-      }
-    }
-  });
+      $("#select-popover, #select-popover2").selectPopover();
+      $(".autocomplete input").result(onResult);
+      $("time.selectable").datePopover();
+      $(".range").bindSlider(0, 500, [0, 500]);
+      $('.sort').dropdownPopover({
+        options: {
+          links: [
+            { name: "Sort alphabetically",
+              callback: function(e) { e.preventDefault(); alert("Sort alphabetically"); },
+              replaceWith:'Sort alphabetically<span class="more"></span>'
+          },
+          { name: "Sort by count",
+            callback: function(e) { e.preventDefault(); alert("Sort by count"); },
+            replaceWith:'Sort by count<span class="more"></span>'
+          }
+          ]
+        }
+      });
     </script>
 </body>
 </html>

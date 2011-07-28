@@ -1047,28 +1047,25 @@ var linkPopover = (function() {
   }
 
   var
-  // Public methods exposed to $.fn.sortPopover()
+  // Public methods exposed to $.fn.dropdownPopover()
   methods = {},
   store = "sortpopover",
 
-  // HTML template for the dropdowns
+  // HTML templates for the popover
   templates = {
     main: [
       '<div id="<%= name %>_<%= id %>" class="white_popover">',
       '<div class="arrow"></div>',
       '<ul></ul>',
       '</div>'].join(''),
-    item: '<li><a href="#"><span><%= name %></span></a></li>'
+    item: '<li data-select="<%= select %>"><a href="#"><span><%= name %></span></a></li>'
   },
 
   // Some nice default values
   defaults = {
-    options:['<li class="first"><a href="#" class="relevance"><span>Sort by relevance</span></a></li>',
-      '<li><a href="#" class="occurrence"><span>Sort by ocurrence</span></a></li>',
-      '<li class="last"><a href="#" class="size"><span>Sort by size</span></a></li>'].join('')
   };
 
-  // Called by using $('foo').sortPopover();
+  // Called by using $('foo').dropdownPopover();
   methods.init = function(settings) {
     settings = $.extend({}, defaults, settings);
 
@@ -1089,7 +1086,7 @@ var linkPopover = (function() {
       // The completed ps_container element
       $ps = false;
 
-      // Dont do anything if we've already setup sortPopover on this element
+      // Dont do anything if we've already setup dropdownPopover on this element
       if (data.id) {
         return $this;
       } else {
@@ -1106,7 +1103,7 @@ var linkPopover = (function() {
       // Save the updated $ps reference into our data object
       data.$ps = $ps;
 
-      // Save the sortPopover data onto the <select> element
+      // Save the dropdownPopover data onto the <select> element
       $this.data(store, data);
 
       // Do the same for the dropdown, but add a few helpers
@@ -1125,7 +1122,7 @@ var linkPopover = (function() {
   };
 
   // Expose the plugin
-  $.fn.sortPopover = function(method) {
+  $.fn.dropdownPopover = function(method) {
     if (!ie6) {
       if (methods[method]) {
         return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -1135,19 +1132,38 @@ var linkPopover = (function() {
     }
   };
   function _buildItems($ps, data) {
-    _.each(data.settings.options, function(callback, name) {
-      var $item = _.template(data.templates.item, {name:name});
-      $ps.find("ul").append($item);
-      $ps.find("ul li:last a").click(function(e) {
-        callback(e);
-      _close(data.$this, data.name, data.id);
-      var selectedOptionText = $(this).text();
-      data.$this.html(selectedOptionText + "<span class='more'></span>");
-      });
-    });
 
-    $ps.find("ul li:first").addClass("first");
-    $ps.find("ul li:last").addClass("last");
+    if (data.settings.options &&  data.settings.options.links) {
+
+      _.each(data.settings.options.links, function(option, i) {
+        var select = ("select" in option) ? option.select : option.name;
+
+        var $item = _.template(data.templates.item, {name:option.name, select:select});
+
+        $ps.find("ul").append($item);
+
+        $ps.find("ul li:last a").click(function(e) {
+
+          option.callback(e); // execute the callback function
+
+          _close(data.$this, data.name, data.id); // and close the popover
+
+          // Replace the original link with…
+          var replacementText;
+
+          if ("replaceWith" in option) { // … a text provided by the user
+            replacementText = option.replaceWith;
+          } else { // the name of the selected option
+            replacementText = $(this).html();
+          }
+          data.$this.html(replacementText);
+        });
+      });
+
+      // we need to add these classes for iE
+      $ps.find("ul li:first").addClass("first");
+      $ps.find("ul li:last").addClass("last");
+    }
   }
 
   // Build popover
@@ -1162,18 +1178,21 @@ var linkPopover = (function() {
     return $ps;
   }
 
+  // Highlights the selected option
   function _selectOption($ps, optionText) {
     $ps.find("li.selected").removeClass("selected");
-    $ps.find("span:contains('"+optionText+"')").parent().addClass("selected");
+    $ps.find('li[data-select="'+optionText+'"]').addClass("selected");
   }
 
   // Refresh popover
   function _refresh($this, name, id) {
     var $ps = $("#" + name + "_" + id);
+
     if ($this.hasClass("open")) {
 
       var x = $this.find("span").offset().left;
       var y = $this.find("span").offset().top;
+      var tw = $this.find("span").width();
       var w = $ps.width();
 
       if (oldIE) {
@@ -1182,7 +1201,7 @@ var linkPopover = (function() {
         $ps.css("top", y);
       }
 
-      $ps.css("left", x - w/2 + 4);
+      $ps.css("left", x - w/2 + tw/2);
     }
   }
 
@@ -1190,9 +1209,11 @@ var linkPopover = (function() {
   function _center ($this, $ps) {
     var x = $this.find("span").offset().left;
     var y = $this.find("span").offset().top;
+    var tw = $this.find("span").width();
+
     var w = $ps.width();
 
-    $ps.css("left", x - w/2 + 4);
+    $ps.css("left", x - w/2 + tw/2);
 
     if (oldIE) {
       $ps.css("top", y - 5);

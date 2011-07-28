@@ -795,7 +795,8 @@ var GOD = (function() {
     '<div class="month"><span></span></div>',
     '<div class="day"><span></span></div>',
     '<div class="year"><span></span></div>',
-    '</div>'].join(' ')
+    '</div>'].join(' '),
+    input: '<input type="text" value="" id="datefield_<%= name %>_<%= id %>" name="<%= name %>" />'
   };
 
   // Some nice default values
@@ -847,6 +848,16 @@ var GOD = (function() {
       // Do the same for the dropdown, but add a few helpers
       $ps.data(store, data);
 
+      // Add input field so we can submit the date in the form
+      var $input = _buildInput(data);
+
+      $this.before($input); // add the input to the DOM
+      data.$input = $('#datefield_'+ data.name + '_' +  data.id).hide();
+
+      // Add the initial date to the hidden input field
+      _captureDate($this);
+      _updateDate($this);
+
       $this.click(_toggle);
 
       $(window).bind('_close.'+data.name+'.'+data.id, function() {
@@ -854,17 +865,6 @@ var GOD = (function() {
         _close($this, $ps);
       });
     });
-  };
-
-  // Expose the plugin
-  $.fn.datePopover = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
   };
 
   // Build popover
@@ -880,6 +880,11 @@ var GOD = (function() {
     });
 
     return $ps;
+  }
+
+  // Build hidden input field that stores the date
+  function _buildInput(data) {
+   return $(_.template(data.templates.input, {name:data.name, id:data.id}));
   }
 
   // Open a popover
@@ -957,14 +962,16 @@ var GOD = (function() {
     }
   }
 
+  // Get the date from the <time> tag
   function _captureDate($this) {
     var date = new Date($this.attr("datetime"));
 
-    day = date.getDate();
+    day   = date.getDate();
     month = date.getMonth();
-    year = date.getFullYear();
+    year  = date.getFullYear();
   }
 
+  // Setup the click events on each selector (year, month, day)
   function _setup($this, $ps) {
     $year.click(function(event) {
       event.stopPropagation();
@@ -991,6 +998,8 @@ var GOD = (function() {
     });
   }
 
+
+  // Bind click events on each of the items (1, 2, 3, january, february, 2011, 2012…)
   function _bindLists($this, $ps) {
     var data = $this.data(store);
 
@@ -1093,18 +1102,23 @@ var GOD = (function() {
     return numZeropad;
   }
 
+  // Update the original date contained in the <time> tag
   function _updateDate($this) {
-    if (day == 1) {
-      n = "st";
-    } else if (day == 2){
-      n = "nd";
-    } else {
-      n = "th";
+
+    function _suffix(n) { // returns the appropriate suffix
+      return [null, 'st', 'nd', 'rd', 'th'][n] || "th";
     }
 
-    $this.html(months[month].toProperCase() + " " + day + n + ", " + year);
-    $this.attr("datetime", year+"/"+_zeroPad(month+1, 2)+"/"+day);
+    var data = $this.data(store);
+
+    $this.html(months[month].toProperCase() + " " + day + _suffix(day) + ", " + year); // Visible date
+
+    var datetime = year+"/"+_zeroPad(month+1, 2)+"/"+day;
+    $this.attr("datetime", datetime); // Tag's date
+    data.$input.val(datetime.replace(/\//g, "-")); // Hidden input's date
   }
+
+  // Adjust the selectors
   function _adjustCalendar() {
     var month_index = month + 1;
 
@@ -1127,7 +1141,6 @@ var GOD = (function() {
       $day.find("li").eq(29).hide(); // 30
       $day.find("li").eq(30).hide(); // 31
 
-
     } else if (_.include([4, 6, 9, 11], month_index)) {
       $day.find("li").eq(30).hide(); // 31
     } else {
@@ -1136,6 +1149,17 @@ var GOD = (function() {
       $day.find("li").eq(30).show(); // 31
     }
   }
+
+  // Expose the plugin
+  $.fn.datePopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
 
 })(jQuery, window, document);
 

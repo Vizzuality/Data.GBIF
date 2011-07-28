@@ -998,6 +998,9 @@ a {
   article.graph {
 
     .header {
+			
+			border-bottom: 1px solid #ccc;
+			margin: 0 0 20px 0;
 
       .right {
         margin-top:7px;
@@ -1008,7 +1011,7 @@ a {
     }
 
 		&.multigraph {
-			.header {border: 0;}
+			.header {border: 0; margin: 0}
 		}
 
     div.graph {

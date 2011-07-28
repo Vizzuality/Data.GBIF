@@ -3,7 +3,8 @@
 			clusters,
 			infowindow
 			map,
-			features = [];
+			features = [],
+			features2 = [];
 
 	// Openlayers functions and addons in
 	// js/openlayers_addons.js
@@ -29,7 +30,7 @@
 			var dx = 9;
 	    var dy = 9;
 	    var px, py;
-	    features = [];
+	    features = [], feastures2 = [];
 	    for(var x=-45; x<=45; x+=dx) {
 	      for(var y=-22.5; y<=22.5; y+=dy) {
 	        px = x + (2 * dx * (Math.random() - 0.5));
@@ -37,6 +38,10 @@
 					features.push(new OpenLayers.Feature.Vector(
 	        	new OpenLayers.Geometry.Point(px, py), {x: px, y: py, title: "Poland", url: "/countries/detail.html", datasets:"45", species:"234", occurrences:"123,292"}
 	        ));
+					features2.push(new OpenLayers.Feature.Vector(
+	        	new OpenLayers.Geometry.Point(px, py), {x: px, y: py, title: "Brazilian Institute for Marine Research", url: "/members/detail.html", datasets:"45", species:"234", occurrences:"123,292"}
+	        ));
+
 	      }
 	    }
 
@@ -63,7 +68,7 @@
 				$('.mapfull .dataset').fadeOut();
 
 				if ($(this).closest('article').hasClass('cluster')) {
-					generateClusterMarkers(features);
+					generateClusterMarkers(features2);
 				} else {
 					generateCountryMarkers(features);
 				}
@@ -98,6 +103,10 @@
 	// Countries stuff //
 	/////////////////////
 	function generateCountryMarkers(features) {
+		
+		console.log("generando markers de countries");
+		
+		
 		// allow testing of specific renderers via "?renderer=Canvas", etc
 	  var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
 	  renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
@@ -149,14 +158,12 @@
 	// Cluster stuff //
 	///////////////////
 	function generateClusterMarkers(features) {
-
+		
 		// allow testing of specific renderers via "?renderer=Canvas", etc
 	  var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
 	  renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
 
-
 	  strategy = new OpenLayers.Strategy.Cluster();
-
 	 	clusters = new OpenLayers.Layer.Vector("Clusters", {
 	      strategies: [strategy],
 	      styleMap: new OpenLayers.StyleMap({

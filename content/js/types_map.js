@@ -45,7 +45,6 @@
 
 			// Initialize map
 			map = new OpenLayers.Map('map', {controls: [],numZoomLevels: 20});
-	
 
 			// Activate double click
 			var dblclick = new OpenLayers.Handler.Click(this, {dblclick: function() {map.zoomIn()}, click: null }, {single: true, 'double': true, stopSingle: false, stopDouble: true});
@@ -75,42 +74,6 @@
 		grid_layer = new OpenLayers.Layer.XYZ("EOL","http://maps0.eol.org/php/map/getEolTile.php?tile=${x}_${y}_${z}_13140803");
 		//"http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Portland/ESRI_LandBase_WebMercator/MapServer/tile/${z}/${y}/${x}"
 
-
-
-		// Generate randomly several points for the polygon
-		
-		/*
-		
-		var dx = 9;
-	  var dy = 9;
-	  var px, py;
-	  features = [];
-	  for(var x=-45; x<=45; x+=dx) {
-	    for(var y=-22.5; y<=22.5; y+=dy) {
-	      px = x + (2 * dx * (Math.random() - 0.5));
-	      py = y + (2 * dy * (Math.random() - 0.5));
-			features.push(new OpenLayers.Geometry.Point(px, py));
-	    }
-	  }
-	
-		// Generate polygons and create polygon layer
-		var polygon1 = new OpenLayers.Geometry.LinearRing([features[0],features[3],features[6],features[9],features[12]]);
-		var polygonFeature1 = new OpenLayers.Feature.Vector(polygon1, null, polygon_style);
-		
-		var polygon2 = new OpenLayers.Geometry.LinearRing([features[10],features[14],features[17],features[19],features[18]]);
-		var polygonFeature2 = new OpenLayers.Feature.Vector(polygon2, null, polygon_style);
-		
-		var polygon3 = new OpenLayers.Geometry.LinearRing([features[20],features[21],features[22],features[23],features[24]]);
-		var polygonFeature3 = new OpenLayers.Feature.Vector(polygon3, null, polygon_style);
-		
-		
-		polygons_layer = new OpenLayers.Layer.Vector("Polygons Layer");
-		polygons_layer.addFeatures([polygonFeature1,polygonFeature2,polygonFeature3]);
-
-*/
-
-
-
 		var polygon1 = new OpenLayers.Geometry.LinearRing([new OpenLayers.Geometry.Point(10,20), new OpenLayers.Geometry.Point(40,20), new OpenLayers.Geometry.Point(40,40), new OpenLayers.Geometry.Point(10,40)]);
 		var polygon2 = new OpenLayers.Geometry.LinearRing([new OpenLayers.Geometry.Point(-20,0), new OpenLayers.Geometry.Point(-20,5), new OpenLayers.Geometry.Point(0,5), new OpenLayers.Geometry.Point(0,0)]);
 		var polygon3 = new OpenLayers.Geometry.LinearRing([new OpenLayers.Geometry.Point(20,0), new OpenLayers.Geometry.Point(20,5), new OpenLayers.Geometry.Point(25,5), new OpenLayers.Geometry.Point(25,0)]);
@@ -120,9 +83,7 @@
 		var polygonFeature3 = new OpenLayers.Feature.Vector(polygon3, null, polygon_style);
 
 		polygons_layer = new OpenLayers.Layer.Vector("Polygons Layer");
-//		polygons_layer.addFeatures([polygonFeature1,polygonFeature2,polygonFeature3]);
 		polygons_layer.addFeatures([polygonFeature1, polygonFeature2, polygonFeature3]);
-
 
 		// Generate randomly several points for the markers
 		var dx = 9;

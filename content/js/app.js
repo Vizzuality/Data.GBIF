@@ -42,53 +42,38 @@ $(function(){
 
   $("#select-popover, #select-popover2").selectPopover();
 
-var emails = [{
-    name: "Peter Pan",
-    to: "Especies"
-}, {
-    name: "Puma Concolor",
-    to: "Family"
-}, {
-    name: "Puma",
-    to: "Order"
-}, {
-    name: "Tiger",
-    to: "Family"
-}, {
-    name: "Tiger Lilly",
-    to: "Subespecies"
-}, {
-    name: "Tiger II",
-    to: "Subespecies"
-}, {
-    name: "Mc Chick",
-    to: "Family"
-}, {
-    name: "Donnie Darko",
-    to: "Family"
-}, {
-    name: "Quake The Net",
-    to: "Subespecies"
-}, {
-    name: "Dr. Write",
-    to: "Species"
-}];
+var species = [{ name: "Acantocephala", desc: "Family"},
+{ name: "Actinobacteria", desc: "Especies"},
+{ name: "Annelida", desc: "Order"},
+{ name: "Aquificae", desc: "Suborders"},
+{ name: "Arthropoda", desc: "Especies"},
+{ name: "Bacteroidetes", desc: "Order"},
+{ name: "Brachipoda", desc: "Suborders"},
+{ name: "Cephalorhyncha", desc: "Especies"},
+{ name: "Chaetognatha", desc: "Especies"},
+{ name: "Chordata", desc: "Especies"},
+{ name: "Chromista", desc: "Order"},
+{ name: "Cnidaria", desc: "Especies"},
+{ name: "Ctenophora", desc: "Suborders"},
+{ name: "Fungi", desc: "Order"},
+{ name: "Plantae", desc: "Especies"},
+{ name: "Puma Concolor", desc: "Family"},
+{ name: "Puma", desc: "Order"}];
 
-$(".autocomplete input").autocomplete(emails, {
+$(".autocomplete input").autocomplete(species, {
   minChars: 0,
   scroll:false,
   width: 225,
   matchContains: "word",
   autoFill: false,
-  max:3,
-  result: function(e) {
-    alert('a');
-  },
+  max:5,
   formatItem: function(row, i, max) {
     var clase = "";
 
     if (max == 1) {
       clase = ' unique';
+    } else if (max == 2 && i == 2) {
+      clase = ' last_double';
     } else if (i == 1) {
       clase = ' first';
     } else if (i == max ) {
@@ -96,7 +81,7 @@ $(".autocomplete input").autocomplete(emails, {
     }
     console.log(clase, i, max);
 
-    return  '<div class="row' + clase + '"><span class="name">' + row.name + '</span> ' + row.to + '</div>';
+    return  '<div class="row' + clase + '"><span class="name">' + row.name + '</span> ' + row.desc + '</div>';
   },
   formatResult: function(row) {
     return row.name;

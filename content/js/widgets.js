@@ -1047,7 +1047,7 @@ var linkPopover = (function() {
   }
 
   var
-  // Public methods exposed to $.fn.sortPopover()
+  // Public methods exposed to $.fn.dropdownPopover()
   methods = {},
   store = "sortpopover",
 
@@ -1065,7 +1065,7 @@ var linkPopover = (function() {
   defaults = {
   };
 
-  // Called by using $('foo').sortPopover();
+  // Called by using $('foo').dropdownPopover();
   methods.init = function(settings) {
     settings = $.extend({}, defaults, settings);
 
@@ -1086,7 +1086,7 @@ var linkPopover = (function() {
       // The completed ps_container element
       $ps = false;
 
-      // Dont do anything if we've already setup sortPopover on this element
+      // Dont do anything if we've already setup dropdownPopover on this element
       if (data.id) {
         return $this;
       } else {
@@ -1103,7 +1103,7 @@ var linkPopover = (function() {
       // Save the updated $ps reference into our data object
       data.$ps = $ps;
 
-      // Save the sortPopover data onto the <select> element
+      // Save the dropdownPopover data onto the <select> element
       $this.data(store, data);
 
       // Do the same for the dropdown, but add a few helpers
@@ -1122,7 +1122,7 @@ var linkPopover = (function() {
   };
 
   // Expose the plugin
-  $.fn.sortPopover = function(method) {
+  $.fn.dropdownPopover = function(method) {
     if (!ie6) {
       if (methods[method]) {
         return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));

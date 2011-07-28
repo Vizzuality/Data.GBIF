@@ -472,6 +472,14 @@ a {
 					}
 
         }
+
+        .middle  {
+          border:none;
+          padding-top:0;
+          overflow:hidden!Important;
+          h2 { float:left; margin-bottom:0; padding-bottom: 20px; line-height:20px;} // we use padding instead of margin because of iE7
+        }
+
         .right {
           padding:0;
           border:none;
@@ -591,6 +599,10 @@ a {
       .left   {
         float:left;
         width:597px;
+				&.short {
+					width: 280px;
+				}
+
         margin-right:41px;
         border-top:1px solid $border_color;
         padding-top:25px;
@@ -638,6 +650,19 @@ a {
           }
 
       }//.left
+
+      .middle   {
+        float:left;
+        width:597px;
+				&.short {
+					width: 280px;
+				}
+        margin-right:41px;
+        border-top:1px solid $border_color;
+        padding-top:25px;
+
+				&.no_border {border-top: none; padding-top:0;}
+			}
 
       .right  {
         float:left;
@@ -973,8 +998,7 @@ a {
   article.graph {
 
     .header {
-      border-bottom: 1px solid #ccc;
-      margin-bottom:20px;
+
       .right {
         margin-top:7px;
         color:$medium_dark;
@@ -982,6 +1006,10 @@ a {
         font-size:15px;
       }
     }
+
+		&.multigraph {
+			.header {border: 0;}
+		}
 
     div.graph {
       float:left;

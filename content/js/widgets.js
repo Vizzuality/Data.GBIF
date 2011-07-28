@@ -1051,7 +1051,7 @@ var linkPopover = (function() {
   methods = {},
   store = "sortpopover",
 
-  // HTML template for the dropdowns
+  // HTML templates for the popover
   templates = {
     main: [
       '<div id="<%= name %>_<%= id %>" class="white_popover">',
@@ -1132,9 +1132,10 @@ var linkPopover = (function() {
     }
   };
   function _buildItems($ps, data) {
-    if (data.settings.options &&  data.settings.options.links) {
-      _.each(data.settings.options.links, function(option, i) {
 
+    if (data.settings.options &&  data.settings.options.links) {
+
+      _.each(data.settings.options.links, function(option, i) {
         var select = ("select" in option) ? option.select : option.name;
 
         var $item = _.template(data.templates.item, {name:option.name, select:select});
@@ -1142,20 +1143,24 @@ var linkPopover = (function() {
         $ps.find("ul").append($item);
 
         $ps.find("ul li:last a").click(function(e) {
-          option.callback(e);
-          _close(data.$this, data.name, data.id);
 
+          option.callback(e); // execute the callback function
+
+          _close(data.$this, data.name, data.id); // and close the popover
+
+          // Replace the original link with…
           var replacementText;
 
-          if ("replaceWith" in option) {
+          if ("replaceWith" in option) { // … a text provided by the user
             replacementText = option.replaceWith;
-          } else {
+          } else { // the name of the selected option
             replacementText = $(this).html();
           }
           data.$this.html(replacementText);
         });
       });
 
+      // we need to add these classes for iE
       $ps.find("ul li:first").addClass("first");
       $ps.find("ul li:last").addClass("last");
     }
@@ -1173,6 +1178,7 @@ var linkPopover = (function() {
     return $ps;
   }
 
+  // Highlights the selected option
   function _selectOption($ps, optionText) {
     $ps.find("li.selected").removeClass("selected");
     $ps.find('li[data-select="'+optionText+'"]').addClass("selected");
@@ -1181,10 +1187,12 @@ var linkPopover = (function() {
   // Refresh popover
   function _refresh($this, name, id) {
     var $ps = $("#" + name + "_" + id);
+
     if ($this.hasClass("open")) {
 
       var x = $this.find("span").offset().left;
       var y = $this.find("span").offset().top;
+      var tw = $this.find("span").width();
       var w = $ps.width();
 
       if (oldIE) {
@@ -1193,7 +1201,7 @@ var linkPopover = (function() {
         $ps.css("top", y);
       }
 
-      $ps.css("left", x - w/2 + 4);
+      $ps.css("left", x - w/2 + tw/2);
     }
   }
 
@@ -1201,9 +1209,11 @@ var linkPopover = (function() {
   function _center ($this, $ps) {
     var x = $this.find("span").offset().left;
     var y = $this.find("span").offset().top;
+    var tw = $this.find("span").width();
+
     var w = $ps.width();
 
-    $ps.css("left", x - w/2 + 4);
+    $ps.css("left", x - w/2 + tw/2);
 
     if (oldIE) {
       $ps.css("top", y - 5);

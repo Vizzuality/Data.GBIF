@@ -16,7 +16,7 @@
 		if ($('body').hasClass('mapfull')) {
 
 			// Create infowindow
-			infowindow = new OpenLayers.Popup("infowindow",new OpenLayers.LonLat(0,0),new OpenLayers.Size(261,140),'',false,null,{title:'GBIF Infowindow',datasets:43,occurreces:1234,species:42,url:'/'});
+			infowindow = new OpenLayers.Popup("infowindow",new OpenLayers.LonLat(0,0),new OpenLayers.Size(261,140),'',false,null,{title:'Brasil Institute of Marine Research',datasets:"128",occurreces:"21,328",species:"982",url:'/members/detail.html'});
 
 
 			// Create markers (TODO REQUEST MARKERS or TAKE FROM A JS VAR)
@@ -35,7 +35,7 @@
 	        px = x + (2 * dx * (Math.random() - 0.5));
 	        py = y + (2 * dy * (Math.random() - 0.5));
 					features.push(new OpenLayers.Feature.Vector(
-	        	new OpenLayers.Geometry.Point(px, py), {x: px, y: py, title: "Example - "+px.toFixed(2)+','+py.toFixed(2), url: "/", datasets:y, species:x, occurrences:dx}
+	        	new OpenLayers.Geometry.Point(px, py), {x: px, y: py, title: "Poland", url: "/countries/detail.html", datasets:"45", species:"234", occurrences:"123,292"}
 	        ));
 	      }
 	    }
@@ -229,6 +229,11 @@
 			map.zoomToExtent(bounds);
 		} else {
 			// Show tooltip
-			infowindow.changePosition(new OpenLayers.LonLat(event.geometry.x,event.geometry.y),event.data);
+			var info = event.data;
+			if (info.count!=undefined) {
+				info = event.cluster[0].data;
+			}
+			
+			infowindow.changePosition(new OpenLayers.LonLat(event.geometry.x,event.geometry.y),info);
 		}
 	}

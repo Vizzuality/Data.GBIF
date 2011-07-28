@@ -998,7 +998,7 @@ a {
   article.graph {
 
     .header {
-			
+
 			border-bottom: 1px solid #ccc;
 			margin: 0 0 20px 0;
 
@@ -2279,6 +2279,9 @@ a {
 
 #content article.taxonomies {
 
+  // Disable selection of text
+  -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;
+
   .header {
     .left {
       h2 {float:left;}
@@ -2304,10 +2307,12 @@ a {
         overflow:auto;
         height:150px;
         outline:none;
+
       }
 
       .breadcrumb {
-        margin:0 0 5px 0;
+
+        margin:0 0 10px 0;
         padding:0;
         position:relative;
         clear:both;
@@ -2348,16 +2353,18 @@ a {
             clear:both;
             overflow:hidden;
 
-            a {display:block; color:$link_color; clear:both; overflow:hidden;}
             span { display:block; width:125px; float:left; }
+            span.clickable {color:$link_color; cursor:pointer;}
+
+            a { display:none; margin-left:40px; font-size:13px; }
 
             .bar {
               position:relative;
               float:left;
               height:20px;
-              background: url('/img/green_bar.png') repeat-x center;
-              &.clickable { cursor:pointer;}
-              &.clickable .count { background:url('/img/icons/gray_arrow.png') no-repeat right 5px;}
+              background: url('/img/green_bar.png') repeat-x center top;
+
+              &.clickable { cursor:pointer; background-position: center bottom; }
 
               .count { display:none; float:right; right:-40px; padding-right:10px; font-family: $font-regular; font-size:18px; color:$medium_dark; position:absolute; bottom:5px; }
             }

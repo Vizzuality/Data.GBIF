@@ -796,7 +796,7 @@ var GOD = (function() {
     '<div class="day"><span></span></div>',
     '<div class="year"><span></span></div>',
     '</div>'].join(' '),
-    input: '<input type="text" value="" id="datefield_<%= name %>_<%= id %>" name="<%= name %>" />'
+    input: '<input type="hidden" value="" id="datefield_<%= name %>_<%= id %>" name="<%= name %>" />'
   };
 
   // Some nice default values
@@ -852,7 +852,7 @@ var GOD = (function() {
       var $input = _buildInput(data);
 
       $this.before($input); // add the input to the DOM
-      data.$input = $('#datefield_'+ data.name + '_' +  data.id).hide();
+      data.$input = $('#datefield_'+ data.name + '_' +  data.id);
 
       // Add the initial date to the hidden input field
       _captureDate($this);

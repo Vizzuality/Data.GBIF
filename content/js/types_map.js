@@ -28,6 +28,34 @@
 				ev.preventDefault();
 				map.zoomOut();
 			});
+			
+			//Projection buttons
+			$('div.projection a.projection').click(function(ev){
+				ev.stopPropagation();
+				ev.preventDefault();
+				$(this).parent().find('span').show();
+				$('body').click(function(ev){
+					if (!$(event.target).closest('div.projection').length) {
+	          $('div.projection span').hide();
+	          $('body').unbind('click');
+	        };
+				});
+			});
+			
+			$('div.projection span ul li a').click(function(ev){
+				ev.stopPropagation();
+				ev.preventDefault();
+				if (!$(this).parent().hasClass('disabled') && !$(this).hasClass('selected')) {
+					$('div.projection span ul li a').each(function(i,ele){$(ele).removeClass('selected')});
+					$(this).addClass('selected');
+					// TODO -> implement robinson projection
+					$(this).closest('span').hide()
+					$('body').unbind('click');					
+				}
+			});
+			
+			
+			
 		
 			// Change map type
 			$('p.maptype a').click(function(ev){

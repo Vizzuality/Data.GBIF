@@ -1019,14 +1019,19 @@ a {
 			.header {border: 0; margin: 0}
 		}
 
-    div.graph {
+    div.graph, div.bargraph {
       float:left;
       margin-right:24px;
-      &:last-child { margin-right:0; }
 
-    	.start, .end { position:relative; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
-    	.start {left:0;}
-      .end {right:0;}
+      &:last-child { margin-right:0; }			
+
+			.y_label {font-family: $font-medium; font-size: 11px; color: $gray}
+
+			.graph_axis {width: 100%}
+
+    	.start, .end {display: block; position:relative; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
+    	.start {float: left;}
+      .end {float: right;}
 
       div.summary {
         clear:left;
@@ -1054,7 +1059,7 @@ a {
       ul {
         padding:20px 0 0 0;
         margin:0;
-        height:130px;
+        height:180px;
         float:left;
         clear:both;
         overflow:hidden;
@@ -1072,11 +1077,11 @@ a {
           position: relative;
           float: left;
           margin: 0 1px;
-          height: 8em;
+          height: 11em;
           padding:0;
           background:none;
 
-					.label { display: none; position: relative; bottom:0; left: 0; height: 0; width: 100%; font-family: $font_light; font-size: 10px; color: $dark;}
+					.label { display: none; position: relative; bottom:0; left: 0; height: 0; width: 100%; font-family: $font_medium; font-size: 11px; color: $dark;}
           .value { display: block; position: absolute; bottom:0; left: 0; height: 0; width: 100%; background:#f1f1f1;  background: rgba(#000, .1); text-indent: -9999px; overflow: hidden; -webkit-border-top-left-radius: 3px; -moz-border-top-left-radius: 3px; border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; -moz-border-top-right-radius: 3px; border-top-right-radius: 3px; }
           .value_label {display: none; position: relative; bottom:0; left: 0; height: 0; width: 100%; font-family: $font_medium; font-size: 16px; color: $link_color;}
 
@@ -1964,17 +1969,19 @@ a {
 #lock_screen { position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:.5; background:$brightest; z-index:400; }
 
 
-#content article .content .left {
+#content article .content .left,  #content article .content .middle{
 
-  .graph {
+  .graph, .bargraph {
     position:relative;
     margin-right:19px;
-    width:606px;
+    &.graph {width:606px;}
+    &.bargraph {width:280px;}
+		
     float:left;
 
-    .start, .end { position:absolute; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
-    .start {left:0;}
-    .end {right:0;}
+    .start, .end { position:relative; bottom: 10px; font-size:11px; color:$gray; font-family:$font_medium; }
+    .start {float: left;}
+    .end {float: right;}
 
     .percentage {
       position:absolute;

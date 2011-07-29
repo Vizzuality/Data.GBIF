@@ -159,11 +159,9 @@ var GOD = (function() {
     if (is_ie) {
       $ps.hide();
       $ps.remove();
-      $this.removeClass("open");
     } else {
       $ps.animate({top:$ps.position().top - 10, opacity:0}, 150, function() {
         $ps.remove();
-        $this.removeClass("open");
       });
     }
   }
@@ -171,8 +169,7 @@ var GOD = (function() {
   // Refresh popover
   function _refresh($this, name, id) {
     var $ps = $("#" + name + "_" + id);
-    if ($this.hasClass("open")) {
-
+    if ($("#" + data.name + "_" + data.id).length != 0) {
       var x = $this.offset().left;
       var y = $this.offset().top;
       var w = $ps.width();
@@ -196,7 +193,7 @@ var GOD = (function() {
     var $this = $(this);
     var data = $this.data(store);
 
-    if ($(this).hasClass("open")) {
+    if ($("#" + data.name + "_" + data.id).length != 0) {
       var $ps = $("#" + data.name + "_" + data.id);
       _close($this, $ps);
     } else {
@@ -213,11 +210,8 @@ var GOD = (function() {
 
       if (oldIE) {
         $ps.show();
-        $this.addClass("open");
       } else {
-        $ps.animate({top:$ps.position().top + 10, opacity:1}, 150, function() {
-          $this.addClass("open");
-        });
+        $ps.animate({top:$ps.position().top + 10, opacity:1}, 150);
       }
     }
   }

@@ -103,8 +103,6 @@
   function _onResult(e, result, formatted, $this) {
     var data = $this.data(store);
 
-    data.$more.show("fast");
-
     var $li = $(_.template(data.templates.li, {name:result.name}));
 
     data.$list.append($li);
@@ -116,6 +114,7 @@
     $this.val("");
     $this.unautocomplete();
     $this.parent().hide("fast", function() {
+      data.$more.fadeIn("fast");
     });
   }
 
@@ -130,7 +129,7 @@
     console.log(data.$list.find("li").length)
 
     if (data.$list.find("li").length == 1) {
-      data.$more.hide("hide");
+      data.$more.hide("fast");
       $this.parent().show("fast")
       _bindAutocomplete($this);
     }

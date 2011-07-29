@@ -1,46 +1,16 @@
 $(function(){
 
-var species = [{ name: "Acantocephala", desc: "Family"}, { name: "Actinobacteria", desc: "Especies"}, { name: "Annelida", desc: "Order"}, { name: "Aquificae", desc: "Suborders"}, { name: "Arthropoda", desc: "Especies"}, { name: "Bacteroidetes", desc: "Order"}, { name: "Brachipoda", desc: "Suborders"}, { name: "Cephalorhyncha", desc: "Especies"}, { name: "Chaetognatha", desc: "Especies"}, { name: "Chordata", desc: "Especies"}, { name: "Chromista", desc: "Order"}, { name: "Cnidaria", desc: "Especies"}, { name: "Ctenophora", desc: "Suborders"}, { name: "Fungi", desc: "Order"}, { name: "Plantae", desc: "Especies"}, { name: "Puma Concolor", desc: "Family"}, { name: "Puma", desc: "Order"}];
 
-$(".autocomplete input").autocomplete(species, {
-  minChars: 0,
-  scroll:false,
-  width: 225,
-  matchContains: "word",
-  autoFill: false,
-  max:5,
-  formatItem: function(row, i, max) {
-    var clase = "";
-
-    if (max == 1) {
-      clase = ' unique';
-    } else if (max == 2 && i == 2) {
-      clase = ' last_double';
-    } else if (i == 1) {
-      clase = ' first';
-    } else if (i == max ) {
-      clase = ' last';
-    }
-
-    return  '<div class="row' + clase + '"><span class="name">' + row.name + '</span> ' + row.desc + '</div>';
-  },
-  formatResult: function(row) {
-    return row.name;
-  }
-});
-
-
-function onResult(event, data, formatted) {
-  console.log(event,data, formatted);
-}
 $('div.graph').each(function(index) {
-  $(this).find('ul li .bar').each(function(index) {
+  $(this).find('ul li .value').each(function(index) {
     var width = $(this).parents("div").attr("class").replace(/graph /, "");
     $(this).parent().css("width", width);
-
     var value = $(this).text();
-
     $(this).delay(index*100).animate({ height: value }, 400, 'easeOutBounce');
+		var label_y = $(this).parent().height()-value-36;
+    $(this).parent().find(".label").css("top", label_y);
+		$(this).parent().append("<div class='value_label'>"+value+"</div")
+    $(this).parent().find(".value_label").css("top", (label_y+13));
   });
 });
 
@@ -48,7 +18,7 @@ $('div.graph ul li a').click(function(e){
   e.preventDefault();
 });
 
-  $(".select").selectBox();
+  $(".selectbox").selectBox();
   $("#taxonomy").taxonomicExplorer({transitionSpeed:300});
 
   // Some help messages
@@ -127,14 +97,13 @@ $('div.graph ul li a').click(function(e){
   $("article#slideshow-1").bindSlideshow();
 
 var processes = {
-  dates:[
-    {start:"2011-1-1", end: "2011-2-11", url:"http://www.google.com"},
-      {start:"2011-3-1", url:"http://www.google.com"},
-        {start:"2011-4-1", end:"2011-4-25", url:"http://www.google.com"},
-          {start:"2011-5-1", url:"http://www.google.com" },
-            {start:"2011-6-1", url:"http://www.google.com"},
-              {start:"2011-7-1", url:"http://www.google.com"},
-                {start:"2011-8-1", url:"http://www.google.com"}
+  dates:[ {start:"2011-1-1", end: "2011-2-11", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+      {start:"2011-3-1", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+        {start:"2011-4-1", end:"2011-4-25", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+          {start:"2011-5-1", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+            {start:"2011-6-1", title: "123 - HARVESTING ", message:"No processes"},
+              {start:"2011-7-1", title: "123 - HARVESTING ", message:"No processes"},
+                {start:"2011-8-1", title: "123 - HARVESTING ", message:"No processes"}
   ]};
 
   if ($("#holder").length ) {

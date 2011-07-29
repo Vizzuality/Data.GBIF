@@ -87,6 +87,7 @@
     div.value {
       float:left;
       position:relative;
+
       span.remove {
         display:none;
         top:8px;
@@ -102,28 +103,17 @@
   }
 }
 
-.add_more {
-  clear:both;
-  padding-left:15px;
-  display:block;
-  font-size:12px;
-  background:url('/img/icons/plus.png') no-repeat left top;
-  height:11px;
-  margin-top:10px;
-  display:block;
-  position:relative;
-}
+.add_more { clear:both; padding-left:15px; display:block; font-size:12px; background:url('/img/icons/plus.png') no-repeat left top; height:11px; margin-top:10px; display:block; position:relative; }
 
 .filter_selected {
   display:block;
   position:relative;
   color:$medium_dark;
-  &:hover .delete {display:block;}
   margin-bottom:10px;
+  &:hover .delete {display:block;}
 }
-span.remove {
-  cursor:pointer;
-}
+span.remove { cursor:pointer; }
+
 .filter_delete { position:absolute; top:5px; right:-10px; color:$medium_dark; background:url('/img/icons/cross.png') no-repeat left top; width:5px; height:5px; cursor:pointer; }
 
 #content a.filter { float:left; display:block; position:relative; }
@@ -153,25 +143,21 @@ span.remove {
         overflow: auto;
         outline:none;
         padding:5px 40px 0 0; margin:0;
-        li {
-          text-align:left;
-          line-height:20px;
-        }
+
+        li { text-align:left; line-height:20px; }
       }
     }
   }
 }
 
-
-#content .field.select {height:70px;}
-#content .field .select-box {
+// Styles for the selectBox
+#content .select_box {
   position:relative;
   z-index:100;
 
   // Disable selection of text
   -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;
 
-  &.countries div.selected_option {width:320px;}
   &.open {
     .listing { display:block; }
 
@@ -182,31 +168,25 @@ span.remove {
       }
     }
   }
-}
-div.selected_option {
-  height:41px;
-  margin:0 0 0 -5px;
-  padding:0 0 0 17px;
-  z-index:1000;
-  background:url('/img/select_left_side.png') no-repeat left top;
-  @include transparency_fix;
-  cursor:pointer;
-  text-align:left;
-  font-size:13px;
-  color:$medium_dark;
 
-  span {
-    display:block;
+
+  div.selected_option {
     height:41px;
-    padding-right:45px;
-    line-height:37px;
-    background:url('/img/select_right_side.png') repeat-x right top;
-    font-family:$font_regular;
+    margin:0 0 0 -5px;
+    padding:0 0 0 17px;
+    z-index:1000;
+    background:url('/img/select_left_side.png') no-repeat left top;
+    @include transparency_fix;
+    cursor:pointer;
+    text-align:left;
     font-size:13px;
-  }
-} //.selected_option
+    color:$medium_dark;
 
-.select_listing {
+    span { display:block; height:41px; padding-right:45px; line-height:37px; background:url('/img/select_right_side.png') repeat-x right top; font-family:$font_regular; font-size:13px; }
+  }  //.selected_option
+}
+
+#content .select_listing {
 
   &.open { display:block; }
 
@@ -217,7 +197,7 @@ div.selected_option {
   margin-left:-5px;
   background:url('/img/select_left_side.png') no-repeat left -73px;
 
-  .inner {
+  .select_inner {
     text-align:left;
     display:block;
     background: url('/img/select_right_side.png') repeat-x right -73px;
@@ -242,6 +222,7 @@ div.selected_option {
 }
 
 
+// Style for the White Popover
 #content .white_narrow_popover {
   opacity:0;
   position:absolute;
@@ -320,6 +301,7 @@ div.selected_option {
   }//ul
 } //.white_narrow_popover
 
+// Yellow popover
 #content .yellow_popover {
   position:absolute;
   width:212px;
@@ -352,6 +334,7 @@ div.selected_option {
   }
 }
 
+// White popover
 #content .white_popover {
   opacity:0;
   position:absolute;
@@ -456,11 +439,7 @@ div.selected_option {
   }
 }
 
-.download .dropdown {
-  width:220px;
-  top:-40px;
-  position:absolute;
-}
+.download .dropdown { width:220px; top:-40px; position:absolute; }
 
 #content article .content .left .dropdown,
 #content article .content .right .dropdown {
@@ -881,3 +860,267 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
   }
 }
 
+
+
+
+// For the autosuggest widget
+#content article {
+  .content {
+    div.autosuggest {
+      ul.autosuggest_results {
+        display:block;
+        clear:both;
+        margin:0 ; padding:0;
+
+        li {
+
+          overflow:hidden;
+          clear:both;
+
+          margin:0 0 5px 0!important;
+          padding:0;
+          position:relative;
+          padding:0;
+
+          &:hover .value span { display:block!important; }
+
+          .value {
+            float:left;
+            position:relative;
+            font-size:15px;
+
+            span.remove { display:none; top:8px; right:-10px; position:absolute; width:5px; height:5px; background:url('/img/icons/cross.png') no-repeat left top; }
+          }
+        }
+      }
+      a.more {display:none; padding-left:15px; background:url('/img/icons/plus.png') no-repeat left;  font-size: 12px;}
+    }
+  }
+}
+
+
+#content article .content {
+  .ps_container {
+
+    ul.ps_selected {
+      margin:0;
+
+      li { margin: 0 0 5px 0!important;
+
+        a { color:$medium_dark; }
+        .remove {padding:3px; }
+        &:hover .remove {display:inline}
+      }
+    }
+
+    .remove {display:none; }
+
+    &.ps_open .ps_options {display:block;}
+
+    div.ps_options {
+
+      display:none;
+      position:absolute;
+      float:left;
+      z-index:1000;
+
+      .scrollpane {
+        position:relative;
+        width:920px;
+        overflow:auto;
+        height:110px;
+        top:20px;
+        left:20px;
+        outline:none;
+      }
+
+      .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+
+      .l {
+        float:left;
+        height:153px;
+        width:20px;
+        margin:0 0 0 -20px;
+        padding:0 0 0 7px;
+        background:url('/img/select_filter_left_side.png') no-repeat left top;
+      }
+
+      .background {
+        padding-right:30px;
+        width:20px;
+        height:153px;
+        background:url('/img/select_filter_right_side.png') repeat-x right top;
+      }
+
+      .jspVerticalBar {right:0;}
+
+      ul.ps_options_inner {
+        float:left;
+        position:relative;
+        margin:0; padding:0;
+
+        li {
+          background:none;
+          float:left;
+          clear:both;
+          margin:0; padding:0;
+          margin-bottom:5px!important;
+
+          span.label {cursor:pointer;}
+
+          &.hidden a {cursor:default!important; color:$gray; }
+          &.hidden span {cursor:default!important; }
+        } //li
+      }
+    }
+  }
+
+  .ps_fouc select {
+    position: relative;
+    top: -99999em;
+    visibility: hidden;
+  }
+
+  a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
+}
+
+
+
+#content article .content {
+  .ps_container {
+
+    ul.ps_selected {
+      margin:0;
+
+      li { margin: 0 0 5px 0!important;
+
+        a { color:$medium_dark; }
+        .remove {padding:3px; }
+        &:hover .remove {display:inline}
+      }
+    }
+
+    .remove {display:none; }
+
+    &.ps_open .ps_options {display:block;}
+
+    div.ps_options {
+
+      display:none;
+      position:absolute;
+      float:left;
+      z-index:1000;
+
+      .scrollpane {
+        position:relative;
+        width:920px;
+        overflow:auto;
+        height:110px;
+        top:20px;
+        left:20px;
+        outline:none;
+      }
+
+      .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+
+      .l {
+        float:left;
+        height:153px;
+        width:20px;
+        margin:0 0 0 -20px;
+        padding:0 0 0 7px;
+        background:url('/img/select_filter_left_side.png') no-repeat left top;
+      }
+
+      .background {
+        padding-right:30px;
+        width:20px;
+        height:153px;
+        background:url('/img/select_filter_right_side.png') repeat-x right top;
+      }
+
+      .jspVerticalBar {right:0;}
+
+      ul.ps_options_inner {
+        float:left;
+        position:relative;
+        margin:0; padding:0;
+
+        li {
+          background:none;
+          float:left;
+          clear:both;
+          margin:0; padding:0;
+          margin-bottom:5px!important;
+
+          span.label {cursor:pointer;}
+
+          &.hidden a {cursor:default!important; color:$gray; }
+          &.hidden span {cursor:default!important; }
+        } //li
+      }
+    }
+  }
+
+  .ps_fouc select {
+    position: relative;
+    top: -99999em;
+    visibility: hidden;
+  }
+
+  a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
+}
+
+// Styles for the criteria popover
+#content article .content .criteria_popover {
+
+  ul.selected_criterias {
+    margin:0;
+
+    li {
+      display:none;
+      margin: 0 0 15px 0!important;
+
+      a { color:$medium_dark; }
+      .remove {padding:3px; }
+      &:hover .remove {display:inline}
+    }
+  } // ul.selected_criterias
+
+  .remove {display:none; }
+
+  &.ps_open .criterias {display:block;}
+
+  div.criterias {
+    display:none;
+    position:absolute;
+    float:left;
+    z-index:1000;
+
+    .scrollpane { position:relative; width:920px; overflow:auto; height:110px; top:20px; left:20px; outline:none; }
+    .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+    .l { float:left; height:153px; width:20px; margin:0 0 0 -20px; padding:0 0 0 7px; background:url('/img/select_filter_left_side.png') no-repeat left top; }
+    .background { padding-right:30px; width:20px; height:153px; background:url('/img/select_filter_right_side.png') repeat-x right top; }
+    .jspVerticalBar {right:0;}
+
+    ul.criterias_inner {
+      float:left;
+      position:relative;
+      margin:0; padding:0;
+
+      li {
+        background:none;
+        float:left;
+        clear:both;
+        margin:0; padding:0;
+        margin-bottom:5px!important;
+
+        span.label {cursor:pointer;}
+
+        &.hidden a {cursor:default!important; color:$gray; }
+        &.hidden span {cursor:default!important; }
+      } //li
+    } // ul.criterias_inner
+  } //.criterias
+  a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
+}

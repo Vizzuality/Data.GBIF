@@ -8,20 +8,20 @@
 
 var default_style = new OpenLayers.Style({
 	externalGraphic: '${image}',
-  graphicWidth:28, 
-  graphicHeight:42, 
+  graphicWidth:30, 
+  graphicHeight:32, 
   graphicOpacity:1,
 	graphicXOffset: -13,
 	graphicYOffset: -35,
   cursor:'pointer',
 	label: '${label}',
 	fontColor: "white",
-  fontSize: "15px",
+  fontSize: "12px",
   fontFamily: "Arial",
   fontWeight: "normal",
   labelAlign: "center",
-  labelXOffset: "0",
-  labelYOffset: "20"
+  labelXOffset: "3",
+  labelYOffset: "25"
 },{
   context: {
   	label: function(feature) {

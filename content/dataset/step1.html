@@ -14,21 +14,31 @@
     <div class="inner">
       <img src="/img/icons/computer_plug.png" class="icon" />
       <form>
-        <p>Provide us your dataset URL access point. <a href="#" title="Help" id="help" class="help"><img src="/img/icons/questionmark.png" /></a></p>
-        <input type="text" name="text" />
-        <button type="submit" class="button"><span>Connect</span></button>
 
-        <p>Data publisher name <a href="#" title="Help" id="help2" class="help"><img src="/img/icons/questionmark.png" /></a></p>
-        <input type="text" name="text" />
+        <div class="field">
+          <p>Provide us your dataset URL access point. <a href="#" title="Help" id="help" class="help"><img src="/img/icons/questionmark.png" /></a></p>
+          <input type="text" name="text" />
+          <button type="submit" class="button"><span>Connect</span></button>
+        </div>
 
-        <p>GBIF endorsing node <a href="#" title="Help" id="help3" class="help"><img src="/img/icons/questionmark.png" /></a></p>
-        <select id="data_policy" class="data_policy" name="data-policy">
-          <option value="">Select one of the list below...</option>
-          <option value="policy-1">Data policy 1</option>
-          <option value="policy-2">Data policy 2</option>
-          <option value="policy-3">Data policy 3</option>
-          <option value="policy-4">Data policy 4</option>
-        </select>
+        <div class="field">
+          <p>Data publisher name <a href="#" title="Help" id="help2" class="help"><img src="/img/icons/questionmark.png" /></a></p>
+          <span class="input_text">
+            <input id="publisher_name" name="publisher_name" type="text" />
+          </span>
+        </div>
+
+
+        <div class="field">
+          <p>GBIF endorsing node <a href="#" title="Help" id="help3" class="help"><img src="/img/icons/questionmark.png" /></a></p>
+          <select id="data_policy" class="data_policy" name="data-policy">
+            <option value="">Select one of the list below...</option>
+            <option value="policy-1">Data policy 1</option>
+            <option value="policy-2">Data policy 2</option>
+            <option value="policy-3">Data policy 3</option>
+            <option value="policy-4">Data policy 4</option>
+          </select>
+        </div>
       </form>
     </div>
     <div class="bottom"></div>

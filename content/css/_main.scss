@@ -1735,7 +1735,9 @@ a {
   }//article.download
 
 
-  article.tunnel {
+ article.tunnel {
+
+    form div.field {margin:0 0 20px 0; }
 
     &#step-2 {
 
@@ -1790,12 +1792,17 @@ a {
 
             p { clear:left; margin-bottom: 5px; font-weight:bold; font-size:15px; color:$medium_dark; }
 
+            span.input_text { float:left; height:31px; padding:0 0 0 5px; background: url('/img/input_bkg.png') no-repeat left -99px; }
+
+            span.input_text {
+              input[type="text"] { background: url('/img/input_bkg.png') no-repeat right top; }
+            }
+
             input[type="text"] {
               float:left;
               width:426px - 20;
               height:31px;
               padding:0 10px;
-              margin:0 0 20px 0;
               font-size:13px;
               background: url('/img/input_bkg.png') no-repeat left -31px;
             }

@@ -1,8 +1,6 @@
 <script type="text/javascript">
   $(function(){
 
-      $(".add_criteria").selectPopover();
-
       $('.sort').dropdownPopover({
         options: {
           links: [
@@ -27,6 +25,12 @@
         "About":"/static/about.html"
       }
     });
+
+// Criteria selector
+$(".add_criteria").criteriaPopover({
+   options: { criterias: [ { label: "Date", criteria: "date" } ] }
+});
+
   });
 </script>
 

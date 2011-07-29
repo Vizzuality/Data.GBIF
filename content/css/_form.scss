@@ -1073,12 +1073,49 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
 
 // Styles for the criteria popover
 #content article .content .criteria_popover {
+  a.select {position:relative;}
 
-  ul.selected_criterias {
+  div.selected_criterias {
+
+    .range {
+      clear:both;
+      overflow:hidden;
+      width:150px;
+
+      h4 {float:left; margin-left:5px; margin-bottom:10px; font-size:11px; color:$medium_dark;text-transform:uppercase;}
+      input.legend{float:right; background:#f1f1f1; width:100px; margin-right:10px; outline:none; text-align:right; color:$gray; font-size:11px;text-transform:uppercase; border:0; }
+
+      .slider {
+        clear:both;
+        margin:5px 13px 5px 10px;
+
+        &.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background:none; }
+        &.ui-slider-horizontal { height: 5px; background:url('/img/icons/slider_horizontal.png') repeat-x; border:none; }
+
+        &.ui-slider .ui-slider-range.ui-widget-header { background:url('/img/icons/slider_header.png') repeat-x; }
+
+        .ui-slider-handle { border:none; outline:none; background:url('/img/icons/handler.png') no-repeat; width:21px; height:11px; }
+
+        &.ui-slider-horizontal .ui-slider-handle { top: -3px; cursor:pointer;}
+
+        .ui-slider-container { background-color: #eceded; padding: 0 0.6em;}
+        //a.ui-slider-handle.ui-state-default.ui-corner-all {margin-left:-15px;}
+        .ui-slider-handle.last {
+          width:21px;
+          background:url('/img/icons/handler.png') no-repeat;
+        }
+      }
+}
+
+
+  }
+
+  div.selected_criterias {
     margin:0;
 
-    li {
+    div.refine {
       display:none;
+
       margin: 0 0 15px 0!important;
 
       a { color:$medium_dark; }
@@ -1097,7 +1134,7 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
     float:left;
     z-index:1000;
 
-    .scrollpane { position:relative; width:920px; overflow:auto; height:110px; top:20px; left:20px; outline:none; }
+    .scrollpane { position:relative; width:220px; overflow:auto; height:110px; top:20px; left:20px; outline:none; }
     .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
     .l { float:left; height:153px; width:20px; margin:0 0 0 -20px; padding:0 0 0 7px; background:url('/img/select_filter_left_side.png') no-repeat left top; }
     .background { padding-right:30px; width:20px; height:153px; background:url('/img/select_filter_right_side.png') repeat-x right top; }

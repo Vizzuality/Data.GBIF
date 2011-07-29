@@ -2314,9 +2314,6 @@ $.fn.bindSlideshow = function(opt) {
 
 
 
-
-
-
 /*
 * ================
 * CRITERIA POPOVER
@@ -2351,20 +2348,20 @@ $.fn.bindSlideshow = function(opt) {
       '</div>',
       '</div>',
       '</div>',
-      '<ul class="selected_criterias"></ul>',
+      '<div class="selected_criterias"></div>',
       '<a href="#" class="more">Add more</a>',
       '</div>'
     ].join(''),
     li: '<li><a data-criteria="<%= criteria %>"><span class="label"><%= text %><span></a></li>',
 
     // Templates for the criterias
-    range: ['<li class="criteria" data-criteria="<%= criteria %>">',
+    range: ['<div class="refine" data-criteria="<%= criteria %>">',
       '<div id="<%= criteria %>_<%= name %>_<%= id %>" class="range"><h4>RANGE</h4> <input type="text" value="" class="legend" /><div class="slider"><div class="ui-slider-handle"></div><div class="ui-slider-handle last"></div></div></div>',
-      '</li>'].join(' '),
+      '</div>'].join(' '),
 
-    date: ['<li class="criteria" data-criteria="<%= criteria %>">',
-      '<time id="<%= criteria %>_<%= name %>_<%= id %>_start" class="selectable" datetime="2012/10/22">Oct 22th, 2012</time>  - <time class="selectable" datetime="1981/06/18" id="<%= criteria %>_<%= name %>_<%= id %>_end">Jun 18th, 1981</time>',
-      '</li>'].join(' ')
+    date: ['<div class="refine" data-criteria="<%= criteria %>">',
+      '<h4>Date</h4><time id="<%= criteria %>_<%= name %>_<%= id %>_start" class="selectable" datetime="2012/10/22">Oct 22th, 2012</time>  - <time class="selectable" datetime="1981/06/18" id="<%= criteria %>_<%= name %>_<%= id %>_end">Jun 18th, 1981</time>',
+      '</div>'].join(' ')
   },
 
   // Some nice default values
@@ -2554,9 +2551,9 @@ $.fn.bindSlideshow = function(opt) {
 
       var $option = $(this);
       var $ps   = $option.parents('.criteria_popover').first();
-      var count = $ps.find(".selected_criterias li").length;
+      var count = $ps.find(".selected_criterias > div").length;
 
-      var countSelected = $ps.find(".selected_criterias li").length;
+      var countSelected = $ps.find(".selected_criterias > div").length;
       var countOptions  = $ps.find(".criterias_inner li").length;
 
       if (count <= 1) {
@@ -2588,13 +2585,13 @@ $.fn.bindSlideshow = function(opt) {
       var $ps = $option.parents('.criteria_popover').first();
       var data = $ps.data(store);
 
-      var $selected_element = $ps.find(".selected_criterias li a[data-criteria=" + $option.attr("data-criteria") + "]").parent();
+      var $selected_element = $ps.find(".selected_criterias > div a[data-criteria=" + $option.attr("data-criteria") + "]").parent();
 
       if ($selected_element.length < 1) {
 
         $ps.find("a.select").hide();
 
-        var countSelected = $ps.find(".selected_criterias li").length;
+        var countSelected = $ps.find(".selected_criterias > div").length;
         var countOptions  = $ps.find(".criterias_inner li").length;
 
         _close($ps);
@@ -2616,9 +2613,9 @@ $.fn.bindSlideshow = function(opt) {
         // Criteria activations/callbacks
         if (criteria == "range") {
           $criteria = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id);
-          $criteria.bindSlider(0, 500, [0, 500]);
 
           $criteria.parent().show("fast");
+          $criteria.bindSlider(0, 500, [0, 500]);
 
         } else if (criteria == "date") {
 

@@ -87,6 +87,7 @@
     div.value {
       float:left;
       position:relative;
+
       span.remove {
         display:none;
         top:8px;
@@ -182,20 +183,20 @@ span.remove {
   }
 
 
-div.selected_option {
-  height:41px;
-  margin:0 0 0 -5px;
-  padding:0 0 0 17px;
-  z-index:1000;
-  background:url('/img/select_left_side.png') no-repeat left top;
-  @include transparency_fix;
-  cursor:pointer;
-  text-align:left;
-  font-size:13px;
-  color:$medium_dark;
+  div.selected_option {
+    height:41px;
+    margin:0 0 0 -5px;
+    padding:0 0 0 17px;
+    z-index:1000;
+    background:url('/img/select_left_side.png') no-repeat left top;
+    @include transparency_fix;
+    cursor:pointer;
+    text-align:left;
+    font-size:13px;
+    color:$medium_dark;
 
-  span { display:block; height:41px; padding-right:45px; line-height:37px; background:url('/img/select_right_side.png') repeat-x right top; font-family:$font_regular; font-size:13px; }
-}  //.selected_option
+    span { display:block; height:41px; padding-right:45px; line-height:37px; background:url('/img/select_right_side.png') repeat-x right top; font-family:$font_regular; font-size:13px; }
+  }  //.selected_option
 }
 
 #content .select_listing {
@@ -874,3 +875,40 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
   }
 }
 
+
+
+
+// For the autosuggest widget
+#content article {
+  .content {
+    div.autosuggest {
+      ul.autosuggest_results {
+        display:block;
+        clear:both;
+        margin:0 ; padding:0;
+
+        li {
+
+          overflow:hidden;
+          clear:both;
+
+          margin:0 0 5px 0!important;
+          padding:0;
+          position:relative;
+          padding:0;
+
+          &:hover .value span { display:block!important; }
+
+          .value {
+            float:left;
+            position:relative;
+            font-size:15px;
+
+            span.remove { display:none; top:8px; right:-10px; position:absolute; width:5px; height:5px; background:url('/img/icons/cross.png') no-repeat left top; }
+          }
+        }
+      }
+      a.more {display:none; padding-left:15px; background:url('/img/icons/plus.png') no-repeat left;  font-size: 12px;}
+    }
+  }
+}

@@ -140,17 +140,6 @@ var GOD = (function() {
     });
   };
 
-  // Expose the plugin
-  $.fn.helpPopover = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
-
   // Build popover
   function _build(data) {
     var $ps = $(_.template(data.templates.main, {name:data.name, id:data.id, title: data.title, message:data.message}));
@@ -170,11 +159,9 @@ var GOD = (function() {
     if (is_ie) {
       $ps.hide();
       $ps.remove();
-      $this.removeClass("open");
     } else {
       $ps.animate({top:$ps.position().top - 10, opacity:0}, 150, function() {
         $ps.remove();
-        $this.removeClass("open");
       });
     }
   }
@@ -182,8 +169,7 @@ var GOD = (function() {
   // Refresh popover
   function _refresh($this, name, id) {
     var $ps = $("#" + name + "_" + id);
-    if ($this.hasClass("open")) {
-
+    if ($("#" + data.name + "_" + data.id).length != 0) {
       var x = $this.offset().left;
       var y = $this.offset().top;
       var w = $ps.width();
@@ -207,7 +193,7 @@ var GOD = (function() {
     var $this = $(this);
     var data = $this.data(store);
 
-    if ($(this).hasClass("open")) {
+    if ($("#" + data.name + "_" + data.id).length != 0) {
       var $ps = $("#" + data.name + "_" + data.id);
       _close($this, $ps);
     } else {
@@ -224,11 +210,8 @@ var GOD = (function() {
 
       if (oldIE) {
         $ps.show();
-        $this.addClass("open");
       } else {
-        $ps.animate({top:$ps.position().top + 10, opacity:1}, 150, function() {
-          $this.addClass("open");
-        });
+        $ps.animate({top:$ps.position().top + 10, opacity:1}, 150);
       }
     }
   }
@@ -254,6 +237,17 @@ var GOD = (function() {
       $ps.css("top", y - h - 10);
     }
   }
+
+  // Expose the plugin
+  $.fn.helpPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
 
 })(jQuery, window, document);
 
@@ -343,17 +337,6 @@ var GOD = (function() {
       });
 
     });
-  };
-
-  // Expose the plugin
-  $.fn.processPopover = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
   };
 
   // Build popover
@@ -459,6 +442,17 @@ var GOD = (function() {
       $ps.css("top", y - h - 10);
     }
   }
+
+  // Expose the plugin
+  $.fn.processPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
 
 })(jQuery, window, document);
 
@@ -580,17 +574,6 @@ var GOD = (function() {
     });
   };
 
-  // Expose the plugin
-  $.fn.selectPopover = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
-
   // private methods
   function _build(tpl, view) {
 
@@ -698,6 +681,21 @@ var GOD = (function() {
         $ps.find(".more").show();
       }
 
+
+
+      // "Add more" action
+      $ps.find('.more').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var
+        $option = $(this),
+        $ps = $option.parents('.ps_container').first(),
+        data = $ps.data(store);
+
+        _toggle(e, $ps);
+      });
+
       var selected = $option.siblings('a').attr('ps-value');
 
       // Remove the element from the temporary list
@@ -708,19 +706,6 @@ var GOD = (function() {
 
       $selected_element.removeClass("hidden");
       _close($ps);
-    });
-
-    // "Add more" action
-    $('a.more').live('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      var
-      $option = $(this),
-      $ps = $option.parents('.ps_container').first(),
-      data = $ps.data(store);
-
-      _toggle(e, $ps);
     });
 
     // Bind click action over an original element
@@ -749,6 +734,18 @@ var GOD = (function() {
         } else {
           $ps.find("a.more").hide();
         }
+        // "Add more" action
+        $ps.find('.more').click(function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var
+          $option = $(this),
+          $ps = $option.parents('.ps_container').first(),
+          data = $ps.data(store);
+
+          _toggle(e, $ps);
+        });
 
         $selected = $option.parent();
         $selected.addClass('hidden');
@@ -760,6 +757,18 @@ var GOD = (function() {
       }
     });
   });
+
+  // Expose the plugin
+  $.fn.selectPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
 })(jQuery, window, document);
 
 
@@ -1350,16 +1359,6 @@ var linkPopover = (function() {
     });
   };
 
-  // Expose the plugin
-  $.fn.dropdownPopover = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
   function _buildItems($ps, data) {
 
     if (data.settings.options &&  data.settings.options.links) {
@@ -1507,6 +1506,16 @@ var linkPopover = (function() {
     }
   }
 
+  // Expose the plugin
+  $.fn.dropdownPopover = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
 })(jQuery, window, document);
 
 
@@ -2099,17 +2108,6 @@ $.fn.bindSlideshow = function(opt) {
     });
   };
 
-  // Expose the plugin
-  $.fn.selectBox = function(method) {
-    if (!ie6) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method) {
-        return methods.init.apply(this, arguments);
-      }
-    }
-  };
-
   // Build popover
   function _build(template, data) {
     var $ps = _.template(template, {label:data.label, name:data.name, id:data.id});
@@ -2199,7 +2197,17 @@ $.fn.bindSlideshow = function(opt) {
     }
   }
 
-  $(function() {});
+  // Expose the plugin
+  $.fn.selectBox = function(method) {
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || !method) {
+        return methods.init.apply(this, arguments);
+      }
+    }
+  };
+
 
 })(jQuery, window, document);
 

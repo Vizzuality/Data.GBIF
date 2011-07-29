@@ -95,10 +95,10 @@ $('div.graph ul li a').click(function(e){
   $("article#slideshow-1").bindSlideshow();
 
 var processes = {
-  dates:[ {start:"2011-1-1", end: "2011-2-11", title: "123 - HARVESTING ", message:"No processes"},
-      {start:"2011-3-1", title: "123 - HARVESTING ", message:"No processes"},
-        {start:"2011-4-1", end:"2011-4-25", title: "123 - HARVESTING ", message:"No processes"},
-          {start:"2011-5-1", title: "123 - HARVESTING ", message:"No processes"},
+  dates:[ {start:"2011-1-1", end: "2011-2-11", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+      {start:"2011-3-1", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+        {start:"2011-4-1", end:"2011-4-25", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
+          {start:"2011-5-1", title: "123 - HARVESTING ", message:"<a href='/members/process_detail.html'>235 issues</a>"},
             {start:"2011-6-1", title: "123 - HARVESTING ", message:"No processes"},
               {start:"2011-7-1", title: "123 - HARVESTING ", message:"No processes"},
                 {start:"2011-8-1", title: "123 - HARVESTING ", message:"No processes"}

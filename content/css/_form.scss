@@ -103,28 +103,17 @@
   }
 }
 
-.add_more {
-  clear:both;
-  padding-left:15px;
-  display:block;
-  font-size:12px;
-  background:url('/img/icons/plus.png') no-repeat left top;
-  height:11px;
-  margin-top:10px;
-  display:block;
-  position:relative;
-}
+.add_more { clear:both; padding-left:15px; display:block; font-size:12px; background:url('/img/icons/plus.png') no-repeat left top; height:11px; margin-top:10px; display:block; position:relative; }
 
 .filter_selected {
   display:block;
   position:relative;
   color:$medium_dark;
-  &:hover .delete {display:block;}
   margin-bottom:10px;
+  &:hover .delete {display:block;}
 }
-span.remove {
-  cursor:pointer;
-}
+span.remove { cursor:pointer; }
+
 .filter_delete { position:absolute; top:5px; right:-10px; color:$medium_dark; background:url('/img/icons/cross.png') no-repeat left top; width:5px; height:5px; cursor:pointer; }
 
 #content a.filter { float:left; display:block; position:relative; }
@@ -154,10 +143,8 @@ span.remove {
         overflow: auto;
         outline:none;
         padding:5px 40px 0 0; margin:0;
-        li {
-          text-align:left;
-          line-height:20px;
-        }
+
+        li { text-align:left; line-height:20px; }
       }
     }
   }
@@ -314,6 +301,7 @@ span.remove {
   }//ul
 } //.white_narrow_popover
 
+// Yellow popover
 #content .yellow_popover {
   position:absolute;
   width:212px;
@@ -346,6 +334,7 @@ span.remove {
   }
 }
 
+// White popover
 #content .white_popover {
   opacity:0;
   position:absolute;
@@ -450,11 +439,7 @@ span.remove {
   }
 }
 
-.download .dropdown {
-  width:220px;
-  top:-40px;
-  position:absolute;
-}
+.download .dropdown { width:220px; top:-40px; position:absolute; }
 
 #content article .content .left .dropdown,
 #content article .content .right .dropdown {
@@ -1086,86 +1071,56 @@ ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
   a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
 }
 
+// Styles for the criteria popover
+#content article .content .criteria_popover {
 
+  ul.selected_criterias {
+    margin:0;
 
-#content article .content {
-  .criteria_popover {
-
-    ul.selected_criterias {
-      margin:0;
-
-      li { display:none; margin: 0 0 5px 0!important;
-
-        a { color:$medium_dark; }
-        .remove {padding:3px; }
-        &:hover .remove {display:inline}
-      }
-    }
-
-    .remove {display:none; }
-
-    &.ps_open .criterias {display:block;}
-
-    div.criterias {
-
+    li {
       display:none;
-      position:absolute;
-      float:left;
-      z-index:1000;
+      margin: 0 0 15px 0!important;
 
-      .scrollpane {
-        position:relative;
-        width:920px;
-        overflow:auto;
-        height:110px;
-        top:20px;
-        left:20px;
-        outline:none;
-      }
-
-      .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
-
-      .l {
-        float:left;
-        height:153px;
-        width:20px;
-        margin:0 0 0 -20px;
-        padding:0 0 0 7px;
-        background:url('/img/select_filter_left_side.png') no-repeat left top;
-      }
-
-      .background {
-        padding-right:30px;
-        width:20px;
-        height:153px;
-        background:url('/img/select_filter_right_side.png') repeat-x right top;
-      }
-
-      .jspVerticalBar {right:0;}
-
-      ul.criterias_inner {
-        float:left;
-        position:relative;
-        margin:0; padding:0;
-
-        li {
-          background:none;
-          float:left;
-          clear:both;
-          margin:0; padding:0;
-          margin-bottom:5px!important;
-
-          span.label {cursor:pointer;}
-
-          &.hidden a {cursor:default!important; color:$gray; }
-          &.hidden span {cursor:default!important; }
-        } //li
-      }
+      a { color:$medium_dark; }
+      .remove {padding:3px; }
+      &:hover .remove {display:inline}
     }
-  }
+  } // ul.selected_criterias
 
+  .remove {display:none; }
 
+  &.ps_open .criterias {display:block;}
+
+  div.criterias {
+    display:none;
+    position:absolute;
+    float:left;
+    z-index:1000;
+
+    .scrollpane { position:relative; width:920px; overflow:auto; height:110px; top:20px; left:20px; outline:none; }
+    .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
+    .l { float:left; height:153px; width:20px; margin:0 0 0 -20px; padding:0 0 0 7px; background:url('/img/select_filter_left_side.png') no-repeat left top; }
+    .background { padding-right:30px; width:20px; height:153px; background:url('/img/select_filter_right_side.png') repeat-x right top; }
+    .jspVerticalBar {right:0;}
+
+    ul.criterias_inner {
+      float:left;
+      position:relative;
+      margin:0; padding:0;
+
+      li {
+        background:none;
+        float:left;
+        clear:both;
+        margin:0; padding:0;
+        margin-bottom:5px!important;
+
+        span.label {cursor:pointer;}
+
+        &.hidden a {cursor:default!important; color:$gray; }
+        &.hidden span {cursor:default!important; }
+      } //li
+    } // ul.criterias_inner
+  } //.criterias
   a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
 }
-
-

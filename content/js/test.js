@@ -36,7 +36,8 @@
       '<a href="#" class="more">Add more</a>',
       '</div>'
     ].join(''),
-    range: '<li class="criteria" data-select="<%=value %>"><div id="<%= criteria %>_<%= name %>_<%= id %>" class="range"><h4>RANGE</h4> <input type="text" value="" class="legend" /><div class="slider"><div class="ui-slider-handle"></div><div class="ui-slider-handle last"></div></div></div></li>',
+    range: '<li class="criteria" data-select="<%= criteria %>"><div id="<%= criteria %>_<%= name %>_<%= id %>" class="range"><h4>RANGE</h4> <input type="text" value="" class="legend" /><div class="slider"><div class="ui-slider-handle"></div><div class="ui-slider-handle last"></div></div></div></li>',
+    input: '<li class="criteria" data-select="<%= criteria %>"><input id="<%= criteria %>_<%= name %>_<%= id %>" type="text" value="" /></div></li>',
     li: '<li><a data-criteria="<%= criteria %>" data-select="<%=value %>"><span class="label"><%= text %><span></a></li>'
   },
 
@@ -288,13 +289,20 @@
         var criteria = $selected.find("a").attr("data-criteria");
 
         if (criteria == "range") {
-          var $criteria = _.template(data.templates.range, {criteria: criteria, value: $option.attr("data-select"), name:data.name, id:data.id});
+          var $criteria = _.template(data.templates.range, {criteria: criteria, name:data.name, id:data.id});
           $ps.find(".selected_criterias").append($criteria);
 
           $criteria = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id);
 
-          $criteria.parent().show("fast");
           $criteria.bindSlider(0, 500, [0, 500]);
+          $criteria.parent().show("fast");
+        } else if (criteria == "input") {
+
+          var $criteria = _.template(data.templates.input, {criteria: criteria, name:data.name, id:data.id});
+          $ps.find(".selected_criterias").append($criteria);
+
+          $criteria = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id);
+          $criteria.parent().show("fast");
         }
       }
     });

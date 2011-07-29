@@ -1,3 +1,9 @@
+/*
+* ================
+* CRITERIA POPOVER
+* ================
+*/
+
 (function($, window, document) {
 
   var ie6 = false;
@@ -10,168 +16,292 @@
   }
 
   var
-  // Public methods exposed to $.fn.autosuggest()
+  // Public methods exposed to $.fn.criteriaPopover()
   methods = {},
-
-  // Test data
-  species = [{ name: "Acantocephala", desc: "Family"}, { name: "Actinobacteria", desc: "Especies"}, { name: "Annelida", desc: "Order"}, { name: "Aquificae", desc: "Suborders"}, { name: "Arthropoda", desc: "Especies"}, { name: "Bacteroidetes", desc: "Order"}, { name: "Brachipoda", desc: "Suborders"}, { name: "Cephalorhyncha", desc: "Especies"}, { name: "Chaetognatha", desc: "Especies"}, { name: "Chordata", desc: "Especies"}, { name: "Chromista", desc: "Order"}, { name: "Cnidaria", desc: "Especies"}, { name: "Ctenophora", desc: "Suborders"}, { name: "Fungi", desc: "Order"}, { name: "Plantae", desc: "Especies"}, { name: "Puma Concolor", desc: "Family"}, { name: "Puma", desc: "Order"}],
+  store = "criteriapopover",
   // HTML template for the dropdowns
   templates = {
-    main: '<div id="<%= name %>_<%= id %>" class="autosuggest"></div>',
-    more: '<a href="#" class="more">Add more</a>',
-    row: '<div class="row<%= clase %>"><span class="name"><%= name %></span><%= desc %></div>',
-    list: '<ul id="listing_<%= name %>_<%= id %>" class="autosuggest_results"></ul>',
-    li: '<li><div class="value"><%= value %> <span class="remove"></span><input type="hidden" value="<%= value %>" name="<%= name %>_<%= id %>" /></div></li>',
-    result: '<%= value %>'
+    main: [
+      '<div class="criteria_popover" id="criteria_popover_<%= id %>">',
+      '<a href="#" class="select"><%= title %></a>',
+      '<div class="criterias">',
+      '<div class="arrow"></div>',
+      '<div class="background">',
+      '<div class="l">',
+      '<div class="scrollpane"><ul class="criterias_inner"></ul></div>',
+      '</div>',
+      '</div>',
+      '</div>',
+      '<ul class="selected_criterias"></ul>',
+      '<a href="#" class="more">Add more</a>',
+      '</div>'
+    ].join(''),
+    range: '<li class="criteria" data-select="<%=value %>"><div id="<%= criteria %>_<%= name %>_<%= id %>" class="range"><h4>RANGE</h4> <input type="text" value="" class="legend" /><div class="slider"><div class="ui-slider-handle"></div><div class="ui-slider-handle last"></div></div></div></li>',
+    li: '<li><a data-criteria="<%= criteria %>" data-select="<%=value %>"><span class="label"><%= text %><span></a></li>'
   },
-  store = "autosuggest",
 
   // Some nice default values
   defaults = {
+    startSpeed: 1000,
+    // I recommend a high value here, I feel it makes the changes less noticeable to the user
+    change: false
   };
-
-  // Called by using $('foo').autosuggest();
+  // Called by using $('foo').criteriaPopover();
   methods.init = function(settings) {
     settings = $.extend({}, defaults, settings);
 
     return this.each(function() {
       var
-      // The current element
+      // The current <select> element
       $this = $(this),
+
+      // Save all of the <option> elements
+      $options = $this.find('option'),
 
       // We store lots of great stuff using jQuery data
       data = $this.data(store) || {},
 
-      // This gets applied to the 'ps_container' element
+      // This gets applied to the 'criteria_popover' element
       id = $this.attr('id') || $this.attr('name'),
 
       // This gets updated to be equal to the longest <option> element
       width = settings.width || $this.outerWidth(),
 
-      // The completed ps_container element
+      // The completed criteria_popover element
       $ps = false;
 
-      // Dont do anything if we've already setup autosuggest on this element
+      // Dont do anything if we've already setup criteriaPopover on this element
       if (data.id) {
         return $this;
       } else {
+        data.settings = settings;
         data.id = id;
-        data.$this     = $this;
-        data.name      = store;
-        data.settings  = settings;
+        data.name = store;
+        data.w = 0;
+        data.$this = $this;
+        data.options = $options;
         data.templates = templates;
       }
 
-      // Hide the <select> list and place our new one in front of it
-      var $list = _.template(data.templates.list, {name:data.name, id:data.id});
-      var $main = _.template(data.templates.main, {name:data.name, id:data.id});
-      var $more = _.template(data.templates.more);
+      // Build the dropdown HTML
+      $ps = _build(templates.main, data);
 
-      $ps = $(this).parent().wrap($main);
-      $ps = $("#"+data.name+"_"+data.id);
+      // Hide the <$this> list and place our new one in front of it
+      $this.before($ps);
 
-      $ps.append($list);
-      $ps.append($more);
+      // Update the reference to $ps
+      $ps = $('#criteria_popover_' + id).fadeIn(settings.startSpeed);
 
-      $list = $("#listing_"+data.name+"_"+data.id);
-      $more = $ps.find(".more");
-
-      $more.click(function(e) {
+      // "Add more" action
+      $ps.find('.more').live("click", function(e) {
         e.preventDefault();
+        e.stopPropagation();
 
-        $(this).after($this.parent());
-        $this.parent().show("fast")
-        $(this).hide("fast");
+        var
+        $option = $(this),
+        $ps = $option.parents('.criteria_popover').first(),
+        data = $ps.data(store);
 
-        _bindAutocomplete($this);
+        _toggle(e, $ps);
       });
 
-
       // Save the updated $ps reference into our data object
-      data.$list = $list;
-      data.$more = $more;
       data.$ps = $ps;
 
-      // Save the autosuggest data onto the <this> element
+      $ps.find('.criterias .scrollpane').jScrollPane({ verticalDragMinHeight: 20});
+
+      // Save the $this data onto the <$this> element
       $this.data(store, data);
 
-      _bindAutocomplete($this);
+      // Do the same for the dropdown, but add a few helpers
+      $ps.data(store, data);
+
+      // hide the source of the data
+      $this.hide();
+
+      $ps.find(".select").click(function(e){_toggle(e, $this)});
+
+      $(window).bind('_close.'+data.name+'.'+data.id, function() {
+        var $ps = $("#" + data.name + "_" + data.id);
+        _close($this);
+      });
     });
   };
 
-  function _onResult(e, result, formatted, $this) {
-    var data = $this.data(store);
+  // private methods
+  function _build(tpl, data) {
 
-    var $li = $(_.template(data.templates.li, {value:result.name, name:data.name, id:data.id}));
+    var $ps = $(_.template(tpl, { id:data.id, title:data.$this.html()}));
+    var elements = [];
+    var max_width = 0;
 
-    data.$list.append($li);
+    _buildItems($ps, data);
 
-    $li.find("span").click(function(e) {
-      _remove(e, $this);
-    });
-
-    $this.val("");
-    $this.unautocomplete();
-    $this.parent().hide("fast", function() {
-      data.$more.fadeIn("fast");
-    });
+    return $ps;
   }
 
-  function _remove(e, $this) {
-    var data = $this.data(store);
-    var $li = $(e.target).parents("li");
+  function _buildItems($ps, data) {
+    if (data.settings.options &&  data.settings.options.links) {
 
-    $li.hide("fast", function() {
-      $li.remove();
-     });
+      _.each(data.settings.options.links, function(option, i) {
+        var $item = _.template(data.templates.li, {criteria:option.criteria, text:option.name, value:option.criteria});
 
-    if (data.$list.find("li").length == 1) {
-      data.$more.hide("fast");
-      $this.parent().show("fast")
-      _bindAutocomplete($this);
+        $ps.find("ul.criterias_inner").append($item);
+      });
+
+      // we need to add these classes for iE
+      $ps.find("ul li:first").addClass("first");
+      $ps.find("ul li:last").addClass("last");
     }
   }
 
-  function _formatItem(row, i, max, data) {
-    var clase = "";
+  // Close a dropdown
+  function _close($this) {
+    var data = $this.data(store);
+    GOD.unsubscribe("_close."+data.name+"."+data.id);
 
-    if (max == 1) {
-      clase = ' unique';
-    } else if (max == 2 && i == 2) {
-      clase = ' last_double';
-    } else if (i == 1) {
-      clase = ' first';
-    } else if (i == max ) {
-      clase = ' last';
-    }
-
-    return  _.template(data.templates.row, {clase:clase, name:row.name, desc:row.desc});
+    data.$ps.removeClass('ps_open');
   }
 
-  function _bindAutocomplete($this) {
-    var data = $this.data(store);
+  // Open a dropdown
 
-    $this.autocomplete(species, {
-      minChars: 0,
-      scroll:false,
-      width: 225,
-      matchContains: "word",
-      autoFill: false,
-      max:5,
-      formatItem: function(row, i, max) {
-        return _formatItem(row, i, max, data);
-      },
-      formatResult: function(row) {
-        return row.name;
+  function _toggle(e, $this) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var data = $this.data(store);
+    var $ps = data.$ps;
+
+    // setup the close event & signal the other subscribers
+    var event = "_close."+data.name+"."+data.id;
+    GOD.subscribe(event);
+    GOD.broadcast(event);
+
+    if ($ps.hasClass("ps_open")) {
+      $ps.removeClass('ps_open');
+    } else {
+
+      $ps.addClass('ps_open');
+
+      var w = $ps.find("ul.criterias_inner").width();
+      var h = $ps.find("ul.criterias_inner").height()
+
+      var widerElement = _.max($ps.find(".criterias li"), function(f){ return $(f).width() });
+      w = $(widerElement).width();
+
+      if (w > data.w) {
+        data.w = w;
       }
-    }).result(function(e, result, formatted) {
-      _onResult(e, result, formatted, $this);
+
+      $ps.find(".criterias .background").width(data.w + 15);
+      var api = $ps.find(".criterias .scrollpane").data('jsp');
+      api.reinitialise();
+
+      // Uncomment the following line to reset the scroll
+      // api.scrollTo(0, 0);
+
+      $ps.find(".jspContainer").width(data.w + 15);
+      $ps.find(".jspPane").width(data.w + 15);
+
+      var $select = $ps.find(".select:visible");
+
+      if ($select.length < 1) {
+        $select = $ps.find(".more");
+      }
+
+      var x = $select.position().left;
+      var y = $select.position().top;
+      var w = $ps.find(".criterias").width();
+      var h = $ps.find(".criterias").height();
+
+      $ps.find(".criterias").css("left", x - w/2 + 40);
+      $ps.find(".criterias").css("top", y + 5);
+
+      $ps.find('.jspVerticalBar').click(function(e) {
+        e.stopPropagation();
+      });
+    }
+  }
+
+  $(function() {
+
+    // Bind remove action over an element (for a future implementation)
+    $('.selected_criterias .remove').live('click', function(e) {
+
+      var $option = $(this);
+      var $ps   = $option.parents('.criteria_popover').first();
+      var count = $ps.find(".selected_criterias li").length;
+
+      var countSelected = $ps.find(".selected_criterias li").length;
+      var countOptions  = $ps.find(".criterias_inner li").length;
+
+      if (count <= 1) {
+        $ps.find(".select").show();
+        $ps.find(".more").hide();
+      } else if (count == countOptions) {
+        $ps.find(".more").show();
+      }
+
+      var selected = $option.parent().attr('data-select');
+
+      // Remove the element from the temporary list
+      $option.parent().remove();
+
+      // Remove the hide class
+      var $selected_element = $ps.find("ul.criterias_inner li a[data-select=" + selected + "]").parent();
+
+      $selected_element.removeClass("hidden");
+      _close($ps);
     });
 
-  }
+    // Bind click action over an original element
+    $('.criterias a').live('click', function(e) {
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      var $option = $(this);
+      var $ps = $option.parents('.criteria_popover').first();
+      var data = $ps.data(store);
+
+      var $selected_element = $ps.find(".selected_criterias li a[data-select=" + $option.attr("data-select") + "]").parent();
+
+      if ($selected_element.length < 1) {
+
+        $ps.find("a.select").hide();
+
+        var countSelected = $ps.find(".selected_criterias li").length;
+        var countOptions  = $ps.find(".criterias_inner li").length;
+
+        _close($ps);
+
+        if (countSelected + 1 < countOptions) {
+          $ps.find("a.more").show();
+        } else {
+          $ps.find("a.more").hide();
+        }
+
+        $selected = $option.parent();
+        $selected.addClass('hidden');
+
+        var text = $option.html();
+        var criteria = $selected.find("a").attr("data-criteria");
+
+        if (criteria == "range") {
+          var $criteria = _.template(data.templates.range, {criteria: criteria, value: $option.attr("data-select"), name:data.name, id:data.id});
+          $ps.find(".selected_criterias").append($criteria);
+
+          $criteria = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id);
+
+          $criteria.parent().show("fast");
+          $criteria.bindSlider(0, 500, [0, 500]);
+        }
+      }
+    });
+  });
 
   // Expose the plugin
-  $.fn.autosuggest = function(method) {
+  $.fn.criteriaPopover = function(method) {
     if (!ie6) {
       if (methods[method]) {
         return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -182,5 +312,3 @@
   };
 
 })(jQuery, window, document);
-
-$(".autocomplete input").autosuggest();

@@ -44,7 +44,16 @@
     <%= render 'partials/popovers' %>
     <script type="text/javascript" charset="utf-8">
 
-      $("#select-popover, #select-popover2").selectPopover();
+      $(".add_criteria").criteriaPopover({
+   options: {
+     links: [
+     { name: "Range", criteria: "range" },
+     { name: "Autocomplete", criteria: "autocomplete" },
+     { name: "Text", criteria: "text" }
+     ]
+   }
+ });
+
       $("time.selectable").datePopover();
       $(".range").bindSlider(0, 500, [0, 500]);
       $('.sort').dropdownPopover({

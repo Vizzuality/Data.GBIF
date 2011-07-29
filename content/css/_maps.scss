@@ -208,6 +208,72 @@
       }
     }
 
+    div.projection {
+      position:absolute;
+      top:-12px;
+      right:303px;
+      width:28px;
+      height:28px;
+      z-index:10;
+
+      a.projection {
+        float:left;
+        height:28px;
+        width:28px;
+        background:url('/img/projection_button.png') no-repeat 0 0;
+        text-indent:-9999px;
+        font-size:0;
+        line-height:0;
+        z-index:1;
+        &:hover {
+          background-position:0 -28px;
+        }
+      }
+
+      span {
+        display:none;
+        position:absolute;
+        top:0;
+        right:0;
+        width:93px;
+        height:62px;
+        padding:8px 13px;
+        background:url('/img/projection_bkg.png') no-repeat 0 0;
+        z-index:10;
+
+        p {
+          font:normal 13px "DINOT-Medium";
+          color:#333333;
+        }
+
+        ul {
+          display:block;
+          padding:8px 0 0 0;
+          li {
+            padding:0 0 5px 0;
+            display:block;
+
+            &.disabled a {
+              color:#CCCCCC;
+              &:hover {
+                cursor:default;
+              }
+            }
+
+            a.selected {
+              color:#333333!important;
+              &:hover {
+                color:#333333;
+                cursor:default;
+                text-decoration:none;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
     p.maptype {
       a {
 

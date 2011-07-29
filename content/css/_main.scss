@@ -1065,11 +1065,11 @@ a {
         li {
           a { display:block; height:100%; }
           &:hover {
-						.value { 
-							background:$link_color; 												
+						.value {
+							background:$link_color;
 						}
 						.label {display: block}
-						.value_label {display: block}						
+						.value_label {display: block}
 					}
 
           position: relative;
@@ -2216,91 +2216,6 @@ a {
     &:last-child {margin:0;}
     &.last {margin:0;}
   }
-}
-
-#content article .content {
-  .ps_container {
-
-    ul.ps_selected {
-      margin:0;
-
-      li { margin: 0 0 5px 0!important;
-
-        a { color:$medium_dark; }
-        .remove {padding:3px; }
-        &:hover .remove {display:inline}
-      }
-    }
-
-    .remove {display:none; }
-
-    &.ps_open .ps_options {display:block;}
-
-    div.ps_options {
-
-      display:none;
-      position:absolute;
-      float:left;
-      z-index:1000;
-
-      .scrollpane {
-        position:relative;
-        width:920px;
-        overflow:auto;
-        height:110px;
-        top:20px;
-        left:20px;
-        outline:none;
-      }
-
-      .arrow { top:6px; left:-9px; position:relative; width:18px; height:13px; margin:auto; background:url('/img/white_popover_arrow.png') no-repeat; }
-
-      .l {
-        float:left;
-        height:153px;
-        width:20px;
-        margin:0 0 0 -20px;
-        padding:0 0 0 7px;
-        background:url('/img/select_filter_left_side.png') no-repeat left top;
-      }
-
-      .background {
-        padding-right:30px;
-        width:20px;
-        height:153px;
-        background:url('/img/select_filter_right_side.png') repeat-x right top;
-      }
-
-      .jspVerticalBar {right:0;}
-
-      ul.ps_options_inner {
-        float:left;
-        position:relative;
-        margin:0; padding:0;
-
-        li {
-          background:none;
-          float:left;
-          clear:both;
-          margin:0; padding:0;
-          margin-bottom:5px!important;
-
-          span.label {cursor:pointer;}
-
-          &.hidden a {cursor:default!important; color:$gray; }
-          &.hidden span {cursor:default!important; }
-        } //li
-      }
-    }
-  }
-
-  .ps_fouc select {
-    position: relative;
-    top: -99999em;
-    visibility: hidden;
-  }
-
-  a.more {background:url('/img/icons/plus.png') no-repeat left; padding-left:15px; font-size: 12px; display:none}
 }
 
 #content article.taxonomies {

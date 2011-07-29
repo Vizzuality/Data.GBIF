@@ -1047,16 +1047,22 @@ a {
       }//div.summary
 
       ul {
-        padding:0;
-        margin:0 0 10px 0;
-        height:120px;
+        padding:20px 0 0 0;
+        margin:0;
+        height:130px;
         float:left;
         clear:both;
         overflow:hidden;
 
         li {
           a { display:block; height:100%; }
-          &:hover .bar { background:$link_color; }
+          &:hover {
+						.value { 
+							background:$link_color; 												
+						}
+						.label {display: block}
+						.value_label {display: block}						
+					}
 
           position: relative;
           float: left;
@@ -1065,7 +1071,10 @@ a {
           padding:0;
           background:none;
 
-          .bar { display: block; position: absolute; bottom:0; left: 0; height: 0; width: 100%; background:#f1f1f1;  background: rgba(#000, .1); text-indent: -9999px; overflow: hidden; -webkit-border-top-left-radius: 3px; -moz-border-top-left-radius: 3px; border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; -moz-border-top-right-radius: 3px; border-top-right-radius: 3px; }
+					.label { display: none; position: relative; bottom:0; left: 0; height: 0; width: 100%; font-family: $font_light; font-size: 10px; color: $dark;}
+          .value { display: block; position: absolute; bottom:0; left: 0; height: 0; width: 100%; background:#f1f1f1;  background: rgba(#000, .1); text-indent: -9999px; overflow: hidden; -webkit-border-top-left-radius: 3px; -moz-border-top-left-radius: 3px; border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; -moz-border-top-right-radius: 3px; border-top-right-radius: 3px; }
+          .value_label {display: none; position: relative; bottom:0; left: 0; height: 0; width: 100%; font-family: $font_medium; font-size: 16px; color: $link_color;}
+
         }//li
       }//ul
     }//div.graph

@@ -21,7 +21,7 @@
     more: '<a href="#" class="more">Add more</a>',
     row: '<div class="row<%= clase %>"><span class="name"><%= name %></span><%= desc %></div>',
     list: '<ul id="listing_<%= name %>_<%= id %>" class="autosuggest_results"></ul>',
-    li: '<li><div class="value"><%= name %> <span class="remove"></span></div></li>',
+    li: '<li><div class="value"><%= value %> <span class="remove"></span><input type="hidden" value="<%= value %>" name="<%= name %>_<%= id %>" /></div></li>',
     result: '<%= value %>'
   },
   store = "autosuggest",
@@ -70,7 +70,6 @@
       $ps = $(this).parent().wrap($main);
       $ps = $("#"+data.name+"_"+data.id);
 
-      console.log($ps);
       $ps.append($list);
       $ps.append($more);
 
@@ -103,7 +102,7 @@
   function _onResult(e, result, formatted, $this) {
     var data = $this.data(store);
 
-    var $li = $(_.template(data.templates.li, {name:result.name}));
+    var $li = $(_.template(data.templates.li, {value:result.name, name:data.name, id:data.id}));
 
     data.$list.append($li);
 
@@ -125,8 +124,6 @@
     $li.hide("fast", function() {
       $li.remove();
      });
-
-    console.log(data.$list.find("li").length)
 
     if (data.$list.find("li").length == 1) {
       data.$more.hide("fast");

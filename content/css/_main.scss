@@ -1019,14 +1019,17 @@ a {
 			.header {border: 0; margin: 0}
 		}
 
-    div.graph {
+    div.graph, div.bargraph {
       float:left;
       margin-right:24px;
-      &:last-child { margin-right:0; }
 
-    	.start, .end { position:relative; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
-    	.start {left:0;}
-      .end {right:0;}
+      &:last-child { margin-right:0; }			
+
+			.graph_axis {width: 100%}
+
+    	.start, .end {display: block; position:relative; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
+    	.start {float: left;}
+      .end {float: right;}
 
       div.summary {
         clear:left;
@@ -1072,7 +1075,7 @@ a {
           position: relative;
           float: left;
           margin: 0 1px;
-          height: 8em;
+          height: 7.5em;
           padding:0;
           background:none;
 
@@ -1964,17 +1967,19 @@ a {
 #lock_screen { position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:.5; background:$brightest; z-index:400; }
 
 
-#content article .content .left {
+#content article .content .left,  #content article .content .middle{
 
-  .graph {
+  .graph, .bargraph {
     position:relative;
     margin-right:19px;
-    width:606px;
+    &.graph {width:606px;}
+    &.bargraph {width:280px;}
+		
     float:left;
 
-    .start, .end { position:absolute; bottom: 0px; font-size:11px; color:$gray; font-family:$font_medium; }
-    .start {left:0;}
-    .end {right:0;}
+    .start, .end { position:relative; bottom: 10px; font-size:11px; color:$gray; font-family:$font_medium; }
+    .start {float: left;}
+    .end {float: right;}
 
     .percentage {
       position:absolute;

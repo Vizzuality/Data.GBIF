@@ -612,6 +612,11 @@ a {
         a.specie {display:block; margin:0 0 5px 0; font-size:15px; text-decoration:none;}
         p a {text-decoration:none; }
 
+				.taxonomic_class {
+					clear: both;
+					overflow: hidden;
+				}
+
         ul.taxonomy {
 					display: inline-block;
           clear:both;
@@ -633,7 +638,7 @@ a {
         }//ul
 
 				.extended {
-					display: inline-block;
+					display: block;
 					float: left;
 					font-size: 13px;
 					line-height: 18px;

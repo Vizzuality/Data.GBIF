@@ -18,7 +18,7 @@
   var
   // Public methods exposed to $.fn.criteriaPopover()
   methods = {},
-  store = "criteriapopover",
+  store = "criteria_popover",
   // HTML template for the dropdowns
   templates = {
     main: [
@@ -36,17 +36,20 @@
       '<a href="#" class="more">Add more</a>',
       '</div>'
     ].join(''),
-    range: '<li class="criteria" data-select="<%= criteria %>"><div id="<%= criteria %>_<%= name %>_<%= id %>" class="range"><h4>RANGE</h4> <input type="text" value="" class="legend" /><div class="slider"><div class="ui-slider-handle"></div><div class="ui-slider-handle last"></div></div></div></li>',
-    input: '<li class="criteria" data-select="<%= criteria %>"><input id="<%= criteria %>_<%= name %>_<%= id %>" type="text" value="" /></div></li>',
-    li: '<li><a data-criteria="<%= criteria %>" data-select="<%=value %>"><span class="label"><%= text %><span></a></li>'
+    li: '<li><a data-criteria="<%= criteria %>"><span class="label"><%= text %><span></a></li>',
+
+    // Templates for the criterias
+    range: ['<li class="criteria" data-criteria="<%= criteria %>">',
+      '<div id="<%= criteria %>_<%= name %>_<%= id %>" class="range"><h4>RANGE</h4> <input type="text" value="" class="legend" /><div class="slider"><div class="ui-slider-handle"></div><div class="ui-slider-handle last"></div></div></div>',
+      '</li>'].join(' '),
+
+    date: ['<li class="criteria" data-criteria="<%= criteria %>">',
+      '<time id="<%= criteria %>_<%= name %>_<%= id %>_start" class="selectable" datetime="2012/10/22">Oct 22th, 2012</time>  - <time class="selectable" datetime="1981/06/18" id="<%= criteria %>_<%= name %>_<%= id %>_end">Jun 18th, 1981</time>',
+      '</li>'].join(' ')
   },
 
   // Some nice default values
-  defaults = {
-    startSpeed: 1000,
-    // I recommend a high value here, I feel it makes the changes less noticeable to the user
-    change: false
-  };
+  defaults = { };
   // Called by using $('foo').criteriaPopover();
   methods.init = function(settings) {
     settings = $.extend({}, defaults, settings);
@@ -141,11 +144,12 @@
     return $ps;
   }
 
+  // Add the items to the list of criterias
   function _buildItems($ps, data) {
-    if (data.settings.options &&  data.settings.options.links) {
+    if (data.settings.options &&  data.settings.options.criterias) {
 
-      _.each(data.settings.options.links, function(option, i) {
-        var $item = _.template(data.templates.li, {criteria:option.criteria, text:option.name, value:option.criteria});
+      _.each(data.settings.options.criterias, function(option, i) {
+        var $item = _.template(data.templates.li, {criteria:option.criteria, text:option.label});
 
         $ps.find("ul.criterias_inner").append($item);
       });
@@ -243,13 +247,13 @@
         $ps.find(".more").show();
       }
 
-      var selected = $option.parent().attr('data-select');
+      var selected = $option.parent().attr('data-criteria');
 
       // Remove the element from the temporary list
       $option.parent().remove();
 
       // Remove the hide class
-      var $selected_element = $ps.find("ul.criterias_inner li a[data-select=" + selected + "]").parent();
+      var $selected_element = $ps.find("ul.criterias_inner li a[data-criteria=" + selected + "]").parent();
 
       $selected_element.removeClass("hidden");
       _close($ps);
@@ -265,7 +269,7 @@
       var $ps = $option.parents('.criteria_popover').first();
       var data = $ps.data(store);
 
-      var $selected_element = $ps.find(".selected_criterias li a[data-select=" + $option.attr("data-select") + "]").parent();
+      var $selected_element = $ps.find(".selected_criterias li a[data-criteria=" + $option.attr("data-criteria") + "]").parent();
 
       if ($selected_element.length < 1) {
 
@@ -285,24 +289,27 @@
         $selected = $option.parent();
         $selected.addClass('hidden');
 
-        var text = $option.html();
+        // Append the criteria selector to the DOM
         var criteria = $selected.find("a").attr("data-criteria");
+        var $criteria = _.template(data.templates[criteria], {criteria: criteria, name:data.name, id:data.id});
+        $ps.find(".selected_criterias").append($criteria);
 
+        // Criteria activations/callbacks
         if (criteria == "range") {
-          var $criteria = _.template(data.templates.range, {criteria: criteria, name:data.name, id:data.id});
-          $ps.find(".selected_criterias").append($criteria);
-
           $criteria = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id);
-
           $criteria.bindSlider(0, 500, [0, 500]);
-          $criteria.parent().show("fast");
-        } else if (criteria == "input") {
 
-          var $criteria = _.template(data.templates.input, {criteria: criteria, name:data.name, id:data.id});
-          $ps.find(".selected_criterias").append($criteria);
-
-          $criteria = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id);
           $criteria.parent().show("fast");
+
+        } else if (criteria == "date") {
+
+          var $criteria_start = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id+'_start');
+          var $criteria_end   = $('.selected_criterias #' + criteria + '_' + data.name + '_' + data.id+'_end');
+
+          $criteria = $criteria_start;
+          $criteria.parent().show("fast");
+          $criteria_start.datePopover();
+          $criteria_end.datePopover();
         }
       }
     });

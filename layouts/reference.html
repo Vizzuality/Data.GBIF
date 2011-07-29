@@ -41,39 +41,6 @@
     </div>
     <%= render 'partials/footer' %>
     <%= render 'partials/scripts' %>
-    <%= render 'partials/popovers' %>
-    <script type="text/javascript" charset="utf-8">
-
-      $(".add_criteria").criteriaPopover({
-   options: {
-     links: [
-     { name: "Range", criteria: "range" },
-     { name: "Autocomplete", criteria: "autocomplete" },
-     { name: "Input", criteria: "input" }
-     ]
-   }
- });
-
-      $("time.selectable").datePopover();
-      $(".range").bindSlider(0, 500, [0, 500]);
-      $('.sort').dropdownPopover({
-        options: {
-          links: [
-            { name: "Sort alphabetically",
-              callback: function(e) { e.preventDefault(); alert("Sort alphabetically"); },
-              replaceWith:'Sort alphabetically<span class="more"></span>'
-          },
-          { name: "Sort by count",
-            callback: function(e) { e.preventDefault(); alert("Sort by count"); },
-            replaceWith:'Sort by count<span class="more"></span>'
-          }
-          ]
-        }
-      });
-
-
-
-
-    </script>
+    <%= render 'partials/reference_popovers' %>
 </body>
 </html>

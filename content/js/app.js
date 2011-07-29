@@ -2,13 +2,15 @@ $(function(){
 
 
 $('div.graph').each(function(index) {
-  $(this).find('ul li .bar').each(function(index) {
+  $(this).find('ul li .value').each(function(index) {
     var width = $(this).parents("div").attr("class").replace(/graph /, "");
     $(this).parent().css("width", width);
-
     var value = $(this).text();
-
     $(this).delay(index*100).animate({ height: value }, 400, 'easeOutBounce');
+		var label_y = $(this).parent().height()-value-36;
+    $(this).parent().find(".label").css("top", label_y);
+		$(this).parent().append("<div class='value_label'>"+value+"</div")
+    $(this).parent().find(".value_label").css("top", (label_y+13));
   });
 });
 
